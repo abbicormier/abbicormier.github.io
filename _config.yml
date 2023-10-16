@@ -10,8 +10,8 @@ plugins:
   - jemoji
 
 navigation:
-  - name: Home
-    link: ./
-  - name: Research
-    link: ./research.html
+  - title: Home
+    url: ./
+  - title: Research
+    url: ./research.html
 
