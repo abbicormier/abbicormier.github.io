@@ -1,8 +1,4 @@
----
-layout: default
-sidebar:
-  nav: "docs"
----
+{% include navigation.html %}
 
 # Research 
 ## Current Projects 
