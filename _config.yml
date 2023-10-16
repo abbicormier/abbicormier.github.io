@@ -1,12 +1,12 @@
 theme: jekyll-theme-minimal
 title: Abigail Cormier's Homepage 
-logo: /Abigail_Cormier_Headshot.jpg
+logo: ./Abigail_Cormier_Headshot.jpg
 email: arc49966@uga.edu
 color-scheme: auto
 
 navigation:
   - name: Home
-    link: /
+    link: ./
   - name: Research
-    link: /research.html
+    link: ./research.html
 
