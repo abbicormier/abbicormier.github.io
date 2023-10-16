@@ -1,7 +1,4 @@
----
-sidebar:
-  nav: "docs"
----
+{% include navigation.html %}
 
 # Abigail Cormier 
 
