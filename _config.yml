@@ -1,9 +1,9 @@
 theme: jekyll-theme-minimal
 title: Abigail Cormier's Homepage 
-description: 
+logo: /Abigail_Cormier_Headshot.jpg
 navigation:
   - name: Home
-    link: ./index.html
+    link: ./
   - name: Research
     link: ./research.html
-logo: /Abigail_Cormier_Headshot.jpg
+
