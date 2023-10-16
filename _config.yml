@@ -4,6 +4,11 @@ logo: ./Abigail_Cormier_Headshot.jpg
 email: arc49966@uga.edu
 color-scheme: auto
 
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jemoji
+
 navigation:
   - name: Home
     link: ./
