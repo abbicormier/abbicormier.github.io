@@ -9,7 +9,7 @@ plugins:
   - jekyll-seo-tag
   - jemoji
 
-navigation:
+nav:
   - title: Home
     url: ./
   - title: Research
