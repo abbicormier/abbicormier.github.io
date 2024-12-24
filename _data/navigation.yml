@@ -1,3 +1,7 @@
 docs:
+  - title: CV
+    url: /CV
   - title: Research
     url: /research
+  - title: Teaching
+    url: /teaching
