@@ -1,0 +1,18 @@
+/* Change all sky blue elements to red (#ba0c2f) */
+
+/* Links */
+a {
+  color: #ba0c2f; /* Red color */
+}
+
+/* Links on hover */
+a:hover {
+  color: #870a24; /* Slightly darker red for hover effect */
+}
+
+/* Any additional elements with specific sky blue color */
+body {
+  --minimal-theme-link-color: #ba0c2f; /* Override theme-defined variables */
+}
+
+/* For specific cases, override colors by inspecting your site's HTML if necessary */
