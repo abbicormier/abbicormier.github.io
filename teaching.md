@@ -7,5 +7,7 @@
 BUSN5000: Introduction to Data Science for Business and Economics 
 
 Class meeting times: MWF 1130a-1220p
+
+
 Office hours: TBA 
 
