@@ -16,11 +16,3 @@ nav:
     url: ./research.html
   - title: Teaching
     url: ./teaching.html
-
-defaults:
-  -
-    scope:
-      path: ""
-      type: "html"
-    values:
-      css: ./assets/css/custom.css
