@@ -1,18 +1,33 @@
 /* Change all sky blue elements to red (#ba0c2f) */
+:root {
+  --minimal-theme-link-color: #ba0c2f; /* Red color for links */
+  --minimal-theme-link-hover-color: #870a24; /* Darker red on hover */
+}
 
 /* Links */
 a {
   color: #ba0c2f !important; /* Red color */
 }
-
+/* Add specificity if required */
+a, a:visited {
+  color: #ba0c2f !important;
+}
 /* Links on hover */
 a:hover {
   color: #870a24 !important; /* Slightly darker red for hover effect */
+}
+a:hover,
+a:focus {
+  color: #870a24 !important; /* Darker red */
+  text-decoration: underline; /* Optional for accessibility */
 }
 
 /* Any additional elements with specific sky blue color */
 body {
   --minimal-theme-link-color: #ba0c2f !important; /* Override theme-defined variables */
+}
+body a {
+  color: #ba0c2f !important;
 }
 
 /* For specific cases, override colors by inspecting your site's HTML if necessary */
