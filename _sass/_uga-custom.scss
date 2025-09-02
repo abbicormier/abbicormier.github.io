@@ -1,0 +1,481 @@
+/* ==========================================================================
+   UGA CUSTOM TYPOGRAPHY OVERRIDES
+   Following UGA Visual Guide specifications
+   ========================================================================== */
+
+/* UGA Typography Implementation */
+
+/* Site Title and Main Headings - Oswald (Primary Sans-Serif) */
+.masthead .site-title,
+.site-title,
+h1, .h1,
+.page__title,
+.archive__item-title a {
+  font-family: $uga-primary-sans-serif !important;
+  font-weight: 500;
+  letter-spacing: -0.02em; /* Tighter tracking per UGA guidelines */
+  line-height: 1.1; /* Tight leading for headlines */
+}
+
+/* Secondary Headings - Merriweather (Primary Serif) for sophistication */
+h2, .h2,
+h3, .h3,
+.author__name {
+  font-family: $uga-primary-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* Smaller Headings - Oswald for consistency */
+h4, .h4,
+h5, .h5,
+h6, .h6,
+.sidebar .author__name {
+  font-family: $uga-primary-sans-serif !important;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+/* Body Text - Georgia (Secondary Serif) for readability */
+body,
+p,
+.page__content,
+.page__content p,
+.archive__item-excerpt,
+.author__bio,
+.page__lead {
+  font-family: $uga-secondary-serif !important;
+  font-weight: 400;
+  letter-spacing: -0.005em; /* Slightly tighter than default */
+  line-height: 1.6; /* Looser leading for body text per UGA guide */
+}
+
+/* Navigation and UI Elements - Merriweather Sans (Secondary Sans-Serif) */
+.greedy-nav,
+.greedy-nav a,
+.nav__list,
+.nav__list a,
+.pagination,
+.page__meta,
+.archive__item-date,
+.page__date,
+.btn,
+.page__taxonomy,
+.page__taxonomy-item {
+  font-family: $uga-secondary-sans-serif !important;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Author Profile Styling */
+.sidebar .author__avatar,
+.sidebar .author__content {
+  .author__name {
+    font-family: $uga-primary-serif !important;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  
+  .author__bio {
+    font-family: $uga-secondary-serif !important;
+    font-size: 0.95em;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+}
+
+/* Social Links - Merriweather Sans for clarity */
+.author__urls,
+.author__urls-wrapper,
+.author__urls li a {
+  font-family: $uga-secondary-sans-serif !important;
+  font-weight: 400;
+}
+
+/* Archive and List Items */
+.list__item .archive__item-title,
+.archive__item h2,
+.feature__item h3 {
+  font-family: $uga-primary-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Special Academic Content Styling */
+
+/* Publication titles - Merriweather for formality */
+.publication-title,
+.cv-entry h3,
+.cv-entry h4,
+.archive__item-title {
+  font-family: $uga-primary-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Dates and metadata - Merriweather Sans for clarity */
+.publication-date,
+.cv-date,
+.page__date,
+.archive__item-date,
+.page__meta-date {
+  font-family: $uga-secondary-sans-serif !important;
+  font-weight: 400;
+  font-size: 0.9em;
+}
+
+/* Feature and Hero Content - Oswald for impact */
+.page__hero-caption,
+.feature__item h2,
+.splash .feature__item h3,
+.page__lead {
+  font-family: $uga-primary-sans-serif !important;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* Breadcrumbs and Small UI Text */
+.breadcrumbs,
+.breadcrumbs a,
+.page__meta,
+.page__taxonomy .sep {
+  font-family: $uga-secondary-sans-serif !important;
+  font-size: 0.85em;
+  font-weight: 400;
+}
+
+/* Form Elements */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+textarea,
+select {
+  font-family: $uga-secondary-sans-serif !important;
+}
+
+/* Tables - Use Georgia for dense text blocks */
+table,
+th,
+td {
+  font-family: $uga-secondary-serif !important;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+th {
+  font-family: $uga-secondary-sans-serif !important;
+  font-weight: 600;
+
+}
+
+/* Footer */
+.page__footer,
+.page__footer p {
+  font-family: $uga-secondary-sans-serif !important;
+  font-size: 0.85em;
+}
+
+/* Responsive Typography Adjustments */
+@media (max-width: 768px) {
+  h1, .h1, .page__title {
+    font-size: 1.8em;
+    line-height: 1.2;
+  }
+  
+  h2, .h2 {
+    font-size: 1.5em;
+    line-height: 1.3;
+  }
+  
+  body, p, .page__content {
+    line-height: 1.5; /* Slightly tighter on mobile for better readability */
+  }
+  
+  .author__bio {
+    font-size: 0.9em;
+    line-height: 1.4;
+  }
+}
+
+/* ==========================================================================
+   UGA BRAND COLORS - Links
+   ========================================================================== */
+
+/* UGA Red for all links */
+$uga-red: #BA0C2F;
+/* Light beige for dark mode */
+$uga-beige: #D6D2C4;
+
+/* Base link styling */
+a {
+  color: $uga-red !important;
+  text-decoration: none;
+  
+  &:hover,
+  &:focus {
+    color: darken($uga-red, 15%) !important; /* Darker red on hover */
+    text-decoration: underline;
+  }
+  
+  &:visited {
+    color: darken($uga-red, 10%) !important; /* Slightly darker for visited */
+  }
+}
+
+/* Dark mode link styling */
+@media (prefers-color-scheme: dark) {
+  a {
+    color: $uga-beige !important;
+    
+    &:hover,
+    &:focus {
+      color: lighten($uga-beige, 10%) !important; /* Lighter beige on hover */
+      text-decoration: underline;
+    }
+    
+    &:visited {
+      color: darken($uga-beige, 8%) !important; /* Slightly darker beige for visited */
+    }
+  }
+}
+
+/* Dark mode class-based (for manual toggle) */
+.dark-mode,
+[data-theme="dark"] {
+  a {
+    color: $uga-beige !important;
+    
+    &:hover,
+    &:focus {
+      color: lighten($uga-beige, 10%) !important;
+      text-decoration: underline;
+    }
+    
+    &:visited {
+      color: darken($uga-beige, 8%) !important;
+    }
+  }
+}
+
+/* Navigation links */
+.greedy-nav a,
+.nav__list a,
+.breadcrumbs a {
+  color: $uga-red !important;
+  
+  &:hover,
+  &:focus {
+    color: darken($uga-red, 15%) !important;
+  }
+}
+
+/* Author social links */
+.author__urls a {
+  color: $uga-red !important;
+  
+  &:hover,
+  &:focus {
+    color: darken($uga-red, 15%) !important;
+  }
+}
+
+/* Archive and post title links */
+.archive__item-title a,
+.list__item a,
+.page__content a {
+  color: $uga-red !important;
+  
+  &:hover,
+  &:focus {
+    color: darken($uga-red, 15%) !important;
+    text-decoration: underline;
+  }
+}
+
+/* Footer links */
+.page__footer a {
+  color: $uga-red !important;
+  
+  &:hover,
+  &:focus {
+    color: darken($uga-red, 15%) !important;
+  }
+}
+
+/* Pagination links */
+.pagination a {
+  color: $uga-red !important;
+  border-color: $uga-red !important;
+  
+  &:hover,
+  &:focus {
+    color: white !important;
+    background-color: $uga-red !important;
+    border-color: $uga-red !important;
+  }
+}
+
+/* Button styling with UGA red */
+.btn {
+  &.btn--primary {
+    background-color: $uga-red !important;
+    border-color: $uga-red !important;
+    
+    &:hover,
+    &:focus {
+      background-color: darken($uga-red, 15%) !important;
+      border-color: darken($uga-red, 15%) !important;
+    }
+  }
+}
+
+/* Table of contents links */
+.toc a {
+  color: $uga-red !important;
+  
+  &:hover,
+  &:focus {
+    color: darken($uga-red, 15%) !important;
+  }
+}
+
+/* Sidebar navigation links */
+.nav__sub-title,
+.nav__items a {
+  color: $uga-red !important;
+  
+  &:hover,
+  &:focus {
+    color: darken($uga-red, 15%) !important;
+  }
+}
+
+/* Dark mode specific styling for all link types */
+@media (prefers-color-scheme: dark) {
+  .greedy-nav a,
+  .nav__list a,
+  .breadcrumbs a,
+  .author__urls a,
+  .archive__item-title a,
+  .list__item a,
+  .page__content a,
+  .page__footer a,
+  .toc a,
+  .nav__sub-title,
+  .nav__items a {
+    color: $uga-beige !important;
+    
+    &:hover,
+    &:focus {
+      color: lighten($uga-beige, 10%) !important;
+    }
+  }
+  
+  .pagination a {
+    color: $uga-beige !important;
+    border-color: $uga-beige !important;
+    
+    &:hover,
+    &:focus {
+      color: #333 !important; /* Dark text on light beige background */
+      background-color: $uga-beige !important;
+      border-color: $uga-beige !important;
+    }
+  }
+  
+  .btn {
+    &.btn--primary {
+      background-color: $uga-beige !important;
+      border-color: $uga-beige !important;
+      color: #333 !important; /* Dark text on beige button */
+      
+      &:hover,
+      &:focus {
+        background-color: lighten($uga-beige, 8%) !important;
+        border-color: lighten($uga-beige, 8%) !important;
+      }
+    }
+  }
+}
+
+/* Dark mode class-based styling (for manual toggle) */
+.dark-mode,
+[data-theme="dark"] {
+  .greedy-nav a,
+  .nav__list a,
+  .breadcrumbs a,
+  .author__urls a,
+  .archive__item-title a,
+  .list__item a,
+  .page__content a,
+  .page__footer a,
+  .toc a,
+  .nav__sub-title,
+  .nav__items a {
+    color: $uga-beige !important;
+    
+    &:hover,
+    &:focus {
+      color: lighten($uga-beige, 10%) !important;
+    }
+  }
+  
+  .pagination a {
+    color: $uga-beige !important;
+    border-color: $uga-beige !important;
+    
+    &:hover,
+    &:focus {
+      color: #333 !important;
+      background-color: $uga-beige !important;
+      border-color: $uga-beige !important;
+    }
+  }
+  
+  .btn {
+    &.btn--primary {
+      background-color: $uga-beige !important;
+      border-color: $uga-beige !important;
+      color: #333 !important;
+      
+      &:hover,
+      &:focus {
+        background-color: lighten($uga-beige, 8%) !important;
+        border-color: lighten($uga-beige, 8%) !important;
+      }
+    }
+  }
+}
+
+/* Ensure proper font loading */
+.fonts-loading {
+  body {
+    font-family: Georgia, serif; /* Fallback while fonts load */
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Arial, sans-serif; /* Fallback while fonts load */
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --global-thead-color: #0d3b66 !important;
+    --global-border-color: #DADCDC !important;
+    --global-fig-caption-color: #0d3b66 !important;
+  }
+}
+
+/* Theme-level dark toggles (covers AcademicPages/MM skins that use classes/attributes) */
+html.dark,
+html[data-theme="dark"],
+:root.dark,
+:root[data-theme="dark"],
+body.dark {
+  --global-border-color: #D6D2C4 !important;
+}
