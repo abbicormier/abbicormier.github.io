@@ -16,7 +16,7 @@ Recent causal work highlights the role that the start of childbearing plays in e
 
 ## Working Papers
 
-### **"The Labor Market Effects of Having a Child with Special Needs" (Job Market Paper)**
+### **"The Causal Impact of Having a Child with Special Needs" (Job Market Paper)**
 <p style="margin:0;padding:0">[Draft coming soon]</p>
 <details style="margin:0 0 0.5em">
   <summary><strong>Abstract and Details</strong></summary>
