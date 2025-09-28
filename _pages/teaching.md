@@ -48,12 +48,13 @@ Topics Covered:
 
 I have been part of the development team for the course "Introduction to Data Science for Business and Economics" since UGA started offering it in Spring 2022. This course is required for all Economics majors and for students completing the Area of Emphasis in Business Analytics, and it serves as a pathway to the Master's of Business Analytics program. 
 
-As a team member, I have made several key contributions to course development. I developed, deployed, and maintain online R-based homework assignments and helped redesign our semester-long data science project to better align with course goals. To enhance student understanding of computing environments and coding basics and prepare students for their final projects, I helped create two formative project assignments. I also built our exam grading system and edited the exam to accurately reflect course learning objectives. 
+As a team member, I have made several key contributions to course development. I developed, deployed, and maintain online R-based homework assignments and helped redesign our semester-long data science project to better align with course goals. I attended the 2023 Posit conference workshops on the team's behalf to learn from a leading instructor on pedagogy and best practices for teaching data science. To enhance student understanding of computing environments and coding basics and prepare students for their final projects, I helped create two formative project assignments. I also built our exam grading system and edited the exam to accurately reflect course learning objectives. 
 
 I led our team's efforts to incorporate AI-assisted grading tools like Gradescope as well as generative AI into the development of backend course administration and grading as well as in-class materials. These efforts enable the team to deliver comprehensive, efficient grading and feedback to 250 students each semester with minimal teaching assistant involvement, freeing up those resources for student-facing activities rather than administrative tasks. 
 
 ### Presentations
 
 - Southern Economic Association Meetings (upcoming)
+- University of Alabama at Birmingham AI Economics Summit (upcoming)
 - Journal of Economics Teaching Symposium on Economics Teaching (2024) 
   - [Presentation Slides](/assets/teaching/Abigail_Cormier_JETSET_Slides.pdf)
