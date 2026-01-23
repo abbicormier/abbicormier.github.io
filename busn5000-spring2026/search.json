@@ -1,0 +1,212 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Dailies Summaries",
+    "section": "",
+    "text": "Welcome\nThis book compiles summaries from all dailies throughout the semester. Use the sidebar navigation to view results from each daily.\nEach daily summary includes:",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Dailies Summaries</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Dailies Summaries",
+    "section": "",
+    "text": "Class Performance — Overall statistics (n, mean, median, SD, score range)\nScore Distribution — Histogram of total scores\nPerformance by Question — Bar chart showing class performance on each question\nQuestion Breakdowns (Q1–Q5) — Correct answers and common errors observed\nKey Takeaways — Strengths and areas to review",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Dailies Summaries</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use-this-resource",
+    "href": "index.html#how-to-use-this-resource",
+    "title": "Dailies Summaries",
+    "section": "How to Use This Resource",
+    "text": "How to Use This Resource\nReview your daily feedback to:\n\nIdentify concepts that need more attention\nLearn from common errors made by the class\nTrack your progress throughout the semester",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Dailies Summaries</span>"
+    ]
+  },
+  {
+    "objectID": "daily_01.html",
+    "href": "daily_01.html",
+    "title": "Daily 1 - Jan 12",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 0.5 to 4.5 out of 5 points.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Daily 1 - Jan 12</span>"
+    ]
+  },
+  {
+    "objectID": "daily_01.html#class-performance",
+    "href": "daily_01.html#class-performance",
+    "title": "Daily 1 - Jan 12",
+    "section": "",
+    "text": "Students: 118 | Mean: 2.45 | Median: 2.5 | SD: 0.96",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Daily 1 - Jan 12</span>"
+    ]
+  },
+  {
+    "objectID": "daily_01.html#score-distribution",
+    "href": "daily_01.html#score-distribution",
+    "title": "Daily 1 - Jan 12",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Daily 1 - Jan 12</span>"
+    ]
+  },
+  {
+    "objectID": "daily_01.html#performance-by-question",
+    "href": "daily_01.html#performance-by-question",
+    "title": "Daily 1 - Jan 12",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Daily 1 - Jan 12</span>"
+    ]
+  },
+  {
+    "objectID": "daily_01.html#questions",
+    "href": "daily_01.html#questions",
+    "title": "Daily 1 - Jan 12",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: What does a histogram tell you?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nA histogram shows the frequency distribution of continuous data — how many observations fall within each range/bin.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nConfusing with time series (“data over time”)\nConfusing with bar charts (“comparing categories”)\nConfusing with box plots (mentioning quartiles)\n\n\n\n\n\n\n\nQ2: What does standard deviation measure?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nSD measures how spread out the data is from the mean — the average distance of data points from the center.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nConfusing mean with median (“distance from the median”)\nConfusing with residuals (“how far from predicted value”)\nConfusing with IQR/range\n\n\n\n\n\n\n\nQ3: What is a regression?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nA regression is a statistical model that describes the relationship between variables — how independent variable(s) predict a dependent variable.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nUsing everyday meaning (“decline” or “going backwards”)\nConfusing with hypothesis testing\nConfusing with correlation\n\n\n\n\n\n\n\nQ4: How do you estimate a regression?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nUsing Ordinary Least Squares (OLS) — finding coefficients that minimize the sum of squared residuals.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nNaming tools instead of methods (“Excel,” “JMP”)\nCircular answers (“regression analysis”)\nHigh blank rate — most skipped question\n\n\n\n\n\n\n\nQ5: How do you test significance of a coefficient?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nCompare the p-value to alpha (typically 0.05). If p-value &lt; alpha, the coefficient is statistically significant.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nComparing coefficient to a number (“if coefficient &gt; 1”)\nUsing R² instead of p-value\nJust naming the test without explanation",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Daily 1 - Jan 12</span>"
+    ]
+  },
+  {
+    "objectID": "daily_01.html#key-takeaways",
+    "href": "daily_01.html#key-takeaways",
+    "title": "Daily 1 - Jan 12",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: SD measures spread from mean | p-value vs alpha | Regression models relationships\nReview:\n\nHistograms show frequency distribution — not time series or bar charts\nOLS minimizes squared residuals — naming software doesn’t explain it\np &lt; alpha → significant — compare p-value to 0.05",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Daily 1 - Jan 12</span>"
+    ]
+  },
+  {
+    "objectID": "daily_02.html",
+    "href": "daily_02.html",
+    "title": "Daily 2 - Jan 14",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 3 to 3 out of 3 points.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Daily 2 - Jan 14</span>"
+    ]
+  },
+  {
+    "objectID": "daily_02.html#class-performance",
+    "href": "daily_02.html#class-performance",
+    "title": "Daily 2 - Jan 14",
+    "section": "",
+    "text": "Students: 117 | Mean: 3.00 | Median: 3 | SD: 0.00",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Daily 2 - Jan 14</span>"
+    ]
+  },
+  {
+    "objectID": "daily_02.html#score-distribution",
+    "href": "daily_02.html#score-distribution",
+    "title": "Daily 2 - Jan 14",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Daily 2 - Jan 14</span>"
+    ]
+  },
+  {
+    "objectID": "daily_02.html#performance-by-question",
+    "href": "daily_02.html#performance-by-question",
+    "title": "Daily 2 - Jan 14",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Daily 2 - Jan 14</span>"
+    ]
+  },
+  {
+    "objectID": "daily_02.html#questions",
+    "href": "daily_02.html#questions",
+    "title": "Daily 2 - Jan 14",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: If I am cited for the unauthorized use of an electronic device, I (will/will not) _____ be permitted to submit the Daily for the day, resulting in a grade of _____ for that Daily.\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\n“will not” and “zero” (or “0”) — If cited for unauthorized electronic device use, you will not be permitted to submit the Daily, resulting in a grade of zero.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\nNo common errors observed — All students correctly identified the policy from the syllabus.\n\n\n\n\n\n\nQ2: Where did you create your BUSN 5000 folder?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nDesktop (or similar valid location like Documents, a specific drive, etc.)\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\nNo common errors observed — All students correctly identified where they created their course folder.\n\n\n\n\n\n\nQ3: In R Studio, I can browse the files in my R project directory in the southeast pane under the _____ tab.\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nFiles — In RStudio, the Files tab in the southeast pane allows you to browse project directory files.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\nNo common errors observed — All students correctly identified the Files tab for browsing project files.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Daily 2 - Jan 14</span>"
+    ]
+  },
+  {
+    "objectID": "daily_02.html#key-takeaways",
+    "href": "daily_02.html#key-takeaways",
+    "title": "Daily 2 - Jan 14",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Excellent class performance! All students demonstrated clear understanding of course policies and RStudio basics.\nLooking Ahead:\n\nContinue building familiarity with RStudio interface\nRemember the electronic device policy throughout the semester\nUse the Files tab for navigating your project directories",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Daily 2 - Jan 14</span>"
+    ]
+  },
+  {
+    "objectID": "daily_03.html",
+    "href": "daily_03.html",
+    "title": "Daily 3 - Jan 21",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 1 to 4 out of 4 points.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Daily 3 - Jan 21</span>"
+    ]
+  },
+  {
+    "objectID": "daily_03.html#class-performance",
+    "href": "daily_03.html#class-performance",
+    "title": "Daily 3 - Jan 21",
+    "section": "",
+    "text": "Students: 113 | Mean: 2.61 | Median: 2.5 | SD: 0.59",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Daily 3 - Jan 21</span>"
+    ]
+  },
+  {
+    "objectID": "daily_03.html#score-distribution",
+    "href": "daily_03.html#score-distribution",
+    "title": "Daily 3 - Jan 21",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Daily 3 - Jan 21</span>"
+    ]
+  },
+  {
+    "objectID": "daily_03.html#performance-by-question",
+    "href": "daily_03.html#performance-by-question",
+    "title": "Daily 3 - Jan 21",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Daily 3 - Jan 21</span>"
+    ]
+  },
+  {
+    "objectID": "daily_03.html#questions",
+    "href": "daily_03.html#questions",
+    "title": "Daily 3 - Jan 21",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: The .Rmd file extension signifies what type of file?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nR Markdown — a file format that combines text, code, and output in a single document.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nSaying “R Script” — .R is an R Script file; .Rmd is R Markdown which adds documentation capabilities\nVague answers — “R file” or “data file” don’t capture the specific meaning of R Markdown\nConfusing with CSV — CSV is a data format; .Rmd is a document format for reproducible analysis\n\n\n\n\n\n\n\nQ2: What is the unit of record in the CPS?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nPerson — each row in the CPS represents one individual person surveyed.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nAnswering “young men” — The dataset in class focused on young men, but the CPS unit of record is “person” — individual people of any demographic\nAnswering “labor force” — Labor force describes the population being studied, not the unit of observation\nAnswering “ID” or “key variable” — ID is a variable that identifies the person, but “person” is the unit itself\n\n\n\n\n\n\n\nQ3: For data to be “tidy”, every entry or cell must correspond to a _____.\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nSingle value — each cell contains exactly one piece of data.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nMissing “single” — Answering just “value” without specifying “single” misses the key constraint\nConfusing with variable — Variables are columns; each cell contains a single value of that variable\nConfusing with observation — Observations are rows; each cell is one value within an observation\n\n\n\n\n\n\n\nQ4: The term ATAC captures four steps in the data value chain: Acquisition, _____, _____, and Communication.\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nTransformation, Analysis — The full chain is Acquisition, Transformation, Analysis, Communication.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nMisspelling “Translation” — The step is “Transformation” not “Translation”\nWrong order — Analysis comes after Transformation, before Communication",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Daily 3 - Jan 21</span>"
+    ]
+  },
+  {
+    "objectID": "daily_03.html#key-takeaways",
+    "href": "daily_03.html#key-takeaways",
+    "title": "Daily 3 - Jan 21",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: R Markdown identification, ATAC framework, and tidy data concepts are emerging.\nReview:\n\nUnit of record = person — Don’t confuse with the specific subset (young men) used in class\nSingle value per cell — Include “single” when describing tidy data\nATAC = Acquisition, Transformation, Analysis, Communication — Memorize the sequence",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Daily 3 - Jan 21</span>"
+    ]
+  }
+]

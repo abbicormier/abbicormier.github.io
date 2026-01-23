@@ -155,6 +155,7 @@ include:
   - .htaccess
   - _pages
   - files
+  - busn5000-spring2026
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"

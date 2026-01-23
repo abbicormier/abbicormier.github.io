@@ -1,0 +1,74 @@
+/* UGA Branding */
+:root {
+  --uga-red: #BA0C2F;
+  --uga-black: #000000;
+}
+
+/* Headers */
+h1, h2, h3 {
+  color: var(--uga-red);
+}
+
+/* Stat boxes */
+.stat-box {
+  display: inline-block;
+  background-color: #f8f9fa;
+  border-left: 4px solid var(--uga-red);
+  padding: 10px 15px;
+  margin: 5px;
+  min-width: 100px;
+}
+
+.stat-box .stat-value {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--uga-red);
+}
+
+.stat-box .stat-label {
+  font-size: 0.85em;
+  color: #666;
+}
+
+/* Correct answer box */
+.correct {
+  background-color: #d4edda;
+  border-left: 4px solid #28a745;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.correct::before {
+  content: "Correct Answer: ";
+  font-weight: bold;
+  color: #155724;
+}
+
+/* Common error box */
+.error-box {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 10px 15px;
+  margin: 8px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.error-box::before {
+  content: "Common Error: ";
+  font-weight: bold;
+  color: #856404;
+}
+
+/* Performance colors */
+.perf-high {
+  color: #28a745;
+}
+
+.perf-mid {
+  color: #ffc107;
+}
+
+.perf-low {
+  color: var(--uga-red);
+}
