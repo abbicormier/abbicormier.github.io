@@ -10,6 +10,8 @@ author_profile: true
 
 **Instructor:** Dr. Chris Cornwell
 
+**Teaching Assistant:** Abbi Cormier
+
 **Resources:**
 
 - [Dailies Summaries](/busn5000-spring2026/) — Review your daily quiz performance, see correct answers, and understand common errors
