@@ -268,5 +268,65 @@
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Daily 4 - Jan 28</span>"
     ]
+  },
+  {
+    "objectID": "daily_05.html",
+    "href": "daily_05.html",
+    "title": "Daily 5 - Feb 2",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 2 to 5 out of 5 points.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daily 5 - Feb 2</span>"
+    ]
+  },
+  {
+    "objectID": "daily_05.html#class-performance",
+    "href": "daily_05.html#class-performance",
+    "title": "Daily 5 - Feb 2",
+    "section": "",
+    "text": "Students: 106 | Mean: 3.74 | Median: 4 | SD: 0.79",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daily 5 - Feb 2</span>"
+    ]
+  },
+  {
+    "objectID": "daily_05.html#score-distribution",
+    "href": "daily_05.html#score-distribution",
+    "title": "Daily 5 - Feb 2",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daily 5 - Feb 2</span>"
+    ]
+  },
+  {
+    "objectID": "daily_05.html#performance-by-question",
+    "href": "daily_05.html#performance-by-question",
+    "title": "Daily 5 - Feb 2",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daily 5 - Feb 2</span>"
+    ]
+  },
+  {
+    "objectID": "daily_05.html#questions",
+    "href": "daily_05.html#questions",
+    "title": "Daily 5 - Feb 2",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Write the formal definition of expected value\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nE(Y) = Σ p_j y_j — The expected value is the sum of each possible value multiplied by its probability.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nMissing summation notation — Writing “p·y” without the Σ symbol. The formula requires summation over all values.\nWrong operator — Using multiplication (×) instead of summation (Σ) between terms.\nConceptual only — Describing “weighted average” without writing the mathematical formula requested.\n\n\n\n\n\n\n\nQ2: Write the formal definition of variance\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nVar(Y) = Σ p_j(y_j − μ_y)² — The variance is the sum of probability-weighted squared deviations from the mean.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote expected value instead — Many students repeated the E(Y) formula. Variance measures spread, not center.\nMissing squared term — Writing (y_j − μ) without squaring. The squared term is essential to variance.\nWrote sample mean formula — Ȳ = (1/n)Σy_i is sample mean, not variance.\nConceptual description only — “Average distance from mean” is incomplete; variance uses squared deviations.\n\n\n\n\n\n\n\nQ3: The gender wage gap percentage from the Uber study\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\n7% — The overall gender wage gap documented by the Uber study authors and reported in the Freakonomics podcast.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrong percentages — Common incorrect answers included 8%, 18%, 19%, 25%, 30%, 35%. The exact figure was 7%.\nConfusing with other statistics — Some wrote wage gaps from other studies or contexts.\nLeft blank — This was a recall question from the podcast material.\n\n\n\n\n\n\n\nQ4: Explain the filter function without using “filter”\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe code keeps/restricts to individuals where age is between 23 and 62 — selecting working-age adults for the “defining a career” analysis.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nUsed prohibited word “filter” — The question specifically asked to explain without using that word. Use “keeps,” “restricts,” or “selects.”\nVague about age bounds — Saying “restricts by age” without specifying the exact range (23-62).\nWrong age bounds — Some wrote 26 or 40 as the upper bound instead of 62.\n\n\n\n\n\n\n\nQ5: Random sampling — one draw ___ depend on another\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\ndoes not — The key idea behind random sampling is that one draw from the population does not depend on another (independence).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nVery few errors — This was the best-performing question with near-perfect scores.\nWriting “does” instead of “does not” — Random sampling requires observations to be independent.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daily 5 - Feb 2</span>"
+    ]
+  },
+  {
+    "objectID": "daily_05.html#key-takeaways",
+    "href": "daily_05.html#key-takeaways",
+    "title": "Daily 5 - Feb 2",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Expected value formula, random sampling independence concept, understanding of wage gap research.\nReview:\n\nVariance formula — Var(Y) = Σp_j(y_j − μ)² requires the squared deviation term\nUber wage gap = 7% — From the Freakonomics podcast assigned listening\nCode interpretation — Be precise about what code does (ages 23-62), and follow question instructions (don’t use prohibited words)",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daily 5 - Feb 2</span>"
+    ]
   }
 ]
