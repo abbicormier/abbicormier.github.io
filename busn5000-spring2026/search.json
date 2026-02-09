@@ -328,5 +328,65 @@
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daily 5 - Feb 2</span>"
     ]
+  },
+  {
+    "objectID": "daily_06.html",
+    "href": "daily_06.html",
+    "title": "Daily 6 - Feb 4",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 2.5 to 5 out of 5 points.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Daily 6 - Feb 4</span>"
+    ]
+  },
+  {
+    "objectID": "daily_06.html#class-performance",
+    "href": "daily_06.html#class-performance",
+    "title": "Daily 6 - Feb 4",
+    "section": "",
+    "text": "Students: 109 | Mean: 4.40 | Median: 4.5 | SD: 0.66",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Daily 6 - Feb 4</span>"
+    ]
+  },
+  {
+    "objectID": "daily_06.html#score-distribution",
+    "href": "daily_06.html#score-distribution",
+    "title": "Daily 6 - Feb 4",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Daily 6 - Feb 4</span>"
+    ]
+  },
+  {
+    "objectID": "daily_06.html#performance-by-question",
+    "href": "daily_06.html#performance-by-question",
+    "title": "Daily 6 - Feb 4",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Daily 6 - Feb 4</span>"
+    ]
+  },
+  {
+    "objectID": "daily_06.html#questions",
+    "href": "daily_06.html#questions",
+    "title": "Daily 6 - Feb 4",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Estimating variance — plug in _____ for E(X) and replace outer expectation with sample _____\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\n\\(\\overline{X}\\) (sample average); average — Plug in the sample mean for \\(E(X)\\) and replace the outer expectation with another sample average.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nNear-universal success — Almost every student correctly identified \\(\\overline{X}\\) and “average.”\nMinor notation variants — Some wrote “x-bar” or “mean(x)” instead of \\(\\overline{X}\\); all accepted as equivalent.\nNo significant errors observed — This was the strongest question across the class.\n\n\n\n\n\n\n\nQ2: True or false — if an estimator is unbiased, then it will equal the estimand\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nFalse. An unbiased estimator equals the estimand on average across repeated samples, not necessarily for any single estimate.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nAnswering “True” — The most common error. Students confused “unbiased on average” with “always equals the true value.”\nCrossed-out corrections — Several students initially wrote one answer then changed, suggesting uncertainty about this concept.\nKey distinction — Any single estimate can differ from the estimand due to sampling variability; unbiasedness is a property of the sampling distribution.\n\n\n\n\n\n\n\nQ3: Explain what summarise does in the “Estimating the CEF” code chunk\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nIt computes the sample average of earnings for each age group — estimating the conditional expectation function (CEF).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nMissing “by age” — Many mentioned “mean earnings” or “average” but omitted that it groups by age. The grouping is central to estimating the CEF.\nToo vague — Answers like “simplifies the data,” “creates a table,” “displays data better,” or “compiles data” don’t capture the computational step.\nDescribing the concept, not the computation — Some wrote about “conditional expectations” abstractly without stating the specific operation: computing mean earnings grouped by age.\n\n\n\n\n\n\n\nQ4: The estimated CEF in Figure 6 has a _____ shape\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nConcave — The estimated CEF shows a concave (inverted U) relationship between age and earnings.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nNear-universal success — Almost every student correctly identified the concave shape.\nRare error: “variance” — One student wrote “variance” instead of describing the shape.\nNo other significant errors — This was one of the strongest questions alongside Q1.\n\n\n\n\n\n\n\nQ5: That shape is well-fit by a _____ in age\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nQuadratic — The concave shape is well-fit by a quadratic (second-degree polynomial) in age.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nAnswering “polynomial” — While quadratic is a polynomial, the specific answer is quadratic. “Polynomial” is too broad.\nAnswering “increase” or “condition” — These don’t describe a functional form.\nOverall strong performance — The vast majority correctly identified “quadratic.”",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Daily 6 - Feb 4</span>"
+    ]
+  },
+  {
+    "objectID": "daily_06.html#key-takeaways",
+    "href": "daily_06.html#key-takeaways",
+    "title": "Daily 6 - Feb 4",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Variance estimation plug-ins (Q1), concave CEF shape (Q4), quadratic fit (Q5).\nReview:\n\nUnbiased ≠ always correct — unbiased means correct on average across samples, not for every single estimate\nsummarise computes average earnings by age — not just “displays” or “organizes” data; it calculates the mean within each group\nBe specific about functional forms — “quadratic” is more precise than “polynomial”",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Daily 6 - Feb 4</span>"
+    ]
   }
 ]

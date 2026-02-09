@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Daily 1 - Jan 12 – Dailies Summaries</title>
+<title>Daily 6 - Feb 4 – Dailies Summaries</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./daily_02.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./daily_05.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -70,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -83,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./daily_01.html"><span class="chapter-title">Daily 1 - Jan 12</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./daily_06.html"><span class="chapter-title">Daily 6 - Feb 4</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -115,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./daily_01.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Daily 1 - Jan 12</span></a>
+  <a href="./daily_01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Daily 1 - Jan 12</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -140,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./daily_06.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Daily 6 - Feb 4</span></a>
+  <a href="./daily_06.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Daily 6 - Feb 4</span></a>
   </div>
 </li>
     </ul>
@@ -154,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Daily 1 - Jan 12</span></h1>
+<h1 class="title"><span class="chapter-title">Daily 6 - Feb 4</span></h1>
 </div>
 
 
@@ -174,9 +202,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="class-performance" class="level2">
 <h2 class="anchored" data-anchor-id="class-performance">Class Performance</h2>
 <div class="stat-box">
-<p><strong>Students:</strong> 118 | <strong>Mean:</strong> 2.45 | <strong>Median:</strong> 2.5 | <strong>SD:</strong> 0.96</p>
+<p><strong>Students:</strong> 109 | <strong>Mean:</strong> 4.40 | <strong>Median:</strong> 4.5 | <strong>SD:</strong> 0.66</p>
 </div>
-<p>Scores ranged from <strong>0.5</strong> to <strong>4.5</strong> out of 5 points.</p>
+<p>Scores ranged from <strong>2.5</strong> to <strong>5</strong> out of 5 points.</p>
 </section>
 <section id="score-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="score-distribution">Score Distribution</h2>
@@ -184,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="daily_01_files/figure-html/score-distribution-1.png" class="img-fluid figure-img" width="864"></p>
+<p><img src="daily_06_files/figure-html/score-distribution-1.png" class="img-fluid figure-img" width="864"></p>
 </figure>
 </div>
 </div>
@@ -196,7 +224,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="daily_01_files/figure-html/question-chart-1.png" class="img-fluid figure-img" width="864"></p>
+<p><img src="daily_06_files/figure-html/question-chart-1.png" class="img-fluid figure-img" width="864"></p>
 </figure>
 </div>
 </div>
@@ -204,8 +232,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
-<section id="q1-what-does-a-histogram-tell-you" class="level3">
-<h3 class="anchored" data-anchor-id="q1-what-does-a-histogram-tell-you">Q1: What does a histogram tell you?</h3>
+<section id="q1-estimating-variance-plug-in-_____-for-ex-and-replace-outer-expectation-with-sample-_____" class="level3">
+<h3 class="anchored" data-anchor-id="q1-estimating-variance-plug-in-_____-for-ex-and-replace-outer-expectation-with-sample-_____">Q1: Estimating variance — plug in _____ for E(X) and replace outer expectation with sample _____</h3>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -218,7 +246,7 @@ Correct Answer
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A histogram shows the <strong>frequency distribution</strong> of continuous data — how many observations fall within each range/bin.</p>
+<p><strong><span class="math inline">\(\overline{X}\)</span> (sample average); average</strong> — Plug in the sample mean for <span class="math inline">\(E(X)\)</span> and replace the outer expectation with another sample average.</p>
 </div>
 </div>
 </div>
@@ -235,17 +263,17 @@ Common Errors
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Confusing with time series (“data over time”)</li>
-<li>Confusing with bar charts (“comparing categories”)</li>
-<li>Confusing with box plots (mentioning quartiles)</li>
+<li><strong>Near-universal success</strong> — Almost every student correctly identified <span class="math inline">\(\overline{X}\)</span> and “average.”</li>
+<li><strong>Minor notation variants</strong> — Some wrote “x-bar” or “mean(x)” instead of <span class="math inline">\(\overline{X}\)</span>; all accepted as equivalent.</li>
+<li><strong>No significant errors observed</strong> — This was the strongest question across the class.</li>
 </ul>
 </div>
 </div>
 </div>
 <hr>
 </section>
-<section id="q2-what-does-standard-deviation-measure" class="level3">
-<h3 class="anchored" data-anchor-id="q2-what-does-standard-deviation-measure">Q2: What does standard deviation measure?</h3>
+<section id="q2-true-or-false-if-an-estimator-is-unbiased-then-it-will-equal-the-estimand" class="level3">
+<h3 class="anchored" data-anchor-id="q2-true-or-false-if-an-estimator-is-unbiased-then-it-will-equal-the-estimand">Q2: True or false — if an estimator is unbiased, then it will equal the estimand</h3>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -258,7 +286,7 @@ Correct Answer
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>SD measures how <strong>spread out</strong> the data is from the mean — the average distance of data points from the center.</p>
+<p><strong>False.</strong> An unbiased estimator equals the estimand <strong>on average</strong> across repeated samples, not necessarily for any single estimate.</p>
 </div>
 </div>
 </div>
@@ -275,17 +303,17 @@ Common Errors
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Confusing mean with median (“distance from the median”)</li>
-<li>Confusing with residuals (“how far from predicted value”)</li>
-<li>Confusing with IQR/range</li>
+<li><strong>Answering “True”</strong> — The most common error. Students confused “unbiased on average” with “always equals the true value.”</li>
+<li><strong>Crossed-out corrections</strong> — Several students initially wrote one answer then changed, suggesting uncertainty about this concept.</li>
+<li><strong>Key distinction</strong> — Any single estimate can differ from the estimand due to sampling variability; unbiasedness is a property of the sampling distribution.</li>
 </ul>
 </div>
 </div>
 </div>
 <hr>
 </section>
-<section id="q3-what-is-a-regression" class="level3">
-<h3 class="anchored" data-anchor-id="q3-what-is-a-regression">Q3: What is a regression?</h3>
+<section id="q3-explain-what-summarise-does-in-the-estimating-the-cef-code-chunk" class="level3">
+<h3 class="anchored" data-anchor-id="q3-explain-what-summarise-does-in-the-estimating-the-cef-code-chunk">Q3: Explain what <code>summarise</code> does in the “Estimating the CEF” code chunk</h3>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -298,7 +326,7 @@ Correct Answer
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A regression is a statistical model that describes the <strong>relationship between variables</strong> — how independent variable(s) predict a dependent variable.</p>
+<p>It computes the <strong>sample average of earnings for each age group</strong> — estimating the conditional expectation function (CEF).</p>
 </div>
 </div>
 </div>
@@ -315,17 +343,17 @@ Common Errors
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Using everyday meaning (“decline” or “going backwards”)</li>
-<li>Confusing with hypothesis testing</li>
-<li>Confusing with correlation</li>
+<li><strong>Missing “by age”</strong> — Many mentioned “mean earnings” or “average” but omitted that it groups by age. The grouping is central to estimating the CEF.</li>
+<li><strong>Too vague</strong> — Answers like “simplifies the data,” “creates a table,” “displays data better,” or “compiles data” don’t capture the computational step.</li>
+<li><strong>Describing the concept, not the computation</strong> — Some wrote about “conditional expectations” abstractly without stating the specific operation: computing mean earnings grouped by age.</li>
 </ul>
 </div>
 </div>
 </div>
 <hr>
 </section>
-<section id="q4-how-do-you-estimate-a-regression" class="level3">
-<h3 class="anchored" data-anchor-id="q4-how-do-you-estimate-a-regression">Q4: How do you estimate a regression?</h3>
+<section id="q4-the-estimated-cef-in-figure-6-has-a-_____-shape" class="level3">
+<h3 class="anchored" data-anchor-id="q4-the-estimated-cef-in-figure-6-has-a-_____-shape">Q4: The estimated CEF in Figure 6 has a _____ shape</h3>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -338,7 +366,7 @@ Correct Answer
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Using <strong>Ordinary Least Squares (OLS)</strong> — finding coefficients that minimize the sum of squared residuals.</p>
+<p><strong>Concave</strong> — The estimated CEF shows a concave (inverted U) relationship between age and earnings.</p>
 </div>
 </div>
 </div>
@@ -355,17 +383,17 @@ Common Errors
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Naming tools instead of methods (“Excel,” “JMP”)</li>
-<li>Circular answers (“regression analysis”)</li>
-<li>High blank rate — most skipped question</li>
+<li><strong>Near-universal success</strong> — Almost every student correctly identified the concave shape.</li>
+<li><strong>Rare error: “variance”</strong> — One student wrote “variance” instead of describing the shape.</li>
+<li><strong>No other significant errors</strong> — This was one of the strongest questions alongside Q1.</li>
 </ul>
 </div>
 </div>
 </div>
 <hr>
 </section>
-<section id="q5-how-do-you-test-significance-of-a-coefficient" class="level3">
-<h3 class="anchored" data-anchor-id="q5-how-do-you-test-significance-of-a-coefficient">Q5: How do you test significance of a coefficient?</h3>
+<section id="q5-that-shape-is-well-fit-by-a-_____-in-age" class="level3">
+<h3 class="anchored" data-anchor-id="q5-that-shape-is-well-fit-by-a-_____-in-age">Q5: That shape is well-fit by a _____ in age</h3>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -378,7 +406,7 @@ Correct Answer
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Compare the <strong>p-value to alpha</strong> (typically 0.05). If p-value &lt; alpha, the coefficient is statistically significant.</p>
+<p><strong>Quadratic</strong> — The concave shape is well-fit by a quadratic (second-degree polynomial) in age.</p>
 </div>
 </div>
 </div>
@@ -395,9 +423,9 @@ Common Errors
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Comparing coefficient to a number (“if coefficient &gt; 1”)</li>
-<li>Using R² instead of p-value</li>
-<li>Just naming the test without explanation</li>
+<li><strong>Answering “polynomial”</strong> — While quadratic is a polynomial, the specific answer is quadratic. “Polynomial” is too broad.</li>
+<li><strong>Answering “increase” or “condition”</strong> — These don’t describe a functional form.</li>
+<li><strong>Overall strong performance</strong> — The vast majority correctly identified “quadratic.”</li>
 </ul>
 </div>
 </div>
@@ -406,12 +434,12 @@ Common Errors
 </section>
 <section id="key-takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
-<p><strong>Strengths:</strong> SD measures spread from mean | p-value vs alpha | Regression models relationships</p>
+<p><strong>Strengths:</strong> Variance estimation plug-ins (Q1), concave CEF shape (Q4), quadratic fit (Q5).</p>
 <p><strong>Review:</strong></p>
 <ul>
-<li><strong>Histograms</strong> show frequency distribution — not time series or bar charts</li>
-<li><strong>OLS minimizes squared residuals</strong> — naming software doesn’t explain it</li>
-<li><strong>p &lt; alpha → significant</strong> — compare p-value to 0.05</li>
+<li><strong>Unbiased ≠ always correct</strong> — unbiased means correct <em>on average</em> across samples, not for every single estimate</li>
+<li><strong><code>summarise</code> computes average earnings by age</strong> — not just “displays” or “organizes” data; it calculates the mean within each group</li>
+<li><strong>Be specific about functional forms</strong> — “quadratic” is more precise than “polynomial”</li>
 </ul>
 
 
@@ -819,14 +847,11 @@ Common Errors
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Dailies Summaries">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Dailies Summaries</span></span>
+      <a href="./daily_05.html" class="pagination-link" aria-label="Daily 5 - Feb 2">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Daily 5 - Feb 2</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./daily_02.html" class="pagination-link" aria-label="Daily 2 - Jan 14">
-        <span class="nav-page-text"><span class="chapter-title">Daily 2 - Jan 14</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
