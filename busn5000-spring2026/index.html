@@ -88,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </nav>
 <style>
-  /* === Main Site Nav Bar (matches Jekyll masthead) === */
+  /* === Main Site Nav Bar (matches Jekyll masthead exactly) === */
   #site-main-nav {
     position: fixed;
     top: 0;
@@ -96,38 +96,41 @@ ul.task-list li input[type="checkbox"] {
     right: 0;
     z-index: 9999;
     background-color: #fff;
-    border-bottom: 1px solid #eaecec;
+  }
+  #site-main-nav::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    background: #f1f2f3;
+    width: 100%;
   }
   #site-main-nav-inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0.5em 2em;
+    padding: 0.5em 1em;
     display: flex;
     align-items: center;
     gap: 0;
+    font-family: 'Merriweather Sans', sans-serif;
   }
   #site-main-nav a {
-    text-decoration: none;
+    text-decoration: none !important;
     display: block;
-    padding: 0.5rem 1rem;
-  }
-  #site-main-nav a.site-title {
-    font-family: 'Merriweather Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1em;
-    letter-spacing: -0.01em;
-    color: #BA0C2F;
-    padding-left: 0;
-    padding-right: 2em;
-    margin-left: 0;
-  }
-  #site-main-nav a.nav-link {
-    font-family: 'Merriweather Sans', sans-serif;
-    font-weight: 400;
-    font-size: 1em;
-    letter-spacing: -0.01em;
+    margin: 0 1rem;
+    padding: 0.5rem 0;
     color: #BA0C2F;
     position: relative;
+  }
+  #site-main-nav a.site-title {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-left: 0;
+    padding-right: 2em;
+  }
+  #site-main-nav a.nav-link {
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
   #site-main-nav a.nav-link::before {
     content: "";
@@ -135,16 +138,17 @@ ul.task-list li input[type="checkbox"] {
     left: 0;
     bottom: 0;
     height: 4px;
-    background: #BA0C2F;
+    background: #f1f2f3;
     width: 100%;
-    transform: scaleX(0);
     transition: all 0.2s ease-in-out;
+    transform: scaleX(0);
   }
   #site-main-nav a.nav-link:hover::before {
     transform: scaleX(1);
   }
   #site-main-nav a:hover {
-    color: #BA0C2F !important;
+    color: #72071c !important;
+    text-decoration: none !important;
   }
   body {
     padding-top: 52px !important;
