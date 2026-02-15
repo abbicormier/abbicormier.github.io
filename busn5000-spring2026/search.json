@@ -388,5 +388,125 @@
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Daily 6 - Feb 4</span>"
     ]
+  },
+  {
+    "objectID": "daily_07.html",
+    "href": "daily_07.html",
+    "title": "Daily 7 - Feb 9",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 0 to 3 out of 3 points.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Daily 7 - Feb 9</span>"
+    ]
+  },
+  {
+    "objectID": "daily_07.html#class-performance",
+    "href": "daily_07.html#class-performance",
+    "title": "Daily 7 - Feb 9",
+    "section": "",
+    "text": "Students: 109 | Mean: 1.89 | Median: 2 | SD: 0.63",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Daily 7 - Feb 9</span>"
+    ]
+  },
+  {
+    "objectID": "daily_07.html#score-distribution",
+    "href": "daily_07.html#score-distribution",
+    "title": "Daily 7 - Feb 9",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Daily 7 - Feb 9</span>"
+    ]
+  },
+  {
+    "objectID": "daily_07.html#performance-by-question",
+    "href": "daily_07.html#performance-by-question",
+    "title": "Daily 7 - Feb 9",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Daily 7 - Feb 9</span>"
+    ]
+  },
+  {
+    "objectID": "daily_07.html#questions",
+    "href": "daily_07.html#questions",
+    "title": "Daily 7 - Feb 9",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Variance Estimator Formula\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nvar(X) = 1/(N-1) \\(\\sum_i\\) (X\\(_i\\) - \\(\\overline{X}\\))\\(^2\\) — the sample variance with Bessel’s correction (N-1 denominator).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote the sample mean formula — 1/N \\(\\sum\\) X\\(_i\\) is the sample average, not the variance. The variance measures spread around the mean.\nUsed 1/N instead of 1/(N-1) — The sample variance estimator uses N-1 (Bessel’s correction) to produce an unbiased estimate.\nWrote population/expected value formulas — E(X), \\(\\sum\\) P\\(_j\\)Y\\(_j\\), or \\(\\sum\\) P\\(_j\\)(Y\\(_j\\)-\\(\\mu\\))\\(^2\\) are population quantities, not sample estimators.\n\n\n\n\n\n\n\nQ2: Significant ITT Effects in Table S16\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nParticipation and Trump Vote are statistically significant at the 5% level (|t| &gt; 1.96). Affective Polarization is close (t \\(\\approx\\) 1.93) but not quite significant.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nOnly identified Participation, missed Trump Vote — The most common partial-credit error. Both effects have |t| &gt; 1.96.\nListed non-significant effects — Issue Polarization, Perceived Legitimacy, Knowledge, and Trump Favorability are NOT significant. Check |t| &gt; 1.96 for each row.\n“All” or “All except Participation” — Not all effects are significant. “All except Participation” reverses the answer since Participation IS significant.\n\n\n\n\n\n\n\nQ3: Rate of Return (Figure 4)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nApproximately 4 (or 4%) — the rate of return to another year of labor-market experience in the first year of a career.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote the coefficient (0.0399) — The question asks for the integer approximation. The coefficient 0.0399 corresponds to approximately 4%.\nWrong number (2, 3, 5, etc.) — Misread the figure. The first-year return is approximately 4%, reading from the leftmost point on the curve.\nWrote a regression equation — The question asks for an integer value from the figure, not an equation or formula.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Daily 7 - Feb 9</span>"
+    ]
+  },
+  {
+    "objectID": "daily_07.html#key-takeaways",
+    "href": "daily_07.html#key-takeaways",
+    "title": "Daily 7 - Feb 9",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Most students correctly wrote the variance formula with 1/(N-1) | Strong performance reading the rate of return from Figure 4.\nReview:\n\nSample variance uses N-1 — not N, and it’s not the sample mean formula\nIdentifying significance: |t| &gt; 1.96 — only Participation and Trump Vote pass this threshold\nRead figures carefully — report the integer value (4%) not the raw coefficient (0.0399)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Daily 7 - Feb 9</span>"
+    ]
+  },
+  {
+    "objectID": "daily_08.html",
+    "href": "daily_08.html",
+    "title": "Daily 8 - Feb 11",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 0 to 4 out of 4 points.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Daily 8 - Feb 11</span>"
+    ]
+  },
+  {
+    "objectID": "daily_08.html#class-performance",
+    "href": "daily_08.html#class-performance",
+    "title": "Daily 8 - Feb 11",
+    "section": "",
+    "text": "Students: 115 | Mean: 3.17 | Median: 3.5 | SD: 0.71",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Daily 8 - Feb 11</span>"
+    ]
+  },
+  {
+    "objectID": "daily_08.html#score-distribution",
+    "href": "daily_08.html#score-distribution",
+    "title": "Daily 8 - Feb 11",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Daily 8 - Feb 11</span>"
+    ]
+  },
+  {
+    "objectID": "daily_08.html#performance-by-question",
+    "href": "daily_08.html#performance-by-question",
+    "title": "Daily 8 - Feb 11",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Daily 8 - Feb 11</span>"
+    ]
+  },
+  {
+    "objectID": "daily_08.html#questions",
+    "href": "daily_08.html#questions",
+    "title": "Daily 8 - Feb 11",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Good estimators approach the _____ as sample size increases\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nEstimand — good estimators approach the estimand (the target quantity being estimated) as sample size increases.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote “estimate” — An estimate is the value computed from a particular sample; the estimand is the target quantity. Close but distinct concepts.\nWrote “parameter” or “the parameter” — Related concept, but the precise term is “estimand.” Not all estimands are traditional parameters.\nWrote “mean” or “population mean” — The mean is one specific estimand, but the general answer is “estimand” — the target quantity for any estimator.\n\n\n\n\n\n\n\nQ2: Good estimators have sampling distributions that approach the _____ distribution\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nNormal — good estimators have sampling distributions that approach the normal distribution as sample size increases (Central Limit Theorem).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote “sampling” — The sampling distribution is the distribution itself, not what it approaches. It approaches the normal distribution.\nWrote “population” — The sampling distribution does not approach the population distribution. By the CLT, it approaches the normal distribution regardless of the population shape.\nWrote “standard” or “approx normal” — The precise answer is simply “normal.” The CLT guarantees convergence to the normal distribution.\n\n\n\n\n\n\n\nQ3: The standard error is the square root of the estimated variance of its _____ distribution\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nSampling — the standard error is the square root of the estimated variance of the estimator’s sampling distribution.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote “sample” instead of “sampling” — The most common error. “Sample distribution” describes one dataset; “sampling distribution” describes the distribution of the estimator across all possible samples.\nWrote “normal” or “standard” — While the sampling distribution may approach normal, the question asks which distribution’s variance defines the SE — that’s the sampling distribution.\nWrote the SE formula instead of the word — The question asks for the type of distribution (one word: “sampling”), not the formula itself.\n\n\n\n\n\n\n\nQ4: Formula for the standard error of the sample average\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nse(\\(\\overline{Y}\\)) = \\(\\sqrt{s^2/N}\\) — the square root of the sample variance divided by the sample size. Equivalently, \\(\\sqrt{\\widehat{\\text{var}}(\\overline{Y})}\\).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote only \\(\\sqrt{\\widehat{\\text{var}}(\\overline{Y})}\\) without expanding — This is the definition but doesn’t show the formula in terms of s\\(^2\\) and N as asked.\nWrote the sample variance formula instead of SE — s\\(^2\\) = 1/(N-1)\\(\\sum\\)(Y\\(_i\\)-\\(\\overline{Y}\\))\\(^2\\) is the variance, not the standard error. The SE is \\(\\sqrt{s^2/N}\\).\nWrote the sample mean formula — \\(\\overline{Y}\\) = 1/N \\(\\sum\\) Y\\(_i\\) is the sample average, not the standard error formula.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Daily 8 - Feb 11</span>"
+    ]
+  },
+  {
+    "objectID": "daily_08.html#key-takeaways",
+    "href": "daily_08.html#key-takeaways",
+    "title": "Daily 8 - Feb 11",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Nearly all students correctly identified “estimand” for Q1 | Strong performance on Q2 (normal distribution) | Most students wrote the SE formula correctly.\nReview:\n\n“Sampling” vs. “sample” distribution — the most common error; these are distinct concepts\nSE formula = \\(\\sqrt{s^2/N}\\) — not just \\(\\sqrt{\\widehat{\\text{var}}(\\overline{Y})}\\) and not the variance formula itself\nNormal vs. sampling — the sampling distribution approaches the normal distribution (don’t swap these answers)",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Daily 8 - Feb 11</span>"
+    ]
   }
 ]
