@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Abbi Cormier">
-<meta name="dcterms.date" content="2026-02-23">
 
-<title>Dailies Summaries</title>
+<title>Daily 10 - Feb 18 – Dailies Summaries</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./daily_01.html" rel="next">
+<link href="./daily_09.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -71,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="uga-theme.css">
@@ -85,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title">Dailies Summaries</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./daily_10.html"><span class="chapter-title">Daily 10 - Feb 18</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -112,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Dailies Summaries</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Dailies Summaries</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -162,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./daily_10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Daily 10 - Feb 18</span></a>
+  <a href="./daily_10.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Daily 10 - Feb 18</span></a>
   </div>
 </li>
     </ul>
@@ -187,27 +214,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Dailies Summaries</h1>
-<p class="subtitle lead">BUSN5000: Introduction to Data Science for Business and Economics Spring 2026 Dr.&nbsp;Chris Cornwell</p>
+<h1 class="title"><span class="chapter-title">Daily 10 - Feb 18</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Abbi Cormier </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 23, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -217,26 +231,248 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level2">
-<h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
-<p>This book compiles summaries from all dailies throughout the semester. Use the sidebar navigation to view results from each daily.</p>
-<p>Each daily summary includes:</p>
-<ul>
-<li><strong>Class Performance</strong> — Overall statistics (n, mean, median, SD, score range)</li>
-<li><strong>Score Distribution</strong> — Histogram of total scores</li>
-<li><strong>Performance by Question</strong> — Bar chart showing class performance on each question</li>
-<li><strong>Question Breakdowns (Q1–Q5)</strong> — Correct answers and common errors observed</li>
-<li><strong>Key Takeaways</strong> — Strengths and areas to review</li>
-</ul>
+<section id="class-performance" class="level2">
+<h2 class="anchored" data-anchor-id="class-performance">Class Performance</h2>
+<div class="stat-box">
+<p><strong>Students:</strong> 112 | <strong>Mean:</strong> 4.33 | <strong>Median:</strong> 4.5 | <strong>SD:</strong> 0.71</p>
+</div>
+<p>Scores ranged from <strong>2.5</strong> to <strong>5</strong> out of 5 points.</p>
 </section>
-<section id="how-to-use-this-resource" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use-this-resource">How to Use This Resource</h2>
-<p>Review your daily feedback to:</p>
-<ol type="1">
-<li>Identify concepts that need more attention</li>
-<li>Learn from common errors made by the class</li>
-<li>Track your progress throughout the semester</li>
-</ol>
+<section id="score-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="score-distribution">Score Distribution</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="daily_10_files/figure-html/score-distribution-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="performance-by-question" class="level2">
+<h2 class="anchored" data-anchor-id="performance-by-question">Performance by Question</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="daily_10_files/figure-html/question-chart-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<section id="q1-classification-measurement-error-independence" class="level3">
+<h3 class="anchored" data-anchor-id="q1-classification-measurement-error-independence">Q1: Classification measurement error independence</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correct Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The error <strong>is not</strong> independent of the truth in the classification case — unlike classical measurement error where errors are independent of the true value.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Common Errors
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Writing “is” instead of “is not”</strong> — Confusing classification error with classical error. Classification error depends on the true category.</li>
+<li><strong>Left blank</strong> — Some students did not provide an answer for this fill-in-the-blank question.</li>
+<li><strong>Adding extra words</strong> — Writing phrases beyond “is not” suggests uncertainty about the distinction between error types.</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="q2-mcar-assumption-missingness-is-_____-of-analysis-variables" class="level3">
+<h3 class="anchored" data-anchor-id="q2-mcar-assumption-missingness-is-_____-of-analysis-variables">Q2: MCAR assumption — missingness is _____ of analysis variables</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correct Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Missingness is <strong>independent</strong> of the analysis variables (<span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>s) under the MCAR assumption.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Common Errors
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Writing “MAR” or “MCAR”</strong> — These are assumption names, not what fills the blank. The question asks about the property of missingness.</li>
+<li><strong>Writing “dependent” or “not included”</strong> — The opposite of the correct answer. MCAR means missingness does not depend on the variables.</li>
+<li><strong>Writing probability notation or variable names</strong> — Answers like “P(si),” “Si = 0,” “Y,” or “Xs” don’t answer the conceptual question.</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="q3-table-4-wage-gap-and-schooling-gap-for-missing-iq" class="level3">
+<h3 class="anchored" data-anchor-id="q3-table-4-wage-gap-and-schooling-gap-for-missing-iq">Q3: Table 4 — wage gap and schooling gap for missing IQ</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correct Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Young men with missing IQ scores earn roughly <strong>19–24%</strong> lower wages and complete about <strong>2</strong> fewer years of schooling on average.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Common Errors
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Percentage below range (15–18%)</strong> — Many students wrote 15%, 17%, or 18%, underestimating the wage gap shown in Table 4.</li>
+<li><strong>Percentage far outside range (5%, 47%)</strong> — Calculation errors leading to very different percentages.</li>
+<li><strong>Wrong years of schooling</strong> — Writing 1.2, 0.60, or 3 years instead of approximately 2.</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="q4-z-is-a-_____-in-the-dag" class="level3">
+<h3 class="anchored" data-anchor-id="q4-z-is-a-_____-in-the-dag">Q4: Z is a _____ in the DAG</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correct Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(Z\)</span> is a <strong>confounder</strong> — it affects both the treatment and the outcome in the DAG illustration.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Common Errors
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Writing “proxy”</strong> — A proxy is not the same as a confounder, which directly causes both treatment and outcome.</li>
+<li><strong>Misspellings accepted</strong> — “Confound,” “confounding,” “confounding variable,” and similar variants all received full credit.</li>
+<li><strong>Writing “co-founder”</strong> — A misreading of “confounder.” The concept refers to a variable that confounds the causal relationship.</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="q5-rate-of-return-to-schooling-and-bias-direction" class="level3">
+<h3 class="anchored" data-anchor-id="q5-rate-of-return-to-schooling-and-bias-direction">Q5: Rate of return to schooling and bias direction</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correct Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Figure 2 shows <strong>3.9%</strong> return, Figure 3 shows <strong>2.6%</strong> after IQ adjustment, indicating the estimate is biased <strong>upward</strong>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Common Errors
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Writing “downward” instead of “upward”</strong> — The most common error. Since 3.9% drops to 2.6% after adjustment, the original was too high (biased upward).</li>
+<li><strong>Missing the bias direction entirely</strong> — Some provided percentages but omitted upward/downward. All three parts are needed.</li>
+<li><strong>Wrong adjusted return</strong> — Writing 1.6%, 2.4%, 2.8%, or 6% instead of 2.6%.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<p><strong>Strengths:</strong> Classification error not independent of truth | Z is a confounder | 3.9% and 2.6% returns widely known.</p>
+<p><strong>Review:</strong></p>
+<ul>
+<li><strong>MCAR means “independent”</strong> — missingness is independent of analysis variables, not “MAR” or “dependent”</li>
+<li><strong>Table 4 wage gap is 19–24%</strong> — not 15% or 17%; review the calculation from Table 4 means</li>
+<li><strong>Bias is upward</strong> — the unadjusted estimate (3.9%) is higher than adjusted (2.6%), so the bias goes upward, not downward</li>
+</ul>
 
 
 </section>
@@ -643,11 +879,11 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./daily_09.html" class="pagination-link" aria-label="Daily 9 - Feb 16">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Daily 9 - Feb 16</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./daily_01.html" class="pagination-link" aria-label="Daily 1 - Jan 12">
-        <span class="nav-page-text"><span class="chapter-title">Daily 1 - Jan 12</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

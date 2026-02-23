@@ -404,7 +404,7 @@
     "href": "daily_07.html#class-performance",
     "title": "Daily 7 - Feb 9",
     "section": "",
-    "text": "Students: 109 | Mean: 1.89 | Median: 2 | SD: 0.63",
+    "text": "Students: 109 | Mean: 1.94 | Median: 2 | SD: 0.64",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Daily 7 - Feb 9</span>"
     ]
@@ -434,7 +434,7 @@
     "href": "daily_07.html#questions",
     "title": "Daily 7 - Feb 9",
     "section": "Questions",
-    "text": "Questions\n\nQ1: Variance Estimator Formula\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nvar(X) = 1/(N-1) \\(\\sum_i\\) (X\\(_i\\) - \\(\\overline{X}\\))\\(^2\\) — the sample variance with Bessel’s correction (N-1 denominator).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote the sample mean formula — 1/N \\(\\sum\\) X\\(_i\\) is the sample average, not the variance. The variance measures spread around the mean.\nUsed 1/N instead of 1/(N-1) — The sample variance estimator uses N-1 (Bessel’s correction) to produce an unbiased estimate.\nWrote population/expected value formulas — E(X), \\(\\sum\\) P\\(_j\\)Y\\(_j\\), or \\(\\sum\\) P\\(_j\\)(Y\\(_j\\)-\\(\\mu\\))\\(^2\\) are population quantities, not sample estimators.\n\n\n\n\n\n\n\nQ2: Significant ITT Effects in Table S16\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nParticipation and Trump Vote are statistically significant at the 5% level (|t| &gt; 1.96). Affective Polarization is close (t \\(\\approx\\) 1.93) but not quite significant.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nOnly identified Participation, missed Trump Vote — The most common partial-credit error. Both effects have |t| &gt; 1.96.\nListed non-significant effects — Issue Polarization, Perceived Legitimacy, Knowledge, and Trump Favorability are NOT significant. Check |t| &gt; 1.96 for each row.\n“All” or “All except Participation” — Not all effects are significant. “All except Participation” reverses the answer since Participation IS significant.\n\n\n\n\n\n\n\nQ3: Rate of Return (Figure 4)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nApproximately 4 (or 4%) — the rate of return to another year of labor-market experience in the first year of a career.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote the coefficient (0.0399) — The question asks for the integer approximation. The coefficient 0.0399 corresponds to approximately 4%.\nWrong number (2, 3, 5, etc.) — Misread the figure. The first-year return is approximately 4%, reading from the leftmost point on the curve.\nWrote a regression equation — The question asks for an integer value from the figure, not an equation or formula.",
+    "text": "Questions\n\nQ1: Variance Estimator Formula\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nvar(X) = 1/(N-1) \\(\\sum_i\\) (X\\(_i\\) - \\(\\overline{X}\\))\\(^2\\) — the sample variance formula. Either 1/N or 1/(N-1) is acceptable.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote the sample mean formula — 1/N \\(\\sum\\) X\\(_i\\) is the sample average, not the variance. The variance measures spread around the mean.\nWrote population/expected value formulas — E(X), \\(\\sum\\) P\\(_j\\)Y\\(_j\\), or \\(\\sum\\) P\\(_j\\)(Y\\(_j\\)-\\(\\mu\\))\\(^2\\) are population quantities, not sample estimators.\nMissing the squared term — The variance requires squaring the deviations (X\\(_i\\) - \\(\\overline{X}\\))\\(^2\\); without it the sum is always zero.\n\n\n\n\n\n\n\nQ2: Significant ITT Effects in Table S16\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nParticipation and Trump Vote are statistically significant at the 5% level (|t| &gt; 1.96). Affective Polarization is close (t \\(\\approx\\) 1.93) but not quite significant.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nOnly identified Participation, missed Trump Vote — The most common partial-credit error. Both effects have |t| &gt; 1.96.\nListed non-significant effects — Issue Polarization, Perceived Legitimacy, Knowledge, and Trump Favorability are NOT significant. Check |t| &gt; 1.96 for each row.\n“All” or “All except Participation” — Not all effects are significant. “All except Participation” reverses the answer since Participation IS significant.\n\n\n\n\n\n\n\nQ3: Rate of Return (Figure 4)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nApproximately 4 (or 4%) — the rate of return to another year of labor-market experience in the first year of a career.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote the coefficient (0.0399) — The question asks for the integer approximation. The coefficient 0.0399 corresponds to approximately 4%.\nWrong number (2, 3, 5, etc.) — Misread the figure. The first-year return is approximately 4%, reading from the leftmost point on the curve.\nWrote a regression equation — The question asks for an integer value from the figure, not an equation or formula.",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Daily 7 - Feb 9</span>"
     ]
@@ -444,7 +444,7 @@
     "href": "daily_07.html#key-takeaways",
     "title": "Daily 7 - Feb 9",
     "section": "Key Takeaways",
-    "text": "Key Takeaways\nStrengths: Most students correctly wrote the variance formula with 1/(N-1) | Strong performance reading the rate of return from Figure 4.\nReview:\n\nSample variance uses N-1 — not N, and it’s not the sample mean formula\nIdentifying significance: |t| &gt; 1.96 — only Participation and Trump Vote pass this threshold\nRead figures carefully — report the integer value (4%) not the raw coefficient (0.0399)",
+    "text": "Key Takeaways\nStrengths: Most students correctly wrote the variance formula | Strong performance reading the rate of return from Figure 4.\nReview:\n\nKnow the variance formula structure — 1/N or 1/(N-1) times \\(\\sum\\)(X\\(_i\\) - \\(\\overline{X}\\))\\(^2\\); don’t confuse with the sample mean\nIdentifying significance: |t| &gt; 1.96 — only Participation and Trump Vote pass this threshold\nRead figures carefully — report the integer value (4%) not the raw coefficient (0.0399)",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Daily 7 - Feb 9</span>"
     ]
@@ -464,7 +464,7 @@
     "href": "daily_08.html#class-performance",
     "title": "Daily 8 - Feb 11",
     "section": "",
-    "text": "Students: 115 | Mean: 3.17 | Median: 3.5 | SD: 0.71",
+    "text": "Students: 115 | Mean: 3.20 | Median: 3.5 | SD: 0.71",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Daily 8 - Feb 11</span>"
     ]
@@ -494,7 +494,7 @@
     "href": "daily_08.html#questions",
     "title": "Daily 8 - Feb 11",
     "section": "Questions",
-    "text": "Questions\n\nQ1: Good estimators approach the _____ as sample size increases\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nEstimand — good estimators approach the estimand (the target quantity being estimated) as sample size increases.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote “estimate” — An estimate is the value computed from a particular sample; the estimand is the target quantity. Close but distinct concepts.\nWrote “parameter” or “the parameter” — Related concept, but the precise term is “estimand.” Not all estimands are traditional parameters.\nWrote “mean” or “population mean” — The mean is one specific estimand, but the general answer is “estimand” — the target quantity for any estimator.\n\n\n\n\n\n\n\nQ2: Good estimators have sampling distributions that approach the _____ distribution\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nNormal — good estimators have sampling distributions that approach the normal distribution as sample size increases (Central Limit Theorem).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote “sampling” — The sampling distribution is the distribution itself, not what it approaches. It approaches the normal distribution.\nWrote “population” — The sampling distribution does not approach the population distribution. By the CLT, it approaches the normal distribution regardless of the population shape.\nWrote “standard” or “approx normal” — The precise answer is simply “normal.” The CLT guarantees convergence to the normal distribution.\n\n\n\n\n\n\n\nQ3: The standard error is the square root of the estimated variance of its _____ distribution\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nSampling — the standard error is the square root of the estimated variance of the estimator’s sampling distribution.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote “sample” instead of “sampling” — The most common error. “Sample distribution” describes one dataset; “sampling distribution” describes the distribution of the estimator across all possible samples.\nWrote “normal” or “standard” — While the sampling distribution may approach normal, the question asks which distribution’s variance defines the SE — that’s the sampling distribution.\nWrote the SE formula instead of the word — The question asks for the type of distribution (one word: “sampling”), not the formula itself.\n\n\n\n\n\n\n\nQ4: Formula for the standard error of the sample average\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nse(\\(\\overline{Y}\\)) = \\(\\sqrt{s^2/N}\\) — the square root of the sample variance divided by the sample size. Equivalently, \\(\\sqrt{\\widehat{\\text{var}}(\\overline{Y})}\\).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote only \\(\\sqrt{\\widehat{\\text{var}}(\\overline{Y})}\\) without expanding — This is the definition but doesn’t show the formula in terms of s\\(^2\\) and N as asked.\nWrote the sample variance formula instead of SE — s\\(^2\\) = 1/(N-1)\\(\\sum\\)(Y\\(_i\\)-\\(\\overline{Y}\\))\\(^2\\) is the variance, not the standard error. The SE is \\(\\sqrt{s^2/N}\\).\nWrote the sample mean formula — \\(\\overline{Y}\\) = 1/N \\(\\sum\\) Y\\(_i\\) is the sample average, not the standard error formula.",
+    "text": "Questions\n\nQ1: Good estimators approach the _____ as sample size increases\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nEstimand — good estimators approach the estimand (the target quantity being estimated) as sample size increases.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote “estimate” — An estimate is the value computed from a particular sample; the estimand is the target quantity. Close but distinct concepts.\nWrote “parameter” or “the parameter” — Related concept, but the precise term is “estimand.” Not all estimands are traditional parameters.\nWrote “mean” or “population mean” — The mean is one specific estimand, but the general answer is “estimand” — the target quantity for any estimator.\n\n\n\n\n\n\n\nQ2: Good estimators have sampling distributions that approach the _____ distribution\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nNormal — good estimators have sampling distributions that approach the normal distribution as sample size increases (Central Limit Theorem).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote “sampling” — The sampling distribution is the distribution itself, not what it approaches. It approaches the normal distribution.\nWrote “population” — The sampling distribution does not approach the population distribution. By the CLT, it approaches the normal distribution regardless of the population shape.\nWrote “standard” or “approx normal” — The precise answer is simply “normal.” The CLT guarantees convergence to the normal distribution.\n\n\n\n\n\n\n\nQ3: The standard error is the square root of the estimated variance of its _____ distribution\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nSampling — the standard error is the square root of the estimated variance of the estimator’s sampling distribution.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote “sample” instead of “sampling” — The most common error. “Sample distribution” describes one dataset; “sampling distribution” describes the distribution of the estimator across all possible samples.\nWrote “normal” or “standard” — While the sampling distribution may approach normal, the question asks which distribution’s variance defines the SE — that’s the sampling distribution.\nWrote the SE formula instead of the word — The question asks for the type of distribution (one word: “sampling”), not the formula itself.\n\n\n\n\n\n\n\nQ4: Formula for the standard error of the sample average\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nse(\\(\\overline{Y}\\)) = \\(\\sqrt{s^2/N}\\) — the square root of the sample variance divided by the sample size. Equivalently, \\(\\sqrt{\\widehat{\\text{var}}(\\overline{Y})}\\).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrote the sample variance formula instead of SE — s\\(^2\\) = 1/(N-1)\\(\\sum\\)(Y\\(_i\\)-\\(\\overline{Y}\\))\\(^2\\) is the variance, not the standard error. The SE is \\(\\sqrt{s^2/N}\\).\nWrote the sample mean formula — \\(\\overline{Y}\\) = 1/N \\(\\sum\\) Y\\(_i\\) is the sample average, not the standard error formula.\nMissing the square root — Writing var\\((\\overline{Y})\\) = s\\(^2\\)/N gives the variance, not the SE. The SE requires the square root: \\(\\sqrt{s^2/N}\\).",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Daily 8 - Feb 11</span>"
     ]
@@ -504,9 +504,129 @@
     "href": "daily_08.html#key-takeaways",
     "title": "Daily 8 - Feb 11",
     "section": "Key Takeaways",
-    "text": "Key Takeaways\nStrengths: Nearly all students correctly identified “estimand” for Q1 | Strong performance on Q2 (normal distribution) | Most students wrote the SE formula correctly.\nReview:\n\n“Sampling” vs. “sample” distribution — the most common error; these are distinct concepts\nSE formula = \\(\\sqrt{s^2/N}\\) — not just \\(\\sqrt{\\widehat{\\text{var}}(\\overline{Y})}\\) and not the variance formula itself\nNormal vs. sampling — the sampling distribution approaches the normal distribution (don’t swap these answers)",
+    "text": "Key Takeaways\nStrengths: Nearly all students correctly identified “estimand” for Q1 | Strong performance on Q2 (normal distribution) | Most students wrote the SE formula correctly.\nReview:\n\n“Sampling” vs. “sample” distribution — the most common error; these are distinct concepts\nSE formula = \\(\\sqrt{s^2/N}\\) — equivalently \\(\\sqrt{\\widehat{\\text{var}}(\\overline{Y})}\\); don’t confuse with the variance formula itself\nNormal vs. sampling — the sampling distribution approaches the normal distribution (don’t swap these answers)",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Daily 8 - Feb 11</span>"
+    ]
+  },
+  {
+    "objectID": "daily_09.html",
+    "href": "daily_09.html",
+    "title": "Daily 9 - Feb 16",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 0 to 4 out of 4 points.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Daily 9 - Feb 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_09.html#class-performance",
+    "href": "daily_09.html#class-performance",
+    "title": "Daily 9 - Feb 16",
+    "section": "",
+    "text": "Students: 95 | Mean: 3.47 | Median: 3.5 | SD: 0.70",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Daily 9 - Feb 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_09.html#score-distribution",
+    "href": "daily_09.html#score-distribution",
+    "title": "Daily 9 - Feb 16",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Daily 9 - Feb 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_09.html#performance-by-question",
+    "href": "daily_09.html#performance-by-question",
+    "title": "Daily 9 - Feb 16",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Daily 9 - Feb 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_09.html#questions",
+    "href": "daily_09.html#questions",
+    "title": "Daily 9 - Feb 16",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: One-sample t-statistic formula\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\n\\(t = \\frac{\\overline{Y} - 0}{\\text{se}(\\overline{Y})}\\) — the sample mean minus the null value (0), divided by the standard error of the sample mean.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nGeneric formula without specifics — Writing “estimate / se(estimator)” without showing the sample mean or null value of 0.\nWrong numerator — Using 0 instead of the sample mean in the numerator (e.g., (0 - \\(\\mu_0\\)) instead of (\\(\\overline{Y}\\) - 0)).\nTwo-sample formula instead — Writing the difference in two group means for what should be a one-sample test.\n\n\n\n\n\n\n\nQ2: Two-sample t-statistic formula (small vs regular class)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\n\\(t = \\frac{\\hat\\mu_{small} - \\hat\\mu_{regular} - 0}{\\text{se}(\\hat\\mu_{small} - \\hat\\mu_{regular})}\\) — the difference in sample means divided by the standard error of that difference.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nRepeating Q1’s one-sample formula — Many students wrote the same one-sample t-statistic from Q1 instead of adapting to a two-sample comparison.\nGeneric or vague formula — Writing “estimate - null / se(estimator)” without specifying the small vs regular class means, or using wordy descriptions instead of a formula.\nWrong denominator — Subtracting the two standard errors (se(small) - se(regular)) instead of using the standard error of the difference in means, se(\\(\\hat\\mu_{small} - \\hat\\mu_{regular}\\)).\n\n\n\n\n\n\n\nQ3: Difference in average test scores (STAR experiment)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\n14 points — the difference in average kindergarten test scores between small and regular class types is about 14 points.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting 18 points — Likely confusing with a different comparison or misremembering the STAR experiment results.\nWriting 5 or 13 points — Misremembering the magnitude of the small vs regular class difference.\nLeft blank — Some students did not provide an answer. Review the STAR experiment results for this key finding.\n\n\n\n\n\n\n\nQ4: Classical measurement error bias direction\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nDownward (toward zero) — classical measurement error in X biases the correlation between X and Y toward zero (attenuation bias).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “independently” — Measurement error doesn’t make variables independent; it attenuates the observed relationship toward zero.\nWrong direction — Saying the bias is “upward” or “away from zero.” Classical measurement error always attenuates toward zero.\nConfusing with omitted variable bias — Omitted variable bias can go either direction; classical measurement error specifically biases downward.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Daily 9 - Feb 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_09.html#key-takeaways",
+    "href": "daily_09.html#key-takeaways",
+    "title": "Daily 9 - Feb 16",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: One-sample t-statistic well understood | STAR experiment difference of ~14 points widely known | Measurement error attenuation bias correctly identified.\nReview:\n\nTwo-sample t-statistic — the numerator shows the difference in group means, and the denominator is the se of that difference\nDon’t repeat Q1 for Q2 — the two-sample test has a fundamentally different structure from the one-sample test\nse of the difference \\(\\neq\\) difference of the se values — these are distinct quantities",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Daily 9 - Feb 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_10.html",
+    "href": "daily_10.html",
+    "title": "Daily 10 - Feb 18",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 2.5 to 5 out of 5 points.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Daily 10 - Feb 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_10.html#class-performance",
+    "href": "daily_10.html#class-performance",
+    "title": "Daily 10 - Feb 18",
+    "section": "",
+    "text": "Students: 112 | Mean: 4.33 | Median: 4.5 | SD: 0.71",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Daily 10 - Feb 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_10.html#score-distribution",
+    "href": "daily_10.html#score-distribution",
+    "title": "Daily 10 - Feb 18",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Daily 10 - Feb 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_10.html#performance-by-question",
+    "href": "daily_10.html#performance-by-question",
+    "title": "Daily 10 - Feb 18",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Daily 10 - Feb 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_10.html#questions",
+    "href": "daily_10.html#questions",
+    "title": "Daily 10 - Feb 18",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Classification measurement error independence\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe error is not independent of the truth in the classification case — unlike classical measurement error where errors are independent of the true value.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “is” instead of “is not” — Confusing classification error with classical error. Classification error depends on the true category.\nLeft blank — Some students did not provide an answer for this fill-in-the-blank question.\nAdding extra words — Writing phrases beyond “is not” suggests uncertainty about the distinction between error types.\n\n\n\n\n\n\n\nQ2: MCAR assumption — missingness is _____ of analysis variables\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nMissingness is independent of the analysis variables (\\(Y\\) and \\(X\\)s) under the MCAR assumption.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “MAR” or “MCAR” — These are assumption names, not what fills the blank. The question asks about the property of missingness.\nWriting “dependent” or “not included” — The opposite of the correct answer. MCAR means missingness does not depend on the variables.\nWriting probability notation or variable names — Answers like “P(si),” “Si = 0,” “Y,” or “Xs” don’t answer the conceptual question.\n\n\n\n\n\n\n\nQ3: Table 4 — wage gap and schooling gap for missing IQ\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nYoung men with missing IQ scores earn roughly 19–24% lower wages and complete about 2 fewer years of schooling on average.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nPercentage below range (15–18%) — Many students wrote 15%, 17%, or 18%, underestimating the wage gap shown in Table 4.\nPercentage far outside range (5%, 47%) — Calculation errors leading to very different percentages.\nWrong years of schooling — Writing 1.2, 0.60, or 3 years instead of approximately 2.\n\n\n\n\n\n\n\nQ4: Z is a _____ in the DAG\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\n\\(Z\\) is a confounder — it affects both the treatment and the outcome in the DAG illustration.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “proxy” — A proxy is not the same as a confounder, which directly causes both treatment and outcome.\nMisspellings accepted — “Confound,” “confounding,” “confounding variable,” and similar variants all received full credit.\nWriting “co-founder” — A misreading of “confounder.” The concept refers to a variable that confounds the causal relationship.\n\n\n\n\n\n\n\nQ5: Rate of return to schooling and bias direction\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nFigure 2 shows 3.9% return, Figure 3 shows 2.6% after IQ adjustment, indicating the estimate is biased upward.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “downward” instead of “upward” — The most common error. Since 3.9% drops to 2.6% after adjustment, the original was too high (biased upward).\nMissing the bias direction entirely — Some provided percentages but omitted upward/downward. All three parts are needed.\nWrong adjusted return — Writing 1.6%, 2.4%, 2.8%, or 6% instead of 2.6%.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Daily 10 - Feb 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_10.html#key-takeaways",
+    "href": "daily_10.html#key-takeaways",
+    "title": "Daily 10 - Feb 18",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Classification error not independent of truth | Z is a confounder | 3.9% and 2.6% returns widely known.\nReview:\n\nMCAR means “independent” — missingness is independent of analysis variables, not “MAR” or “dependent”\nTable 4 wage gap is 19–24% — not 15% or 17%; review the calculation from Table 4 means\nBias is upward — the unadjusted estimate (3.9%) is higher than adjusted (2.6%), so the bias goes upward, not downward",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Daily 10 - Feb 18</span>"
     ]
   }
 ]

@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./daily_05.html" rel="prev">
 <link href="./daily_07.html" rel="next">
+<link href="./daily_05.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -101,184 +101,10 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="uga-theme.css">
 </head>
 
 <body class="nav-sidebar floating fullcontent quarto-light">
-<!-- Main Site Navigation Bar + UGA Typography -->
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-<nav id="site-main-nav">
-  <div id="site-main-nav-inner">
-    <a href="https://abbicormier.github.io/" class="site-title">Abigail Cormier</a>
-    <a href="https://abbicormier.github.io/assets/cv/Abigail_Cormier_CV.pdf" class="nav-link">CV</a>
-    <a href="https://abbicormier.github.io/research/" class="nav-link">Research</a>
-    <a href="https://abbicormier.github.io/teaching/" class="nav-link">Teaching</a>
-    <a href="https://abbicormier.github.io/current-students/" class="nav-link">Current Students</a>
-  </div>
-</nav>
-<style>
-  /* === Main Site Nav Bar (matches Jekyll masthead exactly) === */
-  #site-main-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-    background-color: #fff;
-  }
-  #site-main-nav::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    height: 1px;
-    background: #f1f2f3;
-    width: 100%;
-  }
-  #site-main-nav-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0.5em 1em;
-    display: flex;
-    align-items: center;
-    gap: 0;
-    font-family: 'Merriweather Sans', sans-serif;
-  }
-  #site-main-nav a {
-    text-decoration: none !important;
-    display: block;
-    margin: 0 1rem;
-    padding: 0.5rem 0;
-    color: #BA0C2F;
-    position: relative;
-  }
-  #site-main-nav a.site-title {
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-left: 0;
-    padding-right: 2em;
-  }
-  #site-main-nav a.nav-link {
-    font-weight: 400;
-    letter-spacing: -0.01em;
-  }
-  #site-main-nav a.nav-link::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 4px;
-    background: #f1f2f3;
-    width: 100%;
-    transition: all 0.2s ease-in-out;
-    transform: scaleX(0);
-  }
-  #site-main-nav a.nav-link:hover::before {
-    transform: scaleX(1);
-  }
-  #site-main-nav a:hover {
-    color: #72071c !important;
-    text-decoration: underline !important;
-  }
-  body {
-    padding-top: 52px !important;
-  }
-
-  /* === UGA Typography Overrides for Quarto Content === */
-
-  /* Body text - Georgia (Secondary Serif) */
-  body, p, .content, main {
-    font-family: Georgia, serif !important;
-    letter-spacing: -0.005em;
-    line-height: 1.6;
-  }
-
-  /* h1 - Oswald (Primary Sans-Serif) */
-  h1, .title {
-    font-family: 'Oswald', sans-serif !important;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    color: #BA0C2F;
-  }
-
-  /* h2, h3 - Merriweather (Primary Serif) */
-  h2, h3 {
-    font-family: 'Merriweather', serif !important;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
-    color: #BA0C2F;
-  }
-
-  /* h4, h5, h6 - Oswald */
-  h4, h5, h6 {
-    font-family: 'Oswald', sans-serif !important;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-    color: #BA0C2F;
-  }
-
-  /* Sidebar navigation - Merriweather Sans (Secondary Sans-Serif) */
-  .sidebar-title,
-  .sidebar-item-text,
-  .sidebar-navigation,
-  .sidebar-navigation a,
-  #quarto-sidebar a,
-  #quarto-sidebar {
-    font-family: 'Merriweather Sans', sans-serif !important;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-  }
-
-  /* Quarto secondary nav / breadcrumbs */
-  .quarto-secondary-nav,
-  .quarto-page-breadcrumbs,
-  .breadcrumb-item,
-  .quarto-secondary-nav a {
-    font-family: 'Merriweather Sans', sans-serif !important;
-    font-weight: 400;
-  }
-
-  /* Tables - Georgia for body, Merriweather Sans for headers */
-  table, td {
-    font-family: Georgia, serif !important;
-    font-size: 0.9em;
-    line-height: 1.4;
-  }
-  th {
-    font-family: 'Merriweather Sans', sans-serif !important;
-    font-weight: 600;
-  }
-
-  /* Links - UGA Red */
-  a {
-    color: #BA0C2F;
-  }
-  a:hover, a:focus {
-    color: #8a091f;
-    text-decoration: underline;
-  }
-
-  /* Stat boxes and custom elements */
-  .stat-box .stat-label,
-  .cell-output,
-  figcaption {
-    font-family: 'Merriweather Sans', sans-serif !important;
-  }
-
-  /* Code blocks stay monospace */
-  code, pre, .sourceCode {
-    font-family: Monaco, Consolas, "Lucida Console", monospace !important;
-  }
-
-  /* Page navigation (next/prev) */
-  .nav-page,
-  .nav-page a {
-    font-family: 'Merriweather Sans', sans-serif !important;
-  }
-</style>
-<!-- End Main Site Navigation Bar + UGA Typography -->
-
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -343,18 +169,28 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="./daily_06.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Daily 6 - Feb 4</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="./daily_07.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Daily 7 - Feb 9</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container">
+  <div class="sidebar-item-container"> 
   <a href="./daily_08.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Daily 8 - Feb 11</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./daily_09.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Daily 9 - Feb 16</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./daily_10.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Daily 10 - Feb 18</span></a>
   </div>
 </li>
     </ul>
@@ -365,6 +201,17 @@ window.Quarto = {
     
 <!-- main -->
 <main class="content" id="quarto-document-content">
+<!-- Main Site Navigation Bar -->
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&amp;family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&amp;family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap" rel="stylesheet">
+<nav id="site-main-nav">
+  <div id="site-main-nav-inner">
+    <a href="https://abbicormier.github.io/" class="site-title">Abigail Cormier</a>
+    <a href="https://abbicormier.github.io/assets/cv/Abigail_Cormier_CV.pdf" class="nav-link">CV</a>
+    <a href="https://abbicormier.github.io/research/" class="nav-link">Research</a>
+    <a href="https://abbicormier.github.io/teaching/" class="nav-link">Teaching</a>
+    <a href="https://abbicormier.github.io/current-students/" class="nav-link">Current Students</a>
+  </div>
+</nav>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
