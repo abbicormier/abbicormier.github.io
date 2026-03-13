@@ -1,0 +1,2712 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Economics Graph Generator</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  :root {
+    --supply-color: #c0392b;
+    --demand-color: #2471a3;
+    --shift-supply-color: #e74c3c;
+    --shift-demand-color: #3498db;
+    --social-color: #27ae60;
+    --grid-major: #bbb;
+    --grid-minor: #ddd;
+    --axis-color: #222;
+    --marker-color: #222;
+    --annotation-color: #555;
+  }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f3f4f6; }
+  .graph-type-btn { transition: all 0.15s; }
+  .graph-type-btn.active { background: #2563eb; color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
+  .graph-type-btn:not(.active):hover { background: #e5e7eb; }
+  .form-group label { display: block; font-weight: 600; margin-bottom: 2px; font-size: 0.85rem; color: #374151; }
+  .form-group input, .form-group select { width: 100%; padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem; }
+  .form-group input:focus, .form-group select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.15); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .export-btn { padding: 8px 18px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; }
+  .export-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  #preview-container { background: white; border-radius: 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); overflow: hidden; }
+  .section-header { font-size: 0.8rem; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 12px 0 6px; }
+  .toggle-group { display: flex; gap: 4px; }
+  .toggle-btn { padding: 4px 12px; border-radius: 6px; font-size: 0.82rem; cursor: pointer; border: 1px solid #d1d5db; background: white; }
+  .toggle-btn.active { background: #2563eb; color: white; border-color: #2563eb; }
+  .checkbox-row { display: flex; align-items: center; gap: 6px; font-size: 0.88rem; }
+  .checkbox-row input[type="checkbox"] { width: auto; }
+  .bundle-row { display: grid; grid-template-columns: auto 1fr 1fr auto; gap: 6px; align-items: center; font-size: 0.85rem; }
+  .bundle-row input { padding: 4px 8px; }
+  .bundle-row label { font-weight: 600; min-width: 18px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<div class="max-w-7xl mx-auto px-4 py-6">
+  <!-- Header -->
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Economics Graph Generator</h1>
+    <p class="text-gray-500 text-sm mt-1">Create exam-ready economics graphs. Pick a type, adjust parameters, export.</p>
+  </div>
+
+  <!-- Graph Type Selector -->
+  <div class="flex flex-wrap gap-2 mb-6">
+    <button class="graph-type-btn active px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200" data-type="supply-demand">Supply &amp; Demand</button>
+    <button class="graph-type-btn px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200" data-type="shift">Curve Shift</button>
+    <button class="graph-type-btn px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200" data-type="tax">Tax</button>
+    <button class="graph-type-btn px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200" data-type="subsidy">Subsidy</button>
+    <button class="graph-type-btn px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200" data-type="price-control">Price Controls</button>
+    <button class="graph-type-btn px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200" data-type="quota">Quota</button>
+    <button class="graph-type-btn px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200" data-type="externality">Externalities</button>
+    <button class="graph-type-btn px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200" data-type="budget">Budget Constraint</button>
+    <button class="graph-type-btn px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200" data-type="trade">Int'l Trade</button>
+    <button class="graph-type-btn px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200" data-type="cost-curves">Cost Curves</button>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+    <!-- Left: Form Panel -->
+    <div class="lg:col-span-2 space-y-3">
+      <div class="bg-white rounded-xl shadow-sm p-4 space-y-3">
+
+        <!-- Axis Settings -->
+        <div class="section-header">Axes &amp; Labels</div>
+        <div id="sd-labels">
+        <div class="form-group">
+          <label>Good Name</label>
+          <input type="text" id="goodName" value="organic honey" placeholder="e.g. widgets">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Quantity Unit</label>
+            <input type="text" id="qtyUnit" value="in thousands" placeholder="e.g. in thousands">
+          </div>
+          <div class="form-group">
+            <label>Price Prefix</label>
+            <input type="text" id="pricePrefix" value="$" placeholder="$">
+          </div>
+        </div>
+        </div>
+        <div class="checkbox-row" style="margin-bottom:6px;">
+          <input type="checkbox" id="autoRange" checked>
+          <label for="autoRange" style="font-weight:600; font-size:0.85rem;">Auto-fit axes to data</label>
+        </div>
+        <div id="manualRangeFields">
+          <div class="form-row">
+            <div class="form-group">
+              <label id="lbl-qtyMin">Qty Min</label>
+              <input type="number" id="qtyMin" value="0">
+            </div>
+            <div class="form-group">
+              <label id="lbl-qtyMax">Qty Max</label>
+              <input type="number" id="qtyMax" value="350">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label id="lbl-qtyStep">Qty Tick Step</label>
+              <input type="number" id="qtyStep" value="50">
+            </div>
+            <div class="form-group">
+              <label id="lbl-priceStep">Price Tick Step</label>
+              <input type="number" id="priceStep" value="2">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label id="lbl-priceMin">Price Min</label>
+              <input type="number" id="priceMin" value="0">
+            </div>
+            <div class="form-group">
+              <label id="lbl-priceMax">Price Max</label>
+              <input type="number" id="priceMax" value="14">
+            </div>
+          </div>
+        </div>
+
+        <!-- Supply & Demand inputs (hidden for cost-curves and budget) -->
+        <div id="sd-inputs">
+        <!-- Supply Curve -->
+        <div class="section-header">Supply Curve (S0)</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Point 1: Qty</label>
+            <input type="number" id="s0_q1" value="50">
+          </div>
+          <div class="form-group">
+            <label>Point 1: Price</label>
+            <input type="number" id="s0_p1" value="2" step="0.5">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Point 2: Qty</label>
+            <input type="number" id="s0_q2" value="300">
+          </div>
+          <div class="form-group">
+            <label>Point 2: Price</label>
+            <input type="number" id="s0_p2" value="12" step="0.5">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Label</label>
+          <input type="text" id="s0_label" value="S0">
+        </div>
+
+        <!-- Demand Curve -->
+        <div class="section-header">Demand Curve (D0)</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Point 1: Qty</label>
+            <input type="number" id="d0_q1" value="50">
+          </div>
+          <div class="form-group">
+            <label>Point 1: Price</label>
+            <input type="number" id="d0_p1" value="12" step="0.5">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Point 2: Qty</label>
+            <input type="number" id="d0_q2" value="300">
+          </div>
+          <div class="form-group">
+            <label>Point 2: Price</label>
+            <input type="number" id="d0_p2" value="2" step="0.5">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Label</label>
+          <input type="text" id="d0_label" value="D0">
+        </div>
+
+        <!-- Equilibrium -->
+        <div class="section-header">Equilibrium</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Eq. Label</label>
+            <input type="text" id="eqLabel" value="A">
+          </div>
+          <div class="form-group">
+            <label style="color:#999">Auto-calculated</label>
+            <div id="eqDisplay" class="text-sm text-gray-600 pt-1">—</div>
+          </div>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="showDashedLines" checked>
+          <label for="showDashedLines">Show dashed lines to axes</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="showInterceptLabels" checked>
+          <label for="showInterceptLabels">Label values at axis intercepts</label>
+        </div>
+
+        </div><!-- end sd-inputs -->
+
+        <!-- ===== TYPE-SPECIFIC SECTIONS ===== -->
+
+        <!-- Shift options -->
+        <div id="section-shift" class="hidden">
+          <div class="section-header">Curve Shift</div>
+          <div class="form-group">
+            <label>Which curve shifts?</label>
+            <select id="shiftCurve">
+              <option value="supply">Supply</option>
+              <option value="demand">Demand</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Shift direction</label>
+            <select id="shiftDir">
+              <option value="right">Right (increase)</option>
+              <option value="left">Left (decrease)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Shift amount (quantity units)</label>
+            <input type="number" id="shiftAmt" value="75">
+          </div>
+          <div class="form-group">
+            <label>New curve label</label>
+            <input type="text" id="shiftLabel" value="S1">
+          </div>
+          <div class="form-group">
+            <label>New equilibrium label</label>
+            <input type="text" id="shiftEqLabel" value="B">
+          </div>
+          <div class="form-group">
+            <label>Mode</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-field="shiftMode" data-val="answer">Answer Key</button>
+              <button class="toggle-btn" data-field="shiftMode" data-val="question">Question (blank)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tax options -->
+        <div id="section-tax" class="hidden">
+          <div class="section-header">Tax</div>
+          <div class="form-group">
+            <label>Tax amount (per unit)</label>
+            <input type="number" id="taxAmt" value="2" step="0.1">
+          </div>
+          <div class="form-group">
+            <label>Tax on</label>
+            <select id="taxOn">
+              <option value="sellers">Sellers (shifts supply up)</option>
+              <option value="buyers">Buyers (shifts demand down)</option>
+            </select>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="showTaxLabels" checked>
+            <label for="showTaxLabels">Show buyer/seller price labels</label>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="showTaxWedge" checked>
+            <label for="showTaxWedge">Show tax wedge bracket</label>
+          </div>
+          <div class="form-group">
+            <label>Mode</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-field="taxMode" data-val="answer">Answer Key</button>
+              <button class="toggle-btn" data-field="taxMode" data-val="question">Question (blank)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subsidy options -->
+        <div id="section-subsidy" class="hidden">
+          <div class="section-header">Subsidy</div>
+          <div class="form-group">
+            <label>Subsidy amount (per unit)</label>
+            <input type="number" id="subsidyAmt" value="2" step="0.1">
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="showSubsidyLabels" checked>
+            <label for="showSubsidyLabels">Show buyer/seller price labels</label>
+          </div>
+          <div class="form-group">
+            <label>Mode</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-field="subsidyMode" data-val="answer">Answer Key</button>
+              <button class="toggle-btn" data-field="subsidyMode" data-val="question">Question (blank)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Price Control options -->
+        <div id="section-price-control" class="hidden">
+          <div class="section-header">Price Control</div>
+          <div class="form-group">
+            <label>Mode</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-field="priceControlMode" data-val="answer">Answer Key</button>
+              <button class="toggle-btn" data-field="priceControlMode" data-val="question">Question (blank)</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Type</label>
+            <select id="controlType">
+              <option value="floor">Price Floor</option>
+              <option value="ceiling">Price Ceiling</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Control Price</label>
+            <input type="number" id="controlPrice" value="9" step="0.5">
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="showShortSurp" checked>
+            <label for="showShortSurp">Show shortage/surplus bracket</label>
+          </div>
+        </div>
+
+        <!-- Quota options -->
+        <div id="section-quota" class="hidden">
+          <div class="section-header">Quota</div>
+          <div class="form-group">
+            <label>Mode</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-field="quotaMode" data-val="answer">Answer Key</button>
+              <button class="toggle-btn" data-field="quotaMode" data-val="question">Question (blank)</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Quota quantity</label>
+            <input type="number" id="quotaQty" value="120">
+          </div>
+          <div class="form-group">
+            <label>Quota label</label>
+            <input type="text" id="quotaLabel" value="Quota">
+          </div>
+        </div>
+
+        <!-- Externality options -->
+        <div id="section-externality" class="hidden">
+          <div class="section-header">Externality</div>
+          <div class="form-group">
+            <label>Mode</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-field="extMode" data-val="answer">Answer Key</button>
+              <button class="toggle-btn" data-field="extMode" data-val="question">Question (blank)</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Type</label>
+            <select id="extType">
+              <option value="neg-prod">Negative, Production-side</option>
+              <option value="neg-cons">Negative, Consumption-side</option>
+              <option value="pos-prod">Positive, Production-side</option>
+              <option value="pos-cons">Positive, Consumption-side</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>External cost/benefit (per unit, in price units)</label>
+            <input type="number" id="extAmt" value="3" step="0.5">
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="showDWL" checked>
+            <label for="showDWL">Show deadweight loss region</label>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="showExtLabels" checked>
+            <label for="showExtLabels">Show MSC/MSB labels</label>
+          </div>
+        </div>
+
+        <!-- Budget Constraint options -->
+        <div id="section-budget" class="hidden">
+          <div class="section-header">Budget Constraint</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Good X name</label>
+              <input type="text" id="budgetGoodX" value="yogurt">
+            </div>
+            <div class="form-group">
+              <label>Good Y name</label>
+              <input type="text" id="budgetGoodY" value="cereal">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Price of X</label>
+              <input type="number" id="budgetPx" value="4" step="0.5">
+            </div>
+            <div class="form-group">
+              <label>Price of Y</label>
+              <input type="number" id="budgetPy" value="3.20" step="0.1">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Income</label>
+            <input type="number" id="budgetIncome" value="32">
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="budgetShowSecond">
+            <label for="budgetShowSecond">Show second budget line (price change)</label>
+          </div>
+          <div id="budget-second" class="hidden">
+            <div class="form-row">
+              <div class="form-group">
+                <label>New Price of X</label>
+                <input type="number" id="budgetPx2" value="4" step="0.5">
+              </div>
+              <div class="form-group">
+                <label>New Price of Y</label>
+                <input type="number" id="budgetPy2" value="8" step="0.5">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>New Income (leave same if unchanged)</label>
+              <input type="number" id="budgetIncome2" value="32">
+            </div>
+          </div>
+          <div class="section-header">Bundles (optional)</div>
+          <div id="bundleList" class="space-y-1">
+            <div class="bundle-row"><label>A</label><input type="number" id="bA_x" placeholder="X" value="4" step="0.5"><input type="number" id="bA_y" placeholder="Y" value="5" step="0.5"><input type="checkbox" id="bA_on" checked></div>
+            <div class="bundle-row"><label>B</label><input type="number" id="bB_x" placeholder="X" value="6" step="0.5"><input type="number" id="bB_y" placeholder="Y" value="2" step="0.5"><input type="checkbox" id="bB_on" checked></div>
+            <div class="bundle-row"><label>C</label><input type="number" id="bC_x" placeholder="X" value="2" step="0.5"><input type="number" id="bC_y" placeholder="Y" value="6" step="0.5"><input type="checkbox" id="bC_on" checked></div>
+            <div class="bundle-row"><label>D</label><input type="number" id="bD_x" placeholder="X" step="0.5"><input type="number" id="bD_y" placeholder="Y" step="0.5"><input type="checkbox" id="bD_on"></div>
+            <div class="bundle-row"><label>E</label><input type="number" id="bE_x" placeholder="X" step="0.5"><input type="number" id="bE_y" placeholder="Y" step="0.5"><input type="checkbox" id="bE_on"></div>
+            <div class="bundle-row"><label>F</label><input type="number" id="bF_x" placeholder="X" step="0.5"><input type="number" id="bF_y" placeholder="Y" step="0.5"><input type="checkbox" id="bF_on"></div>
+          </div>
+          <div class="checkbox-row mt-2">
+            <input type="checkbox" id="budgetShowInfo" checked>
+            <label for="budgetShowInfo">Show income/price info on graph</label>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="budgetShowTangent">
+            <label for="budgetShowTangent">Show tangent line at point</label>
+          </div>
+          <div id="budget-tangent" class="hidden">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Tangent X</label>
+                <input type="number" id="budgetTangentX" value="4" step="0.5">
+              </div>
+              <div class="form-group">
+                <label>Tangent Y</label>
+                <input type="number" id="budgetTangentY" value="5" step="0.5">
+              </div>
+            </div>
+          </div>
+          <div class="section-header">Point Placement</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Points above line</label>
+              <input type="number" id="budgetPtsAbove" value="0" min="0" max="5" step="1">
+            </div>
+            <div class="form-group">
+              <label>Points below line</label>
+              <input type="number" id="budgetPtsBelow" value="0" min="0" max="5" step="1">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Points on line</label>
+              <input type="number" id="budgetPtsOn" value="0" min="0" max="5" step="1">
+            </div>
+          </div>
+        </div>
+
+        <!-- International Trade options -->
+        <div id="section-trade" class="hidden">
+          <div class="section-header">International Trade</div>
+          <div class="form-group">
+            <label>Mode</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-field="tradeMode" data-val="answer">Answer Key</button>
+              <button class="toggle-btn" data-field="tradeMode" data-val="question">Question (blank)</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>World Price</label>
+            <input type="number" id="worldPrice" value="6" step="0.5">
+          </div>
+          <div class="form-group">
+            <label>Trade type</label>
+            <select id="tradeType">
+              <option value="auto">Auto-detect (based on world price)</option>
+              <option value="import">Importer</option>
+              <option value="export">Exporter</option>
+            </select>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="showTradeRegions" checked>
+            <label for="showTradeRegions">Show CS/PS regions</label>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="showTradeLabels" checked>
+            <label for="showTradeLabels">Show import/export bracket</label>
+          </div>
+        </div>
+
+        <!-- Cost Curves options -->
+        <div id="section-cost-curves" class="hidden">
+          <div class="section-header">Cost Curves</div>
+          <div class="form-group">
+            <label>Mode</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-field="ccMode" data-val="answer">Answer Key</button>
+              <button class="toggle-btn" data-field="ccMode" data-val="question">Student (blank)</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>AC minimum (qty)</label>
+              <input type="number" id="ccAcMinQ" value="30">
+            </div>
+            <div class="form-group">
+              <label>AC minimum (price)</label>
+              <input type="number" id="ccAcMinP" value="25" step="0.5">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Fixed Cost (FC)</label>
+            <input type="number" id="ccFixedCost" value="360" step="10">
+          </div>
+          <div class="form-group">
+            <label>MR / Price (horizontal line)</label>
+            <input type="number" id="ccMr" value="25" step="0.5">
+          </div>
+          <div class="form-group">
+            <label>Quick presets</label>
+            <div id="ccPresets" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="ccShowProfit" checked>
+            <label for="ccShowProfit">Show profit/loss rectangle</label>
+          </div>
+        </div>
+
+        <!-- Annotation -->
+        <div class="section-header">Annotation (optional)</div>
+        <div class="form-group">
+          <label>Text overlay (e.g. "FALL 2025")</label>
+          <input type="text" id="annotationText" value="">
+        </div>
+
+        <!-- Grid & Style -->
+        <div class="section-header">Style</div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="showGrid" checked>
+          <label for="showGrid">Show grid</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="debugOverlay">
+          <label for="debugOverlay" style="color:#e74c3c;">Debug overlay</label>
+        </div>
+        <div class="form-group">
+          <label>Font</label>
+          <select id="fontFamily">
+            <option value="Arial" selected>Arial</option>
+            <option value="Calibri">Calibri</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Georgia">Georgia</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Export -->
+      <div class="bg-white rounded-xl shadow-sm p-4">
+        <div class="section-header">Export</div>
+        <div class="flex flex-wrap gap-2">
+          <button class="export-btn bg-blue-600 text-white" onclick="exportPNG()">PNG</button>
+          <button class="export-btn bg-green-600 text-white" onclick="exportSVG()">SVG</button>
+          <button class="export-btn bg-orange-600 text-white" onclick="exportPPTX()">PPTX</button>
+          <button class="export-btn bg-gray-700 text-white" onclick="copyToClipboard()">Copy</button>
+        </div>
+        <div id="exportStatus" class="text-sm text-gray-500 mt-2"></div>
+        <div style="margin-top:10px; border-top:1px solid #e5e7eb; padding-top:8px;">
+          <button class="export-btn bg-red-600 text-white text-xs" onclick="runAllTests()" style="padding:4px 12px; font-size:0.75rem;">Run Auto-Tests</button>
+          <div id="testResults" class="text-xs text-gray-600 mt-1" style="max-height:200px; overflow-y:auto; font-family:monospace;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Preview -->
+    <div class="lg:col-span-3">
+      <div id="preview-container" class="sticky top-6 p-4">
+        <div id="svgPreview" style="width:100%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// ECONOMICS GRAPH GENERATOR - Core Engine
+// ============================================================
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const W = 800, H = 600;
+const PAD = { top: 50, right: 80, bottom: 70, left: 75 };
+
+// ---- Utility ----
+function el(tag, attrs = {}, parent) {
+  const e = document.createElementNS(SVG_NS, tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+
+function val(id) {
+  const e = document.getElementById(id);
+  if (!e) return '';
+  if (e.type === 'checkbox') return e.checked;
+  if (e.type === 'number') return parseFloat(e.value) || 0;
+  return e.value;
+}
+
+function toggleVal(field) {
+  const btns = document.querySelectorAll(`[data-field="${field}"]`);
+  for (const b of btns) { if (b.classList.contains('active')) return b.dataset.val; }
+  return 'answer';
+}
+
+// ---- Coordinate transforms ----
+function plotX(qVal, cfg) {
+  const { qtyMin, qtyMax } = cfg;
+  return PAD.left + (qVal - qtyMin) / (qtyMax - qtyMin) * (W - PAD.left - PAD.right);
+}
+function plotY(pVal, cfg) {
+  const { priceMin, priceMax } = cfg;
+  return PAD.top + (1 - (pVal - priceMin) / (priceMax - priceMin)) * (H - PAD.top - PAD.bottom);
+}
+function unplotX(px, cfg) {
+  const { qtyMin, qtyMax } = cfg;
+  return qtyMin + (px - PAD.left) / (W - PAD.left - PAD.right) * (qtyMax - qtyMin);
+}
+function unplotY(py, cfg) {
+  const { priceMin, priceMax } = cfg;
+  return priceMax - (py - PAD.top) / (H - PAD.top - PAD.bottom) * (priceMax - priceMin);
+}
+
+// ---- Line math ----
+function lineFromPoints(q1, p1, q2, p2) {
+  if (Math.abs(q2 - q1) < 1e-9) { q2 = q1 + 0.01; } // prevent vertical line / div-by-zero
+  const slope = (p2 - p1) / (q2 - q1);
+  const intercept = p1 - slope * q1;
+  return { slope, intercept, evalAt: q => slope * q + intercept,
+    qAt: p => Math.abs(slope) < 1e-9 ? q1 : (p - intercept) / slope };
+}
+
+function intersect(lineA, lineB) {
+  if (Math.abs(lineA.slope - lineB.slope) < 1e-9) return null;
+  const q = (lineB.intercept - lineA.intercept) / (lineA.slope - lineB.slope);
+  const p = lineA.evalAt(q);
+  if (!isFinite(q) || !isFinite(p)) return null;
+  return { q, p };
+}
+
+// ---- Auto-range: compute nice axis bounds from data ----
+function niceStep(range) {
+  // Pick a "nice" tick step for the given range
+  if (range <= 0) return 1;
+  const rough = range / 8; // aim for ~8 ticks
+  const mag = Math.pow(10, Math.floor(Math.log10(rough)));
+  const frac = rough / mag;
+  if (frac <= 1) return mag;
+  if (frac <= 2.5) return 2 * mag;
+  if (frac <= 5) return 5 * mag;
+  return 10 * mag;
+}
+
+function autoRange(type) {
+  // Collect all points that must be visible for this graph type
+  const qs = [], ps = [];
+  const addPt = (q, p) => { if (isFinite(q) && isFinite(p)) { qs.push(q); ps.push(p); } };
+  const addLine = (line, qLo, qHi) => { addPt(qLo, line.evalAt(qLo)); addPt(qHi, line.evalAt(qHi)); };
+
+  // Supply and demand control points
+  const sq1 = val('s0_q1'), sp1 = val('s0_p1'), sq2 = val('s0_q2'), sp2 = val('s0_p2');
+  const dq1 = val('d0_q1'), dp1 = val('d0_p1'), dq2 = val('d0_q2'), dp2 = val('d0_p2');
+  const supply = lineFromPoints(sq1, sp1, sq2, sp2);
+  const demand = lineFromPoints(dq1, dp1, dq2, dp2);
+
+  if (type === 'budget') {
+    // Budget constraint: axes are quantities of goods
+    const px = val('budgetPx'), py = val('budgetPy'), inc = val('budgetIncome');
+    const maxX = px > 0 ? inc / px : inc;
+    const maxY = py > 0 ? inc / py : inc;
+    addPt(0, 0); addPt(maxX, 0); addPt(0, maxY);
+    if (val('budgetShowSecond')) {
+      const px2 = val('budgetPx2'), py2 = val('budgetPy2'), inc2 = val('budgetIncome2');
+      addPt(px2 > 0 ? inc2 / px2 : inc2, 0);
+      addPt(0, py2 > 0 ? inc2 / py2 : inc2);
+    }
+    // Add bundle points
+    ['A','B','C','D','E','F'].forEach(b => {
+      if (val(`b${b}_on`)) addPt(val(`b${b}_x`), val(`b${b}_y`));
+    });
+  } else if (type === 'cost-curves') {
+    const acMinQ = val('ccAcMinQ'), acMinP = val('ccAcMinP');
+    const FC = val('ccFixedCost');
+    const mr = val('ccMr');
+    // Derive cubic TC coefficients (50% ratio)
+    const b_ = FC / (acMinQ * acMinQ);
+    const c_ = FC / (acMinQ * acMinQ * acMinQ);
+    const a_ = acMinP - FC / acMinQ;
+    const mcFn_ = q => a_ - 2 * b_ * q + 3 * c_ * q * q;
+    const avcFn_ = q => a_ - b_ * q + c_ * q * q;
+    // Profit-max Q
+    const disc_ = 4 * b_ * b_ - 12 * c_ * (a_ - mr);
+    const optQ = disc_ >= 0 ? (2 * b_ + Math.sqrt(disc_)) / (6 * c_) : acMinQ;
+    const avcMinQ_ = b_ / (2 * c_);
+    const mcMinQ_ = b_ / (3 * c_);
+    qs.push(0);
+    addPt(acMinQ, acMinP);
+    addPt(avcMinQ_, avcFn_(avcMinQ_));
+    addPt(mcMinQ_, mcFn_(mcMinQ_));
+    addPt(optQ, mr);
+    // Include MC at a point past optQ for upper range
+    const farQ = optQ * 1.3;
+    addPt(farQ, mcFn_(farQ));
+    // Also include MC at acMinQ so price range covers the full visible MC curve
+    addPt(acMinQ, mcFn_(acMinQ));
+    addPt(acMinQ * 1.1, mcFn_(acMinQ * 1.1));
+  } else {
+    // All S&D based graphs: include curve control points (NOT intercepts)
+    addPt(sq1, sp1); addPt(sq2, sp2);
+    addPt(dq1, dp1); addPt(dq2, dp2);
+    // Include the equilibrium
+    const eq = intersect(supply, demand);
+    if (eq) addPt(eq.q, eq.p);
+
+    // Type-specific extra points
+    if (type === 'shift') {
+      const amt = val('shiftAmt');
+      const dir = val('shiftDir') === 'right' ? 1 : -1;
+      const off = amt * dir;
+      if (val('shiftCurve') === 'supply') {
+        const s1 = lineFromPoints(sq1 + off, sp1, sq2 + off, sp2);
+        addPt(sq1 + off, sp1); addPt(sq2 + off, sp2);
+        const eq2 = intersect(s1, demand);
+        if (eq2) addPt(eq2.q, eq2.p);
+      } else {
+        const d1 = lineFromPoints(dq1 + off, dp1, dq2 + off, dp2);
+        addPt(dq1 + off, dp1); addPt(dq2 + off, dp2);
+        const eq2 = intersect(supply, d1);
+        if (eq2) addPt(eq2.q, eq2.p);
+      }
+    } else if (type === 'tax') {
+      const tax = val('taxAmt');
+      // Tax shifts supply up — include shifted control points
+      addPt(sq1, sp1 + tax); addPt(sq2, sp2 + tax);
+      // Include buyer/seller prices at new equilibrium
+      const taxedSupply = lineFromPoints(sq1, sp1 + tax, sq2, sp2 + tax);
+      const eqTax = intersect(taxedSupply, demand);
+      if (eqTax) { addPt(eqTax.q, eqTax.p); addPt(eqTax.q, supply.evalAt(eqTax.q)); }
+    } else if (type === 'subsidy') {
+      const sub = val('subsidyAmt');
+      addPt(sq1, sp1 - sub); addPt(sq2, sp2 - sub);
+      const subSupply = lineFromPoints(sq1, sp1 - sub, sq2, sp2 - sub);
+      const eqSub = intersect(subSupply, demand);
+      if (eqSub) { addPt(eqSub.q, eqSub.p); addPt(eqSub.q, supply.evalAt(eqSub.q)); }
+    } else if (type === 'price-control') {
+      const cp = val('controlPrice');
+      ps.push(cp);
+      // Include where the control price intersects both curves
+      const qS = supply.qAt(cp), qD = demand.qAt(cp);
+      if (isFinite(qS) && qS > 0) addPt(qS, cp);
+      if (isFinite(qD) && qD > 0) addPt(qD, cp);
+    } else if (type === 'quota') {
+      const qQ = val('quotaQty');
+      addPt(qQ, supply.evalAt(qQ)); addPt(qQ, demand.evalAt(qQ));
+    } else if (type === 'externality') {
+      const ext = val('extAmt');
+      const extType = val('extType');
+      // Only add the relevant social curve's control points
+      if (extType === 'neg-prod' || extType === 'pos-prod') {
+        const sign = extType === 'neg-prod' ? 1 : -1;
+        addPt(sq1, sp1 + ext * sign); addPt(sq2, sp2 + ext * sign);
+      } else {
+        const sign = extType === 'pos-cons' ? 1 : -1;
+        addPt(dq1, dp1 + ext * sign); addPt(dq2, dp2 + ext * sign);
+      }
+    } else if (type === 'trade') {
+      const wp = val('worldPrice');
+      ps.push(wp);
+      const qS = supply.qAt(wp), qD = demand.qAt(wp);
+      if (isFinite(qS) && qS > 0) addPt(qS, wp);
+      if (isFinite(qD) && qD > 0) addPt(qD, wp);
+    }
+  }
+
+  // Filter out nonsense values
+  const validQs = qs.filter(v => isFinite(v) && Math.abs(v) < 1e6);
+  let validPs = ps.filter(v => isFinite(v) && Math.abs(v) < 1e6);
+  if (validQs.length < 2 || validPs.length < 2) return null; // can't auto-range
+
+  // ---- PASS 1: Compute Q range from control points ----
+  let qLo = Math.min(...validQs), qHi = Math.max(...validQs);
+  const needsExtraRoom = false; // labels are well-positioned now, no extra padding needed
+  const qPadFrac = 0.15;
+  const qPad = Math.max((qHi - qLo) * qPadFrac, 5);
+  qLo = Math.max(0, qLo - qPad);
+  qHi = qHi + qPad;
+
+  // ---- PASS 2: Evaluate ALL curves at Q range edges to get true P range ----
+  // Curves extend edge-to-edge when drawn, so we must include their values at qLo/qHi
+  if (type !== 'budget' && type !== 'cost-curves') {
+    // Add supply & demand values at the Q range boundaries
+    const addEdge = (line) => {
+      const pAtLo = line.evalAt(qLo), pAtHi = line.evalAt(qHi);
+      if (isFinite(pAtLo)) validPs.push(pAtLo);
+      if (isFinite(pAtHi)) validPs.push(pAtHi);
+    };
+    addEdge(supply); addEdge(demand);
+
+    // Also add edge values for shifted/social curves
+    if (type === 'tax') {
+      const tax = val('taxAmt');
+      const taxedS = { evalAt: q => supply.evalAt(q) + tax };
+      addEdge(taxedS);
+    } else if (type === 'subsidy') {
+      const sub = val('subsidyAmt');
+      const subS = { evalAt: q => supply.evalAt(q) - sub };
+      addEdge(subS);
+    } else if (type === 'shift') {
+      const amt = val('shiftAmt');
+      const dir = val('shiftDir') === 'right' ? 1 : -1;
+      const off = amt * dir;
+      if (val('shiftCurve') === 'supply') {
+        const s1 = lineFromPoints(sq1 + off, sp1, sq2 + off, sp2);
+        addEdge(s1);
+      } else {
+        const d1 = lineFromPoints(dq1 + off, dp1, dq2 + off, dp2);
+        addEdge(d1);
+      }
+    } else if (type === 'externality') {
+      const ext = val('extAmt');
+      const extType = val('extType');
+      const isProduction = extType.includes('prod');
+      const isNeg = extType.includes('neg');
+      const sign = isNeg ? 1 : -1;
+      if (isProduction) {
+        addEdge({ evalAt: q => supply.evalAt(q) + ext * sign });
+      } else {
+        addEdge({ evalAt: q => demand.evalAt(q) + ext * sign });
+      }
+    }
+  }
+
+  validPs = validPs.filter(v => isFinite(v) && Math.abs(v) < 1e6);
+  let pLo = Math.min(...validPs), pHi = Math.max(...validPs);
+
+  const pRange = pHi - pLo;
+  const pPadFrac = 0.1;
+  const pPadTop = Math.max(pRange * pPadFrac, 0.5);
+  const pPadBot = Math.max(pRange * pPadFrac, 0.5);
+  pLo = Math.max(0, pLo - pPadBot);
+  pHi = pHi + pPadTop;
+
+  // Round Q to nice numbers first
+  const qStep = niceStep(qHi - qLo);
+  qLo = Math.floor(qLo / qStep) * qStep;
+  qHi = Math.ceil(qHi / qStep) * qStep;
+
+  // ---- PASS 3: Q rounding may have expanded Q range. Re-check curve P values at rounded boundaries ----
+  if (type !== 'budget' && type !== 'cost-curves') {
+    const recheck = (line) => {
+      const pL = line.evalAt(qLo), pH = line.evalAt(qHi);
+      if (isFinite(pL) && pL > 0) pHi = Math.max(pHi, pL);
+      if (isFinite(pH) && pH > 0) pHi = Math.max(pHi, pH);
+    };
+    recheck(supply); recheck(demand);
+    // Re-check shifted/social curves too
+    if (type === 'shift') {
+      const off = val('shiftAmt') * (val('shiftDir') === 'right' ? 1 : -1);
+      if (val('shiftCurve') === 'supply') recheck(lineFromPoints(sq1+off,sp1,sq2+off,sp2));
+      else recheck(lineFromPoints(dq1+off,dp1,dq2+off,dp2));
+    } else if (type === 'tax') {
+      recheck({ evalAt: q => supply.evalAt(q) + val('taxAmt'), qAt: () => NaN });
+    } else if (type === 'subsidy') {
+      recheck({ evalAt: q => supply.evalAt(q) - val('subsidyAmt'), qAt: () => NaN });
+    } else if (type === 'externality') {
+      const ext = val('extAmt'), et = val('extType');
+      const sign = et.includes('neg') ? 1 : -1;
+      if (et.includes('prod')) recheck({ evalAt: q => supply.evalAt(q) + ext*sign, qAt: () => NaN });
+      else recheck({ evalAt: q => demand.evalAt(q) + ext*sign, qAt: () => NaN });
+    }
+    // Re-apply padding to the potentially expanded pHi
+    const pRange2 = pHi - pLo;
+    pHi = pHi + Math.max(pRange2 * 0.05, 0.5); // small extra bump after recheck
+  }
+
+  // Round P to nice numbers
+  const pStep = niceStep(pHi - pLo);
+  pLo = Math.floor(pLo / pStep) * pStep;
+  pHi = Math.ceil(pHi / pStep) * pStep;
+
+  // Ensure min < max
+  if (qLo >= qHi) qHi = qLo + qStep;
+  if (pLo >= pHi) pHi = pLo + pStep;
+
+  return { qtyMin: qLo, qtyMax: qHi, qtyStep: qStep, priceMin: pLo, priceMax: pHi, priceStep: pStep };
+}
+
+// ---- Build config from form ----
+function getConfig() {
+  const useAuto = val('autoRange');
+  let qMin, qMax, qStep, pMin, pMax, pStep;
+  if (useAuto) {
+    const ar = autoRange(currentType);
+    if (ar) {
+      qMin = ar.qtyMin; qMax = ar.qtyMax; qStep = ar.qtyStep;
+      pMin = ar.priceMin; pMax = ar.priceMax; pStep = ar.priceStep;
+    } else {
+      qMin = val('qtyMin'); qMax = val('qtyMax'); qStep = val('qtyStep') || 50;
+      pMin = val('priceMin'); pMax = val('priceMax'); pStep = val('priceStep') || 1;
+    }
+    // Write computed values into the manual fields so user can see them
+    const setField = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+    setField('qtyMin', qMin); setField('qtyMax', qMax); setField('qtyStep', qStep);
+    setField('priceMin', pMin); setField('priceMax', pMax); setField('priceStep', pStep);
+    const mf = document.getElementById('manualRangeFields');
+    if (mf) mf.style.opacity = '0.5';
+  } else {
+    qMin = val('qtyMin'); qMax = val('qtyMax'); qStep = val('qtyStep') || 50;
+    pMin = val('priceMin'); pMax = val('priceMax'); pStep = val('priceStep') || 1;
+    const mf = document.getElementById('manualRangeFields');
+    if (mf) mf.style.opacity = '1';
+  }
+  if (qMin >= qMax) qMax = qMin + 100;
+  if (pMin >= pMax) pMax = pMin + 10;
+
+  const c = {
+    type: currentType,
+    goodName: val('goodName'),
+    qtyUnit: val('qtyUnit'),
+    pricePrefix: val('pricePrefix'),
+    qtyMin: qMin, qtyMax: qMax, qtyStep: qStep,
+    priceMin: pMin, priceMax: pMax, priceStep: pStep,
+    supply: lineFromPoints(val('s0_q1'), val('s0_p1'), val('s0_q2'), val('s0_p2')),
+    demand: lineFromPoints(val('d0_q1'), val('d0_p1'), val('d0_q2'), val('d0_p2')),
+    s0Label: val('s0_label'), d0Label: val('d0_label'),
+    eqLabel: val('eqLabel'),
+    showDashed: val('showDashedLines'),
+    showInterceptLabels: val('showInterceptLabels'),
+    showGrid: val('showGrid'),
+    font: val('fontFamily'),
+    annotation: val('annotationText'),
+  };
+  // Budget constraint: override axis labels to show good names instead of price/quantity
+  if (c.type === 'budget') {
+    const gx = val('budgetGoodX') || 'Good X';
+    const gy = val('budgetGoodY') || 'Good Y';
+    c.xAxisTitle = `Quantity of ${gx}`;
+    c.yAxisTitle = `Quantity of ${gy}`;
+    c.yTickPrefix = ''; // no dollar sign on Y-axis for budget constraints
+  }
+  // Cost curves: override axis labels
+  if (c.type === 'cost-curves') {
+    c.xAxisTitle = 'Quantity';
+    c.yAxisTitle = 'Cost / Revenue ($)';
+  }
+  return c;
+}
+
+// ---- SVG Builder ----
+function buildSVG(cfg, forExport) {
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('xmlns', SVG_NS);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  if (forExport) {
+    // Fixed dimensions for PNG/SVG/PPTX export (Image() needs explicit size)
+    svg.setAttribute('width', W);
+    svg.setAttribute('height', H);
+  } else {
+    // Responsive for on-screen preview
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    svg.setAttribute('style', `font-family: ${cfg.font}, Arial, sans-serif; max-width: ${W}px;`);
+  }
+  if (forExport) svg.setAttribute('style', `font-family: ${cfg.font}, Arial, sans-serif;`);
+
+  // Background
+  el('rect', { x: 0, y: 0, width: W, height: H, fill: 'white' }, svg);
+
+  // Grid
+  if (cfg.showGrid) drawGrid(svg, cfg);
+
+  // Axes
+  drawAxes(svg, cfg);
+
+  // Dispatch to graph-type renderer
+  const renderers = {
+    'supply-demand': renderBasicSD,
+    'shift': renderShift,
+    'tax': renderTax,
+    'subsidy': renderSubsidy,
+    'price-control': renderPriceControl,
+    'quota': renderQuota,
+    'externality': renderExternality,
+    'budget': renderBudget,
+    'trade': renderTrade,
+    'cost-curves': renderCostCurves,
+  };
+  const render = renderers[cfg.type] || renderBasicSD;
+  resetEqLabels();
+  resetInterceptLabels();
+  render(svg, cfg);
+
+  // Annotation overlay — bottom-right inside the plot area
+  if (cfg.annotation) {
+    const ax = W - PAD.right - 8;
+    const ay = H - PAD.bottom - 10;
+    textBg(svg, ax, ay, cfg.annotation, {
+      'font-size': 15, 'font-weight': 'bold', fill: '#2563eb', 'text-anchor': 'end'
+    });
+  }
+
+  return svg;
+}
+
+function drawGrid(svg, cfg) {
+  const g = el('g', { class: 'grid' }, svg);
+  const { qtyMin, qtyMax, qtyStep, priceMin, priceMax, priceStep } = cfg;
+
+  // Vertical lines (quantity ticks)
+  for (let q = qtyMin; q <= qtyMax; q += qtyStep) {
+    const x = plotX(q, cfg);
+    el('line', { x1: x, y1: PAD.top, x2: x, y2: H - PAD.bottom, stroke: '#ddd', 'stroke-width': 1 }, g);
+  }
+  // Horizontal lines (price ticks)
+  for (let p = priceMin; p <= priceMax; p += priceStep) {
+    const y = plotY(p, cfg);
+    el('line', { x1: PAD.left, y1: y, x2: W - PAD.right, y2: y, stroke: '#ddd', 'stroke-width': 1 }, g);
+  }
+}
+
+function drawAxes(svg, cfg) {
+  const g = el('g', { class: 'axes' }, svg);
+  const { qtyMin, qtyMax, qtyStep, priceMin, priceMax, priceStep, pricePrefix, goodName, qtyUnit } = cfg;
+  const x0 = PAD.left, x1 = W - PAD.right, y0 = H - PAD.bottom, y1 = PAD.top;
+
+  // X axis
+  el('line', { x1: x0, y1: y0, x2: x1, y2: y0, stroke: '#222', 'stroke-width': 2 }, g);
+  // Y axis
+  el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: '#222', 'stroke-width': 2 }, g);
+
+  // X ticks & labels
+  for (let q = qtyMin + qtyStep; q <= qtyMax; q += qtyStep) {
+    const x = plotX(q, cfg);
+    el('line', { x1: x, y1: y0, x2: x, y2: y0 + 5, stroke: '#222', 'stroke-width': 1.5 }, g);
+    el('text', { x, y: y0 + 20, 'text-anchor': 'middle', 'font-size': 11, fill: '#333' }, g).textContent = q;
+  }
+
+  // Y ticks & labels
+  const yTickPrefix = cfg.yTickPrefix !== undefined ? cfg.yTickPrefix : pricePrefix;
+  for (let p = priceMin + priceStep; p <= priceMax; p += priceStep) {
+    const y = plotY(p, cfg);
+    el('line', { x1: x0 - 5, y1: y, x2: x0, y2: y, stroke: '#222', 'stroke-width': 1.5 }, g);
+    const label = Number.isInteger(p) ? yTickPrefix + p : yTickPrefix + p.toFixed(2);
+    el('text', { x: x0 - 10, y: y + 4, 'text-anchor': 'end', 'font-size': 11, fill: '#333' }, g).textContent = label;
+  }
+
+  // Axis titles — allow override for budget constraints / cost curves
+  const xTitle = cfg.xAxisTitle || (`Quantity of ${goodName}` + (qtyUnit ? ` (${qtyUnit})` : ''));
+  el('text', { x: (x0 + x1) / 2, y: H - 10, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 'bold', fill: '#222' }, g).textContent = xTitle;
+
+  const yTitle = cfg.yAxisTitle || `Price of ${goodName}`;
+  const yt = el('text', { x: 18, y: (y0 + y1) / 2, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 'bold', fill: '#222', transform: `rotate(-90, 18, ${(y0 + y1) / 2})` }, g);
+  yt.textContent = yTitle;
+
+  // Optional: suppress price prefix on Y-axis tick labels (for non-monetary axes)
+  // This is used by budget constraint which labels axes as quantities, not prices
+}
+
+// ---- Label with white background (readable over gridlines/curves) ----
+function textBg(svg, x, y, text, attrs = {}) {
+  const fontSize = parseFloat(attrs['font-size'] || 13);
+  const anchor = attrs['text-anchor'] || 'start';
+  const isBold = attrs['font-weight'] === 'bold';
+  const charW = fontSize * (isBold ? 0.62 : 0.56);
+  const padX = 3, padY = 2;
+  const lines = String(text).split('\n');
+  const lineH = fontSize * 1.25;
+  const maxW = Math.max(...lines.map(l => l.length * charW));
+  const totalH = lines.length * lineH;
+  // Background rect
+  let rx = x - padX;
+  if (anchor === 'middle') rx = x - maxW / 2 - padX;
+  else if (anchor === 'end') rx = x - maxW - padX;
+  el('rect', {
+    x: rx, y: y - fontSize + padY, width: maxW + padX * 2, height: totalH + padY * 2,
+    fill: 'white', opacity: 0, rx: 2
+  }, svg);
+  if (lines.length === 1) {
+    const t = el('text', { x, y, ...attrs }, svg);
+    t.textContent = text;
+    return t;
+  }
+  // Multiline: use <tspan> elements
+  const t = el('text', { x, y, ...attrs }, svg);
+  lines.forEach((line, i) => {
+    const tspan = document.createElementNS(SVG_NS, 'tspan');
+    tspan.setAttribute('x', x);
+    if (i > 0) tspan.setAttribute('dy', lineH);
+    tspan.textContent = line;
+    t.appendChild(tspan);
+  });
+  return t;
+}
+
+// ---- Draw a linear curve clipped to the plot area ----
+function drawCurve(svg, line, cfg, color, label, dashed = false, thickness = 2.5, labelBelow = false) {
+  const { qtyMin, qtyMax, priceMin, priceMax } = cfg;
+  // Find visible segment
+  let q1 = qtyMin, q2 = qtyMax;
+  let p1 = line.evalAt(q1), p2 = line.evalAt(q2);
+  // Clip to price range, then clamp q within qty bounds
+  if (p1 < priceMin) { q1 = line.qAt(priceMin); p1 = priceMin; }
+  if (p1 > priceMax) { q1 = line.qAt(priceMax); p1 = priceMax; }
+  if (p2 < priceMin) { q2 = line.qAt(priceMin); p2 = priceMin; }
+  if (p2 > priceMax) { q2 = line.qAt(priceMax); p2 = priceMax; }
+  q1 = Math.max(qtyMin, Math.min(qtyMax, q1));
+  q2 = Math.max(qtyMin, Math.min(qtyMax, q2));
+
+  const x1 = plotX(q1, cfg), y1 = plotY(p1, cfg);
+  const x2 = plotX(q2, cfg), y2 = plotY(p2, cfg);
+
+  const attrs = { x1, y1, x2, y2, stroke: color, 'stroke-width': thickness };
+  if (dashed) attrs['stroke-dasharray'] = '8,5';
+  el('line', attrs, svg);
+
+  // Label along the curve, near the high-price end, always INSIDE the plot
+  if (label) {
+    const plotRight = W - PAD.right;
+    const plotLeft = PAD.left;
+    const plotTop = PAD.top;
+    const plotBot = H - PAD.bottom;
+    const isUpward = p2 > p1;
+    let lx, ly, labelAnchor;
+
+    const lineCount = String(label).split('\n').length;
+    const yOffsetAbove = lineCount > 1 ? -10 - (lineCount - 1) * 16 : -10;
+    const yOffsetBelow = 68;
+
+    if (isUpward) {
+      // Supply-like (upward slope): label near the top-right end
+      const frac = labelBelow ? 1.0 : 0.85;
+      lx = x1 + (x2 - x1) * frac;
+      ly = y1 + (y2 - y1) * frac + (labelBelow ? yOffsetBelow : yOffsetAbove);
+      labelAnchor = 'end';
+    } else {
+      // Demand-like (downward slope): label near the top-left end
+      // Position 15% along the visible segment, offset above the line
+      const frac = 0.15;
+      lx = x1 + (x2 - x1) * frac;
+      ly = y1 + (y2 - y1) * frac + yOffsetAbove;
+      labelAnchor = 'start';
+      // Keep clear of Y-axis
+      if (lx < plotLeft + 15) lx = plotLeft + 15;
+    }
+    // Clamp within the plot area
+    lx = Math.max(plotLeft + 5, Math.min(lx, plotRight - 5));
+    ly = Math.max(plotTop + 14, Math.min(ly, plotBot - 5));
+    textBg(svg, lx, ly, label, { 'font-size': 14, 'font-weight': 'bold', fill: color, 'text-anchor': labelAnchor });
+  }
+}
+
+// ---- Draw intercept labels on axes for a given (q, p) point ----
+// Draws small tick marks and value labels on X and Y axes where dashed lines meet them
+let _interceptLabels = []; // track to avoid overlaps
+function resetInterceptLabels() { _interceptLabels = []; }
+
+function drawInterceptLabels(svg, q, p, cfg, opts = {}) {
+  if (!cfg.showInterceptLabels) return;
+  const prefix = cfg.pricePrefix || '';
+  const yTickPrefix = cfg.yTickPrefix !== undefined ? cfg.yTickPrefix : prefix;
+  const x0 = plotX(cfg.qtyMin, cfg);
+  const y0 = plotY(cfg.priceMin, cfg);
+  const color = opts.color || '#c0392b';
+  const fontSize = 11;
+
+  // Check for overlap with existing intercept labels (only skip if essentially the same value)
+  const tooClose = (val, axis) => {
+    for (const prev of _interceptLabels) {
+      if (prev.axis === axis && Math.abs(prev.val - val) < 0.05) return true;
+    }
+    return false;
+  };
+
+  // Helper: draw text with opaque white background to cover underlying axis tick labels
+  const charW = fontSize * 0.62; // bold char width estimate
+  const padX = 3, padY = 2;
+
+  // X-axis intercept (quantity value)
+  // Matches regular tick positioning: tick line y0 to y0+5, text at y0+20
+  if (!opts.skipX && q > cfg.qtyMin && q < cfg.qtyMax && !tooClose(q, 'x')) {
+    const px = plotX(q, cfg);
+    el('line', { x1: px, y1: y0, x2: px, y2: y0 + 5, stroke: color, 'stroke-width': 1.5 }, svg);
+    const qLabel = Math.abs(q - Math.round(q)) < 0.01 ? String(Math.round(q)) : q.toFixed(1);
+    const tw = qLabel.length * charW;
+    el('rect', { x: px - tw / 2 - padX, y: y0 + 20 - fontSize + padY, width: tw + padX * 2, height: fontSize * 1.25 + padY * 2, fill: 'white', rx: 2 }, svg);
+    el('text', { x: px, y: y0 + 20, 'text-anchor': 'middle', 'font-size': fontSize, 'font-weight': 'bold', fill: color }, svg).textContent = qLabel;
+    _interceptLabels.push({ axis: 'x', val: q });
+  }
+
+  // Y-axis intercept (price value)
+  // Matches regular tick positioning: tick line x0-5 to x0, text at x0-10, y+4
+  if (!opts.skipY && p > cfg.priceMin && p < cfg.priceMax && !tooClose(p, 'y')) {
+    const py = plotY(p, cfg);
+    el('line', { x1: x0 - 5, y1: py, x2: x0, y2: py, stroke: color, 'stroke-width': 1.5 }, svg);
+    const pLabel = Math.abs(p - Math.round(p)) < 0.01 ? yTickPrefix + Math.round(p) : yTickPrefix + p.toFixed(2);
+    const tw = pLabel.length * charW;
+    el('rect', { x: x0 - 10 - tw - padX, y: py + 4 - fontSize + padY, width: tw + padX * 2, height: fontSize * 1.25 + padY * 2, fill: 'white', rx: 2 }, svg);
+    el('text', { x: x0 - 10, y: py + 4, 'text-anchor': 'end', 'font-size': fontSize, 'font-weight': 'bold', fill: color }, svg).textContent = pLabel;
+    _interceptLabels.push({ axis: 'y', val: p });
+  }
+}
+
+// Track placed equilibrium labels for collision avoidance
+let _eqLabels = [];
+function resetEqLabels() { _eqLabels = []; }
+
+// ---- Draw equilibrium marker ----
+function drawEquilibrium(svg, q, p, label, cfg, color = '#222') {
+  const x = plotX(q, cfg), y = plotY(p, cfg);
+
+  if (cfg.showDashed) {
+    el('line', { x1: x, y1: y, x2: x, y2: plotY(cfg.priceMin, cfg), stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+    el('line', { x1: x, y1: y, x2: plotX(cfg.qtyMin, cfg), y2: y, stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+    drawInterceptLabels(svg, q, p, cfg, { color: '#c0392b' });
+  }
+
+  el('circle', { cx: x, cy: y, r: 5.5, fill: color, stroke: 'white', 'stroke-width': 2 }, svg);
+
+  // Label slightly above and to the right of the point
+  let lx = x + 6, ly = y - 14;
+  // Collision avoidance: offset if too close to a previous label
+  for (const prev of _eqLabels) {
+    if (Math.abs(lx - prev.x) < 30 && Math.abs(ly - prev.y) < 20) {
+      ly = prev.y + 22;
+    }
+  }
+  _eqLabels.push({ x: lx, y: ly });
+  textBg(svg, lx, ly, label, { 'font-size': 15, 'font-weight': 'bold', fill: color, 'text-anchor': 'middle' });
+}
+
+// ---- Draw horizontal line (price floor/ceiling/world price) ----
+function drawHLine(svg, price, cfg, color, label, dashed = true, side = 'right') {
+  const y = plotY(price, cfg);
+  const x0 = PAD.left, x1 = W - PAD.right;
+  const attrs = { x1: x0, y1: y, x2: x1, y2: y, stroke: color, 'stroke-width': 2 };
+  if (dashed) attrs['stroke-dasharray'] = '10,5';
+  el('line', attrs, svg);
+  if (label) {
+    const ly = y < PAD.top + 25 ? y + 18 : y - 8;
+    if (side === 'left') {
+      textBg(svg, x0 + 21, ly, label, { 'font-size': 11, 'font-weight': 'bold', fill: color, 'text-anchor': 'start' });
+    } else {
+      textBg(svg, x1 - 3, ly, label, { 'font-size': 11, 'font-weight': 'bold', fill: color, 'text-anchor': 'end' });
+    }
+  }
+}
+
+// ---- Draw vertical line ----
+function drawVLine(svg, qty, cfg, color, label, dashed = true) {
+  const x = plotX(qty, cfg);
+  const y0 = H - PAD.bottom, y1 = PAD.top;
+  const attrs = { x1: x, y1: y0, x2: x, y2: y1, stroke: color, 'stroke-width': 2 };
+  if (dashed) attrs['stroke-dasharray'] = '10,5';
+  el('line', attrs, svg);
+  if (label) {
+    textBg(svg, x, y1 - 8, label, { 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 'bold', fill: color });
+  }
+}
+
+// ---- Draw shaded polygon ----
+function drawRegion(svg, points, cfg, color) {
+  const pts = points.map(([q, p]) => `${plotX(q, cfg)},${plotY(p, cfg)}`).join(' ');
+  el('polygon', { points: pts, fill: color, stroke: 'none', opacity: 0.25 }, svg);
+}
+
+// ---- Draw bracket annotation between two prices at a given quantity ----
+// side: 'right' (default) or 'left' — which side of the reference point to draw
+function drawBracket(svg, q, p1, p2, label, cfg, color = '#222', side = 'right') {
+  const x = plotX(q, cfg), y1 = plotY(p1, cfg), y2 = plotY(p2, cfg);
+  const dir = side === 'right' ? 1 : -1;
+  // Top cap
+  el('line', { x1: x, y1, x2: x + 8 * dir, y2: y1, stroke: color, 'stroke-width': 1.5 }, svg);
+  // Vertical bar
+  el('line', { x1: x + 8 * dir, y1, x2: x + 8 * dir, y2, stroke: color, 'stroke-width': 1.5 }, svg);
+  // Bottom cap
+  el('line', { x1: x, y1: y2, x2: x + 8 * dir, y2, stroke: color, 'stroke-width': 1.5 }, svg);
+  // Label
+  if (label) {
+    const lx = x + 14 * dir;
+    const anchor = side === 'right' ? 'start' : 'end';
+    textBg(svg, lx, (y1 + y2) / 2 + 4, label, { 'font-size': 11, 'font-weight': 'bold', fill: color, 'text-anchor': anchor });
+  }
+}
+
+// ---- Draw vertical arrow between two prices at a given quantity ----
+// arrowDir: 'up' (arrowhead at top only), 'down' (at bottom only), 'both' (double-headed)
+function drawVerticalArrow(svg, q, p1, p2, label, cfg, color = '#555', side = 'right', arrowDir = 'both') {
+  const x = plotX(q, cfg), y1 = plotY(p1, cfg), y2 = plotY(p2, cfg);
+  const rawTopY = Math.min(y1, y2), rawBotY = Math.max(y1, y2);
+  // Inset arrow so it doesn't extend past the B/C dots
+  const inset = 8;
+  const topY = rawTopY + inset, botY = rawBotY - inset;
+  const arrowSize = 6;
+  const sw = 2.5;
+  const dir = side === 'right' ? 1 : -1;
+
+  // Vertical line
+  el('line', { x1: x, y1: topY, x2: x, y2: botY, stroke: color, 'stroke-width': sw }, svg);
+  // Top arrowhead
+  if (arrowDir === 'up' || arrowDir === 'both') {
+    el('line', { x1: x - arrowSize, y1: topY + arrowSize, x2: x, y2: topY, stroke: color, 'stroke-width': sw }, svg);
+    el('line', { x1: x + arrowSize, y1: topY + arrowSize, x2: x, y2: topY, stroke: color, 'stroke-width': sw }, svg);
+  }
+  // Bottom arrowhead
+  if (arrowDir === 'down' || arrowDir === 'both') {
+    el('line', { x1: x - arrowSize, y1: botY - arrowSize, x2: x, y2: botY, stroke: color, 'stroke-width': sw }, svg);
+    el('line', { x1: x + arrowSize, y1: botY - arrowSize, x2: x, y2: botY, stroke: color, 'stroke-width': sw }, svg);
+  }
+  // Label to the side, close to the arrow
+  if (label) {
+    const lx = x + 7 * dir;
+    const anchor = side === 'right' ? 'start' : 'end';
+    const lines = label.split('\n').length;
+    const lineH = 13;
+    const ly = (rawTopY + rawBotY) / 2 - (lines - 1) * lineH / 2 - 2;
+    textBg(svg, lx, ly, label, { 'font-size': 11, 'font-weight': 'bold', fill: color, 'text-anchor': anchor });
+  }
+}
+
+// ---- U-shaped curve (for cost curves) ----
+function drawCostCurve(svg, evalFn, cfg, color, label, qRange, thickness = 2.5) {
+  const startQ = qRange ? qRange[0] : cfg.qtyMin;
+  const endQ = qRange ? qRange[1] : cfg.qtyMax;
+  const steps = 100;
+  const pts = [];
+  let lastVisQ = startQ, lastVisP = evalFn(startQ);
+  for (let i = 0; i <= steps; i++) {
+    const q = startQ + (endQ - startQ) * i / steps;
+    const p = evalFn(q);
+    if (p >= cfg.priceMin && p <= cfg.priceMax && q > 0) {
+      pts.push(`${plotX(q, cfg)},${plotY(p, cfg)}`);
+      lastVisQ = q; lastVisP = p;
+    }
+  }
+  if (pts.length > 1) {
+    el('polyline', { points: pts.join(' '), fill: 'none', stroke: color, 'stroke-width': thickness }, svg);
+  }
+  if (label) {
+    const lp = Math.min(lastVisP, cfg.priceMax);
+    textBg(svg, plotX(Math.min(lastVisQ, cfg.qtyMax), cfg) + 5, plotY(lp, cfg), label, { 'font-size': 13, 'font-weight': 'bold', fill: color });
+  }
+}
+
+// ==============================================================
+// GRAPH TYPE RENDERERS
+// ==============================================================
+
+function renderBasicSD(svg, cfg) {
+  drawCurve(svg, cfg.supply, cfg, '#c0392b', cfg.s0Label);
+  drawCurve(svg, cfg.demand, cfg, '#2471a3', cfg.d0Label);
+
+  const eq = intersect(cfg.supply, cfg.demand);
+  if (eq) {
+    drawEquilibrium(svg, eq.q, eq.p, cfg.eqLabel, cfg);
+    updateEqDisplay(eq, cfg);
+  }
+}
+
+function renderShift(svg, cfg) {
+  const shiftCurve = val('shiftCurve');
+  const shiftDir = val('shiftDir');
+  const shiftAmt = val('shiftAmt');
+  const shiftLabel = val('shiftLabel');
+  const shiftEqLabel = val('shiftEqLabel');
+  const mode = toggleVal('shiftMode');
+
+  // Draw originals
+  drawCurve(svg, cfg.supply, cfg, '#c0392b', cfg.s0Label);
+  drawCurve(svg, cfg.demand, cfg, '#2471a3', cfg.d0Label);
+
+  const eq = intersect(cfg.supply, cfg.demand);
+  if (eq) drawEquilibrium(svg, eq.q, eq.p, cfg.eqLabel, cfg);
+
+  if (mode === 'answer') {
+    const offset = shiftDir === 'right' ? shiftAmt : -shiftAmt;
+    let shifted;
+    if (shiftCurve === 'supply') {
+      shifted = lineFromPoints(val('s0_q1') + offset, val('s0_p1'), val('s0_q2') + offset, val('s0_p2'));
+      drawCurve(svg, shifted, cfg, '#e74c3c', shiftLabel);
+      const newEq = intersect(shifted, cfg.demand);
+      if (newEq) { drawEquilibrium(svg, newEq.q, newEq.p, shiftEqLabel, cfg); updateEqDisplay(newEq, cfg, 'New '); return; }
+    } else {
+      shifted = lineFromPoints(val('d0_q1') + offset, val('d0_p1'), val('d0_q2') + offset, val('d0_p2'));
+      drawCurve(svg, shifted, cfg, '#3498db', shiftLabel);
+      const newEq = intersect(cfg.supply, shifted);
+      if (newEq) { drawEquilibrium(svg, newEq.q, newEq.p, shiftEqLabel, cfg); updateEqDisplay(newEq, cfg, 'New '); return; }
+    }
+  }
+  if (eq) updateEqDisplay(eq, cfg);
+}
+
+function renderTax(svg, cfg) {
+  const taxAmt = val('taxAmt');
+  const taxOn = val('taxOn');
+  const mode = toggleVal('taxMode');
+  const showLabels = val('showTaxLabels');
+  const showWedge = val('showTaxWedge');
+
+  drawCurve(svg, cfg.supply, cfg, '#c0392b', cfg.s0Label);
+  drawCurve(svg, cfg.demand, cfg, '#2471a3', cfg.d0Label);
+
+  const eq = intersect(cfg.supply, cfg.demand);
+  if (eq) drawEquilibrium(svg, eq.q, eq.p, cfg.eqLabel, cfg);
+
+  if (mode === 'answer') {
+    let taxedLine;
+    if (taxOn === 'sellers') {
+      // Shift supply up by tax amount
+      taxedLine = { slope: cfg.supply.slope, intercept: cfg.supply.intercept + taxAmt,
+        evalAt: q => cfg.supply.evalAt(q) + taxAmt, qAt: p => cfg.supply.qAt(p - taxAmt) };
+      drawCurve(svg, taxedLine, cfg, '#8e44ad', 'Supply with\ntax');
+    } else {
+      taxedLine = { slope: cfg.demand.slope, intercept: cfg.demand.intercept - taxAmt,
+        evalAt: q => cfg.demand.evalAt(q) - taxAmt, qAt: p => cfg.demand.qAt(p + taxAmt) };
+      drawCurve(svg, taxedLine, cfg, '#8e44ad', 'Demand with\ntax');
+    }
+
+    const newEq = taxOn === 'sellers' ? intersect(taxedLine, cfg.demand) : intersect(cfg.supply, taxedLine);
+    if (newEq) {
+      const buyerP = taxOn === 'sellers' ? newEq.p : newEq.p + taxAmt;
+      const sellerP = taxOn === 'sellers' ? newEq.p - taxAmt : newEq.p;
+
+      // Points B and C with labels to the LEFT so they don't crowd the arrow
+      const bx = plotX(newEq.q, cfg), by = plotY(buyerP, cfg);
+      const cx = plotX(newEq.q, cfg), cy = plotY(sellerP, cfg);
+
+      // B dashed lines to axes
+      if (cfg.showDashed) {
+        el('line', { x1: bx, y1: by, x2: bx, y2: plotY(cfg.priceMin, cfg), stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+        el('line', { x1: bx, y1: by, x2: plotX(cfg.qtyMin, cfg), y2: by, stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+        drawInterceptLabels(svg, newEq.q, buyerP, cfg, { color: '#c0392b' });
+      }
+
+      // Dashed line from y-axis to point C (seller's price)
+      el('line', { x1: plotX(cfg.qtyMin, cfg), y1: cy, x2: cx, y2: cy, stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+      drawInterceptLabels(svg, newEq.q, sellerP, cfg, { color: '#c0392b', skipX: true });
+
+      // Draw B dot and label above
+      el('circle', { cx: bx, cy: by, r: 5.5, fill: '#222', stroke: 'white', 'stroke-width': 2 }, svg);
+      textBg(svg, bx - 10, by - 14, 'B', { 'font-size': 15, 'font-weight': 'bold', fill: '#222', 'text-anchor': 'middle' });
+
+      // Draw C dot and label above
+      el('circle', { cx, cy, r: 5.5, fill: '#222', stroke: 'white', 'stroke-width': 2 }, svg);
+      textBg(svg, cx - 10, cy - 14, 'C', { 'font-size': 15, 'font-weight': 'bold', fill: '#222', 'text-anchor': 'middle' });
+
+      // Price labels near y-axis
+      if (showLabels) {
+        const labelX = plotX(cfg.qtyMin, cfg) + 15;
+        textBg(svg, labelX, plotY(buyerP, cfg) - 10, `Buyer's price: ${cfg.pricePrefix}${buyerP.toFixed(2)}`, { 'font-size': 11, 'font-weight': 'bold', fill: '#c0392b' });
+        textBg(svg, labelX, plotY(sellerP, cfg) - 10, `Seller's price: ${cfg.pricePrefix}${sellerP.toFixed(2)}`, { 'font-size': 11, 'font-weight': 'bold', fill: '#2471a3' });
+      }
+
+      if (showWedge) {
+        // Vertical arrow between B and C, label to the right
+        drawVerticalArrow(svg, newEq.q, buyerP, sellerP, `Tax:\n${cfg.pricePrefix}${taxAmt}`, cfg, '#8e44ad', 'right', 'up');
+      }
+    }
+  }
+  if (eq) updateEqDisplay(eq, cfg);
+}
+
+function renderSubsidy(svg, cfg) {
+  const subsidyAmt = val('subsidyAmt');
+  const mode = toggleVal('subsidyMode');
+  const showLabels = val('showSubsidyLabels');
+
+  drawCurve(svg, cfg.supply, cfg, '#c0392b', cfg.s0Label);
+  drawCurve(svg, cfg.demand, cfg, '#2471a3', cfg.d0Label);
+
+  const eq = intersect(cfg.supply, cfg.demand);
+  if (eq) drawEquilibrium(svg, eq.q, eq.p, cfg.eqLabel, cfg);
+
+  if (mode === 'answer') {
+    const subsidized = { slope: cfg.supply.slope, intercept: cfg.supply.intercept - subsidyAmt,
+      evalAt: q => cfg.supply.evalAt(q) - subsidyAmt, qAt: p => cfg.supply.qAt(p + subsidyAmt) };
+    drawCurve(svg, subsidized, cfg, '#27ae60', 'Supply with\nsubsidy', false, 2.5, true);
+
+    const newEq = intersect(subsidized, cfg.demand);
+    if (newEq) {
+      const sellerP = newEq.p + subsidyAmt;
+      const bx = plotX(newEq.q, cfg), by = plotY(newEq.p, cfg);
+      const cx = plotX(newEq.q, cfg), cy = plotY(sellerP, cfg);
+
+      // B dashed lines to axes
+      if (cfg.showDashed) {
+        el('line', { x1: bx, y1: by, x2: bx, y2: plotY(cfg.priceMin, cfg), stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+        el('line', { x1: bx, y1: by, x2: plotX(cfg.qtyMin, cfg), y2: by, stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+        drawInterceptLabels(svg, newEq.q, newEq.p, cfg, { color: '#c0392b' });
+      }
+
+      // Dashed line from y-axis to point C
+      el('line', { x1: plotX(cfg.qtyMin, cfg), y1: cy, x2: cx, y2: cy, stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+      drawInterceptLabels(svg, newEq.q, sellerP, cfg, { color: '#c0392b', skipX: true });
+
+      // B dot and label above
+      el('circle', { cx: bx, cy: by, r: 5.5, fill: '#222', stroke: 'white', 'stroke-width': 2 }, svg);
+      textBg(svg, bx - 10, by - 14, 'B', { 'font-size': 15, 'font-weight': 'bold', fill: '#222', 'text-anchor': 'middle' });
+
+      // C dot and label above
+      el('circle', { cx, cy, r: 5.5, fill: '#222', stroke: 'white', 'stroke-width': 2 }, svg);
+      textBg(svg, cx - 10, cy - 14, 'C', { 'font-size': 15, 'font-weight': 'bold', fill: '#222', 'text-anchor': 'middle' });
+
+      if (showLabels) {
+        const labelX = plotX(cfg.qtyMin, cfg) + 15;
+        textBg(svg, labelX, plotY(newEq.p, cfg) - 10, `Buyer price: ${cfg.pricePrefix}${newEq.p.toFixed(2)}`, { 'font-size': 11, 'font-weight': 'bold', fill: '#2471a3' });
+        textBg(svg, labelX, plotY(sellerP, cfg) - 10, `Seller receives: ${cfg.pricePrefix}${sellerP.toFixed(2)}`, { 'font-size': 11, 'font-weight': 'bold', fill: '#27ae60' });
+      }
+      // Vertical arrow between B and C, label to the right
+      drawVerticalArrow(svg, newEq.q, sellerP, newEq.p, `Subsidy:\n${cfg.pricePrefix}${subsidyAmt}`, cfg, '#555', 'right', 'down');
+    }
+  }
+  if (eq) updateEqDisplay(eq, cfg);
+}
+
+function renderPriceControl(svg, cfg) {
+  const controlType = val('controlType');
+  const controlPrice = val('controlPrice');
+  const showBracket = val('showShortSurp');
+  const mode = toggleVal('priceControlMode');
+
+  drawCurve(svg, cfg.supply, cfg, '#c0392b', cfg.s0Label);
+  drawCurve(svg, cfg.demand, cfg, '#2471a3', cfg.d0Label);
+
+  const eq = intersect(cfg.supply, cfg.demand);
+  if (eq) drawEquilibrium(svg, eq.q, eq.p, cfg.eqLabel, cfg);
+
+  const pcLabel = controlType === 'floor' ? 'Price Floor' : 'Price Ceiling';
+  // Draw the dashed line without a label — we'll add the label at the end
+  drawHLine(svg, controlPrice, cfg, '#d35400', '', true);
+
+  if (mode === 'question') {
+    // Question mode: just show S&D, equilibrium, and the price control line with label
+    const py = plotY(controlPrice, cfg);
+    textBg(svg, W - PAD.right - 3, py - 8, pcLabel, { 'font-size': 11, 'font-weight': 'bold', fill: '#d35400', 'text-anchor': 'end' });
+    if (eq) updateEqDisplay(eq, cfg);
+    return;
+  }
+
+  const qd = cfg.demand.qAt(controlPrice);
+  const qs = cfg.supply.qAt(controlPrice);
+  const isBindingFloor = controlType === 'floor' && controlPrice > (eq ? eq.p : 0);
+  const isBindingCeiling = controlType === 'ceiling' && controlPrice < (eq ? eq.p : Infinity);
+
+  // Intercept label for the control price on Y-axis
+  drawInterceptLabels(svg, 0, controlPrice, cfg, { color: '#d35400', skipX: true });
+
+  // Dashed lines from control price to Qs and Qd, with X-axis intercept labels
+  if (isBindingFloor || isBindingCeiling) {
+    const qdx = plotX(qd, cfg), qsx = plotX(qs, cfg), pcy = plotY(controlPrice, cfg);
+    el('line', { x1: qdx, y1: pcy, x2: qdx, y2: plotY(cfg.priceMin, cfg), stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+    el('line', { x1: qsx, y1: pcy, x2: qsx, y2: plotY(cfg.priceMin, cfg), stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+    drawInterceptLabels(svg, qd, controlPrice, cfg, { color: '#d35400', skipY: true });
+    drawInterceptLabels(svg, qs, controlPrice, cfg, { color: '#d35400', skipY: true });
+  }
+
+  if (showBracket && (isBindingFloor || isBindingCeiling)) {
+    const xLeft = plotX(Math.min(qd, qs), cfg);
+    const xRight = plotX(Math.max(qd, qs), cfg);
+    // Floor (above eq): surplus bracket ABOVE the control line, label BELOW
+    // Ceiling (below eq): shortage bracket BELOW the control line, label ABOVE
+    const bracketAbove = isBindingFloor;
+    const yBracket = plotY(controlPrice, cfg) + (bracketAbove ? -16 : 16);
+    el('line', { x1: xLeft, y1: yBracket, x2: xRight, y2: yBracket, stroke: '#d35400', 'stroke-width': 2.5 }, svg);
+    el('line', { x1: xLeft, y1: yBracket - 5, x2: xLeft, y2: yBracket + 5, stroke: '#d35400', 'stroke-width': 2 }, svg);
+    el('line', { x1: xRight, y1: yBracket - 5, x2: xRight, y2: yBracket + 5, stroke: '#d35400', 'stroke-width': 2 }, svg);
+    const txt = isBindingFloor ? `Surplus: ${Math.abs(qs - qd).toFixed(0)} units` : `Shortage: ${Math.abs(qd - qs).toFixed(0)} units`;
+    const textY = bracketAbove ? yBracket - 8 : yBracket + 18;
+    textBg(svg, (xLeft + xRight) / 2, textY, txt, { 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 'bold', fill: '#d35400' });
+    // Now place the "Price Floor"/"Price Ceiling" label on the OPPOSITE side from the bracket
+    const labelY = plotY(controlPrice, cfg) + (bracketAbove ? 18 : -8);
+    textBg(svg, W - PAD.right - 3, labelY, pcLabel, { 'font-size': 11, 'font-weight': 'bold', fill: '#d35400', 'text-anchor': 'end' });
+  } else if (showBracket) {
+    // Non-binding — label on the line, plus indication
+    const py = plotY(controlPrice, cfg);
+    textBg(svg, W - PAD.right - 3, py - 8, `${pcLabel} (non-binding)`, { 'font-size': 11, 'font-weight': 'bold', fill: '#d35400', 'text-anchor': 'end' });
+  } else {
+    // No bracket mode — just label the line
+    const py = plotY(controlPrice, cfg);
+    textBg(svg, W - PAD.right - 3, py - 8, pcLabel, { 'font-size': 11, 'font-weight': 'bold', fill: '#d35400', 'text-anchor': 'end' });
+  }
+  if (eq) updateEqDisplay(eq, cfg);
+}
+
+function renderQuota(svg, cfg) {
+  const quotaQty = val('quotaQty');
+  const quotaLabel = val('quotaLabel');
+  const mode = toggleVal('quotaMode');
+
+  drawCurve(svg, cfg.supply, cfg, '#c0392b', cfg.s0Label);
+  drawCurve(svg, cfg.demand, cfg, '#2471a3', cfg.d0Label);
+
+  const eq = intersect(cfg.supply, cfg.demand);
+  if (eq) drawEquilibrium(svg, eq.q, eq.p, cfg.eqLabel, cfg);
+
+  drawVLine(svg, quotaQty, cfg, '#8e44ad', quotaLabel, true);
+
+  if (mode === 'question') {
+    if (eq) updateEqDisplay(eq, cfg);
+    return;
+  }
+
+  // Show prices at quota quantity
+  const pd = cfg.demand.evalAt(quotaQty);
+  const ps = cfg.supply.evalAt(quotaQty);
+  const x = plotX(quotaQty, cfg);
+  const isBinding = eq && quotaQty < eq.q;
+
+  if (isBinding) {
+    // Buyer and seller price markers with dashed lines to Y-axis
+    if (pd >= cfg.priceMin && pd <= cfg.priceMax) {
+      el('line', { x1: plotX(cfg.qtyMin, cfg), y1: plotY(pd, cfg), x2: x, y2: plotY(pd, cfg), stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+      el('circle', { cx: x, cy: plotY(pd, cfg), r: 4, fill: '#2471a3' }, svg);
+      textBg(svg, x + 10, plotY(pd, cfg) + 4, `Buyer price: ${cfg.pricePrefix}${pd.toFixed(2)}`, { 'font-size': 11, 'font-weight': 'bold', fill: '#2471a3' });
+      drawInterceptLabels(svg, quotaQty, pd, cfg, { color: '#2471a3', skipX: true });
+    }
+    if (ps >= cfg.priceMin && ps <= cfg.priceMax) {
+      el('line', { x1: plotX(cfg.qtyMin, cfg), y1: plotY(ps, cfg), x2: x, y2: plotY(ps, cfg), stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+      el('circle', { cx: x, cy: plotY(ps, cfg), r: 4, fill: '#c0392b' }, svg);
+      textBg(svg, x + 10, plotY(ps, cfg) + 4, `Seller price: ${cfg.pricePrefix}${ps.toFixed(2)}`, { 'font-size': 11, 'font-weight': 'bold', fill: '#c0392b' });
+      drawInterceptLabels(svg, quotaQty, ps, cfg, { color: '#c0392b', skipX: true });
+    }
+    // DWL triangle between quota qty and equilibrium qty
+    if (eq) {
+      drawRegion(svg, [
+        [quotaQty, pd], [eq.q, eq.p], [quotaQty, ps]
+      ], cfg, '#e74c3c');
+      textBg(svg, plotX((quotaQty + eq.q) / 2, cfg), plotY((pd + ps) / 2, cfg) + 4, 'DWL', { 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 'bold', fill: '#e74c3c' });
+    }
+    // Price wedge bracket — to the LEFT of the quota line so DWL triangle is visible
+    drawBracket(svg, quotaQty - (cfg.qtyMax - cfg.qtyMin) * 0.02, pd, ps, `Wedge: ${cfg.pricePrefix}${(pd - ps).toFixed(2)}`, cfg, '#555', 'left');
+  } else {
+    // Non-binding quota
+    textBg(svg, x + 10, plotY(eq ? eq.p : (cfg.priceMax + cfg.priceMin) / 2, cfg) - 20, 'Non-binding', { 'font-size': 12, 'font-weight': 'bold', fill: '#8e44ad' });
+  }
+  if (eq) updateEqDisplay(eq, cfg);
+}
+
+function renderExternality(svg, cfg) {
+  const extType = val('extType');
+  const extAmt = val('extAmt');
+  const showDWLRegion = val('showDWL');
+  const showLabels = val('showExtLabels');
+  const mode = toggleVal('extMode');
+
+  // Relabel supply/demand for externalities
+  const isProduction = extType.includes('prod');
+  const isNegative = extType.includes('neg');
+
+  const supplyLabel = isProduction ? 'Marginal Private Cost\n(Supply)' : (cfg.s0Label || 'Supply');
+  const demandLabel = !isProduction ? 'Marginal Private Benefit\n(Demand)' : (cfg.d0Label || 'Demand');
+
+  drawCurve(svg, cfg.supply, cfg, '#c0392b', supplyLabel);
+  drawCurve(svg, cfg.demand, cfg, '#2471a3', demandLabel);
+
+  if (mode === 'question') {
+    const marketEq = intersect(cfg.supply, cfg.demand);
+    if (marketEq) {
+      drawEquilibrium(svg, marketEq.q, marketEq.p, 'Market', cfg, '#c0392b');
+      updateEqDisplay(marketEq, cfg);
+    }
+    return;
+  }
+
+  // Social curve
+  let socialLine;
+  let socialLabel;
+  if (isProduction && isNegative) {
+    // MSC above supply
+    socialLine = { slope: cfg.supply.slope, intercept: cfg.supply.intercept + extAmt,
+      evalAt: q => cfg.supply.evalAt(q) + extAmt, qAt: p => cfg.supply.qAt(p - extAmt) };
+    socialLabel = 'Marginal Social Cost';
+  } else if (isProduction && !isNegative) {
+    // MSC below supply (positive production externality = lower social cost)
+    socialLine = { slope: cfg.supply.slope, intercept: cfg.supply.intercept - extAmt,
+      evalAt: q => cfg.supply.evalAt(q) - extAmt, qAt: p => cfg.supply.qAt(p + extAmt) };
+    socialLabel = 'Marginal Social Cost';
+  } else if (!isProduction && isNegative) {
+    // MSB below demand
+    socialLine = { slope: cfg.demand.slope, intercept: cfg.demand.intercept - extAmt,
+      evalAt: q => cfg.demand.evalAt(q) - extAmt, qAt: p => cfg.demand.qAt(p + extAmt) };
+    socialLabel = 'Marginal Social Benefit';
+  } else {
+    // Positive consumption: MSB above demand
+    socialLine = { slope: cfg.demand.slope, intercept: cfg.demand.intercept + extAmt,
+      evalAt: q => cfg.demand.evalAt(q) + extAmt, qAt: p => cfg.demand.qAt(p - extAmt) };
+    socialLabel = 'Marginal Social Benefit';
+  }
+
+  drawCurve(svg, socialLine, cfg, '#27ae60', showLabels ? socialLabel : '', false, 2.5);
+
+  const marketEq = intersect(cfg.supply, cfg.demand);
+  const efficientEq = isProduction ? intersect(socialLine, cfg.demand) : intersect(cfg.supply, socialLine);
+
+  if (marketEq) {
+    drawEquilibrium(svg, marketEq.q, marketEq.p, 'Market', cfg, '#c0392b');
+  }
+  if (efficientEq) {
+    drawEquilibrium(svg, efficientEq.q, efficientEq.p, 'Efficient', cfg, '#27ae60');
+  }
+
+  if (showDWLRegion && marketEq && efficientEq) {
+    // DWL triangle: market eq, efficient eq, and social curve at market quantity
+    // This works for all 4 externality types
+    const thirdP = socialLine.evalAt(marketEq.q);
+    drawRegion(svg, [
+      [marketEq.q, marketEq.p],
+      [efficientEq.q, efficientEq.p],
+      [marketEq.q, thirdP]
+    ], cfg, '#e74c3c');
+    // Position DWL label at centroid of triangle
+    const cx = (marketEq.q * 2 + efficientEq.q) / 3;
+    const cy = (marketEq.p + efficientEq.p + thirdP) / 3;
+    textBg(svg, plotX(cx, cfg), plotY(cy, cfg) + 4, 'DWL', { 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 'bold', fill: '#e74c3c' });
+  }
+
+  if (marketEq) updateEqDisplay(marketEq, cfg);
+}
+
+function renderBudget(svg, cfg) {
+  const goodX = val('budgetGoodX');
+  const goodY = val('budgetGoodY');
+  const px = val('budgetPx');
+  const py = val('budgetPy');
+  const income = val('budgetIncome');
+  const showSecond = val('budgetShowSecond');
+  const showInfo = val('budgetShowInfo');
+
+  const maxX = px > 0 ? income / px : income;
+  const maxY = py > 0 ? income / py : income;
+
+  // Budget line: from (0, maxY) to (maxX, 0)
+  const budgetLine = lineFromPoints(0, maxY, maxX, 0);
+  drawCurve(svg, budgetLine, cfg, '#2471a3', '', false, 2.5);
+
+  // Label intercepts on the axes (bold, colored)
+  textBg(svg, plotX(maxX, cfg), plotY(0, cfg) + 18, maxX.toFixed(1), { 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 'bold', fill: '#2471a3' });
+  textBg(svg, plotX(0, cfg) - 8, plotY(maxY, cfg) + 4, maxY.toFixed(1), { 'text-anchor': 'end', 'font-size': 12, 'font-weight': 'bold', fill: '#2471a3' });
+
+  if (showSecond) {
+    const px2 = val('budgetPx2');
+    const py2 = val('budgetPy2');
+    const inc2 = val('budgetIncome2');
+    const maxX2 = px2 > 0 ? inc2 / px2 : inc2;
+    const maxY2 = py2 > 0 ? inc2 / py2 : inc2;
+    const budgetLine2 = lineFromPoints(0, maxY2, maxX2, 0);
+    drawCurve(svg, budgetLine2, cfg, '#e74c3c', '', true, 2);
+    textBg(svg, plotX(maxX2, cfg), plotY(0, cfg) + 30, maxX2.toFixed(1), { 'text-anchor': 'middle', 'font-size': 11, fill: '#e74c3c' });
+  }
+
+  // Tangent line
+  const showTangent = val('budgetShowTangent');
+  if (showTangent) {
+    const tx = val('budgetTangentX');
+    const ty = val('budgetTangentY');
+    // Draw tangent point
+    const tpx = plotX(tx, cfg), tpy = plotY(ty, cfg);
+    el('circle', { cx: tpx, cy: tpy, r: 5, fill: '#d35400', stroke: 'white', 'stroke-width': 1.5 }, svg);
+    // Tangent line has the same slope as the budget line (since it's a straight line, tangent = line itself extended)
+    // Draw a line through (tx, ty) with the budget line slope
+    const slope = -maxY / maxX; // budget line slope in Good Y / Good X
+    const tangentLine = { slope: slope, intercept: ty - slope * tx,
+      evalAt: q => ty + slope * (q - tx), qAt: p => tx + (p - ty) / slope };
+    drawCurve(svg, tangentLine, cfg, '#d35400', '', true, 1.5);
+    textBg(svg, tpx + 8, tpy - 10, 'Optimal', { 'font-size': 11, 'font-weight': 'bold', fill: '#d35400' });
+  }
+
+  // Auto-placed points (above, below, on the budget line)
+  const nAbove = val('budgetPtsAbove') || 0;
+  const nBelow = val('budgetPtsBelow') || 0;
+  const nOn = val('budgetPtsOn') || 0;
+  if (nAbove + nBelow + nOn > 0) {
+    // Use a seeded approach for consistent placement
+    const ptLabels = ['P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    const ptColors = { above: '#27ae60', below: '#e74c3c', on: '#8e44ad' };
+    let ptIdx = 0;
+    const placedPts = [];
+    // Helper: get Y on budget line at a given X
+    const budgetY = (x) => maxY - (maxY / maxX) * x;
+    // Spread points evenly along X range
+    const totalPts = nAbove + nBelow + nOn;
+    const step = maxX / (totalPts + 1);
+    // Collect all points with their type
+    const ptList = [];
+    for (let i = 0; i < nAbove; i++) ptList.push('above');
+    for (let i = 0; i < nOn; i++) ptList.push('on');
+    for (let i = 0; i < nBelow; i++) ptList.push('below');
+    ptList.forEach((type, i) => {
+      const px_ = step * (i + 1);
+      const lineY = budgetY(px_);
+      const offset = (cfg.priceMax - cfg.priceMin) * 0.08;
+      let py_;
+      if (type === 'above') py_ = lineY + offset;
+      else if (type === 'below') py_ = Math.max(0, lineY - offset);
+      else py_ = lineY;
+      const sx = plotX(px_, cfg), sy = plotY(py_, cfg);
+      const lbl = ptLabels[ptIdx % ptLabels.length];
+      const color = ptColors[type];
+      el('circle', { cx: sx, cy: sy, r: 5, fill: color, stroke: 'white', 'stroke-width': 1.5 }, svg);
+      textBg(svg, sx + 8, sy - 8, lbl, { 'font-size': 13, 'font-weight': 'bold', fill: color });
+      ptIdx++;
+    });
+  }
+
+  // Bundles
+  const bundles = ['A', 'B', 'C', 'D', 'E', 'F'];
+  const bColors = ['#c0392b', '#2471a3', '#27ae60', '#8e44ad', '#d35400', '#2c3e50'];
+  bundles.forEach((b, i) => {
+    const on = val(`b${b}_on`);
+    if (!on) return;
+    const bx = val(`b${b}_x`);
+    const by = val(`b${b}_y`);
+    if (bx === 0 && by === 0) return;
+    const px_ = plotX(bx, cfg), py_ = plotY(by, cfg);
+    el('circle', { cx: px_, cy: py_, r: 5, fill: bColors[i % bColors.length], stroke: 'white', 'stroke-width': 1.5 }, svg);
+    textBg(svg, px_ + 8, py_ - 8, b, { 'font-size': 14, 'font-weight': 'bold', fill: bColors[i % bColors.length] });
+  });
+
+  if (showInfo) {
+    // Position info box inside the top-left of the plot area so it doesn't get cut off
+    const infoX = PAD.left + 10;
+    const infoY = PAD.top + 15;
+    textBg(svg, infoX, infoY, `Income: ${cfg.pricePrefix}${income}`, { 'font-size': 11, fill: '#555' });
+    textBg(svg, infoX, infoY + 16, `P(${goodX}): ${cfg.pricePrefix}${px}`, { 'font-size': 11, fill: '#555' });
+    textBg(svg, infoX, infoY + 32, `P(${goodY}): ${cfg.pricePrefix}${py}`, { 'font-size': 11, fill: '#555' });
+  }
+
+  document.getElementById('eqDisplay').textContent = `X-int: ${maxX.toFixed(1)}, Y-int: ${maxY.toFixed(1)}`;
+}
+
+function renderTrade(svg, cfg) {
+  const worldPrice = val('worldPrice');
+  const showRegions = val('showTradeRegions');
+  const showLabels = val('showTradeLabels');
+  const mode = toggleVal('tradeMode');
+
+  drawCurve(svg, cfg.supply, cfg, '#c0392b', cfg.s0Label);
+  drawCurve(svg, cfg.demand, cfg, '#2471a3', cfg.d0Label);
+
+  const eq = intersect(cfg.supply, cfg.demand);
+  if (eq) drawEquilibrium(svg, eq.q, eq.p, cfg.eqLabel, cfg);
+
+  drawHLine(svg, worldPrice, cfg, '#27ae60', 'World Price', true);
+
+  if (mode === 'question') {
+    if (eq) updateEqDisplay(eq, cfg);
+    return;
+  }
+
+  const qd = cfg.demand.qAt(worldPrice);
+  const qs = cfg.supply.qAt(worldPrice);
+  const isImporter = worldPrice < (eq ? eq.p : 0);
+
+  // Dashed lines from Qs and Qd at world price to X-axis, with intercept labels
+  if (cfg.showDashed) {
+    const wpy = plotY(worldPrice, cfg);
+    el('line', { x1: plotX(qs, cfg), y1: wpy, x2: plotX(qs, cfg), y2: plotY(cfg.priceMin, cfg), stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+    el('line', { x1: plotX(qd, cfg), y1: wpy, x2: plotX(qd, cfg), y2: plotY(cfg.priceMin, cfg), stroke: '#999', 'stroke-width': 1, 'stroke-dasharray': '5,4' }, svg);
+    drawInterceptLabels(svg, qs, worldPrice, cfg, { color: '#27ae60', skipY: true });
+    drawInterceptLabels(svg, qd, worldPrice, cfg, { color: '#27ae60', skipY: true });
+    drawInterceptLabels(svg, 0, worldPrice, cfg, { color: '#27ae60', skipX: true });
+  }
+
+  if (showRegions) {
+    // CS region (above world price, below demand)
+    const dMax = cfg.demand.evalAt(cfg.qtyMin);
+    drawRegion(svg, [
+      [cfg.qtyMin, Math.min(dMax, cfg.priceMax)],
+      [qd, worldPrice],
+      [cfg.qtyMin, worldPrice]
+    ], cfg, '#3498db');
+    textBg(svg, plotX(cfg.qtyMin + (qd - cfg.qtyMin) * 0.3, cfg), plotY((worldPrice + Math.min(dMax, cfg.priceMax)) / 2, cfg), 'CS', { 'font-size': 11, 'font-weight': 'bold', fill: '#2471a3' });
+
+    // PS region (below world price, above supply)
+    const sMin = cfg.supply.evalAt(cfg.qtyMin);
+    drawRegion(svg, [
+      [cfg.qtyMin, worldPrice],
+      [qs, worldPrice],
+      [cfg.qtyMin, Math.max(sMin, cfg.priceMin)]
+    ], cfg, '#e74c3c');
+    textBg(svg, plotX(cfg.qtyMin + qs * 0.3, cfg), plotY((worldPrice + Math.max(sMin, cfg.priceMin)) / 2, cfg), 'PS', { 'font-size': 11, 'font-weight': 'bold', fill: '#c0392b' });
+  }
+
+  if (showLabels && Math.abs(qd - qs) > 1) {
+    const label = isImporter ? 'Imports' : 'Exports';
+    const leftQ = Math.min(qs, qd);
+    const rightQ = Math.max(qs, qd);
+    const midX = (plotX(leftQ, cfg) + plotX(rightQ, cfg)) / 2;
+
+    if (isImporter) {
+      // Import: solid line first, then text below
+      const y = plotY(worldPrice, cfg) + 8;
+      el('line', { x1: plotX(leftQ, cfg), y1: y, x2: plotX(rightQ, cfg), y2: y, stroke: '#27ae60', 'stroke-width': 2 }, svg);
+      textBg(svg, midX, y + 16, `${label}: ${Math.abs(qd - qs).toFixed(0)} units`, { 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 'bold', fill: '#27ae60' });
+    } else {
+      // Export: text and solid line ABOVE the world price line
+      const wpY = plotY(worldPrice, cfg);
+      const lineY = wpY - 8;
+      el('line', { x1: plotX(leftQ, cfg), y1: lineY, x2: plotX(rightQ, cfg), y2: lineY, stroke: '#27ae60', 'stroke-width': 2 }, svg);
+      textBg(svg, midX, lineY - 10, `${label}: ${Math.abs(qd - qs).toFixed(0)} units`, { 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 'bold', fill: '#27ae60' });
+    }
+  }
+
+  if (eq) updateEqDisplay(eq, cfg);
+}
+
+function renderCostCurves(svg, cfg) {
+  const acMinQ = val('ccAcMinQ');
+  const acMinP = val('ccAcMinP');
+  const FC = val('ccFixedCost');
+  const mr = val('ccMr');
+  const showProfit = val('ccShowProfit');
+  const mode = toggleVal('ccMode');
+
+  // Derive cubic TC coefficients: TC(q) = FC + a*q - b*q² + c*q³
+  // This guarantees MC crosses AC at AC's min and AVC at AVC's min.
+  // AVC min at acMinQ/2, MC min at acMinQ/3.
+  const Q = acMinQ;
+  const b = FC / (Q * Q);
+  const c = FC / (Q * Q * Q);
+  const a = acMinP - FC / Q;
+
+  // Cost functions
+  const mcFn = q => a - 2 * b * q + 3 * c * q * q;
+  const avcFn = q => a - b * q + c * q * q;
+  const acFn = q => q > 0 ? FC / q + a - b * q + c * q * q : cfg.priceMax;
+
+  // Derived minimum points (for display)
+  const avcMinQ_ = b / (2 * c);
+  const mcMinQ_ = b / (3 * c);
+
+  // Profit-maximizing Q: solve MC(q) = MR → 3c*q² - 2b*q + (a - MR) = 0
+  const disc = 4 * b * b - 12 * c * (a - mr);
+  let optQ = acMinQ; // fallback
+  if (disc >= 0) {
+    // Take the larger root (upward-sloping portion of MC)
+    optQ = (2 * b + Math.sqrt(disc)) / (6 * c);
+  }
+
+  const qRange = [Math.max(cfg.qtyMin + 0.5, 1), cfg.qtyMax];
+
+  // Student mode: all curves black, labels kept but MR = P becomes just MR
+  const isQuestion = (mode === 'question');
+  const mcColor = isQuestion ? '#222' : '#e74c3c';
+  const acColor = isQuestion ? '#222' : '#2471a3';
+  const avcColor = isQuestion ? '#222' : '#8e44ad';
+  const dotColor = '#222'; // all dots black in both modes
+
+  // Draw curves (labels kept in both modes, colors change)
+  drawCostCurve(svg, mcFn, cfg, mcColor, 'MC', qRange);
+  drawCostCurve(svg, acFn, cfg, acColor, 'AC', qRange);
+  drawCostCurve(svg, avcFn, cfg, avcColor, 'AVC', qRange);
+
+  // MR horizontal line (student mode: just "MR", answer mode: "MR = P")
+  drawHLine(svg, mr, cfg, '#222', isQuestion ? 'MR' : 'MR = P', false, 'left');
+  drawInterceptLabels(svg, 0, mr, cfg, { color: '#222', skipX: true });
+
+  // --- Key intersection points with large dots and dashed lines ---
+  const dotR = 6; // substantial dot size
+
+  // 1. MC ∩ AC (break-even point) = AC minimum at (acMinQ, acMinP)
+  if (acMinQ > cfg.qtyMin && acMinQ < cfg.qtyMax && acMinP > cfg.priceMin && acMinP < cfg.priceMax) {
+    const bex = plotX(acMinQ, cfg), bey = plotY(acMinP, cfg);
+    el('line', { x1: bex, y1: bey, x2: bex, y2: plotY(cfg.priceMin, cfg), stroke: '#888', 'stroke-width': 1, 'stroke-dasharray': '4,3' }, svg);
+    el('line', { x1: bex, y1: bey, x2: plotX(cfg.qtyMin, cfg), y2: bey, stroke: '#888', 'stroke-width': 1, 'stroke-dasharray': '4,3' }, svg);
+    el('circle', { cx: bex, cy: bey, r: dotR, fill: dotColor, stroke: 'white', 'stroke-width': 1.5 }, svg);
+    drawInterceptLabels(svg, acMinQ, acMinP, cfg, { color: '#222' });
+  }
+
+  // 2. MC ∩ AVC (shutdown point) = AVC minimum
+  const avcMinP = avcFn(avcMinQ_);
+  if (avcMinQ_ > cfg.qtyMin && avcMinQ_ < cfg.qtyMax && avcMinP > cfg.priceMin && avcMinP < cfg.priceMax) {
+    const sdx = plotX(avcMinQ_, cfg), sdy = plotY(avcMinP, cfg);
+    el('line', { x1: sdx, y1: sdy, x2: sdx, y2: plotY(cfg.priceMin, cfg), stroke: '#888', 'stroke-width': 1, 'stroke-dasharray': '4,3' }, svg);
+    el('line', { x1: sdx, y1: sdy, x2: plotX(cfg.qtyMin, cfg), y2: sdy, stroke: '#888', 'stroke-width': 1, 'stroke-dasharray': '4,3' }, svg);
+    el('circle', { cx: sdx, cy: sdy, r: dotR, fill: dotColor, stroke: 'white', 'stroke-width': 1.5 }, svg);
+    drawInterceptLabels(svg, avcMinQ_, avcMinP, cfg, { color: '#222' });
+  }
+
+  // Profit-maximizing point (MC = MR)
+  if (optQ > cfg.qtyMin && optQ < cfg.qtyMax) {
+    const x = plotX(optQ, cfg);
+    const y = plotY(mr, cfg);
+    const acAtOpt = acFn(optQ);
+
+    // Profit/loss rectangle (only in answer mode when toggled on)
+    if (!isQuestion && showProfit) {
+      if (mr > acAtOpt) {
+        drawRegion(svg, [[0, mr], [optQ, mr], [optQ, acAtOpt], [0, acAtOpt]], cfg, '#27ae60');
+        textBg(svg, plotX(optQ / 2, cfg), plotY((mr + acAtOpt) / 2, cfg) + 4, 'Profit', { 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 'bold', fill: '#27ae60' });
+      } else if (mr < acAtOpt) {
+        drawRegion(svg, [[0, acAtOpt], [optQ, acAtOpt], [optQ, mr], [0, mr]], cfg, '#e74c3c');
+        textBg(svg, plotX(optQ / 2, cfg), plotY((mr + acAtOpt) / 2, cfg) + 4, 'Loss', { 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 'bold', fill: '#e74c3c' });
+      }
+    }
+
+    // Always draw: dashed lines from profit-max point to axes
+    el('line', { x1: x, y1: y, x2: x, y2: plotY(cfg.priceMin, cfg), stroke: '#888', 'stroke-width': 1, 'stroke-dasharray': '4,3' }, svg);
+    el('circle', { cx: x, cy: y, r: dotR, fill: dotColor, stroke: 'white', 'stroke-width': 1.5 }, svg);
+    drawInterceptLabels(svg, optQ, mr, cfg, { color: '#222', skipY: true });
+
+    // Always draw: AC at Q* point — dot, horizontal dashed line to y-axis, y-axis label
+    const acY = plotY(acAtOpt, cfg);
+    el('line', { x1: plotX(0, cfg), y1: acY, x2: plotX(optQ, cfg), y2: acY, stroke: '#888', 'stroke-width': 1, 'stroke-dasharray': '4,3' }, svg);
+    el('circle', { cx: x, cy: acY, r: dotR, fill: dotColor, stroke: 'white', 'stroke-width': 1.5 }, svg);
+    drawInterceptLabels(svg, 0, acAtOpt, cfg, { color: '#222', skipX: true });
+
+    // Always draw: AVC at Q* point — dot, horizontal dashed line to y-axis, y-axis label
+    const avcAtOpt = avcFn(optQ);
+    const avcY = plotY(avcAtOpt, cfg);
+    el('line', { x1: plotX(0, cfg), y1: avcY, x2: plotX(optQ, cfg), y2: avcY, stroke: '#888', 'stroke-width': 1, 'stroke-dasharray': '4,3' }, svg);
+    el('circle', { cx: x, cy: avcY, r: dotR, fill: dotColor, stroke: 'white', 'stroke-width': 1.5 }, svg);
+    drawInterceptLabels(svg, 0, avcAtOpt, cfg, { color: '#222', skipX: true });
+  }
+
+  const optQr_ = Math.round(optQ * 10) / 10;
+  const optQr = optQr_ === Math.round(optQr_) ? Math.round(optQr_) : optQr_;
+  document.getElementById('eqDisplay').textContent =
+    `Q* = ${optQr}, P = ${cfg.pricePrefix}${mr}, AC min = ${cfg.pricePrefix}${acMinP} at Q=${acMinQ}`;
+}
+
+// ---- Equilibrium display ----
+function updateEqDisplay(eq, cfg, prefix = '') {
+  const d = document.getElementById('eqDisplay');
+  const qRound = Math.round(eq.q * 10) / 10;
+  const pRound = Math.round(eq.p * 100) / 100;
+  d.textContent = `${prefix}Q = ${qRound}, P = ${cfg.pricePrefix}${pRound}`;
+}
+
+// ==============================================================
+// EXPORTS
+// ==============================================================
+
+function getSVGString(forExport) {
+  const svg = buildSVG(getConfig(), forExport);
+  const serializer = new XMLSerializer();
+  return serializer.serializeToString(svg);
+}
+
+function exportPNG() {
+  const svgStr = getSVGString(true);
+  const canvas = document.createElement('canvas');
+  const scale = 2; // 2x for retina/print quality
+  canvas.width = W * scale;
+  canvas.height = H * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+
+  const img = new Image();
+  const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+
+  img.onload = () => {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, W, H);
+    ctx.drawImage(img, 0, 0, W, H);
+    URL.revokeObjectURL(url);
+
+    canvas.toBlob(b => {
+      if (!b) { showStatus('PNG export failed.'); return; }
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(b);
+      a.download = 'econ-graph.png';
+      a.click();
+      showStatus('PNG exported!');
+    }, 'image/png');
+  };
+  img.onerror = () => { showStatus('PNG export failed: could not render SVG.'); URL.revokeObjectURL(url); };
+  img.src = url;
+}
+
+function exportSVG() {
+  const svgStr = '<?xml version="1.0" encoding="UTF-8"?>\n' + getSVGString(true);
+  const blob = new Blob([svgStr], { type: 'image/svg+xml' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'econ-graph.svg';
+  a.click();
+  showStatus('SVG exported!');
+}
+
+async function exportPPTX() {
+  if (typeof JSZip === 'undefined') { showStatus('PPTX export unavailable: JSZip library failed to load. Check internet connection.'); return; }
+  showStatus('Generating PPTX...');
+  const svgStr = getSVGString(true);
+
+  // Render SVG to PNG first
+  const canvas = document.createElement('canvas');
+  const scale = 2;
+  canvas.width = W * scale;
+  canvas.height = H * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+
+  const img = new Image();
+  const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+
+  img.onload = async () => {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, W, H);
+    ctx.drawImage(img, 0, 0, W, H);
+    URL.revokeObjectURL(url);
+
+    canvas.toBlob(async pngBlob => {
+      const pngData = await pngBlob.arrayBuffer();
+      const zip = new JSZip();
+
+      // [Content_Types].xml
+      zip.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+  <Default Extension="xml" ContentType="application/xml"/>
+  <Default Extension="png" ContentType="image/png"/>
+  <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
+  <Override PartName="/ppt/slides/slide1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>
+  <Override PartName="/ppt/slideLayouts/slideLayout1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>
+  <Override PartName="/ppt/slideMasters/slideMaster1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml"/>
+  <Override PartName="/ppt/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>
+</Types>`);
+
+      // _rels/.rels
+      zip.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
+</Relationships>`);
+
+      // ppt/presentation.xml
+      zip.file('ppt/presentation.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+  <p:sldMasterIdLst><p:sldMasterId id="2147483648" r:id="rId1"/></p:sldMasterIdLst>
+  <p:sldIdLst><p:sldId id="256" r:id="rId2"/></p:sldIdLst>
+  <p:sldSz cx="9144000" cy="6858000" type="screen4x3"/>
+  <p:notesSz cx="6858000" cy="9144000"/>
+</p:presentation>`);
+
+      // ppt/_rels/presentation.xml.rels
+      zip.file('ppt/_rels/presentation.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="slideMasters/slideMaster1.xml"/>
+  <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide1.xml"/>
+  <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/>
+</Relationships>`);
+
+      // Slide with image
+      const emu_w = 9144000; // full slide width
+      const emu_h = Math.round(emu_w * H / W); // proportional height
+      const emu_y = Math.round((6858000 - emu_h) / 2); // center vertically
+
+      zip.file('ppt/slides/slide1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+  <p:cSld>
+    <p:spTree>
+      <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+      <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+      <p:pic>
+        <p:nvPicPr><p:cNvPr id="2" name="Graph"/><p:cNvPicPr/><p:nvPr/></p:nvPicPr>
+        <p:blipFill>
+          <a:blip r:embed="rId2"/>
+          <a:stretch><a:fillRect/></a:stretch>
+        </p:blipFill>
+        <p:spPr>
+          <a:xfrm><a:off x="0" y="${emu_y}"/><a:ext cx="${emu_w}" cy="${emu_h}"/></a:xfrm>
+          <a:prstGeom prst="rect"><a:avLst/></a:prstGeom>
+        </p:spPr>
+      </p:pic>
+    </p:spTree>
+  </p:cSld>
+</p:sld>`);
+
+      zip.file('ppt/slides/_rels/slide1.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout1.xml"/>
+  <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image1.png"/>
+</Relationships>`);
+
+      zip.file('ppt/media/image1.png', pngData);
+
+      // Minimal slide layout
+      zip.file('ppt/slideLayouts/slideLayout1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:sldLayout xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" type="blank">
+  <p:cSld><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr></p:spTree></p:cSld>
+</p:sldLayout>`);
+
+      zip.file('ppt/slideLayouts/_rels/slideLayout1.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="../slideMasters/slideMaster1.xml"/>
+</Relationships>`);
+
+      zip.file('ppt/slideMasters/slideMaster1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:sldMaster xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+  <p:cSld><p:bg><p:bgRef idx="1001"><a:schemeClr val="bg1"/></p:bgRef></p:bg><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr></p:spTree></p:cSld>
+  <p:sldLayoutIdLst><p:sldLayoutId id="2147483649" r:id="rId1"/></p:sldLayoutIdLst>
+</p:sldMaster>`);
+
+      zip.file('ppt/slideMasters/_rels/slideMaster1.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout1.xml"/>
+  <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="../theme/theme1.xml"/>
+</Relationships>`);
+
+      zip.file('ppt/theme/theme1.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<a:theme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Default">
+  <a:themeElements>
+    <a:clrScheme name="Default">
+      <a:dk1><a:sysClr val="windowText" lastClr="000000"/></a:dk1>
+      <a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1>
+      <a:dk2><a:srgbClr val="44546A"/></a:dk2>
+      <a:lt2><a:srgbClr val="E7E6E6"/></a:lt2>
+      <a:accent1><a:srgbClr val="4472C4"/></a:accent1>
+      <a:accent2><a:srgbClr val="ED7D31"/></a:accent2>
+      <a:accent3><a:srgbClr val="A5A5A5"/></a:accent3>
+      <a:accent4><a:srgbClr val="FFC000"/></a:accent4>
+      <a:accent5><a:srgbClr val="5B9BD5"/></a:accent5>
+      <a:accent6><a:srgbClr val="70AD47"/></a:accent6>
+      <a:hlink><a:srgbClr val="0563C1"/></a:hlink>
+      <a:folHlink><a:srgbClr val="954F72"/></a:folHlink>
+    </a:clrScheme>
+    <a:fontScheme name="Default"><a:majorFont><a:latin typeface="Calibri"/></a:majorFont><a:minorFont><a:latin typeface="Calibri"/></a:minorFont></a:fontScheme>
+    <a:fmtScheme name="Default"><a:fillStyleLst><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></a:fillStyleLst><a:lnStyleLst><a:ln w="6350"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></a:ln><a:ln w="6350"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></a:ln><a:ln w="6350"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></a:ln></a:lnStyleLst><a:effectStyleLst><a:effectStyle><a:effectLst/></a:effectStyle><a:effectStyle><a:effectLst/></a:effectStyle><a:effectStyle><a:effectLst/></a:effectStyle></a:effectStyleLst><a:bgFillStyleLst><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></a:bgFillStyleLst></a:fmtScheme>
+  </a:themeElements>
+</a:theme>`);
+
+      const pptxBlob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(pptxBlob);
+      a.download = 'econ-graph.pptx';
+      a.click();
+      showStatus('PPTX exported!');
+    }, 'image/png');
+  };
+  img.onerror = () => { showStatus('PPTX export failed: could not render SVG.'); URL.revokeObjectURL(url); };
+  img.src = url;
+}
+
+async function copyToClipboard() {
+  const svgStr = getSVGString(true);
+  const canvas = document.createElement('canvas');
+  const scale = 2;
+  canvas.width = W * scale;
+  canvas.height = H * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+
+  const img = new Image();
+  const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+
+  img.onload = async () => {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, W, H);
+    ctx.drawImage(img, 0, 0, W, H);
+    URL.revokeObjectURL(url);
+
+    canvas.toBlob(async b => {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': b })]);
+        showStatus('Copied to clipboard! Paste into PowerPoint.');
+      } catch (e) {
+        showStatus('Clipboard copy failed. Try using PNG export instead.');
+      }
+    }, 'image/png');
+  };
+  img.onerror = () => { showStatus('Clipboard copy failed: could not render SVG.'); URL.revokeObjectURL(url); };
+  img.src = url;
+}
+
+function showStatus(msg) {
+  const el = document.getElementById('exportStatus');
+  el.textContent = msg;
+  setTimeout(() => { el.textContent = ''; }, 3000);
+}
+
+// ==============================================================
+// UI WIRING
+// ==============================================================
+
+let currentType = 'supply-demand';
+
+function render() {
+  const cfg = getConfig();
+  const svg = buildSVG(cfg);
+  const container = document.getElementById('svgPreview');
+  container.innerHTML = '';
+  container.appendChild(svg);
+}
+
+// Graph type buttons
+document.querySelectorAll('.graph-type-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.graph-type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentType = btn.dataset.type;
+
+    // Show/hide type-specific sections
+    document.querySelectorAll('[id^="section-"]').forEach(s => s.classList.add('hidden'));
+    const section = document.getElementById(`section-${currentType}`);
+    if (section) section.classList.remove('hidden');
+
+    // Show/hide supply & demand inputs (not used by cost-curves or budget)
+    const sdInputs = document.getElementById('sd-inputs');
+    if (sdInputs) {
+      sdInputs.style.display = (currentType === 'cost-curves' || currentType === 'budget') ? 'none' : '';
+    }
+
+    // Show/hide Good Name, Qty Unit, Price Prefix (not relevant for budget or cost-curves)
+    const sdLabels = document.getElementById('sd-labels');
+    if (sdLabels) {
+      sdLabels.style.display = (currentType === 'cost-curves' || currentType === 'budget') ? 'none' : '';
+    }
+
+    // Swap range field labels for budget tab (Good X / Good Y instead of Qty / Price)
+    const isBudget = currentType === 'budget';
+    const lbl = (id, txt) => { const e = document.getElementById(id); if (e) e.textContent = txt; };
+    lbl('lbl-qtyMin', isBudget ? 'Good X Min' : 'Qty Min');
+    lbl('lbl-qtyMax', isBudget ? 'Good X Max' : 'Qty Max');
+    lbl('lbl-qtyStep', isBudget ? 'Good X Step' : 'Qty Tick Step');
+    lbl('lbl-priceMin', isBudget ? 'Good Y Min' : 'Price Min');
+    lbl('lbl-priceMax', isBudget ? 'Good Y Max' : 'Price Max');
+    lbl('lbl-priceStep', isBudget ? 'Good Y Step' : 'Price Tick Step');
+
+    render();
+  });
+});
+
+// Toggle buttons
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.parentElement;
+    group.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  });
+});
+
+// Budget second line toggle
+document.getElementById('budgetShowSecond').addEventListener('change', (e) => {
+  document.getElementById('budget-second').classList.toggle('hidden', !e.target.checked);
+  render();
+});
+
+// Budget tangent line toggle
+document.getElementById('budgetShowTangent').addEventListener('change', (e) => {
+  document.getElementById('budget-tangent').classList.toggle('hidden', !e.target.checked);
+  render();
+});
+
+// Cost curve presets: compute nice MR values dynamically
+function updateCCPresets() {
+  const container = document.getElementById('ccPresets');
+  if (!container) return;
+  const acMinQ = val('ccAcMinQ');
+  const acMinP = val('ccAcMinP');
+  const FC = val('ccFixedCost');
+  if (!acMinQ || !FC) return;
+
+  const Q = acMinQ;
+  const b = FC / (Q * Q), c = FC / (Q * Q * Q), a = acMinP - FC / Q;
+  if (a <= 0) return;
+
+  const mcFn = q => a - 2 * b * q + 3 * c * q * q;
+  const acFn = q => q > 0 ? FC / q + a - b * q + c * q * q : 999;
+
+  // Key Q values where points would collapse
+  const avcMinQ = Q / 2; // AVC minimum = MC ∩ AVC
+
+  // Test integer Q* values, find ones where MR = MC(q) is a nice integer
+  const allPresets = [];
+  for (let q = Math.max(2, Math.round(Q * 0.3)); q <= Math.round(Q * 1.6); q++) {
+    const mr = mcFn(q);
+    if (mr < 1 || mr > 200) continue;
+    if (Math.abs(mr - Math.round(mr)) > 0.03) continue;
+    const mrInt = Math.round(mr);
+    const ac = acFn(q);
+    const type = mrInt < Math.round(acMinP) ? 'Loss' : (Math.abs(mrInt - acMinP) < 0.5 ? 'Break-even' : 'Profit');
+    // For non-break-even presets, skip if Q* coincides with AVC min, AC min, or MC min
+    // (those cause dots to collapse or push AC@Q* off-graph, so students can't see all 5 points)
+    const mcMinQ = Q / 3;
+    if (type !== 'Break-even' && Math.abs(q - avcMinQ) < 1.5) continue;
+    if (type !== 'Break-even' && Math.abs(q - Q) < 1.5) continue;
+    if (type !== 'Break-even' && Math.abs(q - mcMinQ) < 1.5) continue;
+    allPresets.push({ mr: mrInt, q: Math.round(q), type, ac });
+  }
+  // Pick a good spread: up to 2 losses, the break-even, and up to 2 profits
+  const losses = allPresets.filter(p => p.type === 'Loss');
+  const breakEven = allPresets.filter(p => p.type === 'Break-even');
+  const profits = allPresets.filter(p => p.type === 'Profit');
+  const presets = [];
+  if (losses.length >= 2) { presets.push(losses[Math.floor(losses.length * 0.33)]); presets.push(losses[Math.floor(losses.length * 0.75)]); }
+  else losses.forEach(p => presets.push(p));
+  breakEven.forEach(p => presets.push(p));
+  if (profits.length >= 2) { presets.push(profits[Math.floor(profits.length * 0.33)]); presets.push(profits[Math.floor(profits.length * 0.75)]); }
+  else profits.forEach(p => presets.push(p));
+
+  container.innerHTML = '';
+  presets.forEach(p => {
+    const btn = document.createElement('button');
+    const colors = { 'Loss': '#e74c3c', 'Break-even': '#f39c12', 'Profit': '#27ae60' };
+    btn.textContent = `${p.type}: MR=$${Math.round(p.mr)} \u2192 Q=${Math.round(p.q)}`;
+    btn.style.cssText = `padding:3px 8px;font-size:11px;border:1px solid ${colors[p.type]};background:white;color:${colors[p.type]};border-radius:4px;cursor:pointer;font-weight:bold;`;
+    btn.addEventListener('click', () => {
+      document.getElementById('ccMr').value = p.mr;
+      render();
+    });
+    container.appendChild(btn);
+  });
+}
+
+// Re-render on any input change
+document.querySelectorAll('input, select').forEach(input => {
+  input.addEventListener('input', () => { updateCCPresets(); render(); });
+  input.addEventListener('change', () => { updateCCPresets(); render(); });
+});
+
+// Initial render
+updateCCPresets();
+render();
+
+// ==============================================================
+// DEBUG OVERLAY
+// ==============================================================
+
+function addDebugOverlay(svg, cfg) {
+  const g = el('g', { class: 'debug-overlay', opacity: 0.6 }, svg);
+  const plotLeft = PAD.left, plotRight = W - PAD.right;
+  const plotTop = PAD.top, plotBot = H - PAD.bottom;
+
+  // 1. Draw plot safe area (green border)
+  el('rect', {
+    x: plotLeft, y: plotTop,
+    width: plotRight - plotLeft, height: plotBot - plotTop,
+    fill: 'none', stroke: '#22c55e', 'stroke-width': 2, 'stroke-dasharray': '6,3'
+  }, g);
+
+  // 2. Draw margin zones (red tint)
+  const zones = [
+    { x: 0, y: 0, w: W, h: plotTop },              // top margin
+    { x: 0, y: plotBot, w: W, h: H - plotBot },     // bottom margin
+    { x: 0, y: plotTop, w: plotLeft, h: plotBot - plotTop }, // left margin
+    { x: plotRight, y: plotTop, w: W - plotRight, h: plotBot - plotTop }, // right margin
+  ];
+  zones.forEach(z => {
+    el('rect', { x: z.x, y: z.y, width: z.w, height: z.h, fill: 'red', opacity: 0.08 }, g);
+  });
+
+  // 3. Bounding boxes around every <text> element
+  const texts = svg.querySelectorAll('text');
+  texts.forEach(t => {
+    try {
+      const bbox = t.getBBox();
+      const inPlot = bbox.x >= plotLeft && bbox.x + bbox.width <= plotRight + 60 &&
+                     bbox.y >= plotTop - 5 && bbox.y + bbox.height <= plotBot + 50;
+      const inSVG = bbox.x >= -2 && bbox.x + bbox.width <= W + 2 &&
+                    bbox.y >= -2 && bbox.y + bbox.height <= H + 2;
+      let color = '#22c55e'; // green = good
+      if (!inSVG) color = '#ef4444'; // red = clipped by SVG
+      else if (!inPlot) color = '#f59e0b'; // yellow = in margin (may be ok)
+      el('rect', {
+        x: bbox.x - 1, y: bbox.y - 1,
+        width: bbox.width + 2, height: bbox.height + 2,
+        fill: 'none', stroke: color, 'stroke-width': 1.5, 'stroke-dasharray': '3,2'
+      }, g);
+    } catch (e) { /* getBBox can fail for hidden elements */ }
+  });
+
+  // 4. Bounding boxes around every <line> element (curves)
+  svg.querySelectorAll('line').forEach(ln => {
+    const sw = parseFloat(ln.getAttribute('stroke-width'));
+    if (sw < 2) return; // skip grid lines
+    const color = ln.getAttribute('stroke') || '';
+    if (color === '#222') return; // skip axis lines
+    const x1 = +ln.getAttribute('x1'), y1 = +ln.getAttribute('y1');
+    const x2 = +ln.getAttribute('x2'), y2 = +ln.getAttribute('y2');
+    if (Math.abs(x1 - x2) < 2) return; // skip vertical lines (quota, etc.)
+    // Check if endpoints are at the very edge of plot (potential clipping)
+    const atTop1 = Math.abs(y1 - plotTop) < 2, atTop2 = Math.abs(y2 - plotTop) < 2;
+    if (atTop1) el('circle', { cx: x1, cy: y1, r: 6, fill: 'none', stroke: '#ef4444', 'stroke-width': 2 }, g);
+    if (atTop2) el('circle', { cx: x2, cy: y2, r: 6, fill: 'none', stroke: '#ef4444', 'stroke-width': 2 }, g);
+  });
+
+  // 5. Legend
+  const ly = 14;
+  el('rect', { x: plotLeft, y: 2, width: 280, height: 18, fill: 'white', opacity: 0.9 }, g);
+  el('rect', { x: plotLeft + 2, y: ly - 6, width: 8, height: 8, fill: '#22c55e' }, g);
+  el('text', { x: plotLeft + 14, y: ly, 'font-size': 9, fill: '#333' }, g).textContent = 'OK';
+  el('rect', { x: plotLeft + 32, y: ly - 6, width: 8, height: 8, fill: '#f59e0b' }, g);
+  el('text', { x: plotLeft + 44, y: ly, 'font-size': 9, fill: '#333' }, g).textContent = 'In margin';
+  el('rect', { x: plotLeft + 82, y: ly - 6, width: 8, height: 8, fill: '#ef4444' }, g);
+  el('text', { x: plotLeft + 94, y: ly, 'font-size': 9, fill: '#333' }, g).textContent = 'Clipped!';
+  el('circle', { cx: plotLeft + 142, cy: ly - 2, r: 4, fill: 'none', stroke: '#ef4444', 'stroke-width': 1.5 }, g);
+  el('text', { x: plotLeft + 150, y: ly, 'font-size': 9, fill: '#333' }, g).textContent = 'Curve at edge';
+}
+
+// Patch render to add debug overlay
+const _origRender = render;
+render = function() {
+  _origRender();
+  if (val('debugOverlay')) {
+    const svg = document.querySelector('#svgPreview svg');
+    if (svg) addDebugOverlay(svg, getConfig());
+  }
+};
+
+// ==============================================================
+// AUTOMATED TEST HARNESS
+// ==============================================================
+
+function runAllTests() {
+  const results = [];
+  const log = (msg, pass) => results.push({ msg, pass });
+
+  // Save current state
+  const savedType = currentType;
+  const savedValues = {};
+  document.querySelectorAll('input, select').forEach(el => {
+    savedValues[el.id] = el.type === 'checkbox' ? el.checked : el.value;
+  });
+
+  // Force auto-range on for testing
+  const arEl = document.getElementById('autoRange');
+  if (arEl) arEl.checked = true;
+
+  // Test configurations: [type, overrides, description]
+  const tests = [
+    ['supply-demand', {}, 'Basic S&D (defaults)'],
+    ['supply-demand', { s0_q1: 20, s0_p1: 1, s0_q2: 200, s0_p2: 10, d0_q1: 20, d0_p1: 10, d0_q2: 200, d0_p2: 1 }, 'Basic S&D (small range)'],
+    ['supply-demand', { s0_q1: 100, s0_p1: 5, s0_q2: 500, s0_p2: 25, d0_q1: 100, d0_p1: 25, d0_q2: 500, d0_p2: 5 }, 'Basic S&D (large range)'],
+    ['shift', {}, 'Shift (defaults)'],
+    ['shift', { shiftAmt: 100 }, 'Shift (large shift)'],
+    ['tax', {}, 'Tax (defaults)'],
+    ['tax', { taxAmt: 5 }, 'Tax (large tax)'],
+    ['subsidy', {}, 'Subsidy (defaults)'],
+    ['subsidy', { subsidyAmt: 5 }, 'Subsidy (large)'],
+    ['price-control', {}, 'Price Floor (defaults)'],
+    ['price-control', { controlPrice: 4, controlType: 'ceiling' }, 'Price Ceiling'],
+    ['price-control', { controlPrice: 5 }, 'Price Floor (non-binding)'],
+    ['quota', {}, 'Quota (defaults)'],
+    ['externality', {}, 'Externality neg-prod (defaults)'],
+    ['externality', { extType: 'neg-cons' }, 'Externality neg-cons'],
+    ['externality', { extType: 'pos-prod' }, 'Externality pos-prod'],
+    ['externality', { extType: 'pos-cons' }, 'Externality pos-cons'],
+    ['externality', { extAmt: 5 }, 'Externality (large)'],
+    ['budget', {}, 'Budget (defaults)'],
+    ['budget', { budgetShowSecond: true }, 'Budget (two lines)'],
+    ['trade', {}, 'Trade (defaults)'],
+    ['trade', { worldPrice: 10 }, 'Trade (high wp)'],
+    ['cost-curves', {}, 'Cost Curves (defaults)'],
+  ];
+
+  // Also test with annotation
+  tests.push(['supply-demand', { annotationText: 'Spring 2025 - ECON 101' }, 'S&D + long annotation']);
+
+  const plotLeft = PAD.left, plotRight = W - PAD.right;
+  const plotTop = PAD.top, plotBot = H - PAD.bottom;
+
+  tests.forEach(([type, overrides, desc]) => {
+    // Reset to defaults
+    Object.entries(savedValues).forEach(([id, v]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.type === 'checkbox') el.checked = v;
+      else el.value = v;
+    });
+    // Apply overrides
+    Object.entries(overrides).forEach(([id, v]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.type === 'checkbox') el.checked = v;
+      else el.value = v;
+    });
+    currentType = type;
+
+    // Force auto-range
+    if (arEl) arEl.checked = true;
+
+    // Build SVG in memory
+    const cfg = getConfig();
+    const svg = buildSVG(cfg);
+    // Must attach to DOM briefly for getBBox to work
+    const temp = document.createElement('div');
+    temp.style.position = 'absolute';
+    temp.style.left = '-9999px';
+    document.body.appendChild(temp);
+    temp.appendChild(svg);
+
+    let issues = [];
+
+    // CHECK 1: All <text> elements within SVG bounds (skip rotated labels)
+    svg.querySelectorAll('text').forEach(t => {
+      if (t.getAttribute('transform')) return; // skip rotated Y-axis title
+      try {
+        const bbox = t.getBBox();
+        const txt = t.textContent.substring(0, 25);
+        if (bbox.x < -5) issues.push(`"${txt}" off left`);
+        if (bbox.x + bbox.width > W + 5) issues.push(`"${txt}" off right`);
+        if (bbox.y < -5) issues.push(`"${txt}" off top`);
+        if (bbox.y + bbox.height > H + 5) issues.push(`"${txt}" off bottom`);
+      } catch (e) {}
+    });
+
+    // CHECK 2: Curve lines — endpoints shouldn't be AT the very edge of the plot
+    svg.querySelectorAll('line').forEach(ln => {
+      const sw = parseFloat(ln.getAttribute('stroke-width'));
+      if (sw < 2) return; // skip grid/axis lines
+      const color = ln.getAttribute('stroke') || '';
+      if (color === '#222') return; // skip axis lines
+      const y1 = +ln.getAttribute('y1'), y2 = +ln.getAttribute('y2');
+      const x1 = +ln.getAttribute('x1'), x2 = +ln.getAttribute('x2');
+      if (Math.abs(x1 - x2) < 2) return; // skip vertical lines (quota, etc.)
+      if (Math.abs(y1 - plotTop) < 1) issues.push(`Curve ${color} clipped at TOP`);
+      if (Math.abs(y2 - plotTop) < 1) issues.push(`Curve ${color} clipped at TOP`);
+    });
+
+    // CHECK 3: Text overlaps with other text
+    const textBoxes = [];
+    svg.querySelectorAll('text').forEach(t => {
+      try {
+        const bbox = t.getBBox();
+        const txt = t.textContent.substring(0, 20);
+        // Skip axis tick labels (they're expected to be close together)
+        if (bbox.width < 30 && bbox.height < 15 && txt.match(/^\$?\d/)) return;
+        textBoxes.push({ txt, x: bbox.x, y: bbox.y, w: bbox.width, h: bbox.height });
+      } catch (e) {}
+    });
+    for (let i = 0; i < textBoxes.length; i++) {
+      for (let j = i + 1; j < textBoxes.length; j++) {
+        const a = textBoxes[i], b = textBoxes[j];
+        const overlapX = a.x < b.x + b.w && a.x + a.w > b.x;
+        const overlapY = a.y < b.y + b.h && a.y + a.h > b.y;
+        if (overlapX && overlapY) {
+          // Calculate overlap area
+          const ox = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+          const oy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+          const area = ox * oy;
+          const minArea = Math.min(a.w * a.h, b.w * b.h);
+          if (area > minArea * 0.3) { // >30% overlap
+            issues.push(`Overlap: "${a.txt}" + "${b.txt}"`);
+          }
+        }
+      }
+    }
+
+    // CHECK 4: Auto-range produced valid values
+    if (cfg.qtyMin >= cfg.qtyMax) issues.push(`Bad Q range: ${cfg.qtyMin} >= ${cfg.qtyMax}`);
+    if (cfg.priceMin >= cfg.priceMax) issues.push(`Bad P range: ${cfg.priceMin} >= ${cfg.priceMax}`);
+    if (cfg.qtyStep <= 0) issues.push(`Bad Q step: ${cfg.qtyStep}`);
+    if (cfg.priceStep <= 0) issues.push(`Bad P step: ${cfg.priceStep}`);
+
+    // CHECK 5: Reasonable tick count
+    const qTicks = (cfg.qtyMax - cfg.qtyMin) / cfg.qtyStep;
+    const pTicks = (cfg.priceMax - cfg.priceMin) / cfg.priceStep;
+    if (qTicks < 3) issues.push(`Too few Q ticks: ${qTicks}`);
+    if (qTicks > 15) issues.push(`Too many Q ticks: ${qTicks}`);
+    if (pTicks < 3) issues.push(`Too few P ticks: ${pTicks}`);
+    if (pTicks > 15) issues.push(`Too many P ticks: ${pTicks}`);
+
+    document.body.removeChild(temp);
+
+    if (issues.length === 0) {
+      log(`✅ ${desc}: Q[${cfg.qtyMin},${cfg.qtyMax}]/${cfg.qtyStep} P[${cfg.priceMin},${cfg.priceMax}]/${cfg.priceStep}`, true);
+    } else {
+      log(`❌ ${desc}: ${issues.join('; ')}`, false);
+    }
+  });
+
+  // Restore state
+  Object.entries(savedValues).forEach(([id, v]) => {
+    const e = document.getElementById(id);
+    if (!e) return;
+    if (e.type === 'checkbox') e.checked = v;
+    else e.value = v;
+  });
+  currentType = savedType;
+  render();
+
+  // Display results
+  const container = document.getElementById('testResults');
+  const passed = results.filter(r => r.pass).length;
+  const total = results.length;
+  let html = `<div style="font-weight:bold; margin-bottom:4px; color:${passed === total ? '#22c55e' : '#ef4444'}">${passed}/${total} passed</div>`;
+  results.forEach(r => {
+    html += `<div style="color:${r.pass ? '#22c55e' : '#ef4444'}; margin:1px 0;">${r.msg}</div>`;
+  });
+  container.innerHTML = html;
+}
+</script>
+</body>
+</html>
