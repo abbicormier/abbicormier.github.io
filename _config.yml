@@ -156,6 +156,7 @@ include:
   - _pages
   - files
   - busn5000-spring2026
+  - tools
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
