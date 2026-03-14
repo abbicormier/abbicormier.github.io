@@ -628,5 +628,185 @@
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Daily 10 - Feb 18</span>"
     ]
+  },
+  {
+    "objectID": "daily_11.html",
+    "href": "daily_11.html",
+    "title": "Daily 11 - Feb 23",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 2 to 3 out of 3 points.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Daily 11 - Feb 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_11.html#class-performance",
+    "href": "daily_11.html#class-performance",
+    "title": "Daily 11 - Feb 23",
+    "section": "",
+    "text": "Students: 103 | Mean: 2.09 | Median: 2 | SD: 0.27",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Daily 11 - Feb 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_11.html#score-distribution",
+    "href": "daily_11.html#score-distribution",
+    "title": "Daily 11 - Feb 23",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Daily 11 - Feb 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_11.html#performance-by-question",
+    "href": "daily_11.html#performance-by-question",
+    "title": "Daily 11 - Feb 23",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Daily 11 - Feb 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_11.html#questions",
+    "href": "daily_11.html#questions",
+    "title": "Daily 11 - Feb 23",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: What is the prior, P(H)?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nP(H) = 30% (0.30) — the base rate of spam emails before seeing any evidence from the filter.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nBlank/no answer — A small number of students left this blank. The prior is the initial probability before observing new evidence.\nConfusing prior with likelihood — Writing 90% (the filter’s detection rate) instead of the base rate of spam.\nConfusing prior with false positive rate — Writing 10% (P(E|~H)) instead of the prior probability of the hypothesis.\n\n\n\n\n\n\n\nQ2: What is the likelihood, P(E|H)?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nP(E|H) = 90% (0.90) — the probability the filter flags an email as spam given that it actually is spam.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nBlank/no answer — A small number of students left this blank. The likelihood is the probability of observing the evidence given the hypothesis is true.\nConfusing likelihood with prior — Writing 30% (the base rate) instead of the filter’s detection rate.\nConfusing with false positive rate — Writing 10%, which is P(E|~H), the probability of flagging a legitimate email.\n\n\n\n\n\n\n\nQ3: Calculate the posterior, P(H|E)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nP(H|E) = P(E|H)P(H) / [P(E|H)P(H) + P(E|H)P(H)] = (0.9 x 0.3) / (0.9 x 0.3 + 0.1 x 0.7) = 0.27 / 0.34 = 0.79 (79%)\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nApp default answer (~16.1%) — The most common error by far. Many students submitted the Bayes Rule app’s default/previous example answer instead of recalculating for this specific problem.\nNumerator only (27%) — Some students calculated P(E|H) x P(H) = 0.27 but did not divide by the total probability P(E) in the denominator.\nOther component values — Some wrote the false positive rate (10%), the likelihood (90%), or other intermediate values instead of the full Bayes Rule calculation.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Daily 11 - Feb 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_11.html#key-takeaways",
+    "href": "daily_11.html#key-takeaways",
+    "title": "Daily 11 - Feb 23",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Strong identification of prior P(H) = 30% | Likelihood P(E|H) = 90% correctly identified by nearly all students.\nReview:\n\nAlways recalculate in the app — The Bayes Rule app retains previous answers; make sure to update all inputs before recording the posterior\nBayes Rule formula: P(H|E) = P(E|H)P(H) / [P(E|H)P(H) + P(E|H)P(H)]\nFor this problem: (0.9 x 0.3) / (0.9 x 0.3 + 0.1 x 0.7) = 0.27 / 0.34 = 0.79",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Daily 11 - Feb 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_12.html",
+    "href": "daily_12.html",
+    "title": "Daily 12 - Mar 02",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 2 to 4 out of 4 points.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Daily 12 - Mar 02</span>"
+    ]
+  },
+  {
+    "objectID": "daily_12.html#class-performance",
+    "href": "daily_12.html#class-performance",
+    "title": "Daily 12 - Mar 02",
+    "section": "",
+    "text": "Students: 98 | Mean: 3.81 | Median: 4 | SD: 0.42",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Daily 12 - Mar 02</span>"
+    ]
+  },
+  {
+    "objectID": "daily_12.html#score-distribution",
+    "href": "daily_12.html#score-distribution",
+    "title": "Daily 12 - Mar 02",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Daily 12 - Mar 02</span>"
+    ]
+  },
+  {
+    "objectID": "daily_12.html#performance-by-question",
+    "href": "daily_12.html#performance-by-question",
+    "title": "Daily 12 - Mar 02",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Daily 12 - Mar 02</span>"
+    ]
+  },
+  {
+    "objectID": "daily_12.html#questions",
+    "href": "daily_12.html#questions",
+    "title": "Daily 12 - Mar 02",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: CLT Explorer — Distribution, Mean, SD\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe CLT explorer assumes a population distribution that is exponential with a mean of 30.3 and a SD of 30.3.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nIncorrect mean value — Some students wrote 3.8 or 3.4 instead of 30.3, likely misreading the CLT explorer display.\nWrong distribution type — A few students wrote “normal” instead of “exponential.” The CLT explorer specifically uses an exponential distribution.\nMixing up mean and SD — For the exponential distribution, the mean and SD are both 30.3. Some students provided different values for each.\n\n\n\n\n\n\n\nQ2: True SE vs. Estimated SE\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe true standard error is 5.533 (or 5.53). The estimated standard error is sample dependent — any specific numeric estimate (e.g., 3.462, 5.61) is acceptable.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nOnly providing one SE value — Some students gave only the true SE without a separate estimated SE value. Both are required.\nProviding formulas without numbers — Writing the SE formulas (σ/√n, s/√n) without computing the actual numeric values.\nIncorrect true SE — Some wrote 6.53 instead of 5.533. The true SE = σ/√n = 30.3/√30 ≈ 5.533.\n\n\n\n\n\n\n\nQ3: Interval Prediction Challenge Bounds\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe lower bound is 22 (or ~21.6) and the upper bound is 38 (or ~38.4) for the interval capturing 95% of all sample means.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nIncorrect lower bound — One student wrote 30 as the lower bound. The interval is centered at 30.3 and extends roughly ±1.96 SE in each direction.\nIncorrect upper bound — One student wrote 68 as the upper bound, far too wide. The 95% interval is approximately [22, 38].\nReversed or mismatched bounds — Some students provided bounds that didn’t form a symmetric interval around the mean of 30.3.\n\n\n\n\n\n\n\nQ4: Best Regression Approximation Type\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nRegression provides the best linear approximation to the conditional expectation function (CEF).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “causal” — Several students wrote “causal.” Regression estimates associations; it does not inherently provide causal estimates without additional assumptions.\nOther incorrect terms — Students wrote “descriptive,” “metric,” “residualized,” “predictive,” or “direct.” The key term is specifically linear.\nConfusing with variable types — Some wrote “dependent variable” or “independent variable.” The question asks about the type of approximation, not the variables involved.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Daily 12 - Mar 02</span>"
+    ]
+  },
+  {
+    "objectID": "daily_12.html#key-takeaways",
+    "href": "daily_12.html#key-takeaways",
+    "title": "Daily 12 - Mar 02",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Exponential distribution identified correctly | SE values computed accurately | Interval bounds well understood.\nReview:\n\nRegression provides a linear approximation to the CEF — not causal, descriptive, or predictive\nTrue SE = σ/√n — make sure to compute the numeric value, not just write the formula\nRead CLT explorer values carefully — the mean is 30.3, not 3.03 or 3.8",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Daily 12 - Mar 02</span>"
+    ]
+  },
+  {
+    "objectID": "daily_13.html",
+    "href": "daily_13.html",
+    "title": "Daily 13 - Mar 04",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 0 to 4 out of 4 points.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Daily 13 - Mar 04</span>"
+    ]
+  },
+  {
+    "objectID": "daily_13.html#class-performance",
+    "href": "daily_13.html#class-performance",
+    "title": "Daily 13 - Mar 04",
+    "section": "",
+    "text": "Students: 91 | Mean: 3.71 | Median: 4 | SD: 0.60",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Daily 13 - Mar 04</span>"
+    ]
+  },
+  {
+    "objectID": "daily_13.html#score-distribution",
+    "href": "daily_13.html#score-distribution",
+    "title": "Daily 13 - Mar 04",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Daily 13 - Mar 04</span>"
+    ]
+  },
+  {
+    "objectID": "daily_13.html#performance-by-question",
+    "href": "daily_13.html#performance-by-question",
+    "title": "Daily 13 - Mar 04",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Daily 13 - Mar 04</span>"
+    ]
+  },
+  {
+    "objectID": "daily_13.html#questions",
+    "href": "daily_13.html#questions",
+    "title": "Daily 13 - Mar 04",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Unconditional vs. Conditional Expectation\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe unconditional expectation of y is a constant, while the conditional expectation of y given x is a function of x.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “function” for the first blank — Several students wrote “function” instead of “constant.” The unconditional expectation E[Y] is a single number (constant), not a function.\nUsing notation instead of key terms — Some students wrote E(Y) and E(Y|X) rather than stating “constant” and “x.” The question asks what these objects are, not their notation.\nUnclear or swapped blanks — A few students wrote vague letters (N, M) or provided the same answer for both blanks without distinguishing constant from function of x.\n\n\n\n\n\n\n\nQ2: Average Return to Schooling\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe average return to another year of schooling is 5.2 (equivalently 5.21%, 0.0521, or 0.052).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nProviding a formula instead of a number — One student wrote a fraction expression rather than the numeric value from Figure 6.\nNo widespread errors — The vast majority of students correctly identified the 5.2% return from Figure 6. This was the strongest question overall.\nRounding differences — Some students wrote 5.2, others 5.21 or 5.21%. All equivalent representations were accepted.\n\n\n\n\n\n\n\nQ3: Statistical Significance\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe estimated return to schooling is statistically significant at the 5% level.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nNo common errors — Nearly all students correctly identified “is” as the answer. This was the highest-scoring question.\nElaborating beyond the answer — Some students added extra context (e.g., “yes, both are significant”). As long as “is” was clearly indicated, full credit was awarded.\n\n\n\n\n\n\n\nQ4: Population Regression Coefficients\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe population regression coefficients minimize the MSE (mean squared error) between the outcome and the regression approximation.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “mean standard error” — One student confused “squared” with “standard.” MSE stands for mean squared error, not mean standard error.\nWriting incorrect abbreviations — A few students wrote abbreviations that did not match MSE, likely due to handwriting confusion or misremembering the term.\nWriting “measurement square error” — One student used the wrong first word. The correct term is specifically “mean squared error.”",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Daily 13 - Mar 04</span>"
+    ]
+  },
+  {
+    "objectID": "daily_13.html#key-takeaways",
+    "href": "daily_13.html#key-takeaways",
+    "title": "Daily 13 - Mar 04",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Return to schooling (5.2%) identified correctly | Statistical significance well understood | MSE widely known.\nReview:\n\nUnconditional expectation is a constant, conditional expectation is a function of x — know the distinction\nMSE = mean squared error — not “mean standard error” or other variations\nState the concept, not just the notation — writing E(Y) doesn’t convey “constant”; say what it is",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Daily 13 - Mar 04</span>"
+    ]
   }
 ]
