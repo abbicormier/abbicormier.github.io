@@ -808,5 +808,365 @@
     "crumbs": [
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Daily 13 - Mar 04</span>"
     ]
+  },
+  {
+    "objectID": "daily_14.html",
+    "href": "daily_14.html",
+    "title": "Daily 14 - Mar 16",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 2.5 to 5 out of 5 points.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Daily 14 - Mar 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_14.html#class-performance",
+    "href": "daily_14.html#class-performance",
+    "title": "Daily 14 - Mar 16",
+    "section": "",
+    "text": "Students: 85 | Mean: 4.22 | Median: 4.5 | SD: 0.60",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Daily 14 - Mar 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_14.html#score-distribution",
+    "href": "daily_14.html#score-distribution",
+    "title": "Daily 14 - Mar 16",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Daily 14 - Mar 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_14.html#performance-by-question",
+    "href": "daily_14.html#performance-by-question",
+    "title": "Daily 14 - Mar 16",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Daily 14 - Mar 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_14.html#questions",
+    "href": "daily_14.html#questions",
+    "title": "Daily 14 - Mar 16",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Population Regression Coefficients Minimize _____\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe population regression coefficients minimize the MSE (mean squared error) between the outcome and the regression approximation.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “linear” or “error” — Related concepts but the specific answer is MSE.\nWriting “squared error” without “mean” — Must include “mean” for the full concept.\nWriting “dispersion” — Dispersion describes variability in general, not the regression objective function.\n\n\n\n\n\n\n\nQ2: OLS Estimator of Beta_1\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\ncov(x,y) / var(x) — the sample covariance of x and y divided by the sample variance of x.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nVery few errors — Most students correctly wrote the formula. Well done!\nMinor notation differences — Some used summation form; both are acceptable as long as the structure is correct.\n\n\n\n\n\n\n\nQ3: Return to Schooling from “Level” Regression (Table 3)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe average return to another year of schooling is 29.6 cents (or 29.455/29.655).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “30 cents” — Close but not precise enough for full credit; the table shows approximately 29.6.\nWriting “5.2%” — This is from the log regression, not the level regression. Read column headers carefully.\nWriting “50 cents” or other wrong values — Misreading the table.\n\n\n\n\n\n\n\nQ4: Frisch-Waugh Residual Interpretation\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe residual from a regression of x₁ on x₂. This is the Frisch-Waugh theorem.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nSwapping x₁ and x₂ — We regress x₁ on x₂, not x₂ on x₁.\nListing x₂ twice — Writing “residual, x₂, x₂” is a copying error.\nIncomplete answers — Must clearly state all three parts.\n\n\n\n\n\n\n\nQ5: Return to Schooling from Table 4\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe average return is 7.5 (percent) and the coefficient is statistically significant.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “is not” significant — The coefficient is statistically significant.\nWrong values (1.5, 15, 75%) — Misreadings of the table.\nWriting “7.3” or “7.6” — Close but imprecise.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Daily 14 - Mar 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_14.html#key-takeaways",
+    "href": "daily_14.html#key-takeaways",
+    "title": "Daily 14 - Mar 16",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: MSE concept well understood | OLS formula mastered | Residual interpretation mostly correct.\nReview:\n\nLevel vs. log regressions — 29.6 cents from level, 5.2% from log\nFrisch-Waugh — Regress x₁ on x₂ (not the reverse) to get the residual\nRead tables carefully — Match values to the correct column and specification",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Daily 14 - Mar 16</span>"
+    ]
+  },
+  {
+    "objectID": "daily_15.html",
+    "href": "daily_15.html",
+    "title": "Daily 15 - Mar 18",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 1 to 3 out of 3 points.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daily 15 - Mar 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_15.html#class-performance",
+    "href": "daily_15.html#class-performance",
+    "title": "Daily 15 - Mar 18",
+    "section": "",
+    "text": "Students: 99 | Mean: 2.90 | Median: 3 | SD: 0.33",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daily 15 - Mar 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_15.html#score-distribution",
+    "href": "daily_15.html#score-distribution",
+    "title": "Daily 15 - Mar 18",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daily 15 - Mar 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_15.html#performance-by-question",
+    "href": "daily_15.html#performance-by-question",
+    "title": "Daily 15 - Mar 18",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daily 15 - Mar 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_15.html#questions",
+    "href": "daily_15.html#questions",
+    "title": "Daily 15 - Mar 18",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Omitted Variable Bias Condition\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nBeta-hat_1 would be biased unless beta_2 = 0 or x₁ and x₂ are uncorrelated (independent, unrelated).\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nVery few errors — Nearly all students correctly identified both conditions.\nAcceptable synonyms — “Independent,” “unrelated,” and “uncorrelated” all received full credit.\n\n\n\n\n\n\n\nQ2: Omitting Experience from Education Regression\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nBias is downward. Experience is negatively correlated with education and positively correlated with log wages.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nSwapping correlation signs — Writing “positively, negatively” instead of “negatively, positively.”\nOnly stating direction — Writing “down” without the correlations earns partial credit.\nWriting “up” — The bias is downward: beta_exper(+) × delta_exper_educ(-) = negative.\n\n\n\n\n\n\n\nQ3: Standard Errors to Always Report\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nRobust standard errors.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “consistent” — Consistency is a property of estimators, not the type of standard errors.\nOutstanding performance — The vast majority correctly answered “robust.”",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daily 15 - Mar 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_15.html#key-takeaways",
+    "href": "daily_15.html#key-takeaways",
+    "title": "Daily 15 - Mar 18",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Exceptional performance | OVB conditions well understood | Robust SE concept mastered.\nReview:\n\nOVB formula — beta_exper(+) × delta_exper_educ(-) = negative bias on educ coefficient\nCorrelation signs matter — Experience is negatively correlated with education, positively with wages\nAlways report robust SEs — Valid whether or not heteroskedasticity is present",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daily 15 - Mar 18</span>"
+    ]
+  },
+  {
+    "objectID": "daily_16.html",
+    "href": "daily_16.html",
+    "title": "Daily 16 - Mar 23",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 0 to 3 out of 3 points.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Daily 16 - Mar 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_16.html#class-performance",
+    "href": "daily_16.html#class-performance",
+    "title": "Daily 16 - Mar 23",
+    "section": "",
+    "text": "Students: 102 | Mean: 2.28 | Median: 2.5 | SD: 0.66",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Daily 16 - Mar 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_16.html#score-distribution",
+    "href": "daily_16.html#score-distribution",
+    "title": "Daily 16 - Mar 23",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Daily 16 - Mar 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_16.html#performance-by-question",
+    "href": "daily_16.html#performance-by-question",
+    "title": "Daily 16 - Mar 23",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Daily 16 - Mar 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_16.html#questions",
+    "href": "daily_16.html#questions",
+    "title": "Daily 16 - Mar 23",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Measurement Error Bias Direction\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nMeasurement error in x causes the coefficient to be biased toward zero (attenuation bias). Also acceptable: downward.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “upward” — Measurement error attenuates, it does not inflate.\nWriting “directionally” — Not a meaningful statistical term here. The bias is toward zero.\nWriting “positively” — The direction is toward zero regardless of the true coefficient’s sign.\n\n\n\n\n\n\n\nQ2: t-Statistic Formula (Testing Beta = 1)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nt = (beta-hat - 1) / se(beta-hat) — subtract the null value (1) from the estimate, divide by the standard error.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nUsing 0 instead of 1 — The null hypothesis is beta = 1, not beta = 0.\nUsing 5 instead of 1 — Some confused the null value.\nMissing the se() denominator — Must divide by the standard error.\n\n\n\n\n\n\n\nQ3: AI Effects on Project Proposal Quality (P&G)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nAI sharply increased standardized quality, more for individuals than teams, placing individuals on par with teams.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nOnly noting quality increase — Must also note the differential: AI helped individuals more than teams.\nReversing the comparison — Some said teams benefited more. The figure shows individuals gained more.\nToo vague — “AI is helpful” or “quality increases” without specifics about individual vs. team effects.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Daily 16 - Mar 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_16.html#key-takeaways",
+    "href": "daily_16.html#key-takeaways",
+    "title": "Daily 16 - Mar 23",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Attenuation bias mostly understood | t-statistic formula well known.\nReview:\n\nMeasurement error → attenuation — Coefficient biased toward zero\nt-test formula — Always subtract the null value: t = (estimate - null) / se\nAI experiment — Individuals gained more from AI than teams; individual+AI matched team+AI",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Daily 16 - Mar 23</span>"
+    ]
+  },
+  {
+    "objectID": "daily_17.html",
+    "href": "daily_17.html",
+    "title": "Daily 17 - Mar 25",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 2 to 4 out of 4 points.",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Daily 17 - Mar 25</span>"
+    ]
+  },
+  {
+    "objectID": "daily_17.html#class-performance",
+    "href": "daily_17.html#class-performance",
+    "title": "Daily 17 - Mar 25",
+    "section": "",
+    "text": "Students: 103 | Mean: 3.79 | Median: 4 | SD: 0.45",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Daily 17 - Mar 25</span>"
+    ]
+  },
+  {
+    "objectID": "daily_17.html#score-distribution",
+    "href": "daily_17.html#score-distribution",
+    "title": "Daily 17 - Mar 25",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Daily 17 - Mar 25</span>"
+    ]
+  },
+  {
+    "objectID": "daily_17.html#performance-by-question",
+    "href": "daily_17.html#performance-by-question",
+    "title": "Daily 17 - Mar 25",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Daily 17 - Mar 25</span>"
+    ]
+  },
+  {
+    "objectID": "daily_17.html#questions",
+    "href": "daily_17.html#questions",
+    "title": "Daily 17 - Mar 25",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Education Control and Gender Wage Gap\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nControlling for education causes the estimated gender wage gap to rise by about 7 percentage points.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nVery few errors — Nearly all students correctly identified “rise/increase” and “7.”\nMinor variation — Some wrote “7.4” which is also acceptable.\n\n\n\n\n\n\n\nQ2: STAR Small Class Effect\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nStudents in small classes scored about 14 points higher, and the result is statistically significant.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “19” — Likely from a different row or specification.\nWriting “5.83” or other wrong values — From different columns.\nSaying “is not” significant — The effect is statistically significant.\n\n\n\n\n\n\n\nQ3: Counterfactual\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nCausal inference begins with the notion of a counterfactual — what would happen to the same unit under different conditions.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nVery high performance — Nearly all students correctly wrote “counterfactual.”\nSpelling variations accepted — “Counter factual,” “counter-factual” all received full credit.\n\n\n\n\n\n\n\nQ4: Selection Bias\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nComparing treated and untreated group averages won’t produce the ATE because of selection bias.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nLeaving blank — Several students left this blank.\nWriting “section” or “greater” — These are not the correct term.",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Daily 17 - Mar 25</span>"
+    ]
+  },
+  {
+    "objectID": "daily_17.html#key-takeaways",
+    "href": "daily_17.html#key-takeaways",
+    "title": "Daily 17 - Mar 25",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: Exceptional performance overall | Counterfactual mastered | Gender wage gap well understood.\nReview:\n\nSTAR experiment — Small class effect is about 14 points (statistically significant)\nSelection bias — The reason simple comparisons fail for causal inference\nCounterfactual — The hypothetical “what if” that causal inference tries to estimate",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Daily 17 - Mar 25</span>"
+    ]
+  },
+  {
+    "objectID": "daily_18.html",
+    "href": "daily_18.html",
+    "title": "Daily 18 - Mar 30",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 0.5 to 4 out of 4 points.",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Daily 18 - Mar 30</span>"
+    ]
+  },
+  {
+    "objectID": "daily_18.html#class-performance",
+    "href": "daily_18.html#class-performance",
+    "title": "Daily 18 - Mar 30",
+    "section": "",
+    "text": "Students: 93 | Mean: 2.63 | Median: 2.5 | SD: 0.86",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Daily 18 - Mar 30</span>"
+    ]
+  },
+  {
+    "objectID": "daily_18.html#score-distribution",
+    "href": "daily_18.html#score-distribution",
+    "title": "Daily 18 - Mar 30",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Daily 18 - Mar 30</span>"
+    ]
+  },
+  {
+    "objectID": "daily_18.html#performance-by-question",
+    "href": "daily_18.html#performance-by-question",
+    "title": "Daily 18 - Mar 30",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Daily 18 - Mar 30</span>"
+    ]
+  },
+  {
+    "objectID": "daily_18.html#questions",
+    "href": "daily_18.html#questions",
+    "title": "Daily 18 - Mar 30",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Demographic Controls and Gender Wage Gap\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nAdding demographic controls explains a small fraction of the gender wage gap.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “large” — Many students said “large,” but Column 3 shows demographics explain very little.\nConfusing significance with explanatory power — Statistically significant controls don’t necessarily explain a large fraction.\n\n\n\n\n\n\n\nQ2: Team+AI vs Individual+AI Speed Difference\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nTeam+AI groups are 5 percentage points slower than Individual+AI groups.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nUsing “log time” or “hours” — Many wrote “0.048 log time.” The answer is 5 percentage points.\nWriting “4.8” without units — Close value but must specify percentage points.\nWriting in minutes or seconds — The table reports percentage point differences.\n\n\n\n\n\n\n\nQ3: Small Class Equivalent Years of Experience\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nBeing in a small class is equivalent to a teacher with 10 more years of experience.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrong values (1.5, 2, 3, 7, 14, 21) — Divide small class effect by the experience coefficient.\nClose values (9, 9.5) — Approximately correct, received partial credit.\n\n\n\n\n\n\n\nQ4: Randomization and the CIA\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nRandomization makes potential outcomes independent of treatment. Without an RCT, the CIA (Conditional Independence Assumption) must hold.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nMissing CIA — Some wrote “independent” but omitted the second term.\nWriting “CSA” or “selection” — The correct abbreviation is CIA.",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Daily 18 - Mar 30</span>"
+    ]
+  },
+  {
+    "objectID": "daily_18.html#key-takeaways",
+    "href": "daily_18.html#key-takeaways",
+    "title": "Daily 18 - Mar 30",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: CIA concept well understood | Independence from randomization clear.\nReview:\n\nDemographics explain little of the gender wage gap\nRead table units carefully — “5 percentage points” not “0.048 log time”\nSmall class ≈ 10 years experience — Divide class size effect by experience coefficient",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Daily 18 - Mar 30</span>"
+    ]
+  },
+  {
+    "objectID": "daily_19.html",
+    "href": "daily_19.html",
+    "title": "Daily 19 - Apr 01",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 1 to 4 out of 4 points.",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Daily 19 - Apr 01</span>"
+    ]
+  },
+  {
+    "objectID": "daily_19.html#class-performance",
+    "href": "daily_19.html#class-performance",
+    "title": "Daily 19 - Apr 01",
+    "section": "",
+    "text": "Students: 89 | Mean: 3.20 | Median: 3.5 | SD: 0.58",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Daily 19 - Apr 01</span>"
+    ]
+  },
+  {
+    "objectID": "daily_19.html#score-distribution",
+    "href": "daily_19.html#score-distribution",
+    "title": "Daily 19 - Apr 01",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Daily 19 - Apr 01</span>"
+    ]
+  },
+  {
+    "objectID": "daily_19.html#performance-by-question",
+    "href": "daily_19.html#performance-by-question",
+    "title": "Daily 19 - Apr 01",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Daily 19 - Apr 01</span>"
+    ]
+  },
+  {
+    "objectID": "daily_19.html#questions",
+    "href": "daily_19.html#questions",
+    "title": "Daily 19 - Apr 01",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Deaths Rise at Age 21 (Figure 1)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nDeaths from all causes rise by roughly 10 per 100,000 between the month before and after age 21.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “12” or “13” — Too high. The figure shows approximately 10.\nWriting “8” — Too low. Read the y-axis discontinuity carefully.\nClose values (11) — Received partial credit.\n\n\n\n\n\n\n\nQ2: Key RD Assumption\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nAverage potential outcomes are continuous at the cutoff value of the running variable.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nExcellent performance — Nearly all students correctly identified “continuous.”\n“Continuity” accepted — Acceptable synonym for the same concept.\n\n\n\n\n\n\n\nQ3: NHIS Characteristics and Age 21\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nObserved characteristics are unrelated to whether the individual turned 21 in the month of their interview.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nVery few errors — Nearly all students correctly wrote “unrelated.”\nWhy it matters — If characteristics were related to the cutoff, it would suggest manipulation of the running variable.\n\n\n\n\n\n\n\nQ4: Quadratic Specification Results (Table 3)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nTurning 21 increased deaths by roughly 9.5 per 100,000, with 8.5 (or ~90%/almost all) attributed to external causes.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “10, 8” or “10, 9” — Close but imprecise. The quadratic estimates are approximately 9.5 and 8.5.\nWrong values (2, 3, 4) — From different rows or specifications.\nMissing “external” — Must identify external causes (accidents, injuries).",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Daily 19 - Apr 01</span>"
+    ]
+  },
+  {
+    "objectID": "daily_19.html#key-takeaways",
+    "href": "daily_19.html#key-takeaways",
+    "title": "Daily 19 - Apr 01",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: RD continuity assumption mastered | NHIS balance check understood | Figure reading mostly accurate.\nReview:\n\nFigure 1 — Deaths rise by about 10 per 100,000 at the age-21 cutoff\nQuadratic specification — 9.5 total deaths, 8.5 from external causes\nRD validity — Continuity of potential outcomes + balance of characteristics support the design",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Daily 19 - Apr 01</span>"
+    ]
   }
 ]
