@@ -1168,5 +1168,185 @@
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Daily 19 - Apr 01</span>"
     ]
+  },
+  {
+    "objectID": "daily_20.html",
+    "href": "daily_20.html",
+    "title": "Daily 20 - Apr 06",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 2.5 to 4 out of 4 points.",
+    "crumbs": [
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Daily 20 - Apr 06</span>"
+    ]
+  },
+  {
+    "objectID": "daily_20.html#class-performance",
+    "href": "daily_20.html#class-performance",
+    "title": "Daily 20 - Apr 06",
+    "section": "",
+    "text": "Students: 99 | Mean: 3.12 | Median: 3 | SD: 0.30",
+    "crumbs": [
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Daily 20 - Apr 06</span>"
+    ]
+  },
+  {
+    "objectID": "daily_20.html#score-distribution",
+    "href": "daily_20.html#score-distribution",
+    "title": "Daily 20 - Apr 06",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Daily 20 - Apr 06</span>"
+    ]
+  },
+  {
+    "objectID": "daily_20.html#performance-by-question",
+    "href": "daily_20.html#performance-by-question",
+    "title": "Daily 20 - Apr 06",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Daily 20 - Apr 06</span>"
+    ]
+  },
+  {
+    "objectID": "daily_20.html#questions",
+    "href": "daily_20.html#questions",
+    "title": "Daily 20 - Apr 06",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: AI Team Proposal Quality Effect\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nAI improves team proposal quality by roughly 0.15 standard deviations but the result is not statistically significant at the 10% level.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nClose values (0.147, 0.16) — Accepted as approximately correct.\n“Is” instead of “is not” — A few students misread the significance stars.\n\n\n\n\n\n\n\nQ2: Gender Wage Gap Among Singles\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe gender wage gap among singles is 13–14% or roughly 8 points lower than the full-sample gap.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “9” or “7” for the second blank — close but not 8.\nWriting “3” or “4” — from misreading the table; subtract singles from full-sample gap.\n\n\n\n\n\n\n\nQ3: MVA Percent Increase and CD Consistency\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nMVA deaths increase by 14.3 percent (coefficient divided by baseline 32.5), which is consistent with Carpenter–Dobkin’s findings.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “15” with “is” — Half credit: magnitude close to 14.3 and correct conclusion, but missed the 1-decimal-place requirement.\nWriting “4.6” or “2.7” — Zero credit: calculation setup wrong. Use coefficient / 32.5 × 100.\nAny value with “is not” — Zero credit when the conclusion is wrong.\n\n\n\n\n\n\n\nQ4: Kentucky WBA Cap Effect\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe increase in Kentucky’s WBA cap caused time out of work to rise by 20%.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWrong percentage (10%, 25%, 70%) — Partial credit for correct direction.\nWriting “fall” — Incorrect direction; higher WBA caps increase time out of work.",
+    "crumbs": [
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Daily 20 - Apr 06</span>"
+    ]
+  },
+  {
+    "objectID": "daily_20.html#key-takeaways",
+    "href": "daily_20.html#key-takeaways",
+    "title": "Daily 20 - Apr 06",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: AI team effect understood | Wage gap computation strong | WBA direction and magnitude correct.\nReview:\n\nQ3 precision — Always report percentages to the requested decimal (1 decimal place means 14.3, not 15)\nQ3 setup — Percent increase = coefficient / baseline rate × 100; use the 32.5 MVA baseline\nCD consistency — The MVA findings align with Carpenter–Dobkin’s earlier age-21 mortality work",
+    "crumbs": [
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Daily 20 - Apr 06</span>"
+    ]
+  },
+  {
+    "objectID": "daily_21.html",
+    "href": "daily_21.html",
+    "title": "Daily 21 - Apr 08",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 1 to 5 out of 5 points.",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Daily 21 - Apr 08</span>"
+    ]
+  },
+  {
+    "objectID": "daily_21.html#class-performance",
+    "href": "daily_21.html#class-performance",
+    "title": "Daily 21 - Apr 08",
+    "section": "",
+    "text": "Students: 100 | Mean: 4.47 | Median: 4.5 | SD: 0.63",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Daily 21 - Apr 08</span>"
+    ]
+  },
+  {
+    "objectID": "daily_21.html#score-distribution",
+    "href": "daily_21.html#score-distribution",
+    "title": "Daily 21 - Apr 08",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Daily 21 - Apr 08</span>"
+    ]
+  },
+  {
+    "objectID": "daily_21.html#performance-by-question",
+    "href": "daily_21.html#performance-by-question",
+    "title": "Daily 21 - Apr 08",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Daily 21 - Apr 08</span>"
+    ]
+  },
+  {
+    "objectID": "daily_21.html#questions",
+    "href": "daily_21.html#questions",
+    "title": "Daily 21 - Apr 08",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: DD Identifies ATT Under Parallel Trends\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe DD from log duration identifies the ATT if high and low earners followed parallel trends in the absence of the WBA cap increase.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “PTA” — Half credit: shows understanding of the parallel trends assumption but isn’t the literal word.\nWriting “ATE” — DD identifies the ATT (treatment effect on the treated), not the ATE.\n\n\n\n\n\n\n\nQ2: Before/After Comparisons Fail Due To Confounding\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nSimple before/after comparisons fail to account for confounding trends in the outcome.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “time” trends — Related but misses the point; “confounding” captures why simple comparisons fail.\nNear-universal success otherwise.\n\n\n\n\n\n\n\nQ3: Treated-vs-Control Comparisons Fail Due To Confounding\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nSimple treated vs control comparisons fail to account for confounding differences between groups.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “group” differences — Not specific enough; the key concept is confounding.\nExcellent overall performance — Most students understood this.\n\n\n\n\n\n\n\nQ4: Pre-Period Gap in KY (High vs Low Earners)\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nIn KY, high earners injured before the WBA cap increase were out of work 25.6% longer than lower earners.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “26” or “25” — Close but missed the decimal place.\nWriting “1.6” or “1.1” — Confused absolute coefficient with percentage longer.\nWriting “70” or “80” — Misread row or column in Table 2.\n\n\n\n\n\n\n\nQ5: MI Effect for High Earners\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nThe MI WBA cap increase caused high earners to be out of work 19–20% longer, but the result is not statistically significant.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting just “not” — Half credit: prompt specifies “(is/is not)” — full phrase is “is not.”\nWriting “is significant” — Incorrect; SE is too large relative to estimate.",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Daily 21 - Apr 08</span>"
+    ]
+  },
+  {
+    "objectID": "daily_21.html#key-takeaways",
+    "href": "daily_21.html#key-takeaways",
+    "title": "Daily 21 - Apr 08",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: ATT + parallel trends terminology mastered | Confounding concept strong | DD identification logic internalized.\nReview:\n\nQ4 precision — Report the pre-period gap as 25.6% (one decimal)\nQ5 phrasing — “Is not” requires both words; match the (is/is not) prompt exactly\nDD interpretation — MI effect ~19–20% but not statistically significant",
+    "crumbs": [
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Daily 21 - Apr 08</span>"
+    ]
+  },
+  {
+    "objectID": "daily_22.html",
+    "href": "daily_22.html",
+    "title": "Daily 22 - Apr 13",
+    "section": "",
+    "text": "Class Performance\nScores ranged from 0 to 5 out of 5 points.",
+    "crumbs": [
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Daily 22 - Apr 13</span>"
+    ]
+  },
+  {
+    "objectID": "daily_22.html#class-performance",
+    "href": "daily_22.html#class-performance",
+    "title": "Daily 22 - Apr 13",
+    "section": "",
+    "text": "Students: 98 | Mean: 3.76 | Median: 4 | SD: 0.91",
+    "crumbs": [
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Daily 22 - Apr 13</span>"
+    ]
+  },
+  {
+    "objectID": "daily_22.html#score-distribution",
+    "href": "daily_22.html#score-distribution",
+    "title": "Daily 22 - Apr 13",
+    "section": "Score Distribution",
+    "text": "Score Distribution",
+    "crumbs": [
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Daily 22 - Apr 13</span>"
+    ]
+  },
+  {
+    "objectID": "daily_22.html#performance-by-question",
+    "href": "daily_22.html#performance-by-question",
+    "title": "Daily 22 - Apr 13",
+    "section": "Performance by Question",
+    "text": "Performance by Question",
+    "crumbs": [
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Daily 22 - Apr 13</span>"
+    ]
+  },
+  {
+    "objectID": "daily_22.html#questions",
+    "href": "daily_22.html#questions",
+    "title": "Daily 22 - Apr 13",
+    "section": "Questions",
+    "text": "Questions\n\nQ1: Controls Do NOT Change the KY DD Story\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nFalse. Adding controls to the baseline DD for KY does not substantially reduce the WBA effect on injury duration nor render it statistically insignificant.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “True” — Common misread; controls typically refine rather than reverse DD estimates here.\nIntuition — DD already differences out time-invariant group differences; controls mostly tighten SEs.\n\n\n\n\n\n\n\nQ2: PTA in Multi-Group DD\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nPTA means untreated potential outcome depends only on group and time period differences.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “unit” or “individual” — Close but PTA is stated in terms of group-level fixed effects.\nNear-universal success on this item.\n\n\n\n\n\n\n\nQ3: Robust SEs = Clustering\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nRobust SEs in a multi-group DD means clustering at the group level.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “cluster” or “to cluster” — Half credit: right concept, wrong form. The term of art is “clustering.”\nWriting “grouping” — Not the standard term.\n\n\n\n\n\n\n\nQ4: t-Statistic for UNITSF Coefficient\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\n\\(t = (51.63 - 50) / 1.874 \\approx 0.87\\). Plug in the point estimate, hypothesized value, and reported SE.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nRight structure, wrong numbers — Partial credit when the (coef − 50)/SE structure is correct but the specific values are mis-transcribed.\nUsing SE(UNITSF) notation only — Half credit: failed to plug in 1.874.\nInverting the formula — SE/(coef − 50) gets zero; t-stat is (estimate − null) / SE.\n\n\n\n\n\n\n\nQ5: Reject or Fail to Reject?\n\n\n\n\n\n\nCorrect Answer\n\n\n\n\n\nFail to reject the null. With |t| ≈ 0.87 (well below 1.96), we have no evidence against H0: UNITSF = 50.\n\n\n\n\n\n\n\n\n\nCommon Errors\n\n\n\n\n\n\nWriting “reject” — Wrong direction; a small t-stat means we cannot distinguish the estimate from 50.\nBlank / ambiguous answers — A clear “fail to reject” statement was expected.",
+    "crumbs": [
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Daily 22 - Apr 13</span>"
+    ]
+  },
+  {
+    "objectID": "daily_22.html#key-takeaways",
+    "href": "daily_22.html#key-takeaways",
+    "title": "Daily 22 - Apr 13",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nStrengths: PTA definition solid | Clustering concept understood | Hypothesis-test structure recognized.\nReview:\n\nQ1 intuition — Controls refine DD estimates; they rarely wipe out a robust treatment effect in KY\nQ3 precision — Use “clustering” (gerund), not “cluster”\nQ4 → Q5 logic — Compute t, compare to 1.96, then state reject / fail to reject",
+    "crumbs": [
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Daily 22 - Apr 13</span>"
+    ]
   }
 ]
