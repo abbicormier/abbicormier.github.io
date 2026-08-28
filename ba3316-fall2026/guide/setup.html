@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Setup – BA 3316 Project Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./pre-project.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f2127498ec0c487e0d623b3555c3c6f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d2b57899d0b7c6a43d1052fb2d834b07.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./setup.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setup</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">BA 3316 Project Guide</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./setup.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setup</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pre-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Pre-project Exercise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./main-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Main Project</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./progress-check.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Progress Check</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Submission</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./common-errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Common Errors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-ai-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">R and AI Resources</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#install-r-and-rstudio" id="toc-install-r-and-rstudio" class="nav-link active" data-scroll-target="#install-r-and-rstudio"><span class="header-section-number">1.1</span> Install R and RStudio</a>
+  <ul class="collapse">
+  <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows"><span class="header-section-number">1.1.1</span> Windows</a></li>
+  <li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos"><span class="header-section-number">1.1.2</span> macOS</a></li>
+  </ul></li>
+  <li><a href="#install-the-required-r-packages" id="toc-install-the-required-r-packages" class="nav-link" data-scroll-target="#install-the-required-r-packages"><span class="header-section-number">1.2</span> Install the required R packages</a></li>
+  <li><a href="#create-the-required-directory-or-folder-structure" id="toc-create-the-required-directory-or-folder-structure" class="nav-link" data-scroll-target="#create-the-required-directory-or-folder-structure"><span class="header-section-number">1.3</span> Create the required directory or folder structure</a>
+  <ul class="collapse">
+  <li><a href="#make-a-ba-3316-folder-first" id="toc-make-a-ba-3316-folder-first" class="nav-link" data-scroll-target="#make-a-ba-3316-folder-first"><span class="header-section-number">1.3.1</span> Make a BA 3316 folder first</a></li>
+  <li><a href="#create-the-required-subfolders-inside-project" id="toc-create-the-required-subfolders-inside-project" class="nav-link" data-scroll-target="#create-the-required-subfolders-inside-project"><span class="header-section-number">1.3.2</span> Create the required subfolders inside <code>Project/</code></a></li>
+  </ul></li>
+  <li><a href="#sec-download-pre-project-pack" id="toc-sec-download-pre-project-pack" class="nav-link" data-scroll-target="#sec-download-pre-project-pack"><span class="header-section-number">1.4</span> Download the Pre-project file pack and sort its contents</a></li>
+  <li><a href="#create-an-r-project-in-the-project-directory" id="toc-create-an-r-project-in-the-project-directory" class="nav-link" data-scroll-target="#create-an-r-project-in-the-project-directory"><span class="header-section-number">1.5</span> Create an R Project in the <code>Project</code> directory</a></li>
+  <li><a href="#run-the-setup-check" id="toc-run-the-setup-check" class="nav-link" data-scroll-target="#run-the-setup-check"><span class="header-section-number">1.6</span> Run the setup check</a></li>
+  <li><a href="#common-errors" id="toc-common-errors" class="nav-link" data-scroll-target="#common-errors"><span class="header-section-number">1.7</span> Common errors</a></li>
+  <li><a href="#what-happens-next" id="toc-what-happens-next" class="nav-link" data-scroll-target="#what-happens-next"><span class="header-section-number">1.8</span> What happens next</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-setup" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setup</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Your project work starts here. Setup involves:</p>
+<ul>
+<li>Installing R and RStudio</li>
+<li>Installing the required R packages</li>
+<li>Creating the required directory structure</li>
+<li>Downloading the file packs and sorting their contents into the right places</li>
+<li>Creating an “R Project” (<code>.Rproj</code> file) to govern your project work</li>
+<li>Successfully running the setup-check script</li>
+</ul>
+<p>Setup activities typically take 30 minutes to an hour.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>“My project won’t knit”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Don’t rush this process. Almost every “my project won’t knit” message we get traces back to a setup problem. Make sure you pass the setup check before you move on.</p>
+</div>
+</div>
+<section id="install-r-and-rstudio" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="install-r-and-rstudio"><span class="header-section-number">1.1</span> Install R and RStudio</h2>
+<p>If you haven’t already, install R and <strong>then</strong> install RStudio. That order matters: RStudio looks for R when it opens, so in the other order it will not work. Below are step-by-step guides for Windows and macOS.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>A fuller walkthrough, with pictures of every prompt
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you have never installed software like this before, work from the <a href="https://abbicormier.github.io/ba3316-fall2026/setup.html">Installing R and RStudio guide</a> instead. It covers the same ground more slowly, with a tab for each platform and an explanation of every warning box you will see along the way. Come back here when R and RStudio are both open.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Check your operating system first
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Windows:</strong> the current RStudio requires <strong>Windows 11</strong>. Click Start, type <code>about</code>, press Enter, and read the <strong>Edition</strong> line. If it says Windows 10, stop and email Dr.&nbsp;Cormier before installing anything.</li>
+<li><strong>macOS:</strong> the current R and RStudio require <strong>macOS 14 (Sonoma) or newer</strong>. Click the Apple menu, then <strong>About This Mac</strong>, and read the line above the chip. Sonoma, Sequoia, or Tahoe are fine. Ventura, Monterey, or Big Sur are not, so email Dr.&nbsp;Cormier.</li>
+</ul>
+</div>
+</div>
+<section id="windows" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="windows"><span class="header-section-number">1.1.1</span> Windows</h3>
+<p><strong>Step 1: Install R</strong></p>
+<ol type="1">
+<li>Go to the <a href="https://cran.r-project.org/">CRAN R Project website</a>.</li>
+<li>Click on “Download R for Windows”.</li>
+<li>Click on “base” and then select the link labeled “Download R x.x.x for Windows” (where x.x.x is the latest version).</li>
+<li>Open the downloaded <code>.exe</code> file and follow the installation prompts, accepting the defaults.</li>
+</ol>
+<p><strong>Step 2: Install RStudio</strong></p>
+<ol type="1">
+<li>Visit the <a href="https://posit.co/download/rstudio-desktop/">RStudio download page</a>.</li>
+<li>Click the link to download the Windows installer.</li>
+<li>Open the downloaded <code>.exe</code> file and complete the installation using default settings.</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Two boxes Windows will show you
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>“Windows protected your PC”</strong>, a blue box with only a <strong>Don’t run</strong> button. This does not mean the file is unsafe. It appears for almost every newly released installer. Click the small <strong>More info</strong> link, then <strong>Run anyway</strong>.</p>
+<p><strong>“Do you want to allow this app to make changes to your device?”</strong> Click <strong>Yes</strong>. If it asks for an administrator password you do not have, your laptop is managed by an IT department. Stop and email Dr.&nbsp;Cormier.</p>
+</div>
+</div>
+<p><strong>Step 3: Verify the installation</strong></p>
+<ol type="1">
+<li>Launch RStudio from the Start menu.</li>
+<li>In the Console pane, type <code>R.version$platform</code> and press Enter.</li>
+<li>You should see <code>"x86_64-w64-mingw32"</code>. If you get an error, or RStudio says it cannot find R, R did not install correctly. Redo Step 1.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Open RStudio from the <strong>Start menu</strong>, never by double-clicking the installer in your Downloads folder. That file installs the program, it is not the program. Once you create your <code>.Rproj</code> file later in this chapter, you will open the project instead, and that becomes your normal way in.</p>
+</div>
+</div>
+</section>
+<section id="macos" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="macos"><span class="header-section-number">1.1.2</span> macOS</h3>
+<p><strong>First, identify your Mac’s chip.</strong> Newer Macs use Apple Silicon (M1, M2, M3, M4, etc.); older ones use Intel processors. You need to know which you have to pick the right R installer.</p>
+<ol type="1">
+<li>Click the Apple menu (top-left corner) → <strong>About This Mac</strong>.</li>
+<li>Look at the <strong>Chip</strong> (Apple Silicon) or <strong>Processor</strong> (Intel) line:
+<ul>
+<li>If it says “Apple M1”, “M2”, “M3”, “M4”, or any Apple-labeled chip, you have <strong>Apple Silicon</strong>. You want the <code>arm64</code> installer.</li>
+<li>If it says “Intel Core …”, you have an <strong>Intel Mac</strong>. You want the <code>x86_64</code> installer.</li>
+</ul></li>
+</ol>
+<p><strong>Step 1: Install R</strong></p>
+<ol type="1">
+<li>Visit the <a href="https://cran.r-project.org/">CRAN R Project website</a>.</li>
+<li>Click on “Download R for macOS”.</li>
+<li>Select the latest version matching your chip — either <code>R-x.x.x-arm64.pkg</code> (Apple Silicon) or <code>R-x.x.x-x86_64.pkg</code> (Intel).</li>
+<li>Open the downloaded <code>.pkg</code> file and follow the installation prompts.</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>If macOS asks for access to your Downloads folder, say yes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Partway through, macOS may ask whether the Installer can read files in your Downloads folder. Allow it. If you click <strong>Don’t Allow</strong>, this install fails <strong>and</strong> you will not be able to install anything else from Downloads afterward.</p>
+<p>Note also that you do not drag R anywhere. R uses a <code>.pkg</code> installer, which puts R into <code>Applications</code> for you. The dragging step is for RStudio only.</p>
+</div>
+</div>
+<p><strong>Step 2: Install RStudio</strong></p>
+<ol type="1">
+<li>Go to the <a href="https://posit.co/download/rstudio-desktop/">RStudio download page</a>. One download works on both Apple Silicon and Intel. The chip only mattered for R.</li>
+<li>Click the link to download the macOS version of RStudio.</li>
+<li>Open the downloaded <code>.dmg</code> file and drag the RStudio icon onto the <code>Applications</code> folder. Wait for the copy bar to finish.</li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Then eject the disk image. This is the step people skip.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The window you dragged from is not a folder on your computer. It is a temporary <strong>disk image</strong>, like a CD your Mac pretended to insert. If you open RStudio from that window, you are running it off the pretend CD. It works until you restart, and then RStudio vanishes along with your settings.</p>
+<p>Close the window. In any Finder sidebar, under <strong>Locations</strong>, find <strong>RStudio</strong> with a small eject symbol beside it and click the eject symbol. Dragging installs it; ejecting proves you did.</p>
+</div>
+</div>
+<p><strong>Step 3: Verify the installation</strong></p>
+<ol type="1">
+<li>Open RStudio from your <code>Applications</code> folder. The first time, macOS warns that it was downloaded from the internet. Click <strong>Open</strong>.</li>
+<li>In the Console pane, type <code>R.version$platform</code> and press Return.</li>
+<li>You should see <code>"aarch64-apple-darwin20"</code> on Apple Silicon or <code>"x86_64-apple-darwin20"</code> on Intel. If it does not match the chip you identified above, you installed the wrong R. Redo Step 1 with the other installer and install it over the top.</li>
+</ol>
+</section>
+</section>
+<section id="install-the-required-r-packages" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="install-the-required-r-packages"><span class="header-section-number">1.2</span> Install the required R packages</h2>
+<p>Now, install the seven packages required by the project.</p>
+<ol type="1">
+<li><p>Select the <strong>Packages</strong> tab in the bottom-right pane.</p></li>
+<li><p>Click <strong>Install</strong> at the top of that pane.</p></li>
+<li><p>In the “Install Packages” box, enter the package names separated by spaces or commas:</p>
+<p><code>here tidyverse modelsummary ggpmisc car ggrepel kableExtra</code></p></li>
+<li><p>Make sure <strong>Install dependencies</strong> is checked.</p></li>
+<li><p>Click <strong>Install</strong>.</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You install packages <strong>only once per machine</strong>. Once installed, you “attach” them to a script (<code>.R</code>) or an R Markdown (<code>.Rmd</code>) using the <code>library()</code> function. The requisite <code>library()</code> calls are already included in the setup chunk of the <code>project.Rmd</code> template. Do <strong>not</strong> edit the setup chunk.</p>
+</div>
+</div>
+</section>
+<section id="create-the-required-directory-or-folder-structure" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="create-the-required-directory-or-folder-structure"><span class="header-section-number">1.3</span> Create the required directory or folder structure</h2>
+<section id="make-a-ba-3316-folder-first" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="make-a-ba-3316-folder-first"><span class="header-section-number">1.3.1</span> Make a BA 3316 folder first</h3>
+<p>Before building the project directory structure, you need to set up a top-level <strong><code>BA 3316</code></strong> folder first. If you are new at this sort of thing, put it on your desktop. Otherwise, put it somewhere inside the <code>Documents</code> folder that makes sense to you.</p>
+<p>Inside <code>BA 3316</code>, create two subfolders:</p>
+<pre><code>BA 3316/
+├── Homework/
+└── Project/</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The trailing slash means “this is a folder”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Throughout this guide, a name ending in <code>/</code> is a <strong>folder</strong>, not a file. The slash is notation, not part of the name. When you create the folder above you type <code>Homework</code>, not <code>Homework/</code>.</p>
+<p>The same holds for <code>data/</code>, <code>out/</code>, <code>r/</code>, and the rest. A name with an extension, like <code>project.Rmd</code> or <code>LF.R</code>, is a file.</p>
+</div>
+</div>
+<ul>
+<li><code>Homework/</code> is where you’ll save completed homework assignments.</li>
+<li><code>Project/</code> is the self-contained working directory for all project-related files.</li>
+</ul>
+<p>The next step is creating the required structure inside of <code>Project/</code>. We won’t have anything more to say about the <code>Homework/</code> directory in this guide.</p>
+</section>
+<section id="create-the-required-subfolders-inside-project" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="create-the-required-subfolders-inside-project"><span class="header-section-number">1.3.2</span> Create the required subfolders inside <code>Project/</code></h3>
+<p>The required directory structure has <strong>two levels</strong> – a main project folder, which you just created, and these five subfolders:</p>
+<ul>
+<li><code>data/</code> contains input data sets</li>
+<li><code>data_documentation/</code> contains the data documentation file</li>
+<li><code>out/</code> contains outputs generated by the script</li>
+<li><code>r/</code> contains the R script that produces outputs</li>
+<li><code>css/</code> contains the CSS (cascading style sheet) file that styles the slide deck</li>
+</ul>
+<p>After creating the five subfolders, your project directory should look like this:</p>
+<pre><code>BA 3316/
+├── Homework/
+└── Project/
+    ├── data/
+    ├── data_documentation/
+    ├── out/
+    ├── r/
+    └── css/</code></pre>
+<p>You’ll put files into these subfolders in the next step. The <code>.Rmd</code> files themselves will live in the <code>Project/</code> root, <strong>not</strong> in any of the subfolders.</p>
+</section>
+</section>
+<section id="sec-download-pre-project-pack" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="sec-download-pre-project-pack"><span class="header-section-number">1.4</span> Download the Pre-project file pack and sort its contents</h2>
+<p>Your project work starts with the Pre-project Exercise, so you’ll download the Pre-project file pack from Canvas first. You will find it in the module labelled <strong>Project</strong>. It is a <code>.zip</code> file containing the seven files required to complete the Pre-project Exercise:</p>
+<ul>
+<li><code>pre_project.Rmd</code> — R Markdown template for the Pre-project Exercise</li>
+<li><code>LF.R</code> — R script that produces <code>LF.csv</code><br>
+</li>
+<li><code>project_slidedeck.css</code> — the CSS file that styles the slide deck</li>
+<li><code>pppub25.csv</code> — March 2025 CPS person-level data file</li>
+<li><code>hhpub25.csv</code> — March 2025 CPS household-level data file</li>
+<li><code>cpsmar25_documentation.pdf</code> — March 2025 CPS documentation file</li>
+<li><code>check_setup_preproject.R</code> — R script that checks your setup for the Pre-project Exercise</li>
+</ul>
+<p>Download and move the <code>.zip</code> file into your <code>Project/</code> folder and unzip it. Sort the files from the unzipped folder into the right subfolders in your <code>Project/</code> directory.</p>
+<p>The Main Project requires a few additional files that are bundled in another file pack. We will cover those in the Main Project section of this guide.</p>
+<p>Here is where each file goes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Goes in</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pre_project.Rmd</code></td>
+<td><code>Project/</code> (root)</td>
+</tr>
+<tr class="even">
+<td><code>LF.R</code></td>
+<td><code>Project/r/</code></td>
+</tr>
+<tr class="odd">
+<td><code>project_slidedeck.css</code></td>
+<td><code>Project/css/</code></td>
+</tr>
+<tr class="even">
+<td><code>pppub25.csv</code></td>
+<td><code>Project/data/</code></td>
+</tr>
+<tr class="odd">
+<td><code>hhpub25.csv</code></td>
+<td><code>Project/data/</code></td>
+</tr>
+<tr class="even">
+<td><code>cpsmar25_documentation.pdf</code></td>
+<td><code>Project/data_documentation/</code></td>
+</tr>
+<tr class="odd">
+<td><code>check_setup_preproject.R</code></td>
+<td><code>Project/r/</code></td>
+</tr>
+</tbody>
+</table>
+<p>After sorting each file into its proper location, your Project folder should look like this:</p>
+<pre><code>Project/
+├── pre_project.Rmd
+├── data/
+│   ├── pppub25.csv
+│   └── hhpub25.csv
+├── data_documentation/
+│   └── cpsmar25_documentation.pdf
+├── out/
+│   (empty for now — LF.R will write LF.csv here)
+├── r/
+│   ├── LF.R
+│   └── check_setup_preproject.R
+└── css/
+    └── project_slidedeck.css</code></pre>
+</section>
+<section id="create-an-r-project-in-the-project-directory" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="create-an-r-project-in-the-project-directory"><span class="header-section-number">1.5</span> Create an R Project in the <code>Project</code> directory</h2>
+<p>Creating an R Project turns your Project/ folder into a single, self-contained workspace: every time you open it by double-clicking the <code>.Rproj</code> file, RStudio automatically makes that folder your working directory. That is what lets the <code>here()</code> paths in the scripts and the R Markdown template find your data and output files reliably – without it, RStudio has no fixed sense of where your project lives, which is the source of the cryptic “file not found” errors that come from running things out of your <code>Downloads</code> folder.</p>
+<p>To create your R Project, follow these steps:</p>
+<ol type="1">
+<li>Open RStudio.</li>
+<li>Go to <strong>File → New Project</strong>.</li>
+<li>Choose <strong>Existing Directory</strong>.</li>
+<li>Browse to your <code>Project/</code> folder and click <strong>Create Project</strong>.</li>
+<li>RStudio re-opens in your <code>Project</code> folder loaded as the active project.</li>
+</ol>
+<p>Creating the R Project writes the file <code>Project.Rproj</code> in the <code>Project/</code> root. After creating the R Project, <strong>always, always, always open RStudio by double-clicking the <code>Project.Rproj</code> file</strong>.</p>
+</section>
+<section id="run-the-setup-check" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="run-the-setup-check"><span class="header-section-number">1.6</span> Run the setup check</h2>
+<p>After completing the above steps, run the setup-check script to confirm everything is in place. It checks for the presence of all required files and confirms that they are in the right places. If you have any setup problems, it will tell you what they are and how to fix them.</p>
+<p>To run the setup check script:</p>
+<ol type="1">
+<li>Go to the <strong>Files</strong> tab in the bottom-right pane of RStudio.</li>
+<li>Click the <code>r/</code> subfolder.</li>
+<li>Click the file <code>check_setup_preproject.R</code> to open it in the editor.</li>
+<li>In the editor, select all lines using Ctrl+A on Windows or Cmd+A on a Mac.</li>
+<li>Click the <strong>Run</strong> button in the top-right of the editor pane.</li>
+</ol>
+<p>The script’s output appears under the Console tab in the pane below the editor, indicating whether each required file is in place — one line per file, marked either ✓ (good) or ✗ with a specific instruction telling you what to fix. Do not proceed until every line is a ✓.</p>
+</section>
+<section id="common-errors" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="common-errors"><span class="header-section-number">1.7</span> Common errors</h2>
+<p>In our experience, these are three common setup errors, each of which is easily preventable.</p>
+<ol type="1">
+<li><p><code>project_slidedeck.css</code> in the wrong folder</p>
+<p>The CSS file styles your slide deck. If it’s anywhere but <code>Project/css/project_slidedeck.css</code>, your knitted slides will not be format compliant and your submission will be rejected. The setup-check script will catch this, so there should be no excuse for not correcting the problem.</p></li>
+<li><p>Working from your <code>Downloads</code> folder</p>
+<p>If you launch a script or R Markdown file from your <code>Downloads</code> folder, RStudio’s working directory will be <code>Downloads</code>, not your <code>Project/</code> folder and you will get cryptic “file not found” errors when the script or R Markdown tries to read files using <code>here()</code>. This occurs when you download the file pack into <code>Downloads</code> and then open the files directly from there.</p></li>
+<li><p>Knitting the R Markdown before running the R script</p>
+<p>Knitting <code>pre_project.Rmd</code> before running <code>LF.R</code> will generate a fatal error because the Rmd reads <code>out/LF.csv</code>, which doesn’t exist until you run <code>LF.R</code>. The setup-check script confirms that <code>LF.R</code> exists, but it can’t confirm that it actually produced <code>LF.csv</code>. Only running the script can confirm that.</p></li>
+</ol>
+</section>
+<section id="what-happens-next" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="what-happens-next"><span class="header-section-number">1.8</span> What happens next</h2>
+<p>When you are set up, continue to the <a href="./pre-project.html#sec-pre-project">Pre-project Exercise</a>. After completing it, download and sort the Main Project file pack as described in the <a href="./main-project.html#sec-main-project">Main Project</a> chapter, then run its setup check before beginning the analysis.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./pre-project.html" class="pagination-link" aria-label="Pre-project Exercise">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Pre-project Exercise</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

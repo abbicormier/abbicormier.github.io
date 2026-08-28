@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; Common Errors – BA 3316 Project Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./r-ai-resources.html" rel="next">
+<link href="./submission.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f2127498ec0c487e0d623b3555c3c6f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d2b57899d0b7c6a43d1052fb2d834b07.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./common-errors.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Common Errors</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">BA 3316 Project Guide</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setup</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pre-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Pre-project Exercise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./main-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Main Project</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./progress-check.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Progress Check</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Submission</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./common-errors.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Common Errors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-ai-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">R and AI Resources</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-getting-help" id="toc-sec-getting-help" class="nav-link active" data-scroll-target="#sec-getting-help"><span class="header-section-number">6.1</span> Getting help</a></li>
+  <li><a href="#setup-errors" id="toc-setup-errors" class="nav-link" data-scroll-target="#setup-errors"><span class="header-section-number">6.2</span> Setup errors</a>
+  <ul class="collapse">
+  <li><a href="#css-not-loading" id="toc-css-not-loading" class="nav-link" data-scroll-target="#css-not-loading"><span class="header-section-number">6.2.1</span> CSS not loading</a></li>
+  <li><a href="#working-from-your-downloads-folder" id="toc-working-from-your-downloads-folder" class="nav-link" data-scroll-target="#working-from-your-downloads-folder"><span class="header-section-number">6.2.2</span> Working from your Downloads folder</a></li>
+  <li><a href="#required-files-missing-or-in-the-wrong-subfolder" id="toc-required-files-missing-or-in-the-wrong-subfolder" class="nav-link" data-scroll-target="#required-files-missing-or-in-the-wrong-subfolder"><span class="header-section-number">6.2.3</span> Required files missing or in the wrong subfolder</a></li>
+  </ul></li>
+  <li><a href="#workflow-errors" id="toc-workflow-errors" class="nav-link" data-scroll-target="#workflow-errors"><span class="header-section-number">6.3</span> Workflow errors</a>
+  <ul class="collapse">
+  <li><a href="#sec-knitting-before-running" id="toc-sec-knitting-before-running" class="nav-link" data-scroll-target="#sec-knitting-before-running"><span class="header-section-number">6.3.1</span> Knitting before running the R script</a></li>
+  <li><a href="#sec-variable-name-confusion" id="toc-sec-variable-name-confusion" class="nav-link" data-scroll-target="#sec-variable-name-confusion"><span class="header-section-number">6.3.2</span> Variable name confusion</a></li>
+  <li><a href="#sec-touching-setup-chunk" id="toc-sec-touching-setup-chunk" class="nav-link" data-scroll-target="#sec-touching-setup-chunk"><span class="header-section-number">6.3.3</span> Touching the setup chunk</a></li>
+  </ul></li>
+  <li><a href="#rendering-errors-the-knit-step" id="toc-rendering-errors-the-knit-step" class="nav-link" data-scroll-target="#rendering-errors-the-knit-step"><span class="header-section-number">6.4</span> Rendering errors (the knit step)</a>
+  <ul class="collapse">
+  <li><a href="#leaving-eval-false-on-a-completed-chunk" id="toc-leaving-eval-false-on-a-completed-chunk" class="nav-link" data-scroll-target="#leaving-eval-false-on-a-completed-chunk"><span class="header-section-number">6.4.1</span> Leaving <code>eval = FALSE</code> on a completed chunk</a></li>
+  <li><a href="#sec-editing-yaml" id="toc-sec-editing-yaml" class="nav-link" data-scroll-target="#sec-editing-yaml"><span class="header-section-number">6.4.2</span> Editing the YAML beyond the author line</a></li>
+  <li><a href="#using-the-knit-dropdown-instead-of-the-knit-button" id="toc-using-the-knit-dropdown-instead-of-the-knit-button" class="nav-link" data-scroll-target="#using-the-knit-dropdown-instead-of-the-knit-button"><span class="header-section-number">6.4.3</span> Using the Knit dropdown instead of the Knit button</a></li>
+  </ul></li>
+  <li><a href="#output-format-errors" id="toc-output-format-errors" class="nav-link" data-scroll-target="#output-format-errors"><span class="header-section-number">6.5</span> Output format errors</a>
+  <ul class="collapse">
+  <li><a href="#wrong-css" id="toc-wrong-css" class="nav-link" data-scroll-target="#wrong-css"><span class="header-section-number">6.5.1</span> Wrong CSS</a></li>
+  <li><a href="#wrong-css-wrong-orientation" id="toc-wrong-css-wrong-orientation" class="nav-link" data-scroll-target="#wrong-css-wrong-orientation"><span class="header-section-number">6.5.2</span> Wrong CSS + wrong orientation</a></li>
+  <li><a href="#wrong-orientation" id="toc-wrong-orientation" class="nav-link" data-scroll-target="#wrong-orientation"><span class="header-section-number">6.5.3</span> Wrong orientation</a></li>
+  <li><a href="#long-landscape" id="toc-long-landscape" class="nav-link" data-scroll-target="#long-landscape"><span class="header-section-number">6.5.4</span> Long landscape</a></li>
+  <li><a href="#portrait" id="toc-portrait" class="nav-link" data-scroll-target="#portrait"><span class="header-section-number">6.5.5</span> Portrait</a></li>
+  <li><a href="#portrait-wrong-css" id="toc-portrait-wrong-css" class="nav-link" data-scroll-target="#portrait-wrong-css"><span class="header-section-number">6.5.6</span> Portrait + wrong CSS</a></li>
+  <li><a href="#latex-slides-knit-to-pdf-slide-format" id="toc-latex-slides-knit-to-pdf-slide-format" class="nav-link" data-scroll-target="#latex-slides-knit-to-pdf-slide-format"><span class="header-section-number">6.5.7</span> LaTeX slides (knit-to-PDF, slide format)</a></li>
+  <li><a href="#latex-document-knit-to-pdf-document-format" id="toc-latex-document-knit-to-pdf-document-format" class="nav-link" data-scroll-target="#latex-document-knit-to-pdf-document-format"><span class="header-section-number">6.5.8</span> LaTeX document (knit-to-PDF, document format)</a></li>
+  <li><a href="#not-knit" id="toc-not-knit" class="nav-link" data-scroll-target="#not-knit"><span class="header-section-number">6.5.9</span> Not knit</a></li>
+  <li><a href="#wrong-file" id="toc-wrong-file" class="nav-link" data-scroll-target="#wrong-file"><span class="header-section-number">6.5.10</span> Wrong file</a></li>
+  </ul></li>
+  <li><a href="#content-errors" id="toc-content-errors" class="nav-link" data-scroll-target="#content-errors"><span class="header-section-number">6.6</span> Content errors</a>
+  <ul class="collapse">
+  <li><a href="#numbers-in-your-paragraph-dont-match-lf.csv-pre-project" id="toc-numbers-in-your-paragraph-dont-match-lf.csv-pre-project" class="nav-link" data-scroll-target="#numbers-in-your-paragraph-dont-match-lf.csv-pre-project"><span class="header-section-number">6.6.1</span> Numbers in your paragraph don’t match <code>LF.csv</code> (pre-project)</a></li>
+  <li><a href="#wrong-filename" id="toc-wrong-filename" class="nav-link" data-scroll-target="#wrong-filename"><span class="header-section-number">6.6.2</span> Wrong filename</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-common-errors" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Common Errors</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Here we catalog the most common errors we’ve seen students make. If you are having problems, you will likely find it documented here, along with the cause and fix. If your problem persists, reach out to Dr.&nbsp;Cormier.</p>
+<section id="sec-getting-help" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-getting-help"><span class="header-section-number">6.1</span> Getting help</h2>
+<p>Start with the setup-check script and the relevant section of this chapter. If the problem persists, bring the exact error message and your project files to Dr.&nbsp;Cormier through the course’s usual contact channel.</p>
+</section>
+<section id="setup-errors" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="setup-errors"><span class="header-section-number">6.2</span> Setup errors</h2>
+<section id="css-not-loading" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="css-not-loading"><span class="header-section-number">6.2.1</span> CSS not loading</h3>
+<p><strong>Symptom:</strong> Your knitted slides have no ISU styling — plain text, no colors, default fonts.</p>
+<p><strong>Cause:</strong> Either (a) <code>project_slidedeck.css</code> is anywhere other than <code>Project/css/</code>, or (b) the <code>.Rmd</code> file you’re knitting isn’t in your <code>Project/</code> root (e.g., you left it in your Downloads folder), so the relative path <code>css/project_slidedeck.css</code> in the Rmd’s YAML can’t find the CSS.</p>
+<p><strong>Fix:</strong> Confirm both files are in the right places: the CSS in <code>Project/css/</code> AND the <code>.Rmd</code> in your <code>Project/</code> root. Open RStudio by double-clicking <code>Project.Rproj</code>, then re-knit. Visual example of what the bad output looks like: <a href="#output-format-errors">Wrong CSS</a>.</p>
+</section>
+<section id="working-from-your-downloads-folder" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="working-from-your-downloads-folder"><span class="header-section-number">6.2.2</span> Working from your Downloads folder</h3>
+<p><strong>Symptom:</strong> “File not found” errors when running scripts or knitting. R can’t see your data files even though they exist.</p>
+<p><strong>Cause:</strong> RStudio’s working directory is your Downloads folder, not your <code>Project/</code> folder. The <code>here()</code> paths in scripts and the Rmd resolve to the wrong place.</p>
+<p><strong>Fix:</strong> Move all files into <code>Project/</code> and always open RStudio by double-clicking <code>Project.Rproj</code>. Never work from Downloads.</p>
+</section>
+<section id="required-files-missing-or-in-the-wrong-subfolder" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="required-files-missing-or-in-the-wrong-subfolder"><span class="header-section-number">6.2.3</span> Required files missing or in the wrong subfolder</h3>
+<p><strong>Symptom:</strong> “Cannot open the connection” or “object not found” errors during a script run or knit.</p>
+<p><strong>Cause:</strong> A required file isn’t where the script or Rmd expects it (e.g., <code>LF.R</code> is in your project root instead of <code>r/</code>, or <code>pppub25.csv</code> is missing from <code>data/</code>).</p>
+<p><strong>Fix:</strong> Run <code>check_setup_preproject.R</code> (pre-project) or <code>check_setup_project.R</code> (main project). The script tells you exactly which file is misplaced and where it should go.</p>
+</section>
+</section>
+<section id="workflow-errors" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="workflow-errors"><span class="header-section-number">6.3</span> Workflow errors</h2>
+<section id="sec-knitting-before-running" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="sec-knitting-before-running"><span class="header-section-number">6.3.1</span> Knitting before running the R script</h3>
+<p><strong>Symptom:</strong> Knit errors out with a “file not found” message pointing at <code>out/LF.csv</code> or <code>out/cpsmar_e.csv</code>.</p>
+<p><strong>Cause:</strong> You haven’t run <code>LF.R</code> (pre-project) or <code>cpsmar_e.R</code> (main project) yet, so the file the Rmd is trying to read doesn’t exist.</p>
+<p><strong>Fix:</strong> Run the relevant R script first (open it in the editor, Select All, click Run), then knit the Rmd.</p>
+</section>
+<section id="sec-variable-name-confusion" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="sec-variable-name-confusion"><span class="header-section-number">6.3.2</span> Variable name confusion</h3>
+<p><strong>Symptom:</strong> Knit errors out mid-document with “object not found” — a chunk references <code>cpsmar_a</code> but you defined <code>cpsmar_e</code> (or similar).</p>
+<p><strong>Cause:</strong> Typo or misalignment between chunks. You defined the analysis sample with one name, then referenced a different name in a downstream chunk.</p>
+<p><strong>Fix:</strong> Read each chunk carefully. Match data-frame names exactly across chunks. The variable structure in the template is: <code>cpsmar_e</code> (the extract) → <code>cpsmar_a</code> (the analysis sample) → <code>singles</code> (the singles subset).</p>
+</section>
+<section id="sec-touching-setup-chunk" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="sec-touching-setup-chunk"><span class="header-section-number">6.3.3</span> Touching the setup chunk</h3>
+<p><strong>Symptom:</strong> Output looks broken or knit fails in unexpected ways (missing libraries, scientific notation issues, formatting wrong).</p>
+<p><strong>Cause:</strong> You changed <code>include = FALSE</code> to <code>include = TRUE</code> on the setup chunk, or otherwise modified the setup chunk’s contents.</p>
+<p><strong>Fix:</strong> Restore the setup chunk to its original state. The <code>eval = FALSE → TRUE</code> toggle only applies to content code chunks (<code>btl1</code>, <code>btl2</code>, <code>mi1</code>, etc.), never the setup chunk.</p>
+</section>
+</section>
+<section id="rendering-errors-the-knit-step" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="rendering-errors-the-knit-step"><span class="header-section-number">6.4</span> Rendering errors (the knit step)</h2>
+<section id="leaving-eval-false-on-a-completed-chunk" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="leaving-eval-false-on-a-completed-chunk"><span class="header-section-number">6.4.1</span> Leaving <code>eval = FALSE</code> on a completed chunk</h3>
+<p><strong>Symptom:</strong> Your code is correct but the output doesn’t appear in the knitted slide. The chunk shows the code but no result below it.</p>
+<p><strong>Cause:</strong> The chunk option <code>eval = FALSE</code> is still set. R Markdown displays the code but skips running it during knit.</p>
+<p><strong>Fix:</strong> Change <code>eval = FALSE</code> to <code>eval = TRUE</code> on every content chunk you’ve completed. Re-knit.</p>
+</section>
+<section id="sec-editing-yaml" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="sec-editing-yaml"><span class="header-section-number">6.4.2</span> Editing the YAML beyond the author line</h3>
+<p><strong>Symptom:</strong> The knit produces unexpected output — different layout, missing CSS, wrong document class, no slide breaks.</p>
+<p><strong>Cause:</strong> You changed something in the YAML besides the <code>author:</code> line (e.g., the <code>output:</code> value, the <code>css:</code> reference, the <code>widescreen:</code> setting).</p>
+<p><strong>Fix:</strong></p>
+<ol type="1">
+<li>Identify which Rmd is broken: <code>pre_project.Rmd</code> or <code>project.Rmd</code>.</li>
+<li>Copy the canonical YAML block from the relevant chapter:
+<ul>
+<li><strong>Pre-project:</strong> the YAML block is in <a href="./pre-project.html#sec-pre-project-step-3">Pre-project Step 3</a>.</li>
+<li><strong>Main project:</strong> the YAML block is in <a href="./main-project.html#sec-main-yaml">Main Project — The YAML block</a>.</li>
+</ul></li>
+<li>Open your working Rmd. Replace your current YAML with the YAML you just copied.</li>
+<li>Re-add your name on the <code>author:</code> line.</li>
+<li>Re-knit.</li>
+</ol>
+</section>
+<section id="using-the-knit-dropdown-instead-of-the-knit-button" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="using-the-knit-dropdown-instead-of-the-knit-button"><span class="header-section-number">6.4.3</span> Using the Knit dropdown instead of the Knit button</h3>
+<p><strong>Symptom:</strong> Output is a Word document, a LaTeX-styled PDF, or some format that doesn’t match the slide deck reference.</p>
+<p><strong>Cause:</strong> You clicked the small dropdown arrow next to the Knit button and selected “Knit to PDF / Word / etc.” That overrides the output format specified in the Rmd’s YAML.</p>
+<p><strong>Fix:</strong> Click the <strong>Knit</strong> button itself, not the dropdown arrow. The YAML already tells R Markdown to knit to HTML; just trust the button.</p>
+</section>
+</section>
+<section id="output-format-errors" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="output-format-errors"><span class="header-section-number">6.5</span> Output format errors</h2>
+<p>These are the canonical “submission rejected” failure modes, each shown with a real example from a prior submission. If your output matches any of these images, your submission will receive a 0.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why these screenshots show a different course name
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The examples below come from an earlier course that taught the same workflow: the same file pack, the same CSS, the same knit-to-HTML step, and the same slide-deck format. The deck titles inside the images therefore read with that course’s name rather than BA 3316.</p>
+<p>Ignore the title. Everything that matters is identical. The same setup mistakes produce exactly these failures in your project, and your output is judged against the same standard.</p>
+</div>
+</div>
+<section id="wrong-css" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="wrong-css"><span class="header-section-number">6.5.1</span> Wrong CSS</h3>
+<p><strong>Symptom:</strong> Output is in landscape but has no ISU styling — plain text, gray gradients, default browser fonts.</p>
+<p><strong>Cause:</strong> <code>project_slidedeck.css</code> was not found at knit time (usually because it’s not in <code>Project/css/</code>).</p>
+<p><strong>Fix:</strong> Verify the CSS file is in <code>Project/css/</code>. Verify the Rmd you are working on is in <code>Project/</code>, not somewhere else (like <code>Downloads/</code>). Re-knit.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bad_wrong_css.png" class="img-fluid figure-img" alt="Slide with plain text, no ISU styling, default fonts and gray gradients"></p>
+<figcaption>Wrong CSS example</figcaption>
+</figure>
+</div>
+</section>
+<section id="wrong-css-wrong-orientation" class="level3" data-number="6.5.2">
+<h3 data-number="6.5.2" class="anchored" data-anchor-id="wrong-css-wrong-orientation"><span class="header-section-number">6.5.2</span> Wrong CSS + wrong orientation</h3>
+<p><strong>Symptom:</strong> Output is portrait AND has no ISU styling.</p>
+<p><strong>Cause:</strong> Both CSS is missing and the print dialog saved as portrait.</p>
+<p><strong>Fix:</strong> Move CSS to <code>Project/css/</code>. Verify the Rmd you are working on is in <code>Project/</code>, not somewhere else (like <code>Downloads/</code>). Re-knit, then save with <strong>Landscape</strong> orientation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bad_wrong_css_orientation.png" class="img-fluid figure-img" alt="Portrait-oriented slide deck with no ISU styling"></p>
+<figcaption>Wrong CSS, wrong orientation example</figcaption>
+</figure>
+</div>
+</section>
+<section id="wrong-orientation" class="level3" data-number="6.5.3">
+<h3 data-number="6.5.3" class="anchored" data-anchor-id="wrong-orientation"><span class="header-section-number">6.5.3</span> Wrong orientation</h3>
+<p><strong>Symptom:</strong> Correct ISU styling, but the PDF is portrait.</p>
+<p><strong>Cause:</strong> Print dialog defaulted to portrait and you didn’t change it.</p>
+<p><strong>Fix:</strong> In the browser’s print dialog, set <strong>Layout / Orientation to Landscape</strong> before saving.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bad_wrong_orientation.png" class="img-fluid figure-img" alt="Portrait-oriented slide deck with correct ISU styling"></p>
+<figcaption>Wrong orientation example</figcaption>
+</figure>
+</div>
+</section>
+<section id="long-landscape" class="level3" data-number="6.5.4">
+<h3 data-number="6.5.4" class="anchored" data-anchor-id="long-landscape"><span class="header-section-number">6.5.4</span> Long landscape</h3>
+<p><strong>Symptom:</strong> Landscape PDF, but the slide content is stretched horizontally across a single very wide page instead of broken into separate slide pages.</p>
+<p><strong>Cause:</strong> A print dialog scaling setting fit multiple slides onto one wide page.</p>
+<p><strong>Fix:</strong> Reset print dialog scaling to default. Make sure <strong>Pages per sheet = 1</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bad_long_landscape.png" class="img-fluid figure-img" alt="Single wide page with multiple slides squished onto it"></p>
+<figcaption>Long landscape example</figcaption>
+</figure>
+</div>
+</section>
+<section id="portrait" class="level3" data-number="6.5.5">
+<h3 data-number="6.5.5" class="anchored" data-anchor-id="portrait"><span class="header-section-number">6.5.5</span> Portrait</h3>
+<p><strong>Symptom:</strong> Output is portrait. (Same as “Wrong orientation” above, isolated here as an example.)</p>
+<p><strong>Cause:</strong> Print dialog defaulted to portrait.</p>
+<p><strong>Fix:</strong> Set Layout to <strong>Landscape</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bad_portrait.png" class="img-fluid figure-img" alt="Portrait-oriented slide deck"></p>
+<figcaption>Portrait example</figcaption>
+</figure>
+</div>
+</section>
+<section id="portrait-wrong-css" class="level3" data-number="6.5.6">
+<h3 data-number="6.5.6" class="anchored" data-anchor-id="portrait-wrong-css"><span class="header-section-number">6.5.6</span> Portrait + wrong CSS</h3>
+<p><strong>Symptom:</strong> Output is portrait AND has no ISU styling. Same underlying causes as the “Wrong CSS + wrong orientation” case, isolated here as a distinct example pattern.</p>
+<p><strong>Fix:</strong> Move CSS to <code>Project/css/</code>. Verify the Rmd you are working on is in <code>Project/</code>, not somewhere else (like <code>Downloads/</code>). Re-knit, then save with <strong>Landscape</strong> orientation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bad_portrait_wrong_css.png" class="img-fluid figure-img" alt="Portrait-oriented slide deck with no ISU styling"></p>
+<figcaption>Portrait + wrong CSS example</figcaption>
+</figure>
+</div>
+</section>
+<section id="latex-slides-knit-to-pdf-slide-format" class="level3" data-number="6.5.7">
+<h3 data-number="6.5.7" class="anchored" data-anchor-id="latex-slides-knit-to-pdf-slide-format"><span class="header-section-number">6.5.7</span> LaTeX slides (knit-to-PDF, slide format)</h3>
+<p><strong>Symptom:</strong> Output is a slide deck rendered with LaTeX/Beamer styling — different fonts, different layout, no ISU brand colors.</p>
+<p><strong>Cause:</strong> You used the Knit dropdown to select “Knit to PDF” with slide output, overriding the Rmd’s HTML-based ioslides format.</p>
+<p><strong>Fix:</strong> Use the Knit button (not the dropdown). The Rmd’s YAML specifies <code>ioslides_presentation</code> for a reason. If your YAML has also been modified (which often goes hand-in-hand with this error), restore it by following the 5-step process under <a href="#sec-editing-yaml">Editing the YAML beyond the author line</a>. Then re-knit.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bad_latex_slides.png" class="img-fluid figure-img" alt="Slide deck rendered as LaTeX/Beamer instead of HTML ioslides"></p>
+<figcaption>LaTeX slides example</figcaption>
+</figure>
+</div>
+</section>
+<section id="latex-document-knit-to-pdf-document-format" class="level3" data-number="6.5.8">
+<h3 data-number="6.5.8" class="anchored" data-anchor-id="latex-document-knit-to-pdf-document-format"><span class="header-section-number">6.5.8</span> LaTeX document (knit-to-PDF, document format)</h3>
+<p><strong>Symptom:</strong> Output is a regular PDF document, not a slide deck at all. Looks like a paper or article.</p>
+<p><strong>Cause:</strong> You used the Knit dropdown to select “Knit to PDF” with document output, AND likely modified the YAML to change the output format.</p>
+<p><strong>Fix:</strong> Restore the YAML. Knit with the button. Save as PDF from the HTML output.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bad_latex_document.png" class="img-fluid figure-img" alt="Regular PDF document instead of a slide deck"></p>
+<figcaption>LaTeX document example</figcaption>
+</figure>
+</div>
+</section>
+<section id="not-knit" class="level3" data-number="6.5.9">
+<h3 data-number="6.5.9" class="anchored" data-anchor-id="not-knit"><span class="header-section-number">6.5.9</span> Not knit</h3>
+<p><strong>Symptom:</strong> Submission is the raw <code>.Rmd</code> file, or a file that was never actually knit — no rendering at all.</p>
+<p><strong>Cause:</strong> You uploaded the wrong file (the <code>.Rmd</code> source instead of the saved-as-PDF output).</p>
+<p><strong>Fix:</strong> Knit the Rmd to HTML, save the HTML as PDF using your browser’s print dialog, then upload that PDF.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bad_not_knit.png" class="img-fluid figure-img" alt="Raw Rmd content or unrenderable file submitted"></p>
+<figcaption>Not knit example</figcaption>
+</figure>
+</div>
+</section>
+<section id="wrong-file" class="level3" data-number="6.5.10">
+<h3 data-number="6.5.10" class="anchored" data-anchor-id="wrong-file"><span class="header-section-number">6.5.10</span> Wrong file</h3>
+<p><strong>Symptom:</strong> Submission is something other than the intended project artifact — an old version, a template, an unrelated document.</p>
+<p><strong>Cause:</strong> You uploaded the wrong file.</p>
+<p><strong>Fix:</strong> Locate the correct PDF in your <code>Project/</code> folder and re-upload. Double-check the filename matches the convention.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bad_wrong_pdf.png" class="img-fluid figure-img" alt="Wrong file submitted to Gradescope"></p>
+<figcaption>Wrong file example</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="content-errors" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="content-errors"><span class="header-section-number">6.6</span> Content errors</h2>
+<section id="numbers-in-your-paragraph-dont-match-lf.csv-pre-project" class="level3" data-number="6.6.1">
+<h3 data-number="6.6.1" class="anchored" data-anchor-id="numbers-in-your-paragraph-dont-match-lf.csv-pre-project"><span class="header-section-number">6.6.1</span> Numbers in your paragraph don’t match <code>LF.csv</code> (pre-project)</h3>
+<p><strong>Symptom:</strong> Your slide 3 paragraph cites numbers that don’t reflect your own data — they came from a classmate or from another source.</p>
+<p><strong>Cause:</strong> You copied numbers from a peer instead of running <code>LF.R</code> yourself, or <code>LF.R</code> didn’t actually run and the values you wrote down were stale.</p>
+<p><strong>Fix:</strong> Run <code>LF.R</code> yourself. Open <code>out/LF.csv</code> (or print <code>lf</code> in the console). Fill in your slide 3 paragraph with those values, rounded to one decimal place.</p>
+</section>
+<section id="wrong-filename" class="level3" data-number="6.6.2">
+<h3 data-number="6.6.2" class="anchored" data-anchor-id="wrong-filename"><span class="header-section-number">6.6.2</span> Wrong filename</h3>
+<p><strong>Symptom:</strong> Your file was uploaded but appears under an unexpected name in Gradescope, or you can’t tell which submission is which in your <code>Project/</code> folder later.</p>
+<p><strong>Cause:</strong> The filename didn’t match the required pattern.</p>
+<p><strong>Fix:</strong> Rename your file to the correct convention (<code>firstname_lastname_pre.pdf</code> / <code>firstname_lastname_progress.pdf</code> / <code>firstname_lastname_project.pdf</code>) and re-upload.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./submission.html" class="pagination-link" aria-label="Submission">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Submission</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./r-ai-resources.html" class="pagination-link" aria-label="R and AI Resources">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">R and AI Resources</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

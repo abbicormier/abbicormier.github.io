@@ -1,0 +1,442 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "BA 3316 Project Guide",
+    "section": "",
+    "text": "Introduction\nThe Project is a summative assignment in which you draw on key course concepts to learn about an empirical relationship and document what you learn. You will use R and R Markdown to conduct the analysis and report your findings, “knitting” the two together in a slide deck.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "index.html#what-the-project-is-about",
+    "href": "index.html#what-the-project-is-about",
+    "title": "BA 3316 Project Guide",
+    "section": "What the project is about",
+    "text": "What the project is about\nThe project involves a nontrivial examination of an important persistent feature of the US labor market, namely the difference in average pay between women and men. You often hear this expressed in terms like: “Women earn 78 cents for every dollar a man earns.” Your project will use recent Current Population Survey (CPS) data to document, quantify, and attempt to explain the pay gap. In Part I of the course, we will be pointing you to background material to anchor your analysis, but for now you might start with the work of Claudia Goldin.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "index.html#why-we-assign-it",
+    "href": "index.html#why-we-assign-it",
+    "title": "BA 3316 Project Guide",
+    "section": "Why we assign it",
+    "text": "Why we assign it\nWe assign it for two reasons. First, there are workflow principles to establish. How should you organize project files and think about the data pipeline so that your analysis is reproducible? This question cannot be adequately addressed through standard homework assignments. You need the experience of carrying out a meaningful empirical analysis from data acquisition to a beautiful deliverable that communicates your findings. Second, there are facts about the labor market you should know. How and why does pay typically vary over a career for women and men? The project walks you through the basic steps to answer such questions using the official monthly source for labor market information.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use-this-guide",
+    "href": "index.html#how-to-use-this-guide",
+    "title": "BA 3316 Project Guide",
+    "section": "How to use this guide",
+    "text": "How to use this guide\nThis guide is your one-stop shop for how to carry out the project. It covers:\n\nHow to set up your computer for the project work\nHow to complete the Pre-project Exercise and why we require it\nHow to complete the Main Project\nHow to complete the Progress Check and why we offer it\nHow to submit your work to Gradescope\nHow to recognize and correct common errors\n\nWhen you view the guide on a computer, you will see a left pane that toggles the major sections and a right pane that helps you navigate within a section.\nWe recommend reading through the entire guide once before you start the project.\n\n\n\n\n\n\nNoteKey dates\n\n\n\nThe deadline for submitting each project-related assignment is 11:59 PM on the due date. Late submissions will not be accepted.\nDates are not finalized yet. They will be posted in Canvas and updated here.\n\nPre-project Exercise due: XX\nOptional Progress Check: XX\nMain Project due: XX\n\n\n\nIf you find a section that’s wrong, unclear, or out of date, reach out to Dr. Cormier. See Getting help in the Common Errors chapter for how to get in touch.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "index.html#what-about-ai",
+    "href": "index.html#what-about-ai",
+    "title": "BA 3316 Project Guide",
+    "section": "What about AI?",
+    "text": "What about AI?\nThe truth is we can one-shot this project with Claude Code or ChatGPT’s Codex and produce a fully format-compliant deliverable that collects all the points. We know this because we understand the workflow principles the project teaches you (and the agents follow) and we have the domain knowledge to verify the analysis output.\nAI tools are permitted as learning and coding partners. You remain responsible for directing their work, reviewing every change, checking every result, and understanding the analysis you submit. A one-shot result that you cannot verify or explain does not satisfy that responsibility.\nThe AI resources chapter provides an overview of the state of play in AI as of August 2026.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "index.html#exam-accountability",
+    "href": "index.html#exam-accountability",
+    "title": "BA 3316 Project Guide",
+    "section": "Exam accountability",
+    "text": "Exam accountability\nHowever you produce your slide deck, there will be accountability for your project work and findings on Exam 3.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "setup.html",
+    "href": "setup.html",
+    "title": "1  Setup",
+    "section": "",
+    "text": "1.1 Install R and RStudio\nYour project work starts here. Setup involves:\nSetup activities typically take 30 minutes to an hour.\nIf you haven’t already, install R and then install RStudio. That order matters: RStudio looks for R when it opens, so in the other order it will not work. Below are step-by-step guides for Windows and macOS.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Setup</span>"
+    ]
+  },
+  {
+    "objectID": "setup.html#install-r-and-rstudio",
+    "href": "setup.html#install-r-and-rstudio",
+    "title": "1  Setup",
+    "section": "",
+    "text": "TipA fuller walkthrough, with pictures of every prompt\n\n\n\nIf you have never installed software like this before, work from the Installing R and RStudio guide instead. It covers the same ground more slowly, with a tab for each platform and an explanation of every warning box you will see along the way. Come back here when R and RStudio are both open.\n\n\n\n\n\n\n\n\nImportantCheck your operating system first\n\n\n\n\nWindows: the current RStudio requires Windows 11. Click Start, type about, press Enter, and read the Edition line. If it says Windows 10, stop and email Dr. Cormier before installing anything.\nmacOS: the current R and RStudio require macOS 14 (Sonoma) or newer. Click the Apple menu, then About This Mac, and read the line above the chip. Sonoma, Sequoia, or Tahoe are fine. Ventura, Monterey, or Big Sur are not, so email Dr. Cormier.\n\n\n\n\n1.1.1 Windows\nStep 1: Install R\n\nGo to the CRAN R Project website.\nClick on “Download R for Windows”.\nClick on “base” and then select the link labeled “Download R x.x.x for Windows” (where x.x.x is the latest version).\nOpen the downloaded .exe file and follow the installation prompts, accepting the defaults.\n\nStep 2: Install RStudio\n\nVisit the RStudio download page.\nClick the link to download the Windows installer.\nOpen the downloaded .exe file and complete the installation using default settings.\n\n\n\n\n\n\n\nWarningTwo boxes Windows will show you\n\n\n\n“Windows protected your PC”, a blue box with only a Don’t run button. This does not mean the file is unsafe. It appears for almost every newly released installer. Click the small More info link, then Run anyway.\n“Do you want to allow this app to make changes to your device?” Click Yes. If it asks for an administrator password you do not have, your laptop is managed by an IT department. Stop and email Dr. Cormier.\n\n\nStep 3: Verify the installation\n\nLaunch RStudio from the Start menu.\nIn the Console pane, type R.version$platform and press Enter.\nYou should see \"x86_64-w64-mingw32\". If you get an error, or RStudio says it cannot find R, R did not install correctly. Redo Step 1.\n\n\n\n\n\n\n\nNote\n\n\n\nOpen RStudio from the Start menu, never by double-clicking the installer in your Downloads folder. That file installs the program, it is not the program. Once you create your .Rproj file later in this chapter, you will open the project instead, and that becomes your normal way in.\n\n\n\n\n1.1.2 macOS\nFirst, identify your Mac’s chip. Newer Macs use Apple Silicon (M1, M2, M3, M4, etc.); older ones use Intel processors. You need to know which you have to pick the right R installer.\n\nClick the Apple menu (top-left corner) → About This Mac.\nLook at the Chip (Apple Silicon) or Processor (Intel) line:\n\nIf it says “Apple M1”, “M2”, “M3”, “M4”, or any Apple-labeled chip, you have Apple Silicon. You want the arm64 installer.\nIf it says “Intel Core …”, you have an Intel Mac. You want the x86_64 installer.\n\n\nStep 1: Install R\n\nVisit the CRAN R Project website.\nClick on “Download R for macOS”.\nSelect the latest version matching your chip — either R-x.x.x-arm64.pkg (Apple Silicon) or R-x.x.x-x86_64.pkg (Intel).\nOpen the downloaded .pkg file and follow the installation prompts.\n\n\n\n\n\n\n\nWarningIf macOS asks for access to your Downloads folder, say yes\n\n\n\nPartway through, macOS may ask whether the Installer can read files in your Downloads folder. Allow it. If you click Don’t Allow, this install fails and you will not be able to install anything else from Downloads afterward.\nNote also that you do not drag R anywhere. R uses a .pkg installer, which puts R into Applications for you. The dragging step is for RStudio only.\n\n\nStep 2: Install RStudio\n\nGo to the RStudio download page. One download works on both Apple Silicon and Intel. The chip only mattered for R.\nClick the link to download the macOS version of RStudio.\nOpen the downloaded .dmg file and drag the RStudio icon onto the Applications folder. Wait for the copy bar to finish.\n\n\n\n\n\n\n\nImportantThen eject the disk image. This is the step people skip.\n\n\n\nThe window you dragged from is not a folder on your computer. It is a temporary disk image, like a CD your Mac pretended to insert. If you open RStudio from that window, you are running it off the pretend CD. It works until you restart, and then RStudio vanishes along with your settings.\nClose the window. In any Finder sidebar, under Locations, find RStudio with a small eject symbol beside it and click the eject symbol. Dragging installs it; ejecting proves you did.\n\n\nStep 3: Verify the installation\n\nOpen RStudio from your Applications folder. The first time, macOS warns that it was downloaded from the internet. Click Open.\nIn the Console pane, type R.version$platform and press Return.\nYou should see \"aarch64-apple-darwin20\" on Apple Silicon or \"x86_64-apple-darwin20\" on Intel. If it does not match the chip you identified above, you installed the wrong R. Redo Step 1 with the other installer and install it over the top.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Setup</span>"
+    ]
+  },
+  {
+    "objectID": "setup.html#install-the-required-r-packages",
+    "href": "setup.html#install-the-required-r-packages",
+    "title": "1  Setup",
+    "section": "1.2 Install the required R packages",
+    "text": "1.2 Install the required R packages\nNow, install the seven packages required by the project.\n\nSelect the Packages tab in the bottom-right pane.\nClick Install at the top of that pane.\nIn the “Install Packages” box, enter the package names separated by spaces or commas:\nhere tidyverse modelsummary ggpmisc car ggrepel kableExtra\nMake sure Install dependencies is checked.\nClick Install.\n\n\n\n\n\n\n\nTip\n\n\n\nYou install packages only once per machine. Once installed, you “attach” them to a script (.R) or an R Markdown (.Rmd) using the library() function. The requisite library() calls are already included in the setup chunk of the project.Rmd template. Do not edit the setup chunk.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Setup</span>"
+    ]
+  },
+  {
+    "objectID": "setup.html#create-the-required-directory-or-folder-structure",
+    "href": "setup.html#create-the-required-directory-or-folder-structure",
+    "title": "1  Setup",
+    "section": "1.3 Create the required directory or folder structure",
+    "text": "1.3 Create the required directory or folder structure\n\n1.3.1 Make a BA 3316 folder first\nBefore building the project directory structure, you need to set up a top-level BA 3316 folder first. If you are new at this sort of thing, put it on your desktop. Otherwise, put it somewhere inside the Documents folder that makes sense to you.\nInside BA 3316, create two subfolders:\nBA 3316/\n├── Homework/\n└── Project/\n\n\n\n\n\n\nNoteThe trailing slash means “this is a folder”\n\n\n\nThroughout this guide, a name ending in / is a folder, not a file. The slash is notation, not part of the name. When you create the folder above you type Homework, not Homework/.\nThe same holds for data/, out/, r/, and the rest. A name with an extension, like project.Rmd or LF.R, is a file.\n\n\n\nHomework/ is where you’ll save completed homework assignments.\nProject/ is the self-contained working directory for all project-related files.\n\nThe next step is creating the required structure inside of Project/. We won’t have anything more to say about the Homework/ directory in this guide.\n\n\n1.3.2 Create the required subfolders inside Project/\nThe required directory structure has two levels – a main project folder, which you just created, and these five subfolders:\n\ndata/ contains input data sets\ndata_documentation/ contains the data documentation file\nout/ contains outputs generated by the script\nr/ contains the R script that produces outputs\ncss/ contains the CSS (cascading style sheet) file that styles the slide deck\n\nAfter creating the five subfolders, your project directory should look like this:\nBA 3316/\n├── Homework/\n└── Project/\n    ├── data/\n    ├── data_documentation/\n    ├── out/\n    ├── r/\n    └── css/\nYou’ll put files into these subfolders in the next step. The .Rmd files themselves will live in the Project/ root, not in any of the subfolders.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Setup</span>"
+    ]
+  },
+  {
+    "objectID": "setup.html#sec-download-pre-project-pack",
+    "href": "setup.html#sec-download-pre-project-pack",
+    "title": "1  Setup",
+    "section": "1.4 Download the Pre-project file pack and sort its contents",
+    "text": "1.4 Download the Pre-project file pack and sort its contents\nYour project work starts with the Pre-project Exercise, so you’ll download the Pre-project file pack from Canvas first. You will find it in the module labelled Project. It is a .zip file containing the seven files required to complete the Pre-project Exercise:\n\npre_project.Rmd — R Markdown template for the Pre-project Exercise\nLF.R — R script that produces LF.csv\n\nproject_slidedeck.css — the CSS file that styles the slide deck\npppub25.csv — March 2025 CPS person-level data file\nhhpub25.csv — March 2025 CPS household-level data file\ncpsmar25_documentation.pdf — March 2025 CPS documentation file\ncheck_setup_preproject.R — R script that checks your setup for the Pre-project Exercise\n\nDownload and move the .zip file into your Project/ folder and unzip it. Sort the files from the unzipped folder into the right subfolders in your Project/ directory.\nThe Main Project requires a few additional files that are bundled in another file pack. We will cover those in the Main Project section of this guide.\nHere is where each file goes:\n\n\n\nFile\nGoes in\n\n\n\n\npre_project.Rmd\nProject/ (root)\n\n\nLF.R\nProject/r/\n\n\nproject_slidedeck.css\nProject/css/\n\n\npppub25.csv\nProject/data/\n\n\nhhpub25.csv\nProject/data/\n\n\ncpsmar25_documentation.pdf\nProject/data_documentation/\n\n\ncheck_setup_preproject.R\nProject/r/\n\n\n\nAfter sorting each file into its proper location, your Project folder should look like this:\nProject/\n├── pre_project.Rmd\n├── data/\n│   ├── pppub25.csv\n│   └── hhpub25.csv\n├── data_documentation/\n│   └── cpsmar25_documentation.pdf\n├── out/\n│   (empty for now — LF.R will write LF.csv here)\n├── r/\n│   ├── LF.R\n│   └── check_setup_preproject.R\n└── css/\n    └── project_slidedeck.css",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Setup</span>"
+    ]
+  },
+  {
+    "objectID": "setup.html#create-an-r-project-in-the-project-directory",
+    "href": "setup.html#create-an-r-project-in-the-project-directory",
+    "title": "1  Setup",
+    "section": "1.5 Create an R Project in the Project directory",
+    "text": "1.5 Create an R Project in the Project directory\nCreating an R Project turns your Project/ folder into a single, self-contained workspace: every time you open it by double-clicking the .Rproj file, RStudio automatically makes that folder your working directory. That is what lets the here() paths in the scripts and the R Markdown template find your data and output files reliably – without it, RStudio has no fixed sense of where your project lives, which is the source of the cryptic “file not found” errors that come from running things out of your Downloads folder.\nTo create your R Project, follow these steps:\n\nOpen RStudio.\nGo to File → New Project.\nChoose Existing Directory.\nBrowse to your Project/ folder and click Create Project.\nRStudio re-opens in your Project folder loaded as the active project.\n\nCreating the R Project writes the file Project.Rproj in the Project/ root. After creating the R Project, always, always, always open RStudio by double-clicking the Project.Rproj file.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Setup</span>"
+    ]
+  },
+  {
+    "objectID": "setup.html#run-the-setup-check",
+    "href": "setup.html#run-the-setup-check",
+    "title": "1  Setup",
+    "section": "1.6 Run the setup check",
+    "text": "1.6 Run the setup check\nAfter completing the above steps, run the setup-check script to confirm everything is in place. It checks for the presence of all required files and confirms that they are in the right places. If you have any setup problems, it will tell you what they are and how to fix them.\nTo run the setup check script:\n\nGo to the Files tab in the bottom-right pane of RStudio.\nClick the r/ subfolder.\nClick the file check_setup_preproject.R to open it in the editor.\nIn the editor, select all lines using Ctrl+A on Windows or Cmd+A on a Mac.\nClick the Run button in the top-right of the editor pane.\n\nThe script’s output appears under the Console tab in the pane below the editor, indicating whether each required file is in place — one line per file, marked either ✓ (good) or ✗ with a specific instruction telling you what to fix. Do not proceed until every line is a ✓.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Setup</span>"
+    ]
+  },
+  {
+    "objectID": "setup.html#common-errors",
+    "href": "setup.html#common-errors",
+    "title": "1  Setup",
+    "section": "1.7 Common errors",
+    "text": "1.7 Common errors\nIn our experience, these are three common setup errors, each of which is easily preventable.\n\nproject_slidedeck.css in the wrong folder\nThe CSS file styles your slide deck. If it’s anywhere but Project/css/project_slidedeck.css, your knitted slides will not be format compliant and your submission will be rejected. The setup-check script will catch this, so there should be no excuse for not correcting the problem.\nWorking from your Downloads folder\nIf you launch a script or R Markdown file from your Downloads folder, RStudio’s working directory will be Downloads, not your Project/ folder and you will get cryptic “file not found” errors when the script or R Markdown tries to read files using here(). This occurs when you download the file pack into Downloads and then open the files directly from there.\nKnitting the R Markdown before running the R script\nKnitting pre_project.Rmd before running LF.R will generate a fatal error because the Rmd reads out/LF.csv, which doesn’t exist until you run LF.R. The setup-check script confirms that LF.R exists, but it can’t confirm that it actually produced LF.csv. Only running the script can confirm that.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Setup</span>"
+    ]
+  },
+  {
+    "objectID": "setup.html#what-happens-next",
+    "href": "setup.html#what-happens-next",
+    "title": "1  Setup",
+    "section": "1.8 What happens next",
+    "text": "1.8 What happens next\nWhen you are set up, continue to the Pre-project Exercise. After completing it, download and sort the Main Project file pack as described in the Main Project chapter, then run its setup check before beginning the analysis.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Setup</span>"
+    ]
+  },
+  {
+    "objectID": "pre-project.html",
+    "href": "pre-project.html",
+    "title": "2  Pre-project Exercise",
+    "section": "",
+    "text": "2.1 The exercise deliverable\nIf you have completed Setup, you are ready to start the Pre-project Exercise. If you haven’t, you’re not. Go back and complete it before you proceed.\nThe Pre-project Exercise has one real purpose and that is to get you and your computer ready for the Main Project. Successful completion entails:\nDo not treat this exercise as a mere nuisance. It counts for 5% of your Project score.\nThe Pre-project Exercise deliverable is a 3-slide deck, submitted as a PDF, that reads the March 2025 CPS and replicates the labor force participation rate (LFPR) and its components for that month. The deck includes:\nThat’s it. Three slides.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pre-project Exercise</span>"
+    ]
+  },
+  {
+    "objectID": "pre-project.html#the-exercise-deliverable",
+    "href": "pre-project.html#the-exercise-deliverable",
+    "title": "2  Pre-project Exercise",
+    "section": "",
+    "text": "A title slide\nA slide that reads a CSV file and prints its contents\nA slide that describes the contents of the CSV file in a paragraph using the correct values from the CSV.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pre-project Exercise</span>"
+    ]
+  },
+  {
+    "objectID": "pre-project.html#the-workflow-that-produces-the-deliverable",
+    "href": "pre-project.html#the-workflow-that-produces-the-deliverable",
+    "title": "2  Pre-project Exercise",
+    "section": "2.2 The workflow that produces the deliverable",
+    "text": "2.2 The workflow that produces the deliverable\nFollow these steps in order to produce the slide deck:\n\nStep 1: Open the Project in RStudio\nDouble-click Project.Rproj in your BA 3316/Project/ folder. RStudio opens with the project loaded. You should see “Project” in the top-right corner of the RStudio window.\nStep 2: Open and run the Pre-project script LF.R\nLF.R reads the raw CPS data file (pppub25.csv), computes an unweighted sample LFPR for March 2025 and its components, and writes the results to out/LF.csv. The official BLS figure uses CPS survey weights and is 62.5%; the exercise intentionally uses the unweighted calculation. The script is complete; do not make any edits. To run the script:\n\nGo to the Files tab in the bottom-right pane of RStudio.\nClick the r/ folder.\nClick LF.R to open it in the editor.\nIn the editor, select all lines using Ctrl+A on Windows or Cmd+A on a Mac.\nClick the Run button in the top-right of the editor pane.\n\nIf the script successfully runs, you should see the message March 2025 LFPR = 62.6... and the file LF.csv should appear in the out/ subfolder.\nStep 3: Open and edit the Pre-project R Markdown template\nGo to the Files tab in the bottom-right pane of RStudio, move up to the main Project/ folder and click pre_project.Rmd to open it in the editor.\nThe first (title) slide is generated by the YAML (which stands for YAML Ain’t a Markup Language) block, set off by the --- markers. Slides two and three are delineated by the ## headers, the second slide starting with “Read LF.csv and print its contents” and the third with “Document the contents of LF.csv.”\nThe only edit to make in the YAML block is to the author line. Replace firstname lastname with your first and last name like this:\nauthor: \"Jane Doe\"\nDo not change anything else in the YAML. If your YAML becomes corrupted, here is the definitive code block to replace your corrupted version.\n---\ntitle: \"BA 3316 :: Pre-Project Exercise\"\nsubtitle: Measuring Labor Force Participation\nauthor: \"First Name Last Name\"\ndate: |\n    | Fall 2026\n    | (updated `r format(Sys.time(), '%d %b %y')`)\noutput:\n  ioslides_presentation:\n    css: css/project_slidedeck.css\n    widescreen: false\nurlcolor: \"#B75B18\"  # Use hex code for ISU dark orange from ISU visual guide\n---\nJust below the YAML is the setup chunk, which is complete and requires no edits. It loads the required R packages and sets global options for the rest of the document. Do not touch this.\nThe second slide of the template contains a small R code chunk marked by three backticks on the first and last lines:\nlf &lt;- read_csv(here(\"out\", \"LF.csv\"))\nprint(__)\nThe first line reads the file LF.csv (generated by LF.R) and stores it in a data frame called lf. The second line contains a print command that you must complete by replacing the blank __ with the name of the object you want to print, like this:\nlf &lt;- read_csv(here(\"out\", \"LF.csv\"))\nprint(lf)\nRun the chunk by clicking the small green play button at the top-right of the chunk. If there are no errors, the lf data frame contents will be printed in the console — six columns named E, U, LF, NILF, Pop, and LFPR, with one row of numbers.\nWhen the chunk runs successfully, change the chunk option eval = FALSE to eval = TRUE at the top of the chunk. This tells R Markdown to run the chunk when you knit. We set it to FALSE by default so the template knits before you complete it.\nThe third slide is a descriptive paragraph with six blanks serving as placeholders for the LFPR and its components as defined in LF.R. Replace each blank with the appropriate value from the second slide’s output.\nStep 4: Knit pre_project.Rmd to an HTML slide deck and save it as a PDF\nClick the Knit button at the top of the editor pane. If there are no errors, pre_project.html will appear in your Project/ folder and RStudio will open it automatically in its viewer or your browser. The Submission chapter shows exactly what the pre-project slide deck should look like when rendered correctly. Compare yours with the benchmark before saving and submitting.\nUnfortunately, Gradescope does not accept HTML files, so you must save the HTML as a PDF. Do not knit directly to PDF; that will not produce the correct format. Instead, use your browser’s Save As / Print to PDF function to save the HTML output as a PDF. See Submission for the exact procedure and browser-specific tips.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pre-project Exercise</span>"
+    ]
+  },
+  {
+    "objectID": "pre-project.html#avoid-these-mistakes",
+    "href": "pre-project.html#avoid-these-mistakes",
+    "title": "2  Pre-project Exercise",
+    "section": "2.3 Avoid these mistakes",
+    "text": "2.3 Avoid these mistakes\nThe most common errors we see in attempts of the Pre-project Exercise are:\n\nLeaving eval = FALSE after completing the code chunk. If eval = FALSE, the chunk doesn’t run when you knit, so the output doesn’t appear on the slide. Set it to TRUE once your code is correct.\nValues in the third slide paragraph don’t match those in LF.csv. This usually means a student made a transcription error or used a source different from the output of LF.R.\nYAML edits beyond the author line. Changing anything in the YAML besides the author name will break the knit format. Don’t touch the title, subtitle, date, output, css, or any other field.\nCSS file not correctly placed. If project_slidedeck.css is anywhere other than Project/css/, the knit produces an unstyled output that won’t match the template.\n\nWhen in doubt, see Common Errors, which provides a comprehensive listing of errors we’ve seen students make.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pre-project Exercise</span>"
+    ]
+  },
+  {
+    "objectID": "pre-project.html#what-happens-next",
+    "href": "pre-project.html#what-happens-next",
+    "title": "2  Pre-project Exercise",
+    "section": "2.4 What happens next",
+    "text": "2.4 What happens next\nAfter successfully completing the Pre-project Exercise, you are ready to begin work on the Main Project. The Main Project template will be downloaded to Project/ folder and you will follow the same workflow outlined here.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Pre-project Exercise</span>"
+    ]
+  },
+  {
+    "objectID": "main-project.html",
+    "href": "main-project.html",
+    "title": "3  Main Project",
+    "section": "",
+    "text": "3.1 First, download the Main Project file pack and sort its contents\nIf you have successfully completed the Pre-project Exercise, you’re ready to start the Main Project.\nThe deliverable is a 35-slide deck examining pay differences between women and men using the March 2025 CPS. We strongly recommend adopting a cadence for your project activity that is in sync with our treatment of related course topics. Here is the mapping:\nOne cohesive story: each module’s learning enables the next piece of the project.\nYou should already have downloaded and sorted the contents of the Pre-project Exercise file pack. Now do the same with the Main Project file pack, which contains\nHere’s where each file goes:\nRun check_setup_project.R to confirm everything’s in the right place.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Main Project</span>"
+    ]
+  },
+  {
+    "objectID": "main-project.html#first-download-the-main-project-file-pack-and-sort-its-contents",
+    "href": "main-project.html#first-download-the-main-project-file-pack-and-sort-its-contents",
+    "title": "3  Main Project",
+    "section": "",
+    "text": "project.Rmd — R Markdown template you will complete and knit into a slide deck\ncpsmar_e.R — R script that creates the CPS data extract for your analysis from the raw CPS files \ncheck_setup_project.R — R script that checks your setup for the Main Project\n\n\n\n\n\nFile\nGoes in\n\n\n\n\nproject.Rmd\nProject/ (root)\n\n\ncpsmar_e.R\nProject/r/\n\n\ncheck_setup_project.R\nProject/r/",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Main Project</span>"
+    ]
+  },
+  {
+    "objectID": "main-project.html#general-instructions",
+    "href": "main-project.html#general-instructions",
+    "title": "3  Main Project",
+    "section": "3.2 General instructions",
+    "text": "3.2 General instructions\nBefore you jump into your project work, take note of the following general instructions that apply to the entire project. Overlooking any of them will prove costly.\n\nSlide format\nAn acceptable submission has 35 slides on 35 pages of PDF output, rendered in landscape mode, precisely matching the format of the Final Project reference deck. If your deck doesn’t comply exactly with the reference deck, it will receive a score of 0.\nWrite-up line limits\nEach slide requiring text content has a specific line limit. We will not read beyond the line limit.\n\n\n\n\n\n\nImportantWhat counts as a “line”\n\n\n\n“Lines of text” means rendered, countable lines on your final PDF — not sentences, and not lines as they appear in RStudio’s editor or output preview. A long sentence that wraps into three visual lines on the rendered slide counts as three lines. Submissions that exceed the line limit are heavily penalized. Always check your knitted PDF and count the actual visible lines on the slide before you submit.\n\n\nHTML code for table formatting\nCode chunks associated with table construction are wrapped in the &lt;div class=\"table-...\"&gt; and &lt;/div&gt; HTML tags, which govern table formatting. Do not edit or remove them.\nThe YAML block\nAs we explained in the Pre-project Exercise, the YAML block at the top of the template contains important formatting information. You must edit the author: field to insert your name, but do not change anything else in the YAML.\nIf your YAML becomes corrupted, here is the definitive code block to replace your corrupted version:\n---\ntitle: \"BA 3316 Project\"\nsubtitle: \"Exploring Pay Differences between Women and Men\"\nauthor: \"First Name Last Name\"\ndate: |\n    | Fall 2026\n    | (updated `r format(Sys.time(), '%d %b %y')`)\noutput:\n  ioslides_presentation:\n    css: css/project_slidedeck.css\n    widescreen: true\n---\nThe setup chunk\nLike with the Pre-project Exercise template, below the YAML you will find the setup chunk and it is complete as is. Do not touch it. As you should know from the Pre-project Exercise, the setup chunk loads the required R packages and sets global options for the rest of the document.\nEcho settings\nThe setup chunk sets echo = TRUE, which will display code chunks by default. Note that we have overridden this global setting on certain slides by setting echo = FALSE in those chunks, where displaying the code would be redundant or otherwise not valuable. Do not change these individual echo settings.\n\n\n\nGet the units right\nIn your write-ups, make sure you use percent and percentage point correctly. They are not interchangeable. For example, a change in the gender wage gap from 25% to 20% is a 5 percentage point decrease — not a 5% decrease. A 5% decrease in the gender wage gap from a 25% baseline would amount to a change of 1.25 percentage points to 23.75%. We will definitely penalize you for this sort of error, so don’t make it.\n\n\n\n\n\n\nTipWorkflow tip\n\n\n\nYou can run individual chunks without knitting the entire document, so work the project code chunks one at a time. After you complete a chunk, confirm it runs cleanly by clicking the green play button at the top-right of the chunk. If it does, set eval = TRUE on that chunk so its output appears when you knit the whole document.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Main Project</span>"
+    ]
+  },
+  {
+    "objectID": "main-project.html#slide-by-slide-instructions",
+    "href": "main-project.html#slide-by-slide-instructions",
+    "title": "3  Main Project",
+    "section": "3.3 Slide-by-slide instructions",
+    "text": "3.3 Slide-by-slide instructions\nThere are 35 slides in a successfully rendered deck. Some are just section dividers, with no point values and requiring no contribution from you. For those that require your input – either code completions or text responses – we provide specific instructions for how to enter it correctly, along with the corresponding point values in parentheses. So, here it goes, slides 1-35:\n\nBA 3316 Project.\nTitle slide. It’s auto-generated by the YAML with your name as entered on the author: line.\nAcademic Honesty Statement (required)\nType your first and last name on the “Signature:” line. You may consult the instructor and may use AI tools as assistants. You must direct, review, understand, and verify any assistance you receive; the deliverable must represent your work and be completed and submitted by you.\nIntroduction\nSection divider.\nOverview (2 points)\nProvide a brief overview of the project. Include:\n\nWhat you are trying to learn about\nThe data you are using to learn\nA brief summary of your findings\n\nLimit your overview to 6 lines of text.\n\n\n\n\n\n\nTipPro tip\n\n\n\nTo quote Yoda: “Do or do not. There is no try.” When you explain what your project is about or summarize what you learned, don’t say “I try / seek / look / aim / attempt (or am trying / seeking / …)”. Instead, say “I show / document / demonstrate / report / find …”. Never say “I hope…”\nYou might write this slide last. It’s easier to summarize your findings after you’ve completed the analysis.\n\n\nData\nSection divider.\nMarch 2025 CPS (4 points)\nUsing the ASEC documentation (cpsmar25_documentation.pdf), provide a brief overview of the March 2025 CPS. Include:\n\nA description of the standard monthly CPS\nThe additional information collected in the ASEC\nApproximately the number of households surveyed in the March 2025 ASEC\n\nLimit your summary to 4 lines of text.\n\n\n\n\n\n\nTipPro tip\n\n\n\nYou can ask AI, but you should verify the response by consulting the CPS documentation and formulate the overview in your own words.\n\n\nMarch 2025 CPS Extract (4 points)\nComplete the read_data code chunk to read the extract you created with cpsmar_e.R.\nThen, in the write-up section, explain the actions you applied to the March 2025 survey in cpsmar_e.R to create the data extract cpsmar_e.csv. Include:\n\nThe variables you selected from the person file\nThe variables you selected from the household file\nThe restriction(s) you applied to the data extract\nThe number of observations and variables in the data extract\n\nLimit your explanation to 6 lines of text.\n\n\n\n\n\n\nTipPro tips\n\n\n\nRefer to each variable by its plain English meaning, not the name used in the script. Refer to the key tidyverse “verbs” in the script, like mutate and rename.\n\n\nAnalysis sample (2 points)\nComplete the btl1 code chunk to create your analysis sample (cpsmar_a) with the following restrictions:\n\nRestrict to individuals who are 23 to 62 years old (inclusive)\nRestrict to individuals who have positive earnings\n\nUnderneath the code chunk, document the number of observations in your analysis sample.\nLimit your documentation to 2 lines.\n\n\n\n\n\n\nTipPro tips\n\n\n\nRefer to your notes or the slides for examples of filter and mutate. Consult the Environment tab in the Northeast pane of RStudio for information about the cpsmar_a data frame.\n\n\nBaseline earnings distributions\nSection divider.\nPlotting earnings distributions\nComplete the btl2 code chunk to:\n\nCreate the figure1 ggplot object (the earnings distribution by gender plot)\nCalculate average earnings for each gender using the earnings_fvm object\nPull the average earnings for women and men into single values (avg_earnings_f, avg_earnings_m) using filter and pull\n\nDistribution of earnings by gender (8 points)\nComplete the btl2.5 code chunk to display Figure 1 by writing the name of the Figure 1 object.\nBaseline comparisons (4 points)\nSummarize the main empirical facts associated with Figure 1. Include:\n\nA description of the most important fact communicated by the figure\nThe average earnings of men and women\nThe dollar difference and percentage difference in average earnings between men and women in the sample\n\nLimit your summary to 5 lines of text on the slide.\n\n\n\n\n\n\nTipPro tips\n\n\n\nUse inline R syntax with the avg_earnings_f and avg_earnings_m objects to insert the respective averages in your write-up rather than typing the numbers manually.\n\n\nThe career gender gap\nSection divider.\nWages and hours differences (8 points)\nComplete the mi1 code chunk to create and display Table 1 (wages and hours by gender).\nDocumenting the differences (2 points)\nSummarize the wage and hours differences presented in Table 1.\nLimit your documentation to 3 lines of text on the slide.\nPlotting career log wage profiles\nComplete the mi2 code chunk to estimate log wage profiles for women and men and create Figure 2.\nCareer log wage profiles (8 points)\nComplete the mi2.5 chunk to display Figure 2.\nEstimating wage differences over a career\nComplete the mi3 code chunk to create Table 2. This involves:\n\nCreating males and females objects using filter and rename\nMerging the two into the diff_fvm object using inner_join\nCalculating the difference between average log wages using mutate\nGrouping by age_group\nUsing kable() to organize the results into the table2 object\n\nTable 2 covers career years 0 through 30. Its first group, labeled 0-10, includes the starting year (year 0) through year 10.\nEvolution of the gender wage gap (8 points)\nComplete the mi3.5 code chunk to display Table 2.\nDiscussing the gender wage gap evolution (2 points)\nSummarize the results presented in Figure 2 and Table 2.\nLimit your summary to 3 lines of text on the slide.\nExplaining the gender wage gap\nSection divider.\nFitting the log wage profiles\nComplete the reg1 code chunk to create Figure 3 by fitting the career profiles with a quadratic in age.\nLog wage profiles with quadratic fits (8 points)\nComplete the reg1.5 chunk to display Figure 3.\nGender differences in education (8 points)\nComplete the ed_vars code chunk to create and display Table 3 (educational attainment by gender).\nGender differences in demographics (8 points)\nComplete the demo_vars code chunk to create and display Table 4 (demographic characteristics by gender).\nDocumenting differences in characteristics (4 points)\n\nSummarize the educational attainment differences presented in Table 3\nSummarize the differences in demographic characteristics presented in Table 4\n\nLimit your documentation to 6 lines of text on the slide.\nControlling for education and demographic characteristics\nComplete the reg2a code chunk to create:\n\nThe singles subset of the analysis data\nThe models object containing five regression models that incrementally add controls for education and demographic characteristics, with the fifth restricting to unmarried workers without children under 6 (“Only Singles”)\n\nIn the regression analysis, you’ll distinguish between personal and household characteristics among the demographic variables.\n\n\n\n\n\n\nTipPro tips\n\n\n\n\nMoving from top to bottom in the models object, the list of controls grows as indicated by the name of the model — with the exception of the final model “Only Singles”, which estimates the same relationship as the “Add Person” model but on the new subset.\nTo decide whether a variable belongs in the “Add Person” or “Add Household” model, ask yourself: “Can I define this variable for a particular individual irrespective of other individuals who may or may not exist in their life?” If yes → Person. If no (it depends on someone else, like a spouse or a child) → Household.\n\n\n\nReporting the results\nComplete the reg2b code chunk to create Table 5. This involves:\n\nConstructing the coefficient map object to display only the intercept, gender, and age coefficient estimates\nConstructing the goodness-of-fit object to display sample size and \\(R^2\\) values\nConstructing a rows object to distinguish the regression specification associated with each column\n\n\n\n\n\n\n\nTipPro tip\n\n\n\nMake sure you report robust standard errors and indicate that you do in a table note.\n\n\nExplaining the gender wage gap (8 points)\nComplete the reg2.5 chunk to display Table 5.\nDocumenting the findings (4 points)\nSummarize how the estimated average gender wage gap changes as you add education, personal, and household characteristics to the regression — and then how it changes when the sample is restricted to singles.\nLimit your documentation to 6 lines of text on the slide.\n\n\n\n\n\n\nTipPro tips\n\n\n\nStart your write-up with the baseline model and describe subsequent results relative to the baseline. Focus on the Female coefficient estimate and its standard error. Remember how the coefficient estimate is correctly interpreted.\n\n\nConclusion\nSection divider.\nSummary (4 points)\nBriefly summarize the objective of the project and its main findings. Note:\n\nThe sample on which your analysis is based\nThe overall gender wage gap\nHow it evolves over a career\nHow it varies when controlling for education and demographic characteristics\n\nLimit your documentation to 7 lines of text on the slide.\nAppendix\nSection divider.\nData documentation\nComplete the var_doc code chunk to create a table of the main variables used in this project with their definitions.\nList of main variables with definitions (4 points)\nOnce you complete the var_doc chunk on the previous slide, set eval = TRUE on this slide to render the table of main variables with their definitions.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Main Project</span>"
+    ]
+  },
+  {
+    "objectID": "main-project.html#common-pitfalls",
+    "href": "main-project.html#common-pitfalls",
+    "title": "3  Main Project",
+    "section": "3.4 Common pitfalls",
+    "text": "3.4 Common pitfalls\nIf you completed the Pre-project Exercise successfully, you have already bypassed the most common mistakes. If you nevertheless are having trouble completing the Main Project, Common Errors provides a comprehensive listing of problems we have seen students encounter, along with explanations and solutions. Some typical issues with the Main Project are:\n\nVariable name confusion — defining cpsmar_a but referencing cpsmar_e (or vice versa) in a later chunk. See Common Errors.\nForgetting to run cpsmar_e.R before knitting. See Common Errors.\nTouching the setup chunk’s include = FALSE — same scaffolding error as the pre-project. See Common Errors.\nEditing the YAML beyond the author line. See Common Errors.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Main Project</span>"
+    ]
+  },
+  {
+    "objectID": "main-project.html#what-happens-next",
+    "href": "main-project.html#what-happens-next",
+    "title": "3  Main Project",
+    "section": "3.5 What happens next",
+    "text": "3.5 What happens next\nWhether you are at the Progress Check stage or at the end, the next step is to prepare to submit your work to Gradescope. Submission walks you through the entire process.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Main Project</span>"
+    ]
+  },
+  {
+    "objectID": "progress-check.html",
+    "href": "progress-check.html",
+    "title": "4  Progress Check",
+    "section": "",
+    "text": "4.1 What is checked\nAs noted in the Main Project section, the Project Progress Check is an opportunity to get feedback on your project work well before the Main Project submission deadline. It covers the first 20 slides and is entirely optional.\nWhile optional, I think it is important enough to award up to 5 bonus points. If you failed on the Pre-project check, think of these bonus points as a way to get those 5 points back. The bonus points are just a nudge – the primary value is in the feedback you will get to ensure the successful completion of the entire project. Suffice it to say, students who participate in the progress check do way better on the final project than those who don’t.\nThe progress check covers the first 20 slides, reviewing your overall deck format and this specific content:\nWe do not check your text responses or any content beyond slide 20.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Progress Check</span>"
+    ]
+  },
+  {
+    "objectID": "progress-check.html#what-is-checked",
+    "href": "progress-check.html#what-is-checked",
+    "title": "4  Progress Check",
+    "section": "",
+    "text": "Slide\nTitle\nWhat is checked\n\n\n\n\n1\nTitle slide\nYour name filled in (and overall formatting is correct)\n\n\n2\nAcademic Honesty Statement\nYour name on the Signature line\n\n\n11\nDistribution of earnings by gender\nFigure 1 is visible, completed, and correct\n\n\n14\nWages and hours differences\nTable 1 is visible, completed, and correct\n\n\n17\nCareer log wage profiles\nFigure 2 is visible, completed, and correct\n\n\n19\nEvolution of the gender wage gap\nTable 2 is visible, completed, and correct\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe slide numbers above match the canonical 35-slide layout documented in the Final Project reference in the Submission chapter. Your deck must be 35 slides total even if many of the content slides are still placeholders.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Progress Check</span>"
+    ]
+  },
+  {
+    "objectID": "progress-check.html#how-we-score-it",
+    "href": "progress-check.html#how-we-score-it",
+    "title": "4  Progress Check",
+    "section": "4.2 How we score it",
+    "text": "4.2 How we score it\nThere are three possible outcomes for the progress check:\n\n\n\n\n\n\n\n\nResult\nScore\nCriteria\n\n\n\n\nFull credit\n5 bonus points\nFully format compliant and zero errors in the content check.\n\n\nPartial credit\n3 bonus points\nFully format compliant but non-zero errors in the content check.\n\n\nNo credit\n0 bonus points\nNot fully format compliant.\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nA necessary condition for your progress check submission to earn any credit is to be fully format compliant. Any formatting error will result in a score of 0.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Progress Check</span>"
+    ]
+  },
+  {
+    "objectID": "progress-check.html#what-happens-next",
+    "href": "progress-check.html#what-happens-next",
+    "title": "4  Progress Check",
+    "section": "4.3 What happens next",
+    "text": "4.3 What happens next\nWhen you are ready, submit your progress check deliverable to Gradescope following the same save-as-PDF workflow as spelled out in Submission for the Pre-project Exercise and Main Project.\nThen get back to work on the Main Project.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Progress Check</span>"
+    ]
+  },
+  {
+    "objectID": "submission.html",
+    "href": "submission.html",
+    "title": "5  Submission",
+    "section": "",
+    "text": "5.1 Filename conventions\nIf you have successfully completed the Pre-project Exercise or Project Progress Check you’ve presumably mastered this process. If you have not, pay close attention because failure to follow the submission instructions to a “T” could land you in the no credit or zero score category.\nFirst, this important reminder…\nEach of the three project artifacts has a required filename. Use lowercase for first and last name, underscores between words, and the .pdf extension.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submission</span>"
+    ]
+  },
+  {
+    "objectID": "submission.html#filename-conventions",
+    "href": "submission.html#filename-conventions",
+    "title": "5  Submission",
+    "section": "",
+    "text": "Artifact\nFilename pattern\nExample\n\n\n\n\nPre-project\nfirstname_lastname_pre.pdf\njane_doe_pre.pdf\n\n\nProject Progress Check\nfirstname_lastname_progress.pdf\njane_doe_progress.pdf\n\n\nFinal Project\nfirstname_lastname_project.pdf\njane_doe_project.pdf",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submission</span>"
+    ]
+  },
+  {
+    "objectID": "submission.html#the-submission-workflow-at-a-glance",
+    "href": "submission.html#the-submission-workflow-at-a-glance",
+    "title": "5  Submission",
+    "section": "5.2 The submission workflow at a glance",
+    "text": "5.2 The submission workflow at a glance\nEach submission goes through the same three steps:\n\nKnit your .Rmd to an HTML document by clicking the Knit button in the editor pane. “Knit to HTML” is the default output format, so you don’t need to select it from the drop-down arrow — just click the button itself.\nSave the HTML document as a PDF using your browser’s print-to-PDF function following the instructions below.\nUpload the PDF to the corresponding Gradescope assignment under the correct filename.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submission</span>"
+    ]
+  },
+  {
+    "objectID": "submission.html#sec-saving-html-as-pdf",
+    "href": "submission.html#sec-saving-html-as-pdf",
+    "title": "5  Submission",
+    "section": "5.3 Saving the HTML document as a PDF",
+    "text": "5.3 Saving the HTML document as a PDF\nAfter knitting, the HTML output opens in your browser or in RStudio’s Viewer. If it opens in the Viewer, click the small icon at the top of the Viewer to open it in your browser.\nUsing your browser’s print dialog you can save as PDF following these general steps:\n\nDestination: “Save as PDF”\nLayout / Orientation: Landscape\nColor: Color (not Black and White)\nMargins: Default or None\nPages per sheet: 1\nBackground graphics: Enabled (this is the easy-to-miss one — without it, the colored ISU styling disappears)\n\nBrowser print dialogs change over time, so use the settings checklist above rather than trying to match an old screenshot. Before saving, confirm that the preview shows exactly 3 pages for the Pre-project or 35 pages for the Progress Check and Main Project.\n\n5.3.1 Google Chrome (and Microsoft Edge)\nEdge uses the same print dialog as Chrome — these steps work for both.\n\nClick the three vertical dots in the top-right of the browser.\nClick Print.\nMatch the settings above — most importantly, Destination = Save as PDF, Layout = Landscape, and More settings → Background graphics = checked.\nClick Save. Use the correct filename when prompted (see Filename conventions).\n\n\n\n5.3.2 Firefox\n\nClick the three horizontal lines (the “hamburger” menu) in the top-right of the browser.\nClick Print.\nMatch the settings above. Key settings: Destination = Save to PDF, Orientation = Landscape, and Options → Print backgrounds = checked.\nClick Save and use the correct filename.\n\n\n\n5.3.3 Safari\n\nClick File in the top-left menu bar.\nClick Print.\nMatch the settings above. Key settings: Orientation = Landscape, Print backgrounds = checked, and the PDF dropdown in the bottom-left must be set to Save as PDF (not Print).\nClick Save and use the correct filename.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submission</span>"
+    ]
+  },
+  {
+    "objectID": "submission.html#sec-benchmark-reference-decks",
+    "href": "submission.html#sec-benchmark-reference-decks",
+    "title": "5  Submission",
+    "section": "5.4 Links to benchmark reference decks",
+    "text": "5.4 Links to benchmark reference decks\nBefore you submit anything to Gradescope, check your deck against the relevant benchmarks for format compliance, and in the case of the progress check, content compliance.\n\n\n\n\n\n\nNoteBenchmark decks are posted in Canvas\n\n\n\nBoth benchmark reference decks are posted in Canvas, in the module labelled Project. Check your deck against them there before you submit.\n\n\n\nPre-project benchmark: what your three slides should look like. Posted in Canvas, under the module labelled Project.\nMain Project knitted template: what your 35 slides should look like before artifacts are produced and your explanations added. Posted in Canvas, under the module labelled Project.\n\nSee Progress Check for artifacts covered in the Progress Check\nSee Main Project for slide-by-slide instructions for the entire project",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submission</span>"
+    ]
+  },
+  {
+    "objectID": "common-errors.html",
+    "href": "common-errors.html",
+    "title": "6  Common Errors",
+    "section": "",
+    "text": "6.1 Getting help\nHere we catalog the most common errors we’ve seen students make. If you are having problems, you will likely find it documented here, along with the cause and fix. If your problem persists, reach out to Dr. Cormier.\nStart with the setup-check script and the relevant section of this chapter. If the problem persists, bring the exact error message and your project files to Dr. Cormier through the course’s usual contact channel.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Common Errors</span>"
+    ]
+  },
+  {
+    "objectID": "common-errors.html#setup-errors",
+    "href": "common-errors.html#setup-errors",
+    "title": "6  Common Errors",
+    "section": "6.2 Setup errors",
+    "text": "6.2 Setup errors\n\n6.2.1 CSS not loading\nSymptom: Your knitted slides have no ISU styling — plain text, no colors, default fonts.\nCause: Either (a) project_slidedeck.css is anywhere other than Project/css/, or (b) the .Rmd file you’re knitting isn’t in your Project/ root (e.g., you left it in your Downloads folder), so the relative path css/project_slidedeck.css in the Rmd’s YAML can’t find the CSS.\nFix: Confirm both files are in the right places: the CSS in Project/css/ AND the .Rmd in your Project/ root. Open RStudio by double-clicking Project.Rproj, then re-knit. Visual example of what the bad output looks like: Wrong CSS.\n\n\n6.2.2 Working from your Downloads folder\nSymptom: “File not found” errors when running scripts or knitting. R can’t see your data files even though they exist.\nCause: RStudio’s working directory is your Downloads folder, not your Project/ folder. The here() paths in scripts and the Rmd resolve to the wrong place.\nFix: Move all files into Project/ and always open RStudio by double-clicking Project.Rproj. Never work from Downloads.\n\n\n6.2.3 Required files missing or in the wrong subfolder\nSymptom: “Cannot open the connection” or “object not found” errors during a script run or knit.\nCause: A required file isn’t where the script or Rmd expects it (e.g., LF.R is in your project root instead of r/, or pppub25.csv is missing from data/).\nFix: Run check_setup_preproject.R (pre-project) or check_setup_project.R (main project). The script tells you exactly which file is misplaced and where it should go.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Common Errors</span>"
+    ]
+  },
+  {
+    "objectID": "common-errors.html#workflow-errors",
+    "href": "common-errors.html#workflow-errors",
+    "title": "6  Common Errors",
+    "section": "6.3 Workflow errors",
+    "text": "6.3 Workflow errors\n\n6.3.1 Knitting before running the R script\nSymptom: Knit errors out with a “file not found” message pointing at out/LF.csv or out/cpsmar_e.csv.\nCause: You haven’t run LF.R (pre-project) or cpsmar_e.R (main project) yet, so the file the Rmd is trying to read doesn’t exist.\nFix: Run the relevant R script first (open it in the editor, Select All, click Run), then knit the Rmd.\n\n\n6.3.2 Variable name confusion\nSymptom: Knit errors out mid-document with “object not found” — a chunk references cpsmar_a but you defined cpsmar_e (or similar).\nCause: Typo or misalignment between chunks. You defined the analysis sample with one name, then referenced a different name in a downstream chunk.\nFix: Read each chunk carefully. Match data-frame names exactly across chunks. The variable structure in the template is: cpsmar_e (the extract) → cpsmar_a (the analysis sample) → singles (the singles subset).\n\n\n6.3.3 Touching the setup chunk\nSymptom: Output looks broken or knit fails in unexpected ways (missing libraries, scientific notation issues, formatting wrong).\nCause: You changed include = FALSE to include = TRUE on the setup chunk, or otherwise modified the setup chunk’s contents.\nFix: Restore the setup chunk to its original state. The eval = FALSE → TRUE toggle only applies to content code chunks (btl1, btl2, mi1, etc.), never the setup chunk.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Common Errors</span>"
+    ]
+  },
+  {
+    "objectID": "common-errors.html#rendering-errors-the-knit-step",
+    "href": "common-errors.html#rendering-errors-the-knit-step",
+    "title": "6  Common Errors",
+    "section": "6.4 Rendering errors (the knit step)",
+    "text": "6.4 Rendering errors (the knit step)\n\n6.4.1 Leaving eval = FALSE on a completed chunk\nSymptom: Your code is correct but the output doesn’t appear in the knitted slide. The chunk shows the code but no result below it.\nCause: The chunk option eval = FALSE is still set. R Markdown displays the code but skips running it during knit.\nFix: Change eval = FALSE to eval = TRUE on every content chunk you’ve completed. Re-knit.\n\n\n6.4.2 Editing the YAML beyond the author line\nSymptom: The knit produces unexpected output — different layout, missing CSS, wrong document class, no slide breaks.\nCause: You changed something in the YAML besides the author: line (e.g., the output: value, the css: reference, the widescreen: setting).\nFix:\n\nIdentify which Rmd is broken: pre_project.Rmd or project.Rmd.\nCopy the canonical YAML block from the relevant chapter:\n\nPre-project: the YAML block is in Pre-project Step 3.\nMain project: the YAML block is in Main Project — The YAML block.\n\nOpen your working Rmd. Replace your current YAML with the YAML you just copied.\nRe-add your name on the author: line.\nRe-knit.\n\n\n\n6.4.3 Using the Knit dropdown instead of the Knit button\nSymptom: Output is a Word document, a LaTeX-styled PDF, or some format that doesn’t match the slide deck reference.\nCause: You clicked the small dropdown arrow next to the Knit button and selected “Knit to PDF / Word / etc.” That overrides the output format specified in the Rmd’s YAML.\nFix: Click the Knit button itself, not the dropdown arrow. The YAML already tells R Markdown to knit to HTML; just trust the button.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Common Errors</span>"
+    ]
+  },
+  {
+    "objectID": "common-errors.html#output-format-errors",
+    "href": "common-errors.html#output-format-errors",
+    "title": "6  Common Errors",
+    "section": "6.5 Output format errors",
+    "text": "6.5 Output format errors\nThese are the canonical “submission rejected” failure modes, each shown with a real example from a prior submission. If your output matches any of these images, your submission will receive a 0.\n\n\n\n\n\n\nNoteWhy these screenshots show a different course name\n\n\n\nThe examples below come from an earlier course that taught the same workflow: the same file pack, the same CSS, the same knit-to-HTML step, and the same slide-deck format. The deck titles inside the images therefore read with that course’s name rather than BA 3316.\nIgnore the title. Everything that matters is identical. The same setup mistakes produce exactly these failures in your project, and your output is judged against the same standard.\n\n\n\n6.5.1 Wrong CSS\nSymptom: Output is in landscape but has no ISU styling — plain text, gray gradients, default browser fonts.\nCause: project_slidedeck.css was not found at knit time (usually because it’s not in Project/css/).\nFix: Verify the CSS file is in Project/css/. Verify the Rmd you are working on is in Project/, not somewhere else (like Downloads/). Re-knit.\n\n\n\nWrong CSS example\n\n\n\n\n6.5.2 Wrong CSS + wrong orientation\nSymptom: Output is portrait AND has no ISU styling.\nCause: Both CSS is missing and the print dialog saved as portrait.\nFix: Move CSS to Project/css/. Verify the Rmd you are working on is in Project/, not somewhere else (like Downloads/). Re-knit, then save with Landscape orientation.\n\n\n\nWrong CSS, wrong orientation example\n\n\n\n\n6.5.3 Wrong orientation\nSymptom: Correct ISU styling, but the PDF is portrait.\nCause: Print dialog defaulted to portrait and you didn’t change it.\nFix: In the browser’s print dialog, set Layout / Orientation to Landscape before saving.\n\n\n\nWrong orientation example\n\n\n\n\n6.5.4 Long landscape\nSymptom: Landscape PDF, but the slide content is stretched horizontally across a single very wide page instead of broken into separate slide pages.\nCause: A print dialog scaling setting fit multiple slides onto one wide page.\nFix: Reset print dialog scaling to default. Make sure Pages per sheet = 1.\n\n\n\nLong landscape example\n\n\n\n\n6.5.5 Portrait\nSymptom: Output is portrait. (Same as “Wrong orientation” above, isolated here as an example.)\nCause: Print dialog defaulted to portrait.\nFix: Set Layout to Landscape.\n\n\n\nPortrait example\n\n\n\n\n6.5.6 Portrait + wrong CSS\nSymptom: Output is portrait AND has no ISU styling. Same underlying causes as the “Wrong CSS + wrong orientation” case, isolated here as a distinct example pattern.\nFix: Move CSS to Project/css/. Verify the Rmd you are working on is in Project/, not somewhere else (like Downloads/). Re-knit, then save with Landscape orientation.\n\n\n\nPortrait + wrong CSS example\n\n\n\n\n6.5.7 LaTeX slides (knit-to-PDF, slide format)\nSymptom: Output is a slide deck rendered with LaTeX/Beamer styling — different fonts, different layout, no ISU brand colors.\nCause: You used the Knit dropdown to select “Knit to PDF” with slide output, overriding the Rmd’s HTML-based ioslides format.\nFix: Use the Knit button (not the dropdown). The Rmd’s YAML specifies ioslides_presentation for a reason. If your YAML has also been modified (which often goes hand-in-hand with this error), restore it by following the 5-step process under Editing the YAML beyond the author line. Then re-knit.\n\n\n\nLaTeX slides example\n\n\n\n\n6.5.8 LaTeX document (knit-to-PDF, document format)\nSymptom: Output is a regular PDF document, not a slide deck at all. Looks like a paper or article.\nCause: You used the Knit dropdown to select “Knit to PDF” with document output, AND likely modified the YAML to change the output format.\nFix: Restore the YAML. Knit with the button. Save as PDF from the HTML output.\n\n\n\nLaTeX document example\n\n\n\n\n6.5.9 Not knit\nSymptom: Submission is the raw .Rmd file, or a file that was never actually knit — no rendering at all.\nCause: You uploaded the wrong file (the .Rmd source instead of the saved-as-PDF output).\nFix: Knit the Rmd to HTML, save the HTML as PDF using your browser’s print dialog, then upload that PDF.\n\n\n\nNot knit example\n\n\n\n\n6.5.10 Wrong file\nSymptom: Submission is something other than the intended project artifact — an old version, a template, an unrelated document.\nCause: You uploaded the wrong file.\nFix: Locate the correct PDF in your Project/ folder and re-upload. Double-check the filename matches the convention.\n\n\n\nWrong file example",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Common Errors</span>"
+    ]
+  },
+  {
+    "objectID": "common-errors.html#content-errors",
+    "href": "common-errors.html#content-errors",
+    "title": "6  Common Errors",
+    "section": "6.6 Content errors",
+    "text": "6.6 Content errors\n\n6.6.1 Numbers in your paragraph don’t match LF.csv (pre-project)\nSymptom: Your slide 3 paragraph cites numbers that don’t reflect your own data — they came from a classmate or from another source.\nCause: You copied numbers from a peer instead of running LF.R yourself, or LF.R didn’t actually run and the values you wrote down were stale.\nFix: Run LF.R yourself. Open out/LF.csv (or print lf in the console). Fill in your slide 3 paragraph with those values, rounded to one decimal place.\n\n\n6.6.2 Wrong filename\nSymptom: Your file was uploaded but appears under an unexpected name in Gradescope, or you can’t tell which submission is which in your Project/ folder later.\nCause: The filename didn’t match the required pattern.\nFix: Rename your file to the correct convention (firstname_lastname_pre.pdf / firstname_lastname_progress.pdf / firstname_lastname_project.pdf) and re-upload.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Common Errors</span>"
+    ]
+  },
+  {
+    "objectID": "r-ai-resources.html",
+    "href": "r-ai-resources.html",
+    "title": "7  R and AI Resources",
+    "section": "",
+    "text": "7.1 Resources for learning and using R\nA curated list of resources for learning and using R, and for working with AI as part of your data-science practice. Nothing here is required reading — but each item below has earned its place. Skim it now, bookmark it, and return as you go.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>R and AI Resources</span>"
+    ]
+  },
+  {
+    "objectID": "r-ai-resources.html#resources-for-learning-and-using-r",
+    "href": "r-ai-resources.html#resources-for-learning-and-using-r",
+    "title": "7  R and AI Resources",
+    "section": "",
+    "text": "7.1.1 IDEs for R\nRStudio remains the most widely used IDE for R, and, like R, it is open-source. Its “Help” tab is a gateway to a wide range of R and RStudio resources. However, Posit (the company behind RStudio) has released Positron, a next-generation IDE built for data science with both R and Python. Positron combines the familiar feel of RStudio with the extensibility of VS Code, and includes built-in AI assistance via Posit Assistant. If you’re comfortable with RStudio, stick with it; if you’re curious about a more modern interface or plan to work across R and Python, Positron is worth exploring.\n\n\n7.1.2 Learning R\nThe place to start is the widely used R for Data Science by Wickham and Grolemund. They will guide you through the Tidyverse. Tidy Data Tutor helps you visualize your data analysis pipelines. James Scott has a great introduction to R that maps onto BA 3316.\nKieran Healy’s Data Visualization book (also linked on the course schedule) is a great introduction to the wonders of ggplot, which is not R, but indispensable to analysis done in R.\nLearning R Markdown or Quarto should go hand-in-hand with learning R. For R Markdown, get started here and keep a cheatsheet handy. You can get started with Quarto here.\n\n\n7.1.3 Workflow\nAt least as important as learning R is understanding basic workflow principles. R-bloggers has a beginner’s guide using RStudio Projects. You can find some of the same principles described in chapter 2 of Healy’s book. Matt Gentzkow and Jesse Shapiro provide a fuller take on workflow principles from the perspective of academic social scientists (also posted in Canvas). They even provide a manual for doing as they do.\nFor a perspective specifically on coding practices in data science education, Pruim, Gîrjău, and Horton (2023) make the case in “Fostering Better Coding Practices for Data Scientists” (Harvard Data Science Review) that good coding habits matter even for beginners. Their argument: it’s far easier to learn good practices alongside R than to unlearn bad habits later. They organize their guidance into a practical top-10 list. Worth reading early in your data-science career.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>R and AI Resources</span>"
+    ]
+  },
+  {
+    "objectID": "r-ai-resources.html#sec-ai-resources",
+    "href": "r-ai-resources.html#sec-ai-resources",
+    "title": "7  R and AI Resources",
+    "section": "7.2 AI in August 2026",
+    "text": "7.2 AI in August 2026\n\n7.2.1 The main AI systems and keeping up with them\nIn August 2026, widely used general-purpose AI products include ChatGPT from OpenAI, Claude from Anthropic, and Gemini from Google. These products are powered by underlying models, and both the products and models change frequently.\nIf your experience has been exclusively through a chat interface, you should know that AI tools can now carry out longer, multi-step tasks. This shift is reflected in the rapid growth of coding agents such as Codex and Claude Code. Availability and usage limits vary by product, surface, and plan; Codex currently has an entry point on the ChatGPT Free plan as well as higher-usage paid plans.\nThe AI landscape is changing fast. To keep up, I recommend following Ethan Mollick’s Substack. If you want to swim in the deeper end of the pool, check out Zvi Moshowitz’s Substack, Don’t Worry About the Vase.\nTo learn more about AI and how to use it, check out the courses offered by OpenAI Academy and Anthropic Academy.\n\n\n7.2.2 Coding with AI\nOne place AI really shines is coding. Chat assistants can answer a question or explain an error. An agentic coding tool can work across an entire project: it reads the relevant files, edits and runs code, checks the result, and reports what it changed. You describe the goal in plain English and remain responsible for reviewing the work. Whether the tool asks before each edit or proceeds automatically depends on the permission mode you select.\nThe landscape moves fast; as of mid-2026, the main options fall into two groups.\nBuilt into your IDE. The assistant works right where you write your code:\n\nPosit Assistant: Built into Positron as its default AI experience. It can use context from your live data-science session, including loaded data, plots, and console history. You configure one of its supported model providers.\nGitHub Copilot: The most widely available assistant. It works in VS Code and Positron and, as an opt-in, in RStudio Desktop. It suggests code as you type and can also work as an agent. Verified students can often use it free through GitHub Education.\n\nStandalone coding experiences. These work with a whole project rather than living inside the editor where you type R code:\n\nClaude Code: Anthropic’s agentic coding tool, available in desktop and web experiences. Open your project and describe the task. If you want to review a proposed approach before any edits, select Plan mode.\nOpenAI Codex: OpenAI’s agentic coding experience in the ChatGPT desktop app. It can work directly with a local project, and its permission settings determine what it may do without stopping for approval.\n\nFinally, Cursor is an entire code editor rebuilt around AI. Software developers have embraced it, but for R work you would give up the data-science conveniences of RStudio and Positron.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>R and AI Resources</span>"
+    ]
+  }
+]

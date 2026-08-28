@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Main Project – BA 3316 Project Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./progress-check.html" rel="next">
+<link href="./pre-project.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f2127498ec0c487e0d623b3555c3c6f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d2b57899d0b7c6a43d1052fb2d834b07.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./main-project.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Main Project</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">BA 3316 Project Guide</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setup</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pre-project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Pre-project Exercise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./main-project.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Main Project</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./progress-check.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Progress Check</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Submission</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./common-errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Common Errors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-ai-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">R and AI Resources</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#first-download-the-main-project-file-pack-and-sort-its-contents" id="toc-first-download-the-main-project-file-pack-and-sort-its-contents" class="nav-link active" data-scroll-target="#first-download-the-main-project-file-pack-and-sort-its-contents"><span class="header-section-number">3.1</span> First, download the Main Project file pack and sort its contents</a></li>
+  <li><a href="#general-instructions" id="toc-general-instructions" class="nav-link" data-scroll-target="#general-instructions"><span class="header-section-number">3.2</span> General instructions</a></li>
+  <li><a href="#slide-by-slide-instructions" id="toc-slide-by-slide-instructions" class="nav-link" data-scroll-target="#slide-by-slide-instructions"><span class="header-section-number">3.3</span> Slide-by-slide instructions</a></li>
+  <li><a href="#common-pitfalls" id="toc-common-pitfalls" class="nav-link" data-scroll-target="#common-pitfalls"><span class="header-section-number">3.4</span> Common pitfalls</a></li>
+  <li><a href="#what-happens-next" id="toc-what-happens-next" class="nav-link" data-scroll-target="#what-happens-next"><span class="header-section-number">3.5</span> What happens next</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-main-project" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Main Project</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>If you have successfully completed the Pre-project Exercise, you’re ready to start the Main Project.</p>
+<p>The deliverable is a 35-slide deck examining pay differences between women and men using the March 2025 CPS. We <strong>strongly recommend</strong> adopting a cadence for your project activity that is in sync with our treatment of related course topics. Here is the mapping:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Course module and focus</th>
+<th>Project point</th>
+<th>Project section or milestone</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Data Fundamentals</strong> - R scripts, loading data, and R Markdown basics</td>
+<td>Slides 1-7</td>
+<td>Introduction and Data (Part 1)</td>
+</tr>
+<tr class="even">
+<td><strong>Beginning to Learn</strong> - Data-generating process and learning from data</td>
+<td>Slides 8-12</td>
+<td>Data (Part 2) and Baseline Earnings</td>
+</tr>
+<tr class="odd">
+<td><strong>Models for Exploration</strong> - Variance, covariance, and correlation</td>
+<td>Slides 13-20</td>
+<td>The Career Gender Gap</td>
+</tr>
+<tr class="even">
+<td><strong>Making Inferences</strong> - Statistical uncertainty and significance</td>
+<td>Slides 21-26</td>
+<td>Explaining the Gap (Part 1)</td>
+</tr>
+<tr class="odd">
+<td><strong>Sources of Bias</strong> - Measurement error, selection, and confounding</td>
+<td>Through Slide 20</td>
+<td>Optional check: verify tables and figures</td>
+</tr>
+<tr class="even">
+<td><strong>Regression Fundamentals</strong> - Regression for description, causation, and prediction</td>
+<td>Slides 27-35</td>
+<td>Explaining the Gap (Part 2) and Conclusion</td>
+</tr>
+</tbody>
+</table>
+<p><em>One cohesive story: each module’s learning enables the next piece of the project.</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you fall behind on the course content, the project gets harder fast. Stay on schedule. I won’t have any sympathy for those who start late and come up short in the end.</p>
+<p>To help you stay on track, I offer an optional <a href="./progress-check.html#sec-progress-check"><strong>Project Progress Check</strong></a>, which covers the first 20 slides. As a nudge to take me up on the option, I will award up to 5 bonus points depending on the correctness of your submission. Even if you whiff on the progress check, you will be in a much better position to succeed on the final project than if you skip the check entirely.</p>
+</div>
+</div>
+<section id="first-download-the-main-project-file-pack-and-sort-its-contents" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="first-download-the-main-project-file-pack-and-sort-its-contents"><span class="header-section-number">3.1</span> First, download the Main Project file pack and sort its contents</h2>
+<p>You should already have downloaded and sorted the contents of the Pre-project Exercise file pack. Now do the same with the Main Project file pack, which contains</p>
+<ul>
+<li><code>project.Rmd</code> — R Markdown template you will complete and knit into a slide deck</li>
+<li><code>cpsmar_e.R</code> — R script that creates the CPS data extract for your analysis from the raw CPS files <!--
+TODO: `Project_Progress_Check_Tables_and_Figures.pdf` was
+intentionally removed from this list. It is being gated so
+students only see it between the progress check deadline and the
+final project due date. The hosting/gating mechanism is still
+TBD — see notes.Rmd Wave 2 File packs.
+`project_progress_check_template.html` was also removed —
+redundant with the Final Project reference in the Submission
+chapter. `cpsmar25_documentation.pdf` was moved to the
+pre-project pack (paired with the data).
+--></li>
+<li><code>check_setup_project.R</code> — R script that checks your setup for the Main Project</li>
+</ul>
+<p>Here’s where each file goes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Goes in</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>project.Rmd</code></td>
+<td><code>Project/</code> (root)</td>
+</tr>
+<tr class="even">
+<td><code>cpsmar_e.R</code></td>
+<td><code>Project/r/</code></td>
+</tr>
+<tr class="odd">
+<td><code>check_setup_project.R</code></td>
+<td><code>Project/r/</code></td>
+</tr>
+</tbody>
+</table>
+<p>Run <code>check_setup_project.R</code> to confirm everything’s in the right place.</p>
+</section>
+<section id="general-instructions" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="general-instructions"><span class="header-section-number">3.2</span> General instructions</h2>
+<p>Before you jump into your project work, take note of the following general instructions that apply to the entire project. Overlooking any of them will prove costly.</p>
+<ul>
+<li><p><strong>Slide format</strong></p>
+<p>An acceptable submission has <strong>35 slides on 35 pages of PDF output</strong>, rendered in landscape mode, precisely matching the format of the <a href="./submission.html#sec-benchmark-reference-decks">Final Project reference deck</a>. If your deck doesn’t comply exactly with the reference deck, it will receive a score of 0.</p></li>
+<li><p><strong>Write-up line limits</strong></p>
+<p>Each slide requiring text content has a specific line limit. <strong>We will not read beyond the line limit.</strong></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>What counts as a “line”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“Lines of text” means <strong>rendered, countable lines on your final PDF</strong> — not sentences, and not lines as they appear in RStudio’s editor or output preview. A long sentence that wraps into three visual lines on the rendered slide counts as three lines. Submissions that exceed the line limit are <strong>heavily penalized</strong>. Always check your knitted PDF and count the actual visible lines on the slide before you submit.</p>
+</div>
+</div></li>
+<li><p><strong>HTML code for table formatting</strong></p>
+<p>Code chunks associated with table construction are wrapped in the <code>&lt;div class="table-..."&gt;</code> and <code>&lt;/div&gt;</code> HTML tags, which govern table formatting. Do <strong>not</strong> edit or remove them.</p></li>
+<li><p><span id="sec-main-yaml"><strong>The YAML block</strong></span></p>
+<p>As we explained in the Pre-project Exercise, the YAML block at the top of the template contains important formatting information. You must edit the <code>author:</code> field to insert your name, but <strong>do not change anything else</strong> in the YAML.</p>
+<p>If your YAML becomes corrupted, here is the definitive code block to replace your corrupted version:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"BA 3316 Project"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"Exploring Pay Differences between Women and Men"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"First Name Last Name"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    | Fall 2026</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    | (updated `r format(Sys.time(), '%d %b %y')`)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">ioslides_presentation</span><span class="kw">:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">css</span><span class="kw">:</span><span class="at"> css/project_slidedeck.css</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">widescreen</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>The setup chunk</strong></p>
+<p>Like with the Pre-project Exercise template, below the YAML you will find the <strong>setup chunk</strong> and it is complete as is. Do <strong>not</strong> touch it. As you should know from the Pre-project Exercise, the setup chunk loads the required R packages and sets global options for the rest of the document.</p></li>
+<li><p><strong>Echo settings</strong></p>
+<p>The setup chunk sets <code>echo = TRUE</code>, which will display code chunks by default. Note that we have overridden this global setting on certain slides by setting <code>echo = FALSE</code> in those chunks, where displaying the code would be redundant or otherwise not valuable. Do <strong>not</strong> change these individual <code>echo</code> settings.</p></li>
+</ul>
+<!--
+- The `.5` chunks (`btl2.5`, `mi2.5`, `mi3.5`, `reg1.5`, `reg2.5`)
+  — these display tables and figures from objects defined in the
+  previous chunk; the "code" is just the object name.
+- The three `datasummary` chunks (`mi1`, `ed_vars`, `demo_vars`)
+  — `datasummary` calls are long and not informative to show.
+- The appendix `var_doc_table` chunk — just renders the
+  documentation table built in `var_doc`.
+-->
+<ul>
+<li><p><strong>Get the units right</strong></p>
+<p>In your write-ups, make sure you use <strong>percent</strong> and <strong>percentage point</strong> correctly. They are not interchangeable. For example, a change in the gender wage gap from 25% to 20% is a <strong>5 percentage point</strong> decrease — not a 5% decrease. A 5% decrease in the gender wage gap from a 25% baseline would amount to a change of 1.25 percentage points to 23.75%. We will definitely penalize you for this sort of error, so don’t make it.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Workflow tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can run individual chunks without knitting the entire document, so work the project code chunks one at a time. After you complete a chunk, confirm it runs cleanly by clicking the green play button at the top-right of the chunk. If it does, set <code>eval = TRUE</code> on that chunk so its output appears when you knit the whole document.</p>
+</div>
+</div></li>
+</ul>
+</section>
+<section id="slide-by-slide-instructions" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="slide-by-slide-instructions"><span class="header-section-number">3.3</span> Slide-by-slide instructions</h2>
+<p>There are 35 slides in a successfully rendered deck. Some are just section dividers, with no point values and requiring no contribution from you. For those that require your input – either code completions or text responses – we provide specific instructions for how to enter it correctly, along with the corresponding point values in parentheses. So, here it goes, slides 1-35:</p>
+<ol type="1">
+<li><p><strong>BA 3316 Project</strong>.</p>
+<p>Title slide. It’s auto-generated by the YAML with your name as entered on the <code>author:</code> line.</p></li>
+<li><p><strong>Academic Honesty Statement</strong> <em>(required)</em></p>
+<p>Type your first and last name on the “Signature:” line. You may consult the instructor and may use AI tools as assistants. You must direct, review, understand, and verify any assistance you receive; the deliverable must represent your work and be completed and submitted by you.</p></li>
+<li><p><strong>Introduction</strong></p>
+<p>Section divider.</p></li>
+<li><p><strong>Overview</strong> <em>(2 points)</em></p>
+<p>Provide a brief overview of the project. Include:</p>
+<ul>
+<li>What you are trying to learn about</li>
+<li>The data you are using to learn</li>
+<li>A brief summary of your findings</li>
+</ul>
+<p>Limit your overview to <strong>6 lines of text</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pro tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To quote Yoda: “Do or do not. There is no try.” When you explain what your project is about or summarize what you learned, don’t say “I try / seek / look / aim / attempt (or am trying / seeking / …)”. Instead, say “I show / document / demonstrate / report / find …”. Never say “I hope…”</p>
+<p>You might write this slide <em>last</em>. It’s easier to summarize your findings after you’ve completed the analysis.</p>
+</div>
+</div></li>
+<li><p><strong>Data</strong></p>
+<p>Section divider.</p></li>
+<li><p><strong>March 2025 CPS</strong> <em>(4 points)</em></p>
+<p>Using the ASEC documentation (<code>cpsmar25_documentation.pdf</code>), provide a brief overview of the March 2025 CPS. Include:</p>
+<ul>
+<li>A description of the standard monthly CPS</li>
+<li>The additional information collected in the ASEC</li>
+<li>Approximately the number of households surveyed in the March 2025 ASEC</li>
+</ul>
+<p>Limit your summary to <strong>4 lines of text</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pro tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can ask AI, but you should verify the response by consulting the CPS documentation and formulate the overview in your own words.</p>
+</div>
+</div></li>
+<li><p><strong>March 2025 CPS Extract</strong> <em>(4 points)</em></p>
+<p>Complete the <code>read_data</code> code chunk to read the extract you created with <code>cpsmar_e.R</code>.</p>
+<p>Then, in the write-up section, explain the actions you applied to the March 2025 survey in <code>cpsmar_e.R</code> to create the data extract <code>cpsmar_e.csv</code>. Include:</p>
+<ul>
+<li>The variables you selected from the person file</li>
+<li>The variables you selected from the household file</li>
+<li>The restriction(s) you applied to the data extract</li>
+<li>The number of observations and variables in the data extract</li>
+</ul>
+<p>Limit your explanation to <strong>6 lines of text</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pro tips
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Refer to each variable by its plain English meaning, not the name used in the script. Refer to the key tidyverse “verbs” in the script, like <code>mutate</code> and <code>rename</code>.</p>
+</div>
+</div></li>
+<li><p><strong>Analysis sample</strong> <em>(2 points)</em></p>
+<p>Complete the <code>btl1</code> code chunk to create your analysis sample (<code>cpsmar_a</code>) with the following restrictions:</p>
+<ul>
+<li>Restrict to individuals who are 23 to 62 years old (inclusive)</li>
+<li>Restrict to individuals who have positive earnings</li>
+</ul>
+<p>Underneath the code chunk, document the number of observations in your analysis sample.</p>
+<p>Limit your documentation to <strong>2 lines</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pro tips
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Refer to your notes or the slides for examples of <code>filter</code> and <code>mutate</code>. Consult the Environment tab in the Northeast pane of RStudio for information about the <code>cpsmar_a</code> data frame.</p>
+</div>
+</div></li>
+<li><p><strong>Baseline earnings distributions</strong></p>
+<p>Section divider.</p></li>
+<li><p><strong>Plotting earnings distributions</strong></p>
+<p>Complete the <code>btl2</code> code chunk to:</p>
+<ul>
+<li>Create the <code>figure1</code> ggplot object (the earnings distribution by gender plot)</li>
+<li>Calculate average earnings for each gender using the <code>earnings_fvm</code> object</li>
+<li>Pull the average earnings for women and men into single values (<code>avg_earnings_f</code>, <code>avg_earnings_m</code>) using <code>filter</code> and <code>pull</code></li>
+</ul></li>
+<li><p><strong>Distribution of earnings by gender</strong> <em>(8 points)</em></p>
+<p>Complete the <code>btl2.5</code> code chunk to display Figure 1 by writing the name of the Figure 1 object.</p></li>
+<li><p><strong>Baseline comparisons</strong> <em>(4 points)</em></p>
+<p>Summarize the main empirical facts associated with Figure 1. Include:</p>
+<ul>
+<li>A description of the most important fact communicated by the figure</li>
+<li>The average earnings of men and women</li>
+<li>The dollar difference and percentage difference in average earnings between men and women in the sample</li>
+</ul>
+<p>Limit your summary to <strong>5 lines of text</strong> on the slide.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pro tips
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use inline R syntax with the <code>avg_earnings_f</code> and <code>avg_earnings_m</code> objects to insert the respective averages in your write-up rather than typing the numbers manually.</p>
+</div>
+</div></li>
+<li><p><strong>The career gender gap</strong></p>
+<p>Section divider.</p></li>
+<li><p><strong>Wages and hours differences</strong> <em>(8 points)</em></p>
+<p>Complete the <code>mi1</code> code chunk to create and display Table 1 (wages and hours by gender).</p></li>
+<li><p><strong>Documenting the differences</strong> <em>(2 points)</em></p>
+<p>Summarize the wage and hours differences presented in Table 1.</p>
+<p>Limit your documentation to <strong>3 lines of text</strong> on the slide.</p></li>
+<li><p><strong>Plotting career log wage profiles</strong></p>
+<p>Complete the <code>mi2</code> code chunk to estimate log wage profiles for women and men and create Figure 2.</p></li>
+<li><p><strong>Career log wage profiles</strong> <em>(8 points)</em></p>
+<p>Complete the <code>mi2.5</code> chunk to display Figure 2.</p></li>
+<li><p><strong>Estimating wage differences over a career</strong></p>
+<p>Complete the <code>mi3</code> code chunk to create Table 2. This involves:</p>
+<ul>
+<li><p>Creating <code>males</code> and <code>females</code> objects using <code>filter</code> and <code>rename</code></p></li>
+<li><p>Merging the two into the <code>diff_fvm</code> object using <code>inner_join</code></p></li>
+<li><p>Calculating the difference between average log wages using <code>mutate</code></p></li>
+<li><p>Grouping by <code>age_group</code></p></li>
+<li><p>Using <code>kable()</code> to organize the results into the <code>table2</code> object</p></li>
+</ul>
+<p>Table 2 covers career years 0 through 30. Its first group, labeled 0-10, includes the starting year (year 0) through year 10.</p></li>
+<li><p><strong>Evolution of the gender wage gap</strong> <em>(8 points)</em></p>
+<p>Complete the <code>mi3.5</code> code chunk to display Table 2.</p></li>
+<li><p><strong>Discussing the gender wage gap evolution</strong> <em>(2 points)</em></p>
+<p>Summarize the results presented in Figure 2 and Table 2.</p>
+<p>Limit your summary to <strong>3 lines of text</strong> on the slide.</p></li>
+<li><p><strong>Explaining the gender wage gap</strong></p>
+<p>Section divider.</p></li>
+<li><p><strong>Fitting the log wage profiles</strong></p>
+<p>Complete the <code>reg1</code> code chunk to create Figure 3 by fitting the career profiles with a quadratic in age.</p></li>
+<li><p><strong>Log wage profiles with quadratic fits</strong> <em>(8 points)</em></p>
+<p>Complete the <code>reg1.5</code> chunk to display Figure 3.</p></li>
+<li><p><strong>Gender differences in education</strong> <em>(8 points)</em></p>
+<p>Complete the <code>ed_vars</code> code chunk to create and display Table 3 (educational attainment by gender).</p></li>
+<li><p><strong>Gender differences in demographics</strong> <em>(8 points)</em></p>
+<p>Complete the <code>demo_vars</code> code chunk to create and display Table 4 (demographic characteristics by gender).</p></li>
+<li><p><strong>Documenting differences in characteristics</strong> <em>(4 points)</em></p>
+<ul>
+<li>Summarize the educational attainment differences presented in Table 3</li>
+<li>Summarize the differences in demographic characteristics presented in Table 4</li>
+</ul>
+<p>Limit your documentation to <strong>6 lines of text</strong> on the slide.</p></li>
+<li><p><strong>Controlling for education and demographic characteristics</strong></p>
+<p>Complete the <code>reg2a</code> code chunk to create:</p>
+<ul>
+<li>The <code>singles</code> subset of the analysis data</li>
+<li>The <code>models</code> object containing five regression models that incrementally add controls for education and demographic characteristics, with the fifth restricting to unmarried workers without children under 6 (“Only Singles”)</li>
+</ul>
+<p>In the regression analysis, you’ll distinguish between personal and household characteristics among the demographic variables.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pro tips
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Moving from top to bottom in the <code>models</code> object, the list of controls grows as indicated by the name of the model — with the exception of the final model “Only Singles”, which estimates the same relationship as the “Add Person” model but on the new subset.</li>
+<li>To decide whether a variable belongs in the “Add Person” or “Add Household” model, ask yourself: <em>“Can I define this variable for a particular individual irrespective of other individuals who may or may not exist in their life?”</em> If yes → Person. If no (it depends on someone else, like a spouse or a child) → Household.</li>
+</ul>
+</div>
+</div></li>
+<li><p><strong>Reporting the results</strong></p>
+<p>Complete the <code>reg2b</code> code chunk to create Table 5. This involves:</p>
+<ul>
+<li>Constructing the coefficient map object to display only the intercept, gender, and age coefficient estimates</li>
+<li>Constructing the goodness-of-fit object to display sample size and <span class="math inline">\(R^2\)</span> values</li>
+<li>Constructing a <code>rows</code> object to distinguish the regression specification associated with each column</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pro tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Make sure you report robust standard errors and indicate that you do in a table note.</p>
+</div>
+</div></li>
+<li><p><strong>Explaining the gender wage gap</strong> <em>(8 points)</em></p>
+<p>Complete the <code>reg2.5</code> chunk to display Table 5.</p></li>
+<li><p><strong>Documenting the findings</strong> <em>(4 points)</em></p>
+<p>Summarize how the estimated average gender wage gap changes as you add education, personal, and household characteristics to the regression — and then how it changes when the sample is restricted to singles.</p>
+<p>Limit your documentation to <strong>6 lines of text</strong> on the slide.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pro tips
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Start your write-up with the baseline model and describe subsequent results relative to the baseline. Focus on the Female coefficient estimate and its standard error. Remember how the coefficient estimate is correctly interpreted.</p>
+</div>
+</div></li>
+<li><p><strong>Conclusion</strong></p>
+<p>Section divider.</p></li>
+<li><p><strong>Summary</strong> <em>(4 points)</em></p>
+<p>Briefly summarize the objective of the project and its main findings. Note:</p>
+<ul>
+<li>The sample on which your analysis is based</li>
+<li>The overall gender wage gap</li>
+<li>How it evolves over a career</li>
+<li>How it varies when controlling for education and demographic characteristics</li>
+</ul>
+<p>Limit your documentation to <strong>7 lines of text</strong> on the slide.</p></li>
+<li><p><strong>Appendix</strong></p>
+<p>Section divider.</p></li>
+<li><p><strong>Data documentation</strong></p>
+<p>Complete the <code>var_doc</code> code chunk to create a table of the main variables used in this project with their definitions.</p></li>
+<li><p><strong>List of main variables with definitions</strong> <em>(4 points)</em></p>
+<p>Once you complete the <code>var_doc</code> chunk on the previous slide, set <code>eval = TRUE</code> on this slide to render the table of main variables with their definitions.</p></li>
+</ol>
+</section>
+<section id="common-pitfalls" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="common-pitfalls"><span class="header-section-number">3.4</span> Common pitfalls</h2>
+<p>If you completed the Pre-project Exercise successfully, you have already bypassed the most common mistakes. If you nevertheless are having trouble completing the Main Project, <a href="./common-errors.html#sec-common-errors">Common Errors</a> provides a comprehensive listing of problems we have seen students encounter, along with explanations and solutions. Some typical issues with the Main Project are:</p>
+<ul>
+<li><strong>Variable name confusion</strong> — defining <code>cpsmar_a</code> but referencing <code>cpsmar_e</code> (or vice versa) in a later chunk. See <a href="./common-errors.html#sec-variable-name-confusion">Common Errors</a>.</li>
+<li><strong>Forgetting to run <code>cpsmar_e.R</code> before knitting.</strong> See <a href="./common-errors.html#sec-knitting-before-running">Common Errors</a>.</li>
+<li><strong>Touching the setup chunk’s <code>include = FALSE</code></strong> — same scaffolding error as the pre-project. See <a href="./common-errors.html#sec-touching-setup-chunk">Common Errors</a>.</li>
+<li><strong>Editing the YAML beyond the author line.</strong> See <a href="./common-errors.html#sec-editing-yaml">Common Errors</a>.</li>
+</ul>
+</section>
+<section id="what-happens-next" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="what-happens-next"><span class="header-section-number">3.5</span> What happens next</h2>
+<p>Whether you are at the <a href="./progress-check.html#sec-progress-check">Progress Check</a> stage or at the end, the next step is to prepare to submit your work to Gradescope. <a href="./submission.html#sec-submission">Submission</a> walks you through the entire process.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./pre-project.html" class="pagination-link" aria-label="Pre-project Exercise">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Pre-project Exercise</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./progress-check.html" class="pagination-link" aria-label="Progress Check">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Progress Check</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
