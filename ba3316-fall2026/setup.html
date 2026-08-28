@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Step-by-step guide for BA 3316 students: install R and RStudio on macOS or Windows.">
+<title>R and RStudio Setup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; }
+  img { max-width: 100%; height: auto; }
+</style>
+<style>
+  :root {
+    --paper:      #FCFCFD;
+    --paper-fade: rgba(252,252,253,.92);
+    --panel:      #F4F4F5;
+    --ink:        #2E2E31;
+    --ink-strong: #141416;
+    --muted:      #66666B;
+    --rule:       #DEDEE1;
+    --rule-soft:  #E9E9EC;
+    --accent:     #C25E12;
+    --accent-br:  #F47920;
+    --accent-wash:#FDF0E4;
+    --accent-line:#F3C79C;
+    --alt:        #414042;
+    --alt-wash:   #EFEFF1;
+    --alt-line:   #C9C9CE;
+    --warn-wash:  #FBF3E2;
+    --warn-line:  #E4C577;
+    --warn-ink:   #7A5A11;
+    --good:       #414042;
+    --good-wash:  #EAEAEE;
+    --shadow:     0 1px 2px rgba(20,20,22,.05), 0 6px 20px -12px rgba(20,20,22,.18);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0 1.25rem 5rem;
+  }
+
+  .wrap { max-width: 45rem; margin: 0 auto; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible, [role="tab"]:focus-visible {
+    outline: 2px solid var(--accent-br);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  code, .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .88em; }
+  p code, li code {
+    background: var(--panel);
+    border: 1px solid var(--rule-soft);
+    border-radius: 3px;
+    padding: .08em .34em;
+    color: var(--ink-strong);
+    white-space: nowrap;
+  }
+  strong { color: var(--ink-strong); font-weight: 600; }
+
+  /* ---------- masthead ---------- */
+
+  header { padding-top: 3.5rem; display: flex; flex-direction: column; gap: 1.35rem; }
+
+  .eyebrow {
+    font-size: .74rem; font-weight: 600; letter-spacing: .13em;
+    text-transform: uppercase; color: var(--accent); margin: 0;
+  }
+  h1 {
+    font-family: "IBM Plex Serif", Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(2.05rem, 6vw, 2.95rem);
+    line-height: 1.08; letter-spacing: -.018em;
+    color: var(--ink-strong); text-wrap: balance; margin: 0;
+  }
+  .standfirst { font-size: 1.075rem; color: var(--muted); max-width: 34rem; margin: 0; }
+
+  /* ---------- tabs ---------- */
+
+  .tabbar {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--paper-fade);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    margin-top: 2rem;
+    padding-top: .75rem;
+  }
+  [role="tablist"] { display: flex; gap: .4rem; border-bottom: 2px solid var(--rule); }
+  [role="tab"] {
+    appearance: none; background: none; border: none;
+    font-family: inherit; font-size: 1rem; font-weight: 600;
+    color: var(--muted); cursor: pointer;
+    padding: .7rem 1.15rem .6rem;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    border-radius: 4px 4px 0 0;
+    transition: color .12s ease, background .12s ease;
+    display: flex; align-items: baseline; gap: .5rem;
+  }
+  [role="tab"]:hover { color: var(--ink-strong); background: var(--panel); }
+  [role="tab"][aria-selected="true"] {
+    color: var(--accent);
+    border-bottom-color: var(--accent-br);
+    background: none;
+  }
+  [role="tab"] .tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .68rem; font-weight: 400; letter-spacing: .04em;
+    color: var(--muted);
+  }
+  [role="tab"][aria-selected="true"] .tag { color: var(--accent); }
+
+  [role="tabpanel"] { display: flex; flex-direction: column; gap: 3.25rem; padding-top: 2.75rem; }
+  [role="tabpanel"][hidden] { display: none; }
+
+  /* ---------- parts ---------- */
+
+  .part { display: flex; flex-direction: column; gap: 1.15rem; }
+
+  .part-head {
+    display: grid; grid-template-columns: 3.25rem 1fr;
+    align-items: baseline; gap: .5rem;
+    padding-bottom: .7rem; border-bottom: 1px solid var(--rule);
+  }
+  .part-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1.85rem; font-weight: 600; line-height: 1;
+    color: var(--accent-br); font-variant-numeric: tabular-nums;
+  }
+  .part-head h2 {
+    font-family: "IBM Plex Serif", Georgia, serif;
+    font-weight: 600; font-size: clamp(1.32rem, 3.4vw, 1.6rem);
+    line-height: 1.22; letter-spacing: -.012em;
+    color: var(--ink-strong); text-wrap: balance; margin: 0;
+  }
+  .part-head .sub { grid-column: 2; font-size: .93rem; color: var(--muted); margin: .25rem 0 0; }
+
+  .part > p { margin: 0; }
+
+  /* ---------- step lists ---------- */
+
+  ol.steps {
+    counter-reset: step; list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: .85rem;
+  }
+  ol.steps > li { counter-increment: step; position: relative; padding-left: 2.6rem; }
+  ol.steps > li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: .16em;
+    width: 1.7rem; height: 1.7rem;
+    border: 1px solid var(--accent-line);
+    background: var(--accent-wash); color: var(--accent);
+    border-radius: 50%;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .82rem; font-weight: 600; line-height: 1.62rem;
+    text-align: center; font-variant-numeric: tabular-nums;
+  }
+  ol.steps p { margin: .4rem 0 0; }
+
+  /* ---------- two-branch blocks ---------- */
+
+  .fork { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .9rem; }
+  .branch {
+    border-radius: 6px; padding: 1.05rem 1.15rem 1.15rem;
+    display: flex; flex-direction: column; gap: .5rem;
+    box-shadow: var(--shadow);
+  }
+  .branch.a { background: var(--accent-wash); border: 1px solid var(--accent-line); }
+  .branch.b { background: var(--alt-wash);    border: 1px solid var(--alt-line); }
+
+  .chip {
+    align-self: flex-start;
+    font-size: .68rem; font-weight: 700; letter-spacing: .11em;
+    text-transform: uppercase; padding: .28rem .6rem; border-radius: 3px;
+  }
+  .branch.a .chip { background: var(--accent-br); color: #1B1207; }
+  .branch.b .chip { background: transparent; color: var(--alt); border: 1px solid var(--alt-line); }
+
+  .branch .saw {
+    font-size: .82rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted); margin: 0;
+  }
+  .branch .reads {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .95rem; font-weight: 600; color: var(--ink-strong);
+    margin: 0; line-height: 1.4;
+  }
+  .branch .then {
+    font-size: .9rem; color: var(--ink); margin: 0;
+    padding-top: .5rem; border-top: 1px dashed var(--rule);
+  }
+  .branch .file { font-family: "IBM Plex Mono", monospace; font-weight: 600; color: var(--ink-strong); }
+
+  /* ---------- callouts ---------- */
+
+  .note, .warn, .good-note {
+    border-radius: 5px; padding: .95rem 1.15rem;
+    display: flex; flex-direction: column; gap: .4rem; font-size: .95rem;
+  }
+  .note      { background: var(--panel);     border-left: 3px solid var(--rule); }
+  .warn      { background: var(--warn-wash); border-left: 3px solid var(--warn-line); }
+  .good-note { background: var(--good-wash); border-left: 3px solid var(--good); }
+  .note p, .warn p, .good-note p { margin: 0; }
+  .callout-label {
+    font-size: .7rem; font-weight: 700; letter-spacing: .11em;
+    text-transform: uppercase; margin: 0;
+  }
+  .warn .callout-label      { color: var(--warn-ink); }
+  .note .callout-label      { color: var(--muted); }
+  .good-note .callout-label { color: var(--good); }
+
+  .stop {
+    background: var(--warn-wash); border: 1px solid var(--warn-line);
+    border-radius: 6px; padding: 1.25rem 1.35rem;
+    display: flex; flex-direction: column; gap: .65rem;
+  }
+  .stop h3 {
+    font-family: "IBM Plex Serif", Georgia, serif;
+    font-size: 1.12rem; font-weight: 600; color: var(--ink-strong); margin: 0;
+  }
+  .stop p { margin: 0; font-size: .96rem; }
+
+  /* ---------- console ---------- */
+
+  .console {
+    background: var(--panel); border: 1px solid var(--rule);
+    border-radius: 5px; overflow-x: auto;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .88rem; line-height: 1.75;
+    padding: .85rem 1.05rem; color: var(--ink-strong); white-space: pre;
+  }
+  .console .prompt { color: var(--accent); }
+
+  /* ---------- troubleshooting ---------- */
+
+  .trouble { display: flex; flex-direction: column; gap: 0; }
+  .trouble details { border-bottom: 1px solid var(--rule-soft); padding: .2rem 0; }
+  .trouble details:first-of-type { border-top: 1px solid var(--rule); }
+  .trouble summary {
+    cursor: pointer; list-style: none;
+    padding: .75rem 1.75rem .75rem 0;
+    font-weight: 600; color: var(--ink-strong); font-size: .97rem; position: relative;
+  }
+  .trouble summary::-webkit-details-marker { display: none; }
+  .trouble summary::after {
+    content: "+"; position: absolute; right: .2rem; top: .72rem;
+    font-family: "IBM Plex Mono", monospace; font-weight: 400;
+    font-size: 1.1rem; color: var(--accent);
+  }
+  .trouble details[open] summary::after { content: "\2212"; }
+  .trouble details p { margin: 0 0 .95rem; font-size: .95rem; color: var(--ink); padding-right: 1.75rem; }
+
+  footer {
+    border-top: 2px solid var(--ink-strong);
+    margin-top: 3.25rem; padding-top: 1rem;
+    font-size: .9rem; color: var(--muted);
+  }
+  footer p { margin: 0; }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+  @media (max-width: 30rem) {
+    body { font-size: 16px; }
+    .part-head { grid-template-columns: 2.4rem 1fr; }
+    .part-num { font-size: 1.5rem; }
+    [role="tab"] { padding: .7rem .8rem .6rem; font-size: .95rem; flex-direction: column; gap: 0; }
+  }
+
+  @media print {
+    .tabbar { display: none; }
+    [role="tabpanel"][hidden] { display: flex !important; }
+    body { font-size: 11pt; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">R and RStudio Setup Guide &mdash; BA 3316</p>
+    <h1>Installing R and RStudio</h1>
+    <p class="standfirst">Read your platform's (macOS or Windows) steps all the way through once before you start. Then work the five parts in order &mdash; no computer experience needed.</p>
+  </header>
+
+  <div class="tabbar">
+    <div role="tablist" aria-label="Choose your computer">
+      <button role="tab" id="tab-mac" aria-controls="panel-mac" aria-selected="true" tabindex="0">
+        macOS <span class="tag">Apple</span>
+      </button>
+      <button role="tab" id="tab-win" aria-controls="panel-win" aria-selected="false" tabindex="-1">
+        Windows <span class="tag">PC</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===================== MAC ===================== -->
+  <div role="tabpanel" id="panel-mac" aria-labelledby="tab-mac" tabindex="0">
+
+    <section class="part" style="gap:.9rem">
+      <div class="note">
+        <p class="callout-label">Before you start</p>
+        <p>Set aside about <strong>20 minutes</strong>. You will need <strong>your Mac password</strong>. Install <strong>R first, then RStudio</strong> &mdash; RStudio looks for R when it opens, so in the other order it won't work.</p>
+      </div>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">1</span>
+        <h2>Check your chip and your macOS version</h2>
+        <p class="sub">Macs come with two kinds of processor, and R comes in two matching versions. Download the wrong one and R either won't install or will run badly. Both checks happen in the same window.</p>
+      </div>
+
+      <ol class="steps">
+        <li>Look at the very top-left corner of your screen. Click the black <strong>Apple logo</strong>.</li>
+        <li>In the menu that drops down, click <strong>About This Mac</strong>.</li>
+        <li>A small window opens. Find the line starting with <strong>Chip</strong> or <strong>Processor</strong>, and match it below.</li>
+      </ol>
+
+      <div class="fork">
+        <div class="branch a">
+          <span class="chip">Apple Silicon</span>
+          <p class="saw">If the window says</p>
+          <p class="reads">Chip: Apple M1<br>(or M2, M3, M4 &mdash; plus any Pro, Max, or Ultra)</p>
+          <p class="then">In Part 2 you download the file ending in <span class="file">-arm64.pkg</span></p>
+        </div>
+        <div class="branch b">
+          <span class="chip">Intel</span>
+          <p class="saw">If the window says</p>
+          <p class="reads">Processor: Intel Core i5<br>(or i3, i7, i9, Xeon)</p>
+          <p class="then">In Part 2 you download the file ending in <span class="file">-x86_64.pkg</span></p>
+        </div>
+      </div>
+
+      <div class="note">
+        <p class="callout-label">If the window is confusing</p>
+        <p>See the word <strong>Apple</strong> next to a letter-and-number like M1 or M3? You're Apple Silicon. See the word <strong>Intel</strong> anywhere? You're Intel. Macs sold from late 2020 onward are almost all Apple Silicon.</p>
+      </div>
+
+      <h3 style="font-size:1rem;font-weight:700;color:var(--ink-strong);margin:.4rem 0 -.4rem">Now check the macOS version, in that same window</h3>
+      <p>Above the chip line you'll see <strong>macOS</strong> followed by a name and number &mdash; for example <em>macOS Sequoia 15.5</em>.</p>
+      <ul style="margin:0;padding-left:1.2rem">
+        <li><strong>Sonoma (14), Sequoia (15), Tahoe (26), or anything newer</strong> &mdash; you're set. Continue to Part 2.</li>
+        <li><strong>Ventura (13), Monterey (12), Big Sur (11), or older</strong> &mdash; stop here. The current R and RStudio won't run on your Mac. See <em>&ldquo;My Mac is too old&rdquo;</em> at the bottom of this page.</li>
+      </ul>
+
+      <p>Write down your chip, then close the window with the red dot in its top-left corner.</p>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">2</span>
+        <h2>Download and install R</h2>
+        <p class="sub">R is the engine that does the computing. You'll almost never open it directly &mdash; but it has to be on the machine before RStudio will work.</p>
+      </div>
+
+      <ol class="steps">
+        <li>Open your web browser and go to <a href="https://cran.r-project.org/">cran.r-project.org</a></li>
+        <li>Near the top of the page, click <strong>Download R for macOS</strong>.</li>
+        <li>
+          Find the section headed <strong>Latest release</strong>. It lists two download links. Click the one that matches Part 1:
+          <div class="fork" style="margin-top:.75rem">
+            <div class="branch a">
+              <span class="chip">Apple Silicon</span>
+              <p class="reads">R-4.6.1-arm64.pkg</p>
+              <p class="then">Listed as &ldquo;For Apple silicon (M1,2,..) Macs&rdquo;.</p>
+            </div>
+            <div class="branch b">
+              <span class="chip">Intel</span>
+              <p class="reads">R-4.6.1-x86_64.pkg</p>
+              <p class="then">Listed as &ldquo;For older Intel Macs&rdquo;.</p>
+            </div>
+          </div>
+          <p>Ignore everything else on that page. You do not need the tools, the sources, XQuartz, or anything labelled &ldquo;development&rdquo;, &ldquo;patched&rdquo;, or &ldquo;next&rdquo;.</p>
+        </li>
+        <li>The file lands in your <strong>Downloads</strong> folder.</li>
+        <li>Open a <strong>Finder</strong> window &mdash; the blue smiling-face icon in the Dock. Click <strong>Downloads</strong> in the left sidebar, then <strong>double-click</strong> the file you just downloaded.</li>
+        <li>An installer window opens. Click <strong>Continue</strong>, then <strong>Continue</strong>, then <strong>Agree</strong> to the license, then <strong>Install</strong>.</li>
+        <li>Your Mac asks for your password &mdash; the same one you use to log in. Type it and click <strong>Install Software</strong>. The box stays blank as you type; that's normal.</li>
+        <li>Wait for it to finish, click <strong>Close</strong>, and say yes if it offers to move the installer to the Trash.</li>
+      </ol>
+
+      <div class="warn">
+        <p class="callout-label">If a box asks for access to your Downloads folder, click OK</p>
+        <p>Partway through, macOS may ask whether the Installer can access files in your Downloads folder. <strong>Say yes.</strong> If you click &ldquo;Don't Allow&rdquo;, this install fails <em>and</em> you won't be able to install anything else from Downloads afterward &mdash; you'd have to move the file somewhere else to recover. This prompt is normal and expected.</p>
+      </div>
+
+      <div class="good-note">
+        <p class="callout-label">You don't drag R anywhere</p>
+        <p>R arrives as an <em>installer</em> &mdash; a <code>.pkg</code> file &mdash; which puts R into your Applications folder for you. That's what the password was for. The dragging step is coming in Part 3, and it's for RStudio only.</p>
+      </div>
+
+      <p><strong>Confirm it worked:</strong> in Finder, click <strong>Applications</strong> in the sidebar. You should see a folder called <strong>R</strong> with an app called <strong>R</strong> inside it. Leave it alone &mdash; RStudio uses it behind the scenes.</p>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">3</span>
+        <h2>Download RStudio and drag it into Applications</h2>
+        <p class="sub">RStudio is the program you'll actually use every day. One download works on both chips &mdash; the Apple-versus-Intel choice only mattered for R.</p>
+      </div>
+
+      <ol class="steps">
+        <li>Go to <a href="https://posit.co/download/rstudio-desktop/">posit.co/download/rstudio-desktop</a></li>
+        <li>Scroll to the step labelled <strong>2: Install RStudio</strong> and click the big blue <strong>Download RStudio Desktop for Mac</strong> button.</li>
+        <li>The file lands in <strong>Downloads</strong>. It ends in <code>.dmg</code> and is named something like <code>RStudio-2026.08.2-200.dmg</code>.</li>
+        <li>In Finder, go to <strong>Downloads</strong> and <strong>double-click</strong> the <code>.dmg</code> file.</li>
+        <li>A new window opens showing two icons side by side: the <strong>RStudio</strong> icon on the left and a folder named <strong>Applications</strong> on the right, usually with an arrow between them.</li>
+        <li><strong>Click and hold the RStudio icon, drag it on top of the Applications folder, and let go.</strong> A progress bar appears while your Mac copies it. Wait until the bar finishes and disappears.</li>
+      </ol>
+
+      <div class="stop">
+        <h3>Now do the step everyone skips</h3>
+        <p>The window you just dragged from is <em>not</em> a folder on your computer. It's a temporary <strong>disk image</strong> &mdash; think of it as a CD your Mac pretended to insert. If you open RStudio by double-clicking the icon in that window, you're running the program off the pretend CD instead of off your computer. It looks fine, until you restart your Mac or the image gets ejected. Then RStudio vanishes, your settings are gone, and you're stuck mid-assignment.</p>
+        <p>Dragging it to Applications is what actually installs it. Ejecting is what proves you did.</p>
+      </div>
+
+      <ol class="steps" style="counter-reset: step 6">
+        <li><strong>Close</strong> the disk-image window.</li>
+        <li>Look at the left sidebar of any Finder window. Under <strong>Locations</strong> there's an entry named <strong>RStudio</strong> with a small <strong>eject symbol (&#9167;)</strong> beside it. <strong>Click that eject symbol.</strong> The entry disappears. RStudio now lives on your computer, not on the pretend disk.</li>
+        <li>Go back to <strong>Downloads</strong> and drag the <code>.dmg</code> file to the Trash. You won't need it again.</li>
+      </ol>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">4</span>
+        <h2>Open RStudio once &mdash; and only once this way</h2>
+        <p class="sub">Today is the only day you'll launch RStudio from the Applications folder. After the project walkthrough, you'll open it a different way every single time.</p>
+      </div>
+
+      <ol class="steps">
+        <li>In Finder, click <strong>Applications</strong> in the sidebar. Can't find it? Use the menu bar at the top: <strong>Go &rarr; Applications</strong>.</li>
+        <li>Find <strong>RStudio</strong> in the list and <strong>double-click</strong> it.</li>
+        <li>The first time only, your Mac warns you that RStudio was downloaded from the internet and asks whether you're sure. Click <strong>Open</strong>.</li>
+        <li>Let it finish loading, confirm you can see the <strong>Console</strong> pane on the left, and run the check in Part 5. Then you're done with this route.</li>
+      </ol>
+
+      <div class="stop">
+        <h3>From next time on, open the <span class="mono">.rproj</span> file instead</h3>
+        <p>During the project-guide walkthrough you'll build your course folders and create a file called <strong><span class="mono">Project.Rproj</span></strong> inside the <span class="mono">Project</span> folder. That file is your front door from then on: <strong>double-click <span class="mono">Project.Rproj</span></strong> and it opens RStudio <em>and</em> tells it which folder you're working in.</p>
+        <p>That second half is the part that matters. Launching RStudio on its own leaves it pointing at some arbitrary folder, so your scripts go looking for <span class="mono">data/</span> and <span class="mono">out/</span> and can't find them &mdash; you get file-not-found errors even though your code is perfectly correct. Opening the project first makes those paths work.</p>
+      </div>
+
+      <div class="note">
+        <p class="callout-label">So the rule is</p>
+        <p><strong>Today:</strong> Applications &rarr; RStudio, once, to confirm it installed. <strong>Every day after:</strong> double-click <span class="mono">Project.Rproj</span>. You'll rarely need the Applications folder again.</p>
+      </div>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">5</span>
+        <h2>Check that you got the right version of R</h2>
+        <p class="sub">Thirty seconds now saves an afternoon later. This proves the download in Part 2 matched the chip in Part 1.</p>
+      </div>
+
+      <ol class="steps">
+        <li>In RStudio, find the large pane on the left labelled <strong>Console</strong>.</li>
+        <li>Click into it, type the line below exactly as written, and press <strong>Return</strong>.</li>
+      </ol>
+
+      <div class="console"><span class="prompt">&gt;</span> R.version$platform</div>
+
+      <p>R prints one line straight back. Match it against your branch:</p>
+
+      <div class="fork">
+        <div class="branch a">
+          <span class="chip">Apple Silicon</span>
+          <p class="reads">"aarch64-apple-darwin20"</p>
+          <p class="then">Anything containing <strong>aarch64</strong> or <strong>arm64</strong>. Correct if Part 1 said Apple.</p>
+        </div>
+        <div class="branch b">
+          <span class="chip">Intel</span>
+          <p class="reads">"x86_64-apple-darwin20"</p>
+          <p class="then">Anything containing <strong>x86_64</strong>. Correct if Part 1 said Intel.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <p class="callout-label">If it doesn't match</p>
+        <p>Go back to Part 2, download the other file, and install it right over the top. Nothing breaks &mdash; the new install simply replaces the old one. Then quit RStudio completely (<strong>RStudio &rarr; Quit RStudio</strong>) and open it again.</p>
+      </div>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">?</span>
+        <h2>If something goes wrong</h2>
+        <p class="sub">Almost every Mac setup problem is one of these. Click a line to open it.</p>
+      </div>
+
+      <div class="trouble">
+        <details>
+          <summary>&ldquo;RStudio can't find an installation of R.&rdquo;</summary>
+          <p>R is either missing or was installed after RStudio. Do Part 2, then quit RStudio completely and open it again.</p>
+        </details>
+        <details>
+          <summary>The R installer says it can't be installed on this computer.</summary>
+          <p>You downloaded the wrong chip version. Go back to Part 1, recheck, and get the other file in Part 2.</p>
+        </details>
+        <details>
+          <summary>RStudio is very slow, or packages fail with strange errors.</summary>
+          <p>Usually an Apple Silicon Mac running the Intel version of R. Run the check in Part 5.</p>
+        </details>
+        <details>
+          <summary>&ldquo;RStudio is damaged and can't be opened.&rdquo;</summary>
+          <p>The download was interrupted. Delete RStudio from Applications, download the <code>.dmg</code> again, and redo Part 3.</p>
+        </details>
+        <details>
+          <summary>My Mac is too old &mdash; it's on Ventura, Monterey, or Big Sur.</summary>
+          <p>The current versions need macOS 14 (Sonoma) or newer. You have two options: update macOS if your Mac supports it (Apple menu &rarr; System Settings &rarr; General &rarr; Software Update), or install older, compatible versions of R and RStudio. Come to office hours for the second option &mdash; don't guess at which older version to grab.</p>
+        </details>
+        <details>
+          <summary>I clicked &ldquo;Don't Allow&rdquo; on the Downloads-folder box, and now nothing installs.</summary>
+          <p>Move the <code>.pkg</code> file out of Downloads &mdash; drag it to your home folder or the Desktop &mdash; and double-click it there. To fix it properly: <strong>System Settings &rarr; Privacy &amp; Security &rarr; Files and Folders</strong>, find Installer, and turn Downloads back on.</p>
+        </details>
+        <details>
+          <summary>I can't find the Applications folder.</summary>
+          <p>Open Finder, then use the menu bar at the very top of the screen: <strong>Go &rarr; Applications</strong>.</p>
+        </details>
+      </div>
+
+      <div class="warn">
+        <p class="callout-label">Still stuck</p>
+        <p>Bring your laptop to office hours. Don't spend more than 30 minutes fighting this alone &mdash; that's what office hours are for.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Install R before RStudio &middot; drag RStudio into Applications &middot; eject the disk image &middot; after today, open <span class="mono">Project.Rproj</span></p>
+    </footer>
+  </div>
+
+  <!-- ===================== WINDOWS ===================== -->
+  <div role="tabpanel" id="panel-win" aria-labelledby="tab-win" tabindex="0" hidden>
+
+    <section class="part" style="gap:.9rem">
+      <div class="note">
+        <p class="callout-label">Before you start</p>
+        <p>Set aside about <strong>20 minutes</strong>. Install <strong>R first, then RStudio</strong> &mdash; RStudio looks for R when it opens, so in the other order it won't work.</p>
+      </div>
+      <div class="good-note">
+        <p class="callout-label">Good news for PC users</p>
+        <p>There is only <strong>one</strong> R download for Windows. Unlike Mac users, you do <em>not</em> have to work out which processor you have. What you <em>do</em> need to check is your <strong>Windows version</strong> &mdash; that's Part 1.</p>
+      </div>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">1</span>
+        <h2>Check your Windows version</h2>
+        <p class="sub">The current RStudio requires Windows 11. If you're on Windows 10, find that out now rather than three screens into an installer.</p>
+      </div>
+
+      <ol class="steps">
+        <li>Click the <strong>Start</strong> button (the Windows logo on your taskbar).</li>
+        <li>Type the word <code>about</code> and press <strong>Enter</strong>. A settings page called <strong>About</strong> opens.</li>
+        <li>Look for the section headed <strong>Windows specifications</strong>, and read the line labelled <strong>Edition</strong>.</li>
+      </ol>
+
+      <div class="fork">
+        <div class="branch a">
+          <span class="chip">Ready to go</span>
+          <p class="saw">If Edition says</p>
+          <p class="reads">Windows 11 Home<br>(or Pro, or Education)</p>
+          <p class="then">Continue to Part 2. Nothing else to check.</p>
+        </div>
+        <div class="branch b">
+          <span class="chip">Needs a workaround</span>
+          <p class="saw">If Edition says</p>
+          <p class="reads">Windows 10<br>(any edition)</p>
+          <p class="then">Stop here. See <em>&ldquo;I'm on Windows 10&rdquo;</em> at the bottom of this page.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <p class="callout-label">While you're on that screen</p>
+        <p>A little higher up, under <strong>Device specifications</strong>, the line <strong>System type</strong> should read <em>64-bit operating system</em>. Essentially every machine sold in the last decade does. If yours says 32-bit, come to office hours &mdash; R no longer ships a 32-bit build. <strong>And if that line ends in &ldquo;ARM-based processor&rdquo; rather than the usual &ldquo;x64-based processor&rdquo; &mdash; you have one of the newer Snapdragon laptops &mdash; stop here and come to office hours before you install anything.</strong></p>
+      </div>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">2</span>
+        <h2>Download and install R</h2>
+        <p class="sub">R is the engine that does the computing. You'll almost never open it directly &mdash; but it has to be on the machine before RStudio will work.</p>
+      </div>
+
+      <ol class="steps">
+        <li>Open your web browser and go to <a href="https://cran.r-project.org/">cran.r-project.org</a></li>
+        <li>Near the top of the page, click <strong>Download R for Windows</strong>.</li>
+        <li>On the next page, click <strong>base</strong>. (The link just underneath, &ldquo;install R for the first time&rdquo;, goes to the same place.)</li>
+        <li>Click the large link at the top: <strong>Download R-4.6.1 for Windows</strong>. Ignore <em>Rtools</em>, <em>contrib</em>, <em>old contrib</em>, and anything labelled <em>patched</em> or <em>devel</em>.</li>
+        <li>The file lands in your <strong>Downloads</strong> folder, named something like <code>R-4.6.1-win.exe</code>.</li>
+        <li>Open <strong>File Explorer</strong> &mdash; the yellow folder icon on your taskbar. Click <strong>Downloads</strong> in the left sidebar, then <strong>double-click</strong> the file.</li>
+        <li>Windows asks <strong>&ldquo;Do you want to allow this app to make changes to your device?&rdquo;</strong> Click <strong>Yes</strong>.</li>
+        <li>Choose <strong>English</strong> and click <strong>OK</strong>.</li>
+        <li>Now click <strong>Next</strong> on every screen until the button says <strong>Finish</strong>, then click that. <strong>Accept every default.</strong> Don't change the install folder, don't uncheck components, don't change startup options.</li>
+      </ol>
+
+      <div class="good-note">
+        <p class="callout-label">Nothing to drag on Windows</p>
+        <p>Mac users have to drag RStudio into a folder by hand. On Windows, both installers put the programs in the right place for you. Your job is just to click <strong>Next</strong> and accept the defaults.</p>
+      </div>
+
+      <p><strong>Confirm it worked:</strong> click <strong>Start</strong> and type <code>R</code>. You should see an app called <strong>R x64 4.6.1</strong> in the results. Don't open it &mdash; RStudio uses it behind the scenes. You just need to see that it exists.</p>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">3</span>
+        <h2>Download and install RStudio</h2>
+        <p class="sub">RStudio is the program you'll actually use every day. One download works on every Windows PC &mdash; there's no version choice to make.</p>
+      </div>
+
+      <ol class="steps">
+        <li>Go to <a href="https://posit.co/download/rstudio-desktop/">posit.co/download/rstudio-desktop</a></li>
+        <li>Scroll to the step labelled <strong>2: Install RStudio</strong> and click the big blue <strong>Download RStudio Desktop for Windows</strong> button.</li>
+        <li>The file lands in <strong>Downloads</strong>, named something like <code>RStudio-2026.08.2-200.exe</code>.</li>
+        <li>In File Explorer, go to <strong>Downloads</strong> and <strong>double-click</strong> that file.</li>
+      </ol>
+
+      <div class="stop">
+        <h3>A blue warning box may appear. Don't panic, and don't give up.</h3>
+        <p>Windows may show <strong>&ldquo;Windows protected your PC&rdquo;</strong> with only a <strong>Don't run</strong> button visible. This does <em>not</em> mean the file is unsafe &mdash; it means Windows hasn't seen this particular file often enough yet. It appears for almost every newly released installer.</p>
+        <p>Click the small <strong>More info</strong> link inside the blue box. A new button appears: <strong>Run anyway</strong>. Click it.</p>
+      </div>
+
+      <ol class="steps" style="counter-reset: step 4">
+        <li>Windows asks <strong>&ldquo;Do you want to allow this app to make changes to your device?&rdquo;</strong> Click <strong>Yes</strong>.</li>
+        <li>Click <strong>Next</strong>, then <strong>Install</strong>, then <strong>Finish</strong>. Accept every default &mdash; especially the install folder.</li>
+        <li>Go back to <strong>Downloads</strong> and delete both <code>.exe</code> files. You won't need them again.</li>
+      </ol>
+
+      <div class="warn">
+        <p class="callout-label">On a school or work laptop</p>
+        <p>If the &ldquo;allow this app to make changes&rdquo; box asks for an <strong>administrator username and password</strong> that you don't have, email me &mdash; your laptop is most likely being managed by an administrator or organization.</p>
+      </div>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">4</span>
+        <h2>Open RStudio once &mdash; and only once this way</h2>
+        <p class="sub">Today is the only day you'll launch RStudio from the Start menu. After the project walkthrough, you'll open it a different way every single time.</p>
+      </div>
+
+      <ol class="steps">
+        <li>Click <strong>Start</strong> and type <code>RStudio</code>.</li>
+        <li>Click the <strong>RStudio</strong> result to open it. The first launch takes a few seconds longer than later ones.</li>
+        <li>Let it finish loading, confirm you can see the <strong>Console</strong> pane on the left, and run the check in Part 5. Then you're done with this route.</li>
+      </ol>
+
+      <div class="stop">
+        <h3>From next time on, open the <span class="mono">.rproj</span> file instead</h3>
+        <p>During the project-guide walkthrough you'll build your course folders and create a file called <strong><span class="mono">Project.Rproj</span></strong> inside the <span class="mono">Project</span> folder. That file is your front door from then on: <strong>double-click <span class="mono">Project.Rproj</span></strong> and it opens RStudio <em>and</em> tells it which folder you're working in.</p>
+        <p>That second half is the part that matters. Launching RStudio on its own leaves it pointing at some arbitrary folder, so your scripts go looking for <span class="mono">data\</span> and <span class="mono">out\</span> and can't find them &mdash; you get file-not-found errors even though your code is perfectly correct. Opening the project first makes those paths work.</p>
+      </div>
+
+      <div class="note">
+        <p class="callout-label">So the rule is</p>
+        <p><strong>Today:</strong> Start menu &rarr; RStudio, once, to confirm it installed. <strong>Every day after:</strong> double-click <span class="mono">Project.Rproj</span>.</p>
+      </div>
+
+      <div class="note">
+        <p class="callout-label">One thing never to do</p>
+        <p>Don't go back to Downloads and double-click <code>RStudio-2026.08.2-200.exe</code> to start the program. That re-runs the <em>installer</em>, not RStudio &mdash; which is why some students end up installing it four times. Deleting those files (Part 3, step 7) removes the temptation.</p>
+      </div>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">5</span>
+        <h2>Check that R installed correctly</h2>
+        <p class="sub">Thirty seconds now saves an afternoon later.</p>
+      </div>
+
+      <ol class="steps">
+        <li>In RStudio, find the large pane on the left labelled <strong>Console</strong>.</li>
+        <li>Click into it, type the line below exactly as written, and press <strong>Enter</strong>.</li>
+      </ol>
+
+      <div class="console"><span class="prompt">&gt;</span> R.version$platform</div>
+
+      <p>R prints one line straight back:</p>
+
+      <div class="fork">
+        <div class="branch a">
+          <span class="chip">Correct</span>
+          <p class="reads">"x86_64-w64-mingw32"</p>
+          <p class="then">This is what every Windows install should say. You're done &mdash; go on to the course folder setup.</p>
+        </div>
+        <div class="branch b">
+          <span class="chip">Anything else</span>
+          <p class="reads">an error, or<br>no response at all</p>
+          <p class="then">Check the troubleshooting list below, then bring it to office hours.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <p class="callout-label">Worth a second check</p>
+        <p>Type <code>R.version.string</code> and press Enter. It should report version <strong>4.6.1</strong> or newer. An older number means Windows found a leftover R from a previous install &mdash; email me to see if it needs to be updated.</p>
+      </div>
+    </section>
+
+    <section class="part">
+      <div class="part-head">
+        <span class="part-num">?</span>
+        <h2>If something goes wrong</h2>
+        <p class="sub">Almost every Windows setup problem is one of these. Click a line to open it.</p>
+      </div>
+
+      <div class="trouble">
+        <details>
+          <summary>&ldquo;Windows protected your PC&rdquo; and I only see a Don't run button.</summary>
+          <p>Expected, and not a sign of a bad file. Click the small <strong>More info</strong> link inside the blue box, then click <strong>Run anyway</strong>.</p>
+        </details>
+        <details>
+          <summary>&ldquo;RStudio can't find an installation of R.&rdquo;</summary>
+          <p>R is either missing or was installed after RStudio. Do Part 2, then close RStudio completely and open it again from the Start menu.</p>
+        </details>
+        <details>
+          <summary>I'm on Windows 10.</summary>
+          <p>Current RStudio requires Windows 11. Update if your PC is eligible (<strong>Start &rarr; Settings &rarr; Windows Update</strong>). If it isn't eligible, you'll need an older RStudio release that still supports Windows 10 &mdash; come to office hours rather than guessing at which one, since it has to be paired with a compatible R.</p>
+        </details>
+        <details>
+          <summary>It asks for an administrator password I don't have.</summary>
+          <p>Email me &mdash; your laptop is most likely being managed by an administrator or organization.</p>
+        </details>
+        <details>
+          <summary>A package install says I need Rtools.</summary>
+          <p>Go ahead and install it. Go to <a href="https://cran.r-project.org/bin/windows/Rtools/">cran.r-project.org/bin/windows/Rtools</a>, download the version that matches your R (4.6), and run the installer accepting every default. Then close RStudio and open it again.</p>
+        </details>
+        <details>
+          <summary>My course folder is in OneDrive and things behave strangely.</summary>
+          <p>OneDrive syncs files in and out from under R while it's working, which produces errors that look like your code is broken when it isn't. Keep your course folder somewhere <em>outside</em> OneDrive &mdash; for example directly under <code>C:\Users\yourname\</code>. If your Documents folder is already synced to OneDrive, don't put the course folder there.</p>
+        </details>
+        <details>
+          <summary>I installed RStudio several times by accident.</summary>
+          <p>Harmless &mdash; each install replaced the last. Delete the <code>.exe</code> files from Downloads and always open RStudio from the Start menu instead.</p>
+        </details>
+      </div>
+
+      <div class="warn">
+        <p class="callout-label">Still stuck</p>
+        <p>Bring your laptop to office hours. Don't spend more than 30 minutes fighting this alone &mdash; that's what office hours are for.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Install R before RStudio &middot; accept the defaults &middot; after today, open <span class="mono">Project.Rproj</span>, not RStudio itself</p>
+    </footer>
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    var tabs   = [document.getElementById('tab-mac'), document.getElementById('tab-win')];
+    var panels = [document.getElementById('panel-mac'), document.getElementById('panel-win')];
+    var keys   = ['mac', 'win'];
+    var STORE  = 'r-setup-platform';
+
+    function select(i, focus) {
+      tabs.forEach(function (t, n) {
+        var on = n === i;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        panels[n].hidden = !on;
+      });
+      if (focus) tabs[i].focus();
+      try { localStorage.setItem(STORE, keys[i]); } catch (e) {}
+      if (history.replaceState) history.replaceState(null, '', '#' + keys[i]);
+    }
+
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(i, false); });
+      t.addEventListener('keydown', function (e) {
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (d) { e.preventDefault(); select((i + d + tabs.length) % tabs.length, true); }
+        if (e.key === 'Home') { e.preventDefault(); select(0, true); }
+        if (e.key === 'End')  { e.preventDefault(); select(tabs.length - 1, true); }
+      });
+    });
+
+    // Priority: URL hash, then remembered choice, then the visitor's own OS.
+    var start = null;
+    var hash = (location.hash || '').replace('#', '').toLowerCase();
+    if (hash === 'win' || hash === 'windows') start = 1;
+    else if (hash === 'mac' || hash === 'macos') start = 0;
+
+    if (start === null) {
+      try {
+        var saved = localStorage.getItem(STORE);
+        if (saved === 'win') start = 1;
+        else if (saved === 'mac') start = 0;
+      } catch (e) {}
+    }
+
+    if (start === null) {
+      var ua = (navigator.userAgent || '');
+      if (/Windows|Win32|Win64/i.test(ua)) start = 1;
+      else if (/Mac|iPhone|iPad/i.test(ua)) start = 0;
+    }
+
+    select(start === null ? 0 : start, false);
+  })();
+</script>
+</body>
+</html>
