@@ -375,12 +375,12 @@ Note
 </section>
 <section id="install-the-required-r-packages" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="install-the-required-r-packages"><span class="header-section-number">1.2</span> Install the required R packages</h2>
-<p>Now, install the seven packages required by the project.</p>
+<p>Now, install the eight packages required by the project.</p>
 <ol type="1">
 <li><p>Select the <strong>Packages</strong> tab in the bottom-right pane.</p></li>
 <li><p>Click <strong>Install</strong> at the top of that pane.</p></li>
 <li><p>In the “Install Packages” box, enter the package names separated by spaces or commas:</p>
-<p><code>here tidyverse modelsummary ggpmisc car ggrepel kableExtra</code></p></li>
+<p><code>here tidyverse modelsummary ggpmisc car ggrepel kableExtra sandwich</code></p></li>
 <li><p>Make sure <strong>Install dependencies</strong> is checked.</p></li>
 <li><p>Click <strong>Install</strong>.</p></li>
 </ol>
@@ -395,6 +395,19 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>You install packages <strong>only once per machine</strong>. Once installed, you “attach” them to a script (<code>.R</code>) or an R Markdown (<code>.Rmd</code>) using the <code>library()</code> function. The requisite <code>library()</code> calls are already included in the setup chunk of the <code>project.Rmd</code> template. Do <strong>not</strong> edit the setup chunk.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why <code>sandwich</code> has no <code>library()</code> call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Seven of these you attach with <code>library()</code> in the setup chunk. <code>sandwich</code> is different: <code>modelsummary</code> uses it behind the scenes to compute the robust standard errors in Table 5, so it must be <strong>installed</strong> but is never attached. If you skip it, everything works until the very last table, which then fails with “there is no package called ‘sandwich’”.</p>
 </div>
 </div>
 </section>
