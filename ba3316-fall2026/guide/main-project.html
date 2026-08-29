@@ -602,9 +602,24 @@ pre-project pack (paired with the data).
 <li><p><strong>Log wage profiles with quadratic fits</strong> <em>(8 points)</em></p>
 <p>Complete the <code>reg1.5</code> chunk to display Figure 3.</p></li>
 <li><p><strong>Gender differences in education</strong> <em>(8 points)</em></p>
-<p>Complete the <code>ed_vars</code> code chunk to create and display Table 3 (educational attainment by gender).</p></li>
+<p>Complete the <code>ed_vars</code> code chunk to create and display Table 3 (educational attainment by gender). Report these three variables, broken out by <code>gender</code>, showing both <code>N</code> and <code>Mean</code>:</p>
+<ul>
+<li><code>CollDeg</code>, college degree or higher (<code>education &gt;= 43</code>)</li>
+<li><code>SomeColl</code>, some college but no degree (<code>education</code> 40 to 42)</li>
+<li><code>HSGrad</code>, high school graduate (<code>education == 39</code>)</li>
+</ul>
+<p>All three already exist in the extract, built by <code>cpsmar_e.R</code>, so you do not need to create them.</p></li>
 <li><p><strong>Gender differences in demographics</strong> <em>(8 points)</em></p>
-<p>Complete the <code>demo_vars</code> code chunk to create and display Table 4 (demographic characteristics by gender).</p></li>
+<p>Complete the <code>demo_vars</code> code chunk to create and display Table 4 (demographic characteristics by gender). Report these six variables, broken out by <code>gender</code>, showing both <code>N</code> and <code>Mean</code>:</p>
+<ul>
+<li><code>Black</code>, race is Black only (<code>race == 2</code>)</li>
+<li><code>hisp</code>, Hispanic, Spanish, or Latino</li>
+<li><code>south</code>, lives in the South (<code>region == 3</code>)</li>
+<li><code>city</code>, lives in a principal city or the balance of a CBSA</li>
+<li><code>married</code>, married whether civilian, armed forces, or spouse absent (<code>marital</code> is 1, 2, or 3)</li>
+<li><code>child_u6</code>, a child under 6 lives in the household</li>
+</ul>
+<p>Three of these come ready-made from the extract: <code>hisp</code>, <code>city</code>, and <code>child_u6</code>. The other three, <code>Black</code>, <code>south</code>, and <code>married</code>, are created in the <code>btl1</code> chunk back on slide 8 where you built the analysis sample. If this table errors with “object not found”, check that chunk ran first.</p></li>
 <li><p><strong>Documenting differences in characteristics</strong> <em>(4 points)</em></p>
 <ul>
 <li>Summarize the educational attainment differences presented in Table 3</li>
