@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Installing the required R packages</li>
 <li>Setting up the required directory structure on your computer</li>
 <li>Learning how to “knit” an R Markdown (<code>.Rmd</code>) file to an HTML slide deck</li>
-<li>Understanding how (and why we need you) to save the HTML deck into the required PDF format</li>
+<li>Understanding how (and why I need you) to save the HTML deck into the required PDF format</li>
 </ul>
 <p>Do <strong>not</strong> treat this exercise as a mere nuisance. It counts for <strong>5% of your Project score</strong>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -307,7 +307,7 @@ urlcolor: "#B75B18"  # Use hex code for ISU dark orange from ISU visual guide
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lf <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"out"</span>, <span class="st">"LF.csv"</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Run the chunk by clicking the small green play button at the top-right of the chunk. If there are no errors, the <code>lf</code> data frame contents will be printed in the console — six columns named <code>E</code>, <code>U</code>, <code>LF</code>, <code>NILF</code>, <code>Pop</code>, and <code>LFPR</code>, with one row of numbers.</p>
-<p>When the chunk runs successfully, change the chunk option <code>eval = FALSE</code> to <code>eval = TRUE</code> at the top of the chunk. This tells R Markdown to run the chunk when you knit. We set it to <code>FALSE</code> by default so the template knits before you complete it.</p>
+<p>When the chunk runs successfully, change the chunk option <code>eval = FALSE</code> to <code>eval = TRUE</code> at the top of the chunk. This tells R Markdown to run the chunk when you knit. I set it to <code>FALSE</code> by default so the template knits before you complete it.</p>
 <p>The <strong>third slide</strong> is a descriptive paragraph with six blanks serving as placeholders for the LFPR and its components as defined in <code>LF.R</code>. Replace each blank with the appropriate value from the second slide’s output.</p></li>
 <li><p><strong>Step 4</strong>: Knit <code>pre_project.Rmd</code> to an HTML slide deck and save it as a PDF</p>
 <p>Click the <strong>Knit</strong> button at the top of the editor pane. If there are no errors, <code>pre_project.html</code> will appear in your <code>Project/</code> folder and RStudio will open it automatically in its viewer or your browser. The <a href="./submission.html#sec-submission">Submission chapter</a> shows exactly what the pre-project slide deck should look like when rendered correctly. Compare yours with the benchmark before saving and submitting.</p>
@@ -316,14 +316,14 @@ urlcolor: "#B75B18"  # Use hex code for ISU dark orange from ISU visual guide
 </section>
 <section id="avoid-these-mistakes" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="avoid-these-mistakes"><span class="header-section-number">2.3</span> Avoid these mistakes</h2>
-<p>The most common errors we see in attempts of the Pre-project Exercise are:</p>
+<p>The most common errors I see in attempts of the Pre-project Exercise are:</p>
 <ol type="1">
 <li><p><strong>Leaving <code>eval = FALSE</code> after completing the code chunk.</strong> If <code>eval = FALSE</code>, the chunk doesn’t run when you knit, so the output doesn’t appear on the slide. Set it to <code>TRUE</code> once your code is correct.</p></li>
 <li><p><strong>Values in the third slide paragraph don’t match those in <code>LF.csv</code>.</strong> This usually means a student made a transcription error or used a source different from the output of <code>LF.R</code>.</p></li>
 <li><p><strong>YAML edits beyond the author line.</strong> Changing anything in the YAML besides the author name will break the knit format. Don’t touch the <code>title</code>, <code>subtitle</code>, <code>date</code>, <code>output</code>, <code>css</code>, or any other field.</p></li>
 <li><p><strong>CSS file not correctly placed.</strong> If <code>project_slidedeck.css</code> is anywhere other than <code>Project/css/</code>, the knit produces an unstyled output that won’t match the template.</p></li>
 </ol>
-<p>When in doubt, see <a href="./common-errors.html#sec-common-errors">Common Errors</a>, which provides a comprehensive listing of errors we’ve seen students make.</p>
+<p>When in doubt, see <a href="./common-errors.html#sec-common-errors">Common Errors</a>, which provides a comprehensive listing of errors I’ve seen students make.</p>
 </section>
 <section id="what-happens-next" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="what-happens-next"><span class="header-section-number">2.4</span> What happens next</h2>
