@@ -53,9 +53,13 @@ author_profile: true
 
 ### Idaho State University
 
+#### Introduction to Data Analytics
+
 I am building Introduction to Data Analytics to be forward looking, revising its content and course objectives so that what students learn holds its value in a rapidly changing world. That means teaching them to own the full data value chain, from acquiring and transforming raw data through analyzing it and communicating what they find to people who have to act on it.
 
-#### [Principles of Microeconomics graph generator (beta)](/tools/econ-graph-generator.html)
+#### Principles of Microeconomics
+
+<p style="font-family:var(--font-heading);font-size:1.5rem;font-weight:500;line-height:1.25;margin:1.4rem 0 .5rem"><a href="/tools/econ-graph-generator.html">Principles of Microeconomics graph generator (beta)</a></p>
 
 Drawing clean, consistent supply and demand figures is a persistent pain point for microeconomics instructors, and this tool is built to solve it. It is still in development, so [email me](mailto:abigailcormier@isu.edu) to report bugs or suggest features.
 
@@ -63,6 +67,6 @@ Presentations: Six "Secret" Econ Resources, hosted by Econiful (upcoming), Journ
 
 ### University of Georgia
 
-I have been on the development team for Introduction to Data Science for Business and Economics since UGA launched it in Spring 2022, a course required of every Economics major and a pathway into the Master's of Business Analytics. I built and maintain the online R homework system, redesigned the semester-long data science project, and created the two formative assignments that prepare students for it. I led the team's adoption of AI-assisted grading and generative AI in course administration, which lets us deliver full feedback to 250 students a semester while freeing teaching assistants for student-facing work.
+I was on the development team for Introduction to Data Science for Business and Economics from its launch at UGA in Spring 2022 through Summer 2026, a course required of every Economics major and a pathway into the Master's of Business Analytics. I built and maintained the online R homework system, redesigned the semester-long data science project, and created the two formative assignments that prepared students for it. I led the team's adoption of AI-assisted grading and generative AI in course administration, which let us deliver full feedback to 250 students a semester while freeing teaching assistants for student-facing work.
 
 Presentations: Southern Economic Association Meetings (2025), University of Alabama at Birmingham AI Economics Summit (2025), Journal of Economics Teaching Symposium on Economics Teaching (2024, [slides](/assets/teaching/Abigail_Cormier_JETSET_Slides.pdf))
