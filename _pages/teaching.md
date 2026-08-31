@@ -55,7 +55,7 @@ I am building Introduction to Data Analytics to be forward looking, revising its
 
 #### Principles of Microeconomics
 
-<p style="font-family:var(--font-heading);font-size:1.15rem;font-weight:600;line-height:1.25;margin:1.3rem 0 .4rem"><a href="/tools/econ-graph-generator.html">Principles of Microeconomics graph generator (beta)</a></p>
+<p style="font-family:var(--font-heading);font-size:1rem;font-weight:600;line-height:1.3;margin:1.2rem 0 .4rem"><a href="/tools/econ-graph-generator.html">Principles of Microeconomics graph generator (beta)</a></p>
 
 Drawing clean, consistent supply and demand figures is a persistent pain point for microeconomics instructors, and this tool is built to solve it. It is still in development, so [email me](mailto:abigailcormier@isu.edu) to report bugs or suggest features.
 

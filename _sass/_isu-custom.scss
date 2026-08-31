@@ -479,3 +479,17 @@ html[data-theme="dark"],
 body.dark {
   --global-border-color: #D6D2C4 !important;
 }
+/* ==========================================================================
+   Heading scale
+   The base theme sets h4 to its smallest step, which rendered sub-heading
+   course names below body size. Root font-size here is 18px, so 1rem = 18px.
+   ========================================================================== */
+#main h3, .page__content h3 {
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+}
+#main h4, .page__content h4 {
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  color: #45454B !important;
+}
