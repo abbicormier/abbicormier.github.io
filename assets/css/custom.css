@@ -27,7 +27,8 @@ body{font-family:var(--font-body);font-size:var(--fs-base);line-height:var(--lh-
 h1,h2,h3,h4{font-family:var(--font-heading);line-height:1.2;margin:1.2rem 0 .5rem;}
 h1{font-weight:600;font-size:clamp(1.75rem,2.2vw+1rem,2.4rem);}
 h2{font-weight:600;font-size:1.6rem;}
-h3{font-weight:500;font-size:1.25rem;}
+h3{font-weight:600;font-size:1.35rem;}
+h4{font-weight:600;font-size:1.15rem;color:#45454B;}
 a,a:visited{color:var(--link)!important;}
 a:hover,a:focus{color:var(--link-hover)!important;text-decoration:underline;}
 .meta-link{color:var(--meta-gray)!important;border-bottom:1px solid currentColor;}
