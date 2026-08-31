@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BA 3316 Weekly Schedule &middot; In-person</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+:root{--paper:#FCFCFD;--ink:#222;--muted:#6B6B70;--rule:#DEDEE1;--panel:#F4F4F5;
+--orange:#F47920;--title:#D4441C;--link:#B82B00;--grey:#E6E7E8;--peach:#FBC9A6}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+ font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+ font-size:17px;line-height:1.6;padding:0 1rem 4rem;overflow-x:hidden}
+.wrap{max-width:46rem;margin:0 auto}
+a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(184,43,0,.3);overflow-wrap:anywhere}
+a:hover{border-bottom-color:var(--link)}
+a:focus-visible{outline:2px solid var(--orange);outline-offset:2px;border-radius:2px}
+img{max-width:100%;height:auto}
+header{padding-top:2.5rem;border-bottom:3px solid var(--orange);padding-bottom:1rem;margin-bottom:1.5rem}
+/* Header block. Sizes scale together; keep the ratios if you retune them. */
+.eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--title);margin:0 0 .5rem}
+h1{font-family:'IBM Plex Serif',Georgia,serif;font-weight:700;font-size:clamp(2.05rem,7vw,2.85rem);
+ line-height:1.1;letter-spacing:-.018em;color:var(--title);margin:0 0 .3rem;text-wrap:balance}
+.sub{color:var(--muted);margin:.12rem 0;font-size:1.16rem}
+/* Course name: darker grey, sized between the h1 and the byline. */
+.coursename{color:#45454B;margin:.18rem 0 .4rem;font-weight:500;
+ font-size:clamp(1.35rem,3.8vw,1.72rem);line-height:1.25;letter-spacing:-.005em}
+.updated{color:var(--muted);margin:.5rem 0 0;font-size:.95rem;letter-spacing:.01em}
+h2{font-family:'IBM Plex Serif',Georgia,serif;font-weight:600;font-size:1.3rem;color:#141416;
+ border-bottom:2px solid var(--orange);padding-bottom:.35rem;margin:2.2rem 0 .9rem}
+.panelbox{background:var(--panel);border-left:3px solid var(--orange);border-radius:4px;padding:.9rem 1.1rem;margin:1.1rem 0}
+.panelbox ul{margin:.4rem 0 0;padding-left:1.15rem}
+.panelbox li{margin-bottom:.3rem}
+.plainlist{margin:1.3rem 0}
+.plainlist ul{margin:.4rem 0 0;padding-left:1.15rem}
+.plainlist li{margin-bottom:.3rem}
+.due{color:var(--link);font-weight:600}
+.reg{color:var(--muted);font-weight:600}
+.muted{color:var(--muted)}
+/* Week tabs wrap instead of scrolling, so there is no overflow at any width.
+   Only the selected tab is drawn as a tab; the others are plain text on the rule. */
+.tabs{display:flex;flex-wrap:wrap;align-items:flex-end;gap:.15rem .1rem;
+ border-bottom:2px solid var(--orange);margin:1.4rem 0 0}
+.tabs button{appearance:none;font-family:inherit;font-size:.9rem;font-weight:600;
+ background:none;color:var(--muted);border:1px solid transparent;border-bottom:none;
+ border-radius:5px 5px 0 0;margin-bottom:-2px;
+ padding:.5rem .65rem;min-height:2.4rem;cursor:pointer;line-height:1.15;
+ transition:color .12s ease,background .12s ease}
+.tabs button:hover{color:var(--link)}
+.tabs button[aria-selected="true"]{background:var(--title);color:#fff;
+ border-color:var(--title);cursor:default}
+.tabs button[aria-selected="true"]:hover{color:#fff}
+.tabs button:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.panel{padding-top:1.1rem}
+.panel[hidden]{display:none}
+.wkline{color:var(--title);font-weight:700;font-size:1.25rem;margin:.2rem 0 .9rem;
+ font-family:'IBM Plex Serif',Georgia,serif;text-wrap:balance}
+.wkline .dates{color:var(--muted);font-weight:400;font-size:.95rem;font-family:'IBM Plex Sans',sans-serif;
+ white-space:nowrap}
+.panel p{margin:.55rem 0}
+.lbl{font-style:italic;color:var(--title);font-weight:600}
+.deadlines{background:var(--grey);border-radius:4px;padding:.75rem 1rem;margin:1rem 0 0}
+.deadlines p{margin:.2rem 0}
+footer{border-top:2px solid #141416;margin-top:2.5rem;padding-top:.9rem;font-size:.86rem;color:var(--muted)}
+@media (max-width:32rem){
+  body{font-size:16px;padding:0 .8rem 3rem}
+  .tabs button{font-size:.85rem;padding:.45rem .5rem}
+  .wkline .dates{display:block;white-space:normal;margin-top:.15rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<p class="eyebrow">Idaho State University &middot; College of Business</p>
+<h1>BA 3316<br>Weekly Schedule</h1>
+<p class="coursename">Introduction to Data Analytics</p>
+<p class="sub">Abigail Cormier &middot; Fall 2026 &middot; In-person</p>
+<p class="updated">Last updated August 31, 2026</p>
+</header>
+<h2>How the week works</h2>
+<p>Homework is due <b>Sunday at 11:59&nbsp;p.m.</b> Exams are taken <b>in class, on paper</b>.</p>
+<h2>Exam and project dates</h2>
+<div class="panelbox"><b>These dates are firm and non-negotiable.</b><ul>
+<li class="due">Pre-project Exercise, <b>Wed Sep 9</b></li>
+<li class="due">Exam 1, <b>Tue Sep 29</b>, in class</li>
+<li class="due">Project Progress Check (optional), <b>Sun Oct 11</b></li>
+<li class="due">Exam 2, <b>Tue Nov 17</b>, in class</li>
+<li class="due">Project final submission, <b>Sun Nov 22</b></li>
+<li class="due">Exam 3 and Project Accountability, <b>Fri Dec 18, 10&nbsp;a.m. to 12&nbsp;p.m.</b></li>
+</ul></div>
+<div class="plainlist"><b>Registrar deadlines</b><ul><li class="reg">Add/drop, <b>Fri Sep 4</b></li><li class="reg">Withdraw from the course, <b>Fri Oct 30</b></li></ul></div>
+<h2>Weekly schedule</h2>
+<div class="tabs" role="tablist" aria-label="Module" hidden>
+<button role="tab" id="t1" aria-controls="p1" data-wk="1" aria-selected="false" tabindex="-1">Week&nbsp;1</button>
+<button role="tab" id="t2" aria-controls="p2" data-wk="2" aria-selected="false" tabindex="-1">Week&nbsp;2</button>
+<button role="tab" id="t3" aria-controls="p3" data-wk="3" aria-selected="false" tabindex="-1">Week&nbsp;3</button>
+<button role="tab" id="t4" aria-controls="p4" data-wk="4" aria-selected="false" tabindex="-1">Week&nbsp;4</button>
+<button role="tab" id="t5" aria-controls="p5" data-wk="5" aria-selected="false" tabindex="-1">Week&nbsp;5</button>
+<button role="tab" id="t6" aria-controls="p6" data-wk="6" aria-selected="false" tabindex="-1">Week&nbsp;6</button>
+<button role="tab" id="t7" aria-controls="p7" data-wk="7" aria-selected="false" tabindex="-1">Weeks&nbsp;7-9</button>
+<button role="tab" id="t10" aria-controls="p10" data-wk="10" aria-selected="false" tabindex="-1">Week&nbsp;10</button>
+<button role="tab" id="t11" aria-controls="p11" data-wk="11" aria-selected="false" tabindex="-1">Week&nbsp;11</button>
+<button role="tab" id="t12" aria-controls="p12" data-wk="12" aria-selected="false" tabindex="-1">Week&nbsp;12</button>
+<button role="tab" id="t13" aria-controls="p13" data-wk="13" aria-selected="false" tabindex="-1">Week&nbsp;13</button>
+<button role="tab" id="t14" aria-controls="p14" data-wk="14" aria-selected="false" tabindex="-1">Weeks&nbsp;14-15</button>
+<button role="tab" id="t99" aria-controls="p99" data-wk="99" aria-selected="false" tabindex="-1">Finals</button>
+</div>
+<div class="panel" role="tabpanel" id="p1" aria-labelledby="t1" tabindex="0">
+<p class="wkline">Data fundamentals <span class="dates">(Aug 24-28)</span></p>
+<p><span class="lbl">Reading:</span> <a href="https://socviz.co/02-intro.html">Healy, ch. 2</a>; the <a href="https://abbicormier.github.io/ba3316-fall2026/setup.html">setup guide</a> and <a href="https://abbicormier.github.io/ba3316-fall2026/guide/">Project Guide</a>; Bekes &amp; Kezdi, ch.&nbsp;1; Bueno de Mesquita &amp; Fowler, ch.&nbsp;1</p>
+<p><span class="lbl">IRL:</span> <a href="https://posit.co/about/customer-stories/redfin">&ldquo;How Posit helped Redfin move data from spreadsheets to a reproducible data science environment,&rdquo; <em>Posit Customer Stories</em></a></p>
+<div class="deadlines">
+<p><span class="due"><s>Homework 0, Sun Aug 30</s></span> <span class="muted">cancelled, credited to everyone</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p2" aria-labelledby="t2" tabindex="0">
+<p class="wkline">Beginning to learn <span class="dates">(Aug 31-Sep 4)</span></p>
+<p><span class="lbl">Reading:</span> Bekes &amp; Kezdi, chs.&nbsp;2-3</p>
+<p><span class="lbl">IRL:</span> <a href="https://freakonomics.com/podcast/what-can-uber-teach-us-about-the-gender-pay-gap/">&ldquo;What Can Uber Teach Us About the Gender Pay Gap?&rdquo; <em>Freakonomics Radio</em>, episode 317</a></p>
+<div class="deadlines">
+<p><span class="reg">ADD/DROP DEADLINE, Fri Sep 4</span></p>
+<p><span class="due">Homework 2, Sun Sep 6</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p3" aria-labelledby="t3" tabindex="0">
+<p class="wkline">Models for exploration <span class="dates">(Sep 7-11)</span></p>
+<p><span class="lbl">Reading:</span> Bekes &amp; Kezdi, ch.&nbsp;4; Bueno de Mesquita &amp; Fowler, chs.&nbsp;2, 4</p>
+<p><span class="lbl">IRL:</span> <a href="https://digitaleconomy.stanford.edu/project/indicators/canaries-dashboard/">Stanford Digital Economies Lab, <em>Canaries Dashboard</em></a></p>
+<div class="deadlines">
+<p><span class="due">Pre-project Exercise, Wed Sep 9</span></p>
+<p><span class="due">Homework 3, Sun Sep 13</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p4" aria-labelledby="t4" tabindex="0">
+<p class="wkline">Making inferences <span class="dates">(Sep 14-18)</span></p>
+<p><span class="lbl">Reading:</span> Bekes &amp; Kezdi, chs.&nbsp;5-6; Bueno de Mesquita &amp; Fowler, ch.&nbsp;6</p>
+<p><span class="lbl">IRL:</span> <a href="https://www.oneusefulthing.org/p/the-cybernetic-teammate">&ldquo;The Cybernetic Teammate,&rdquo; <em>One Useful Thing</em>, 22 Mar 25</a></p>
+<div class="deadlines">
+<p><span class="due">Homework 4, Sun Sep 20</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p5" aria-labelledby="t5" tabindex="0">
+<p class="wkline">Measurement error, sample selection, and confounding <span class="dates">(Sep 21-25)</span></p>
+<p><span class="lbl">Reading:</span> Bueno de Mesquita &amp; Fowler, ch.&nbsp;16</p>
+<p><span class="lbl">IRL:</span> <a href="https://www.bls.gov/opub/mlr/2009/08/art1full.pdf">&ldquo;Using internal CPS data to reevaluate trends in labor-earnings gaps,&rdquo; <em>Monthly Labor Review</em>, August 2009</a></p>
+<div class="deadlines">
+<p><span class="due">Homework 5, Sun Sep 27</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p6" aria-labelledby="t6" tabindex="0">
+<p class="wkline">Exam 1, then the Bayesian approach <span class="dates">(Sep 28-Oct 2)</span></p>
+<p><span class="lbl">Reading:</span> Bueno de Mesquita &amp; Fowler, ch.&nbsp;15; <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">&ldquo;Bayes theorem, the geometry of changing beliefs,&rdquo; 3Blue1Brown</a></p>
+<p><span class="lbl">IRL:</span> <a href="https://doi.org/10.1177/0008125620948264">&ldquo;Using Bayesian Updating to Improve Decisions under Uncertainty,&rdquo; <em>California Management Review</em>, 2020</a></p>
+<div class="deadlines">
+<p><span class="due"><b>EXAM 1, Tue Sep 29</b>, in class</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p7" aria-labelledby="t7" tabindex="0">
+<p class="wkline">Regression fundamentals <span class="dates">(Oct 5-9; Oct 12-16; Oct 19-23)</span></p>
+<p><span class="lbl">Reading:</span> Bueno de Mesquita &amp; Fowler, ch.&nbsp;5; Bekes &amp; Kezdi, chs.&nbsp;7-10; Angrist &amp; Pischke, ch.&nbsp;2</p>
+<p><span class="lbl">IRL:</span> <a href="https://www.pushkin.fm/podcasts/against-the-rules/episode-10-anybody-can-win-but-everybodys-gonna-lose">&ldquo;Anybody Can Win, but Everybody&rsquo;s Gonna Lose,&rdquo; <em>Against the Rules</em>, season 4, episode 10</a></p>
+<div class="deadlines">
+<p><span class="due">Project Progress Check (optional), Sun Oct 11</span></p>
+<p><span class="due">Homework 6, Sun Oct 25</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p10" aria-labelledby="t10" tabindex="0">
+<p class="wkline">Potential outcomes and causal inference <span class="dates">(Oct 26-30)</span></p>
+<p><span class="lbl">Reading:</span> Bekes &amp; Kezdi, chs.&nbsp;19-20; Bueno de Mesquita &amp; Fowler, chs.&nbsp;3, 9-11; Angrist &amp; Pischke, ch.&nbsp;1</p>
+<p><span class="lbl">IRL:</span> <a href="https://pubsonline.informs.org/doi/10.1287/orsc.2025.20702">Dell&rsquo;Acqua et al., &ldquo;The Cybernetic Teammate: A Field Experiment on Generative AI and Teamwork,&rdquo; <em>Organization Science</em> 37(4), 2026</a></p>
+<div class="deadlines">
+<p><span class="reg">WITHDRAWAL DEADLINE, Fri Oct 30</span></p>
+<p><span class="due">Homework 7, Sun Nov 1</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p11" aria-labelledby="t11" tabindex="0">
+<p class="wkline">Regression discontinuity <span class="dates">(Nov 2-6)</span></p>
+<p><span class="lbl">Reading:</span> Bueno de Mesquita &amp; Fowler, ch.&nbsp;12; Angrist &amp; Pischke, ch.&nbsp;4</p>
+<p><span class="lbl">IRL:</span> <a href="https://freakonomics.com/podcast/tom-brady-adhd-and-a-really-bad-headache/">&ldquo;Tom Brady, A.D.H.D., and a Really Bad Headache,&rdquo; <em>Freakonomics M.D.</em>, 11 Jul 23</a>. Companion paper: <a href="https://www.nejm.org/doi/pdf/10.1056/NEJMoa1806828">Layton et al., &ldquo;Attention Deficit-Hyperactivity Disorder and Month of School Enrollment,&rdquo; <em>NEJM</em>, 2018</a></p>
+<div class="deadlines">
+<p><span class="due">Homework 8, Sun Nov 8</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p12" aria-labelledby="t12" tabindex="0">
+<p class="wkline">Difference in differences <span class="dates">(Nov 9-13)</span></p>
+<p><span class="lbl">Reading:</span> Bekes &amp; Kezdi, ch.&nbsp;22; Bueno de Mesquita &amp; Fowler, ch.&nbsp;13; Angrist &amp; Pischke, ch.&nbsp;5</p>
+<p><span class="lbl">IRL:</span> <a href="https://freakonomics.com/podcast/is-facebook-bad-for-your-mental-health/">&ldquo;Is Facebook Bad for Your Mental Health?&rdquo; <em>Freakonomics M.D.</em>, 8 Dec 22</a></p>
+<div class="deadlines">
+<p><span class="due">Homework 9, Sun Nov 15</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p13" aria-labelledby="t13" tabindex="0">
+<p class="wkline">Exam 2 and Project Assistance <span class="dates">(Nov 16-20)</span></p>
+<p>Thursday is an <b>in-class coding session</b> for the Project. Laptop day.</p>
+<div class="deadlines">
+<p><span class="due"><b>EXAM 2, Tue Nov 17</b>, in class</span></p>
+<p><span class="due"><b>PROJECT, Sun Nov 22</b></span></p>
+</div>
+<p class="muted"><b>Fall recess, Nov 23-27.</b> No classes, nothing due.</p>
+</div>
+<div class="panel" role="tabpanel" id="p14" aria-labelledby="t14" tabindex="0">
+<p class="wkline">Introduction to machine learning <span class="dates">(Nov 30-Dec 4; Dec 7-11)</span></p>
+<p><span class="lbl">Reading:</span> Bekes &amp; Kezdi, chs.&nbsp;13-14</p>
+<p><span class="lbl">IRL:</span> <a href="https://towardsdatascience.com/in-defense-of-zillows-besieged-data-scientists-e4c4f1cece3c">&ldquo;In Defense of Zillow&rsquo;s Besieged Data Scientists,&rdquo; <em>Medium</em>, 16 Nov 2021</a></p>
+<div class="deadlines">
+<p><span class="due">Homework 10, Sun Dec 13</span></p>
+</div>
+</div>
+<div class="panel" role="tabpanel" id="p99" aria-labelledby="t99" tabindex="0">
+<p class="wkline">Finals week <span class="dates">(Dec 14-18)</span></p>
+<div class="deadlines"><p class="due"><b>Exam 3 and Project Accountability, <b>Fri Dec 18, 10&nbsp;a.m. to 12&nbsp;p.m.</b></b></p></div></div>
+<footer><p>BA 3316 Introduction to Data Analytics &middot; Abigail Cormier &middot; Fall 2026</p><p><a href="https://abbicormier.github.io/ba3316-fall2026/in-person/">BA 3316 In-person, course home page</a></p></footer>
+</div>
+<script>
+/* Progressive enhancement. The markup ships with every week visible and the tab
+   strip hidden, so with no JavaScript the whole schedule still reads top to
+   bottom. Only once this runs does it become a tab interface. */
+(function(){
+ var strip=document.querySelector('.tabs');
+ var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+ var panels=tabs.map(function(t){return document.getElementById(t.getAttribute('aria-controls'))});
+ if(!strip||!tabs.length||panels.some(function(p){return !p})) return;   /* leave the page readable */
+ strip.hidden=false;
+ function sel(i,focus){
+  tabs.forEach(function(t,n){t.setAttribute('aria-selected',n===i?'true':'false');t.tabIndex=n===i?0:-1;panels[n].hidden=n!==i;});
+  if(focus)tabs[i].focus();
+  try{history.replaceState(null,'','#wk'+(tabs[i].dataset.wk));}catch(e){}
+ }
+ tabs.forEach(function(t,i){
+  t.addEventListener('click',function(){sel(i,false)});
+  t.addEventListener('keydown',function(e){
+   var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;
+   if(d){e.preventDefault();sel((i+d+tabs.length)%tabs.length,true)}
+   if(e.key==='Home'){e.preventDefault();sel(0,true)}
+   if(e.key==='End'){e.preventDefault();sel(tabs.length-1,true)}
+  });
+ });
+ function fromHash(focus){
+  var h=(location.hash||'').replace('#wk',''),n=-1;
+  tabs.forEach(function(t,i){if(t.dataset.wk===h)n=i});
+  if(n>=0){sel(n,focus);strip.scrollIntoView({block:'start'});}
+  return n;
+ }
+ window.addEventListener('hashchange',function(){fromHash(false)});
+ if(fromHash(false)<0)sel(0,false);
+})();
+</script>
+</body></html>

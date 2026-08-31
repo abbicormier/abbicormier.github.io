@@ -4,57 +4,65 @@ permalink: /teaching/
 author_profile: true
 ---
 
-## Instructor of Record 
+## Instructor of Record
+
+### Idaho State University
+
+**[Introduction to Data Analytics](/ba3316-fall2026/in-person/)**, BA 3316, in person (Fall 2026)
+
+**[Introduction to Data Analytics](/ba3316-fall2026/online/)**, BA 3316, online (Fall 2026)
+
+**Principles of Microeconomics**, ECON 2202 (Fall 2026)
+
+### University of Georgia
 
 **Introduction to Data Science for Business and Economics** (Spring 2025)
 
-[Course Evaluations](/assets/teaching/Abigail_Cormier_CourseEvaluations.pdf){:target="_blank"}
-
-Topics Covered:
-
-| <span style="color:black;">Part I :: Transformation to Analysis</span> | <span style="color:black;">Part II :: Explaining and Predicting</span> |
-|--------------------------------------|--------------------------------------|
-| 1. Data fundamentals                 | 1. Regression fundamentals           |
-| 2. Beginning to learn                | 2. Potential outcomes and causal inference |
-| 3. Models for exploration            | 3. Regression discontinuity          |
-| 4. Making inferences                 | 4. Difference-in-differences         |
-| 5. Measurement error, sample selection, and confounding | 5. Prediction with regression   |
-| 6. Bayesian approach to learning from data | 6. Introduction to machine learning |
+  - [Course Evaluations](/assets/teaching/Abigail_Cormier_CourseEvaluations.pdf){:target="_blank"}
 
 ## Guest Lecturer
 
-**Introduction to Data Science for Business and Economics** 
+### University of Georgia
 
-- Bayesian Approach to Learning from Data (Fall 2024, Spring 2024, Fall 2023) 
+**Introduction to Data Science for Business and Economics**
+
+- Bayesian Approach to Learning from Data (Fall 2024, Spring 2024, Fall 2023)
   - [Lecture Slides](/assets/teaching/Abigail_Cormier_Bayes_Rule_Slides.pdf)
 
-- Measurement Error and Sample Selection (Fall 2024) 
+- Measurement Error and Sample Selection (Fall 2024)
 
-## Coordinating Graduate Assistant 
+## Coordinating Graduate Assistant
 
-**Introduction to Data Science for Business and Economics** (Fall 2024, Spring 2024, Fall 2023, Spring 2023, Fall 2022) 
+### University of Georgia
 
-## Teaching Assistant 
+**Introduction to Data Science for Business and Economics** (Fall 2024, Spring 2024, Fall 2023, Spring 2023, Fall 2022)
 
-**Introduction to Data Science for Business and Economics** (Fall 2025 and Spring 2022) 
+## Teaching Assistant
 
-**Intermediate Microeconomics** (Spring 2022) 
+### University of Georgia
 
-**Principles of Microeconomics** (Fall 2021) 
+**Introduction to Data Science for Business and Economics** (Fall 2025 and Spring 2022)
 
-**Honors Principles of Microeconomics** (Fall 2021) 
+**Intermediate Microeconomics** (Spring 2022)
 
-## Course Development 
+**Principles of Microeconomics** (Fall 2021)
 
-I have been part of the development team for the course "Introduction to Data Science for Business and Economics" since UGA started offering it in Spring 2022. This course is required for all Economics majors and for students completing the Area of Emphasis in Business Analytics, and it serves as a pathway to the Master's of Business Analytics program. 
+**Honors Principles of Microeconomics** (Fall 2021)
 
-As a team member, I have made several key contributions to course development. I developed, deployed, and maintain online R-based homework assignments and helped redesign our semester-long data science project to better align with course goals. I attended the 2023 Posit conference workshops on the team's behalf to learn from a leading instructor on pedagogy and best practices for teaching data science. To enhance student understanding of computing environments and coding basics and prepare students for their final projects, I helped create two formative project assignments. I also built our exam grading system and edited the exam to accurately reflect course learning objectives. 
+## Course Development
 
-I led our team's efforts to incorporate AI-assisted grading tools like Gradescope as well as generative AI into the development of backend course administration and grading as well as in-class materials. These efforts enable the team to deliver comprehensive, efficient grading and feedback to 250 students each semester with minimal teaching assistant involvement, freeing up those resources for student-facing activities rather than administrative tasks. 
+### Idaho State University
 
-### Presentations
+I am building Introduction to Data Analytics to be forward looking, revising its content and course objectives so that what students learn holds its value in a rapidly changing world. That means teaching them to own the full data value chain, from acquiring and transforming raw data through analyzing it and communicating what they find to people who have to act on it.
 
-- Southern Economic Association Meetings (upcoming)
-- University of Alabama at Birmingham AI Economics Summit (upcoming)
-- Journal of Economics Teaching Symposium on Economics Teaching (2024) 
-  - [Presentation Slides](/assets/teaching/Abigail_Cormier_JETSET_Slides.pdf)
+#### [Principles of Microeconomics graph generator (beta)](/tools/econ-graph-generator.html)
+
+Drawing clean, consistent supply and demand figures is a persistent pain point for microeconomics instructors, and this tool is built to solve it. It is still in development, so [email me](mailto:abigailcormier@isu.edu) to report bugs or suggest features.
+
+Presentations: Six "Secret" Econ Resources, hosted by Econiful (upcoming), Journal of Economics Teaching Symposium on Economics Teaching (2026)
+
+### University of Georgia
+
+I have been on the development team for Introduction to Data Science for Business and Economics since UGA launched it in Spring 2022, a course required of every Economics major and a pathway into the Master's of Business Analytics. I built and maintain the online R homework system, redesigned the semester-long data science project, and created the two formative assignments that prepare students for it. I led the team's adoption of AI-assisted grading and generative AI in course administration, which lets us deliver full feedback to 250 students a semester while freeing teaching assistants for student-facing work.
+
+Presentations: Southern Economic Association Meetings (2025), University of Alabama at Birmingham AI Economics Summit (2025), Journal of Economics Teaching Symposium on Economics Teaching (2024, [slides](/assets/teaching/Abigail_Cormier_JETSET_Slides.pdf))

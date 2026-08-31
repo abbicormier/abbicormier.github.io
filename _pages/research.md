@@ -47,10 +47,10 @@ The unexpected 2013 freeze in Medicaid payments to 15 of New Mexico's largest be
   {{ abstract_md_nm | markdownify }}
 </details>
 
-Presentations: Southern Economic Association Meetings (upcoming), Association for Public Policy Analysis and Management Fall Research Conference (upcoming), ASHEcon Conference (2025)
+Presentations: Southern Economic Association Meetings (2025), Association for Public Policy Analysis and Management Fall Research Conference (2025), ASHEcon Conference (2025)
 
 
-### **"Psychiatric Care Access and Adolescent Trajectories Across Health and Social Services"** with Angie Boy, Renee Brooks, and Kate Musen
+### **"Psychiatric Care Access and Adolescent Trajectories Across Health and Social Services"** with Angie Boy and Kate Musen
 
 
 ## Publications

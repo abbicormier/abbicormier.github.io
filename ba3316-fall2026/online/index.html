@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BA 3316 Introduction to Data Analytics &middot; Online</title>
+<meta name="description" content="BA 3316 Introduction to Data Analytics at Idaho State University, Fall 2026. Course outcomes, weekly schedule, and project materials.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+:root{--paper:#FCFCFD;--ink:#222;--muted:#6B6B70;--rule:#DEDEE1;--panel:#F4F4F5;
+--orange:#F47920;--title:#D4441C;--link:#B82B00;--grey:#E6E7E8;--peach:#FBC9A6}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+ font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+ font-size:17px;line-height:1.6;padding:0 1rem 4rem;overflow-x:hidden}
+.wrap{max-width:46rem;margin:0 auto}
+a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(184,43,0,.3);overflow-wrap:anywhere}
+a:hover{border-bottom-color:var(--link)}
+a:focus-visible{outline:2px solid var(--orange);outline-offset:2px;border-radius:2px}
+header{padding-top:2.5rem;border-bottom:3px solid var(--orange);padding-bottom:1rem;margin-bottom:1.5rem}
+.eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--title);margin:0 0 .5rem}
+h1{font-family:'IBM Plex Serif',Georgia,serif;font-weight:700;font-size:clamp(2.05rem,7vw,2.85rem);
+ line-height:1.1;letter-spacing:-.018em;color:var(--title);margin:0 0 .3rem;text-wrap:balance}
+.coursename{color:#45454B;margin:.18rem 0 .4rem;font-weight:500;
+ font-size:clamp(1.35rem,3.8vw,1.72rem);line-height:1.25;letter-spacing:-.005em}
+.sub{color:var(--muted);margin:.12rem 0;font-size:1.16rem}
+.updated{color:var(--muted);margin:.5rem 0 0;font-size:.95rem;letter-spacing:.01em}
+h2{font-family:'IBM Plex Serif',Georgia,serif;font-weight:600;font-size:1.3rem;color:#141416;
+ border-bottom:2px solid var(--orange);padding-bottom:.35rem;margin:2.2rem 0 .9rem}
+.lede{font-size:1.08rem;margin:1rem 0 0}
+
+/* Course links: the thing enrolled students come back for, so it sits up top. */
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.7rem;margin:1.4rem 0 0;
+ padding:0;list-style:none}
+.links li{margin:0}
+.links a{display:block;height:100%;background:var(--panel);border:1px solid var(--rule);
+ border-left:3px solid var(--orange);border-radius:4px;padding:.85rem 1rem;color:inherit;
+ transition:background .12s ease,border-color .12s ease}
+.links a:hover{background:var(--peach);border-left-color:var(--title)}
+.links .name{display:block;font-weight:600;color:var(--link);font-size:1.02rem}
+.links .what{display:block;color:var(--muted);font-size:.9rem;margin-top:.15rem;line-height:1.4}
+.links .soon{display:inline-block;margin-left:.4rem;padding:.1rem .4rem;border-radius:3px;
+ background:var(--grey);color:var(--muted);font-weight:600;font-size:.72rem;
+ letter-spacing:.05em;text-transform:uppercase;vertical-align:.1em}
+.links li.pending a{border-left-color:var(--rule);background:transparent}
+.links li.pending a:hover{background:var(--panel)}
+
+/* Centered band between the description and the outcomes. */
+.band{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.45rem 1rem;
+ margin:2.4rem 0 2.2rem;padding:1.15rem 1rem;border-top:2px solid var(--orange);
+ border-bottom:2px solid var(--orange);text-align:center}
+.band span{font-family:'IBM Plex Serif',Georgia,serif;font-weight:600;color:var(--title);
+ font-size:clamp(1.05rem,3.4vw,1.35rem);letter-spacing:.03em}
+.band .dot{color:var(--orange);font-weight:400;font-family:'IBM Plex Sans',sans-serif}
+
+.outcomes{margin:1rem 0 0;padding:0;list-style:none;counter-reset:oc}
+.outcomes li{counter-increment:oc;position:relative;padding-left:2.5rem;margin-bottom:.8rem}
+.outcomes li::before{content:counter(oc);position:absolute;left:0;top:.1rem;
+ width:1.75rem;height:1.75rem;border-radius:50%;background:var(--title);color:#fff;
+ font-size:.9rem;font-weight:600;display:flex;align-items:center;justify-content:center;
+ font-variant-numeric:tabular-nums}
+/* Course topics: two parts side by side, stacking to one column when narrow. */
+.parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:1.1rem 1.8rem;margin:1rem 0 0}
+.part h3{font-family:'IBM Plex Serif',Georgia,serif;font-size:1.05rem;font-weight:600;
+ color:var(--title);margin:0 0 .55rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+ text-wrap:balance}
+.part ol{margin:0;padding-left:1.4rem}
+.part li{margin-bottom:.32rem;padding-left:.15rem}
+.part li::marker{color:var(--orange);font-weight:600;font-variant-numeric:tabular-nums}
+footer{border-top:2px solid #141416;margin-top:2.8rem;padding-top:.9rem;font-size:.86rem;color:var(--muted)}
+@media (max-width:32rem){
+  body{font-size:16px;padding:0 .8rem 3rem}
+  .band{gap:.3rem .7rem;margin:2rem 0 1.8rem}
+  .outcomes li{padding-left:2.2rem}
+  .parts{gap:1.4rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<p class="eyebrow">Idaho State University &middot; College of Business</p>
+<h1>BA 3316</h1>
+<p class="coursename">Introduction to Data Analytics</p>
+<p class="sub">Abigail Cormier &middot; Fall 2026 &middot; Online</p>
+<p class="updated">Last updated August 31, 2026</p>
+</header>
+<ul class="links">
+<li><a href="https://abbicormier.github.io/ba3316-fall2026/online/schedule.html"><span class="name">Weekly Schedule</span><span class="what">Every module, suggested reading, IRL, and due date for the semester.</span></a></li>
+<li><a href="https://abbicormier.github.io/ba3316-fall2026/guide/"><span class="name">Project Guide</span><span class="what">Installing R and RStudio, the Pre-project, the Project, and fixing common errors.</span></a></li>
+<li class="pending"><a href="https://abbicormier.github.io/ba3316-fall2026/dailies/"><span class="name">Dailies Results <span class="soon">coming soon</span></span><span class="what">A daily is a set of short in-class exercises. These summaries cover performance and common errors, so you can check your own understanding.</span></a></li>
+</ul>
+<p class="lede">This course prepares you to turn raw data into insight about the world around you. You will do that by owning every step of the data value chain: <b>acquiring</b> data, <b>transforming</b> it into something you can work with, <b>analyzing</b> it, and <b>communicating</b> what you found to people who need to act on it.</p>
+<div class="band">
+<span>Acquire</span>
+<span class="dot" aria-hidden="true">&middot;</span>
+<span>Transform</span>
+<span class="dot" aria-hidden="true">&middot;</span>
+<span>Analyze</span>
+<span class="dot" aria-hidden="true">&middot;</span>
+<span>Communicate</span>
+</div>
+<h2>Course outcomes</h2>
+<p>Through active engagement and successful completion of assignments in this course, you will gain the knowledge and skills to:</p>
+<ol class="outcomes">
+<li>acquire and prepare data for analysis.</li>
+<li>design reproducible data analyses.</li>
+<li>map business problems and policy questions to hypotheses about relationships in data.</li>
+<li>describe data and perform basic descriptive analysis.</li>
+<li>implement and interpret basic causal-inference research designs.</li>
+<li>implement and interpret basic machine-learning algorithms.</li>
+<li>communicate the results from descriptive, causal and predictive analyses.</li>
+</ol>
+<h2>Course topics</h2>
+<div class="parts">
+<div class="part">
+<h3>Part I: Transformation to Analysis</h3>
+<ol>
+<li>Data fundamentals</li>
+<li>Beginning to learn</li>
+<li>Models for exploration</li>
+<li>Making inferences</li>
+<li>Measurement error, sample selection, and confounding</li>
+<li>Bayesian approach to learning from data</li>
+</ol>
+</div>
+<div class="part">
+<h3>Part II: Explaining and Predicting</h3>
+<ol>
+<li>Regression fundamentals</li>
+<li>Potential outcomes and causal inference</li>
+<li>Regression discontinuity</li>
+<li>Difference in differences</li>
+<li>Prediction with regression</li>
+<li>Introduction to machine learning</li>
+</ol>
+</div>
+</div>
+<footer><p>BA 3316 Introduction to Data Analytics &middot; Abigail Cormier &middot; Idaho State University &middot; Fall 2026</p></footer>
+</div>
+</body></html>

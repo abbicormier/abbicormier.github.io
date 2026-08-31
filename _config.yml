@@ -12,7 +12,7 @@ site_theme               : "default" # Currently available options are "default"
 title                    : "Abigail Cormier"
 title_separator          : "-"
 name                     : &name "Abigail Cormier"
-description              : &description "Fifth-year economics PhD candidate at the University of Georgia"
+description              : &description "Assistant Professor of Economics at Idaho State University"
 url                      : https://abbicormier.github.io # the base hostname & protocol for your site
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "abbicormier/abbicormier.github.io"
@@ -23,11 +23,11 @@ author:
   avatar           : "Abigail_Cormier_Headshot.jpg"
   name             : "Abigail Cormier"
   pronouns         : # example: "she/her"  
-  bio              : "Fifth-year economics PhD candidate at the University of Georgia"
-  location         : "Athens, GA"
-  employer         : "University of Georgia"
+  bio              : "Assistant Professor of Economics at Idaho State University"
+  location         : "Pocatello, ID"
+  employer         : "Idaho State University"
   uri              : # URL
-  email            : "abbicormier@outlook.com" 
+  email            : "abigailcormier@isu.edu"
 
   # Academic websites
   academia         : # URL
@@ -155,7 +155,6 @@ include:
   - .htaccess
   - _pages
   - files
-  - busn5000-spring2026
   - tools
 exclude:
   - "*.sublime-project"
