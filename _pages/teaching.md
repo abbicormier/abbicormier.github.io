@@ -16,9 +16,7 @@ author_profile: true
 
 ### University of Georgia
 
-**Introduction to Data Science for Business and Economics** (Spring 2025)
-
-  - [Course Evaluations](/assets/teaching/Abigail_Cormier_CourseEvaluations.pdf){:target="_blank"}
+**Introduction to Data Science for Business and Economics** (Spring 2025, [Course Evaluations](/assets/teaching/Abigail_Cormier_CourseEvaluations.pdf){:target="_blank"})
 
 ## Guest Lecturer
 
@@ -26,9 +24,7 @@ author_profile: true
 
 **Introduction to Data Science for Business and Economics**
 
-- Bayesian Approach to Learning from Data (Fall 2024, Spring 2024, Fall 2023)
-  - [Lecture Slides](/assets/teaching/Abigail_Cormier_Bayes_Rule_Slides.pdf)
-
+- Bayesian Approach to Learning from Data (Fall 2024, Spring 2024, Fall 2023, [Lecture Slides](/assets/teaching/Abigail_Cormier_Bayes_Rule_Slides.pdf))
 - Measurement Error and Sample Selection (Fall 2024)
 
 ## Coordinating Graduate Assistant
