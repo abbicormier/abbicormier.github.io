@@ -2,6 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Site icons. Declared explicitly because this page is a static file and does not
+     go through _includes/head.html. Without these, browsers request a bare
+     /favicon.ico and keep serving a long-cached copy; the ?v= is what forces the
+     refresh, so keep it in step with _includes/head.html. -->
+<link rel="icon" href="/favicon.ico?v=isu-2026c" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg?v=isu-2026c">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=isu-2026c">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png?v=isu-2026c">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BA 3316 Introduction to Data Analytics &middot; Online</title>
 <meta name="description" content="BA 3316 Introduction to Data Analytics at Idaho State University, Fall 2026. Course outcomes, weekly schedule, and project materials.">
