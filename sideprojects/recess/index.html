@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eagles wanna play outside!</title>
+<meta name="description" content="Live air quality and weather check for outdoor play. Casa Grande, AZ 85122.">
+<meta name="theme-color" content="#7DD957">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<!-- Always re-check on scan; never serve a stale answer from the phone's cache. -->
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+
+<!-- ==========================================================================
+     EAGLES WANNA PLAY OUTSIDE!   -   Casa Grande, AZ (85122)
+
+     ONE file serves BOTH age groups. The QR codes point at:
+        .../index.html?group=preschool    -> PreSchool (3-5 yrs)
+        .../index.html?group=schoolage    -> School-age (6+ yrs)
+     Opening it with no ?group= shows a "who are you?" chooser.
+
+     Thresholds come from the school's own charts:
+       - AQI bands: "Eagles wanna play outside! - Air Quality Index"
+       - Heat / wind chill: "Child Care Weather Watch" (2010)
+     Everything adjustable lives in the CONFIG block in the script below.
+
+     Data (all free, no API key, all CORS-open, so any static host works):
+       - Air quality: https://airnowgovapi.com   - official AirNow (preferred)
+       - Thermometer: https://api.weather.gov    - NWS stations   (preferred)
+       - Fallbacks:   https://api.open-meteo.com and
+                      https://air-quality-api.open-meteo.com (modeled, US EPA AQI)
+     Preferred sources are labelled on screen; a fallback says so in red.
+     ========================================================================== -->
+
+<style>
+  :root{
+    /* Colors sampled directly from the school's printed chart */
+    --good:#7DD957;
+    --moderate:#DAC609;
+    --bad:#FF3131;
+    --ink:#111111;
+    --bg:#ffffff;
+    --soft:#f3f5f7;
+    --muted:#5c6570;
+    --line:#d9dee4;
+    --shadow:0 1px 2px rgba(16,24,32,.07), 0 8px 22px rgba(16,24,32,.09);
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--soft); color:var(--ink);
+    font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  .wrap{max-width:560px;margin:0 auto;padding:14px 14px 30px}
+
+  /* ---- header ---- */
+  .masthead{text-align:center;margin:4px 0 14px}
+  .masthead h1{margin:0;font-size:23px;letter-spacing:-.02em;font-weight:800}
+  .masthead .who{
+    display:inline-block;margin-top:7px;padding:5px 14px;border-radius:999px;
+    background:var(--ink);color:#fff;font-size:13px;font-weight:750;letter-spacing:.02em
+  }
+  .masthead .loc{margin:7px 0 0;font-size:12.5px;color:var(--muted)}
+
+  /* ---- the answer ---- */
+  .verdict{
+    border-radius:var(--radius);padding:26px 20px 22px;text-align:center;
+    box-shadow:var(--shadow);margin-bottom:12px;border:3px solid var(--ink);
+  }
+  .verdict.good{background:var(--good)}
+  .verdict.moderate{background:var(--moderate)}
+  .verdict.brief{background:var(--bad)}
+  .verdict.inside{background:var(--bad)}
+  .verdict.unknown{background:#fff}
+  .verdict *{color:var(--ink)}
+
+  .sign{width:74px;height:74px;margin:0 auto 12px;display:block}
+  .headline{font-size:clamp(29px,8.5vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0}
+  .sub{margin:11px auto 0;max-width:23em;font-size:16.5px;font-weight:600}
+  .timecap{
+    display:inline-block;margin-top:15px;padding:8px 16px;border-radius:999px;
+    background:rgba(255,255,255,.55);font-weight:800;font-size:15px;border:2px solid var(--ink)
+  }
+
+  /* ---- retrieve button ---- */
+  .retrieve{
+    width:100%;appearance:none;border:3px solid var(--ink);background:#fff;color:var(--ink);
+    border-radius:14px;padding:15px;font:800 17px/1 inherit;cursor:pointer;min-height:56px;
+    margin-bottom:12px;box-shadow:var(--shadow);
+  }
+  .retrieve:active{transform:translateY(1px)}
+  .retrieve:focus-visible{outline:3px solid #1a63d8;outline-offset:2px}
+  .retrieve[disabled]{opacity:.55;cursor:default}
+
+  /* ---- reasons ---- */
+  .reasons{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:8px}
+  .reasons li{
+    background:#fff;border:1px solid var(--line);border-left-width:8px;border-radius:11px;
+    padding:11px 13px;font-size:15px;display:flex;gap:11px;align-items:baseline;box-shadow:var(--shadow)
+  }
+  .reasons li.good{border-left-color:var(--good)}
+  .reasons li.moderate{border-left-color:var(--moderate)}
+  .reasons li.brief,.reasons li.inside{border-left-color:var(--bad)}
+  .reasons .tag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+                color:var(--muted);flex:0 0 auto;min-width:52px}
+  .reasons .src{display:block;font-size:11.5px;color:var(--muted);font-weight:600;margin-top:3px}
+  .reasons .src.est{color:#b3260f}
+
+  /* ---- metrics ---- */
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+  .metric{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 6px;text-align:center;box-shadow:var(--shadow)}
+  .metric .v{font-size:19px;font-weight:800;letter-spacing:-.01em}
+  .metric .k{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:3px;font-weight:700}
+
+  /* ---- later today ---- */
+  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .panel h2{margin:0 0 3px;font-size:15px;font-weight:800}
+  .panel p.note{margin:0 0 12px;font-size:12.5px;color:var(--muted)}
+  .strip{display:flex;gap:5px;overflow-x:auto;padding-bottom:4px}
+  .hr{flex:1 0 42px;text-align:center}
+  .hr .bar{height:42px;border-radius:7px;display:flex;align-items:center;justify-content:center;
+           font-weight:800;font-size:16px;color:var(--ink);border:2px solid var(--ink)}
+  .hr .bar.good{background:var(--good)}
+  .hr .bar.moderate{background:var(--moderate)}
+  .hr .bar.brief,.hr .bar.inside{background:var(--bad)}
+  .hr .lb{font-size:11px;color:var(--muted);margin-top:5px;font-weight:700;white-space:nowrap}
+  .hr.now .lb{color:var(--ink);font-weight:800}
+
+  /* ---- status / footer ---- */
+  .status{font-size:13.5px;color:var(--muted);text-align:center;margin:0 0 14px;font-weight:600}
+  .status.warn{color:#b3260f;font-weight:750}
+  .status b{color:var(--ink)}
+  footer{font-size:12.5px;color:var(--muted);text-align:center;line-height:1.7}
+  footer a{color:inherit}
+  .disclaimer{margin-top:11px;font-size:11.5px;line-height:1.6;color:var(--muted)}
+  .switch{display:inline-block;margin-top:10px;font-size:12.5px}
+
+  .skeleton{animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+  /* ---- chooser ---- */
+  .choose{display:grid;gap:12px;margin:22px 0}
+  .choose a{
+    display:block;text-decoration:none;color:var(--ink);background:#fff;border:3px solid var(--ink);
+    border-radius:var(--radius);padding:22px 18px;text-align:center;box-shadow:var(--shadow)
+  }
+  .choose a b{display:block;font-size:22px;font-weight:800}
+  .choose a span{display:block;font-size:13.5px;color:var(--muted);margin-top:4px;font-weight:600}
+
+  /* ---- views ---- */
+  #app,#poster,#chooser{display:none}
+  body.view-app #app{display:block}
+  body.view-chooser #chooser{display:block}
+  body.view-poster #poster{display:block}
+
+  /* ---- poster maker ---- */
+  .field{display:block;margin:0 0 12px}
+  .field span{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
+  .field input{width:100%;padding:11px 12px;font:inherit;border:1px solid var(--line);border-radius:10px;
+               background:var(--soft);color:var(--ink);min-height:44px}
+  .sheet{background:#fff;color:#111;border-radius:var(--radius);padding:26px 20px;text-align:center;
+         border:3px solid var(--ink);box-shadow:var(--shadow);margin-bottom:16px}
+  .sheet h1{font-size:25px;margin:0 0 2px;letter-spacing:-.02em}
+  .sheet .grp{display:inline-block;margin:6px 0 16px;padding:6px 16px;border-radius:999px;
+              background:var(--ink);color:#fff;font-size:14px;font-weight:800}
+  .qrbox{display:flex;justify-content:center;margin:0 0 14px}
+  .qrbox img,.qrbox canvas{width:224px !important;height:224px !important}
+  .legend{display:grid;gap:7px;max-width:340px;margin:16px auto 0;text-align:left}
+  .legend div{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700}
+  .dot{width:20px;height:20px;border-radius:5px;flex:0 0 auto;border:2px solid var(--ink)}
+  .ghost{
+    appearance:none;background:#fff;border:2px solid var(--ink);color:var(--ink);
+    border-radius:999px;padding:10px 16px;font:700 13.5px/1 inherit;cursor:pointer;min-height:42px;margin:0 6px 6px 0
+  }
+  @media print{
+    body{background:#fff;padding:0}
+    .wrap{max-width:none;padding:0}
+    .noprint{display:none !important}
+    .sheet{box-shadow:none;padding:10mm;margin:0;page-break-after:always;border-width:4px}
+    .sheet:last-child{page-break-after:auto}
+    .qrbox img,.qrbox canvas{width:290px !important;height:290px !important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============================ CHOOSER ============================ -->
+<div id="chooser">
+  <div class="masthead">
+    <h1 id="chooseTitle">Eagles wanna play outside!</h1>
+    <p class="loc">Which group are you checking for?</p>
+  </div>
+  <div class="choose">
+    <a href="?group=preschool"><b>PreSchool</b><span>3&ndash;5 years</span></a>
+    <a href="?group=schoolage"><b>School-age</b><span>6+ years &middot; K&ndash;8</span></a>
+  </div>
+  <footer><a href="?view=poster" class="noprint">Make the QR code posters &rarr;</a></footer>
+</div>
+
+<!-- ============================ MAIN APP ============================ -->
+<div id="app">
+  <div class="masthead">
+    <h1 id="appTitle">Eagles wanna play outside!</h1>
+    <div class="who" id="whoBadge">PreSchool (3&ndash;5 yrs)</div>
+    <p class="loc" id="placeName">Casa Grande, AZ 85122</p>
+  </div>
+
+  <div class="verdict unknown skeleton" id="verdict" role="status" aria-live="polite">
+    <h1 class="headline">Checking&hellip;</h1>
+    <p class="sub">Getting the air quality and weather right now.</p>
+  </div>
+
+  <button class="retrieve" id="retrieveBtn" type="button">Retrieve current conditions</button>
+
+  <p class="status" id="status"></p>
+
+  <ul class="reasons" id="reasons"></ul>
+
+  <div class="metrics" id="metrics"></div>
+
+  <div class="panel" id="hourPanel" hidden>
+    <h2>Later today</h2>
+    <p class="note">If recess can wait, here is how the rest of today looks.</p>
+    <div class="strip" id="strip"></div>
+  </div>
+
+  <footer>
+    Official sources:
+    <a href="https://www.airnow.gov/?city=Casa%20Grande&state=AZ&country=USA" target="_blank" rel="noopener">AirNow.gov</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://forecast.weather.gov/MapClick.php?lat=32.8795&lon=-111.7574" target="_blank" rel="noopener">Weather.gov</a>
+    <div class="switch"><a href="#" id="switchLink">Switch to the other age group</a></div>
+    <div class="disclaimer">
+      Thresholds follow the school&rsquo;s Air Quality Index chart and the Child Care Weather
+      Watch heat &amp; wind-chill chart. Guidance only &mdash; it does not replace school policy,
+      the school nurse, or a student&rsquo;s individual health plan. Students with asthma or
+      other conditions may need to come inside sooner.
+      <br><a href="?view=poster" class="noprint">Make the QR code posters &rarr;</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ============================ QR POSTERS ============================ -->
+<div id="poster">
+  <div class="panel noprint">
+    <h2>Make your two QR posters</h2>
+    <p class="note">Enter the web address where this file is hosted. You get one poster per
+      age group &mdash; each QR code opens that group&rsquo;s page. Then Print (or Save as PDF):
+      it prints as two pages.</p>
+    <label class="field"><span>Web address of this page</span>
+      <input id="qrUrl" type="url" inputmode="url" placeholder="https://yoursite.com/outdoor-play/index.html"></label>
+    <label class="field"><span>School name shown on the poster</span>
+      <input id="qrSchool" type="text" placeholder="Eagles wanna play outside!"></label>
+    <button class="ghost" type="button" id="printBtn">Print both posters</button>
+    <button class="ghost" type="button" id="backBtn">&larr; Back</button>
+  </div>
+  <div id="sheets"></div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+/* ============================================================================
+   CONFIG  -  everything you might want to change lives here.
+   ============================================================================ */
+var CONFIG = {
+  schoolTitle: "Eagles wanna play outside!",   // heading teachers see in the app
+  posterTitle: "St. Anthony of Padua",         // heading printed on the QR posters
+  placeName: "Casa Grande, AZ 85122",
+  // Official centroid of ZIP 85122. Verified against airnow.gov, which resolves
+  // this point to the "West Pinal" reporting area fed by the C Grande and
+  // Casa Grande Downtown monitors (Arizona DEQ).
+  lat: 32.8906,
+  lon: -111.754,
+  timezone: "America/Phoenix",
+  schoolDay: { startHour: 7, endHour: 16 },   // used only by the "Later today" strip
+
+  /* Real thermometers, nearest first. The app uses the first one with a recent
+     reading and falls back down the list, then to the forecast model.
+     Distances are from the ZIP 85122 centroid. */
+  stations: [
+    { id: "AU332", name: "Casa Grande (N5XL)", miles: 2.2 },
+    { id: "AZM05", name: "Coolidge",           miles: 10.6 }
+  ],
+  observationMaxAgeMinutes: 90,   // older than this and a station reading is not "live"
+
+  /* AU332 is a citizen-run station, so its reading is sanity-checked before use.
+     If it disagrees with the forecast model by more than this many degrees it is
+     treated as faulty and the next station (or the model) is used instead.
+     Generous enough for a real local microclimate difference, tight enough to
+     catch a stuck or miscalibrated sensor. */
+  maxModelDivergenceF: 15,
+
+  /* ---- AIR QUALITY, from the school's own AQI chart -----------------------
+     Four bands. Numbers are the US EPA AQI (same 0-500 scale AirNow uses).
+       goodMax     : top of the green "OK to Play" band
+       moderateMax : top of the gold "make adjustments" band
+       briefMax    : top of the starred red band (brief ~10 min, no running)
+       above briefMax = stay inside
+     --------------------------------------------------------------------- */
+  groups: {
+    preschool: {
+      key: "preschool",
+      label: "PreSchool",
+      ages: "3-5 yrs",
+      aqi: { goodMax: 50, moderateMax: 100, briefMax: 125 }
+    },
+    schoolage: {
+      key: "schoolage",
+      label: "School-age",
+      ages: "6+ yrs / K-8",
+      aqi: { goodMax: 75, moderateMax: 125, briefMax: 150 }
+    }
+  },
+
+  /* ---- HEAT & COLD: the Child Care Weather Watch charts, transcribed -------
+     Applies to both age groups (those charts are not split by age).
+
+     These are the printed charts themselves, cell for cell. The Heat Index
+     chart is read by AIR TEMPERATURE (row) x RELATIVE HUMIDITY (column); the
+     Wind-Chill chart by AIR TEMPERATURE (row) x WIND SPEED (column).
+     G = green (comfortable), Y = yellow (caution), R = red (danger).
+
+     Each string is one temperature row; each letter is one column, in the
+     same order as the printed chart. Blank cells in the printed chart are
+     filled red - they sit beyond the chart's range.
+     --------------------------------------------------------------------- */
+  charts: {
+    heat: {
+      temps:    [80, 84, 90, 94, 100, 104],
+      humidity: [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100],
+      bands: [
+        "GGGGGGGGGGGGG",   //  80 F
+        "GGGGGGYYYYYRR",   //  84 F
+        "YYYYRRRRRRRRR",   //  90 F
+        "YYYRRRRRRRRRR",   //  94 F
+        "RRRRRRRRRRRRR",   // 100 F
+        "RRRRRRRRRRRRR"    // 104 F
+      ]
+    },
+    wind: {
+      temps: [40, 30, 20, 10, 0, -10],
+      winds: [0, 5, 10, 15, 20, 25, 30, 35, 40],   // 0 = "Calm"
+      bands: [
+        "GGGGYYYYY",       //  40 F
+        "YYYYYYYYY",       //  30 F
+        "YYRRRRRRR",       //  20 F
+        "RRRRRRRRR",       //  10 F
+        "RRRRRRRRR",       //   0 F
+        "RRRRRRRRR"        // -10 F
+      ]
+    }
+  },
+
+  /* ---- WORDING, matching the printed chart ---- */
+  words: {
+    good:     { headline: "OK TO PLAY!",      sub: "Normal activities and time.",                        cap: "Full outdoor time" },
+    moderate: { headline: "MAKE ADJUSTMENTS", sub: "Limit active play. More water and shade breaks.",     cap: "Limit active play" },
+    brief:    { headline: "10 MINUTES MAX",   sub: "Brief time outdoors and no running — or stay inside.", cap: "About 10 minutes, no running" },
+    inside:   { headline: "STAY INSIDE",      sub: "Keep students indoors right now.",                    cap: "0 minutes outside" }
+  }
+};
+
+/* ============================================================================
+   Band logic
+   ============================================================================ */
+var RANK = { good: 0, moderate: 1, brief: 2, inside: 3 };
+function worst(a, b) { return RANK[a] >= RANK[b] ? a : b; }
+
+function aqiBand(aqi, g) {
+  if (aqi <= g.aqi.goodMax) return "good";
+  if (aqi <= g.aqi.moderateMax) return "moderate";
+  if (aqi <= g.aqi.briefMax) return "brief";
+  return "inside";
+}
+/* The Child Care Weather Watch charts are lookup tables, so we look conditions
+   up in them rather than approximating with a single cutoff. Values landing
+   between two rows or columns snap to the NEAREST one, and an exact tie snaps
+   to the more dangerous side. The chart has three colors only, so the weather
+   never produces the starred "brief" band - only air quality does. */
+var LETTER_BAND = { G: "good", Y: "moderate", R: "inside" };
+
+function nearestIndex(list, value, worseIsHigher) {
+  var bestI = 0, bestD = Infinity;
+  for (var i = 0; i < list.length; i++) {
+    var d = Math.abs(list[i] - value);
+    if (d < bestD - 1e-9) { bestI = i; bestD = d; }
+    else if (Math.abs(d - bestD) < 1e-9) {
+      if (worseIsHigher ? list[i] > list[bestI] : list[i] < list[bestI]) bestI = i;
+    }
+  }
+  return bestI;
+}
+
+function heatChartBand(tempF, rh) {
+  var C = CONFIG.charts.heat;
+  if (tempF == null || tempF < C.temps[0]) return null;            // cooler than the chart
+  if (tempF >= C.temps[C.temps.length - 1]) return { band: "inside", row: 104, col: null };
+  var h = rh == null ? C.humidity[0] : Math.max(C.humidity[0], Math.min(100, rh));
+  var ri = nearestIndex(C.temps, tempF, true);
+  var ci = nearestIndex(C.humidity, h, true);
+  return { band: LETTER_BAND[C.bands[ri].charAt(ci)], row: C.temps[ri], col: C.humidity[ci] };
+}
+
+function windChartBand(tempF, windMph) {
+  var C = CONFIG.charts.wind;
+  if (tempF == null || tempF > C.temps[0]) return null;            // warmer than the chart
+  if (tempF <= C.temps[C.temps.length - 1]) return { band: "inside", row: -10, col: null };
+  var w = windMph == null ? 0 : Math.max(0, Math.min(40, windMph));
+  var ri = nearestIndex(C.temps, tempF, false);
+  var ci = nearestIndex(C.winds, w, true);
+  return { band: LETTER_BAND[C.bands[ri].charAt(ci)], row: C.temps[ri], col: C.winds[ci] };
+}
+
+// Returns { band, via, row, col } so the screen can show which cell was used.
+function weatherBand(tempF, rh, windMph) {
+  var h = heatChartBand(tempF, rh);
+  var c = windChartBand(tempF, windMph);
+  var best = { band: "good", via: "none", row: null, col: null };
+  if (h) best = { band: h.band, via: "heat", row: h.row, col: h.col };
+  if (c && RANK[c.band] > RANK[best.band]) best = { band: c.band, via: "cold", row: c.row, col: c.col };
+  return best;
+}
+function aqiCategory(a) {
+  if (a <= 50) return "Good";
+  if (a <= 100) return "Moderate";
+  if (a <= 150) return "Unhealthy for Sensitive Groups";
+  if (a <= 200) return "Unhealthy";
+  if (a <= 300) return "Very Unhealthy";
+  return "Hazardous";
+}
+function bandWord(b) {
+  return b === "good" ? "OK" : b === "moderate" ? "adjust" : b === "brief" ? "brief only" : "stay inside";
+}
+
+/* ============================================================================
+   Data
+   ============================================================================ */
+function wxUrl() {
+  return "https://api.open-meteo.com/v1/forecast?latitude=" + CONFIG.lat + "&longitude=" + CONFIG.lon +
+    // No "apparent temperature" is requested: the decision comes from the chart's
+    // own temperature x humidity cell, never from a computed feels-like number.
+    "&current=temperature_2m,relative_humidity_2m,wind_speed_10m,uv_index" +
+    "&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m&forecast_days=1" +
+    "&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=" + encodeURIComponent(CONFIG.timezone) +
+    "&_=" + Date.now();
+}
+function aqUrl() {
+  return "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=" + CONFIG.lat +
+    "&longitude=" + CONFIG.lon + "&current=us_aqi&hourly=us_aqi&forecast_days=1&timezone=" +
+    encodeURIComponent(CONFIG.timezone) + "&_=" + Date.now();
+}
+// The official AirNow feed - the same data airnow.gov shows for this zip code.
+// Readings come from the Arizona DEQ monitors in the local reporting area.
+function airNowUrl() {
+  return "https://airnowgovapi.com/reportingarea/get?latitude=" + CONFIG.lat +
+    "&longitude=" + CONFIG.lon + "&_=" + Date.now();
+}
+
+// AirNow reports one AQI per pollutant (ozone, PM2.5, PM10). The headline AQI
+// is the WORST of them - that is how airnow.gov reports it too.
+function parseAirNow(rows) {
+  if (!rows || !rows.length) return null;
+  var obs = rows.filter(function (r) {
+    return r.dataType === "O" && typeof r.aqi === "number" && r.aqi >= 0;
+  });
+  if (!obs.length) return null;
+  var best = obs[0];
+  obs.forEach(function (r) { if (r.aqi > best.aqi) best = r; });
+  return {
+    aqi: best.aqi,
+    parameter: best.parameter,
+    area: best.reportingArea,
+    time: best.time,
+    agency: best.reportingAgency
+  };
+}
+
+// Never let one slow source hold up the whole answer.
+function withTimeout(p, ms) {
+  return Promise.race([
+    p,
+    new Promise(function (_, rej) { setTimeout(function () { rej(new Error("timeout")); }, ms); })
+  ]);
+}
+
+/* ---- Real thermometer readings (National Weather Service) ----------------
+   The chart needs measured air temperature and humidity, so we prefer an
+   actual station over the forecast model. Stations sometimes publish a record
+   with no temperature in it, so we walk back through recent observations to
+   the last one that carries a real value. */
+// No cache-busting parameter here: api.weather.gov rejects unrecognised query
+// params with a 400. The no-store fetch option already prevents stale reads.
+function stationUrl(id) {
+  return "https://api.weather.gov/stations/" + id + "/observations?limit=10";
+}
+function cToF(c) { return c == null ? null : (c * 9 / 5) + 32; }
+function kmhToMph(k) { return k == null ? null : k * 0.621371; }
+function val(o, k) { return (o && o[k] && typeof o[k].value === "number") ? o[k].value : null; }
+
+// Reject readings that cannot be real, before they ever reach the chart.
+function plausible(rec) {
+  if (rec.tempF == null || rec.tempF < -40 || rec.tempF > 130) return false;
+  if (rec.humidity != null && (rec.humidity < 0 || rec.humidity > 100)) return false;
+  return true;
+}
+
+function parseStation(json, st) {
+  var feats = (json && json.features) || [];
+  for (var i = 0; i < feats.length; i++) {
+    var p = feats[i].properties;
+    var t = val(p, "temperature");
+    if (t == null) continue;                                  // skip empty records
+    var ageMin = (Date.now() - Date.parse(p.timestamp)) / 60000;
+    if (!isFinite(ageMin) || ageMin > CONFIG.observationMaxAgeMinutes) return null;
+    var rec = {
+      station: st,
+      tempF: cToF(t),
+      humidity: val(p, "relativeHumidity"),
+      windMph: kmhToMph(val(p, "windSpeed")),
+      timestamp: p.timestamp,
+      ageMin: ageMin
+    };
+    if (!plausible(rec)) continue;                            // sensor talking nonsense
+    return rec;
+  }
+  return null;
+}
+
+// Ask every station at once, keeping them in nearest-first order.
+function fetchStations() {
+  return Promise.all(CONFIG.stations.map(function (st) {
+    return withTimeout(getJSON(stationUrl(st.id)), 7000)
+      .then(function (j) { return parseStation(j, st); })
+      .catch(function () { return null; });
+  }));
+}
+
+/* Use the NEAREST station that also agrees with the forecast model. A close
+   sensor is the best source right up until it breaks, and "closest" is not a
+   reason to trust a reading that disagrees with the model by 15 degrees. */
+function pickStation(candidates, modelTempF) {
+  var rejected = null;
+  for (var i = 0; i < candidates.length; i++) {
+    var c = candidates[i];
+    if (!c) continue;
+    if (modelTempF != null && Math.abs(c.tempF - modelTempF) > CONFIG.maxModelDivergenceF) {
+      rejected = rejected || c;
+      continue;
+    }
+    return { obs: c, rejected: rejected };
+  }
+  return { obs: null, rejected: rejected };
+}
+
+var state = { data: null, fetchedAt: 0, group: "preschool", loading: false };
+
+function el(id) { return document.getElementById(id); }
+
+function getJSON(url) {
+  return fetch(url, { cache: "no-store" }).then(function (r) {
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  });
+}
+
+function load() {
+  if (state.loading) return;
+  state.loading = true;
+  var btn = el("retrieveBtn");
+  btn.disabled = true;
+  btn.textContent = "Checking right now…";
+  el("status").className = "status";
+  el("status").textContent = "";
+
+  // AirNow is the preferred air-quality source. If it is slow or down we still
+  // answer, using the modeled AQI, and we say so on screen.
+  var airNow = withTimeout(getJSON(airNowUrl()), 8000)
+    .then(parseAirNow)
+    .catch(function () { return null; });
+
+  // The forecast model is the floor under every answer, so it needs a timeout of
+  // its own. Without one, a connection that stalls instead of failing - a school
+  // Wi-Fi captive portal, typically - leaves the page pulsing "Checking..."
+  // forever rather than falling through to the honest "No reading" screen.
+  var wxP = withTimeout(getJSON(wxUrl()), 10000);
+  var aqP = withTimeout(getJSON(aqUrl()), 10000);
+
+  return Promise.all([wxP, aqP, airNow, fetchStations()]).then(function (res) {
+    var wx = res[0], aq = res[1], an = res[2];
+    var picked = pickStation(res[3], wx.current.temperature_2m);
+    var obs = picked.obs;
+    var aqiByHour = {};
+    var at = (aq.hourly && aq.hourly.time) || [];
+    for (var i = 0; i < at.length; i++) aqiByHour[at[i]] = aq.hourly.us_aqi[i];
+
+    var wt = (wx.hourly && wx.hourly.time) || [];
+    var hours = [];
+    for (var j = 0; j < wt.length; j++) {
+      hours.push({
+        time: wt[j],
+        temp: wx.hourly.temperature_2m[j],
+        humidity: wx.hourly.relative_humidity_2m[j],
+        wind: wx.hourly.wind_speed_10m[j],
+        aqi: aqiByHour[wt[j]]
+      });
+    }
+    // A measured station reading beats the forecast model for the chart lookup.
+    state.data = {
+      now: {
+        time: wx.current.time,
+        temp: obs ? obs.tempF : wx.current.temperature_2m,
+        humidity: (obs && obs.humidity != null) ? obs.humidity : wx.current.relative_humidity_2m,
+        wind: (obs && obs.windMph != null) ? obs.windMph : wx.current.wind_speed_10m,
+        uv: wx.current.uv_index,
+        aqi: an ? an.aqi : aq.current.us_aqi,
+        airNow: an,
+        obs: obs,
+        rejectedStation: picked.rejected
+      },
+      hours: hours
+    };
+    state.fetchedAt = Date.now();
+    render();
+  }).catch(function () {
+    // Never show a confident answer we cannot stand behind.
+    renderUnavailable();
+  }).then(function () {
+    state.loading = false;
+    btn.disabled = false;
+    btn.textContent = "Retrieve current conditions";
+  });
+}
+
+/* ============================================================================
+   Rendering
+   ============================================================================ */
+function fmtHour(iso) {
+  var h = parseInt(iso.slice(11, 13), 10);
+  var ap = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  return h + " " + ap;
+}
+function fmtClock(iso) {
+  var h = parseInt(iso.slice(11, 13), 10);
+  var m = iso.slice(14, 16);
+  var ap = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  return h + ":" + m + " " + ap;
+}
+
+// Station timestamps arrive in UTC; show them in local (Arizona) time.
+function fmtStationTime(iso) {
+  try {
+    return new Date(iso).toLocaleTimeString("en-US",
+      { hour: "numeric", minute: "2-digit", timeZone: CONFIG.timezone });
+  } catch (e) { return ""; }
+}
+
+function signSVG(band) {
+  // Distinct SHAPES as well as colors, so the answer still reads without color vision.
+  if (band === "good") {
+    return '<svg class="sign" viewBox="0 0 100 100" aria-hidden="true">' +
+      '<circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="8"/>' +
+      '<path d="M29 52l14 14 27-31" fill="none" stroke="currentColor" stroke-width="10" ' +
+      'stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+  if (band === "moderate") {
+    return '<svg class="sign" viewBox="0 0 100 100" aria-hidden="true">' +
+      '<path d="M50 8L95 89H5z" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>' +
+      '<path d="M50 38v22" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>' +
+      '<circle cx="50" cy="74" r="5.5" fill="currentColor"/></svg>';
+  }
+  if (band === "brief") {
+    // a stopwatch: short time outside
+    return '<svg class="sign" viewBox="0 0 100 100" aria-hidden="true">' +
+      '<circle cx="50" cy="56" r="35" fill="none" stroke="currentColor" stroke-width="8"/>' +
+      '<path d="M38 10h24M50 10v11M50 56V36" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>' +
+      '<path d="M50 56l16 12" stroke="currentColor" stroke-width="8" stroke-linecap="round"/></svg>';
+  }
+  return '<svg class="sign" viewBox="0 0 100 100" aria-hidden="true">' +
+    '<path d="M32 5h36l27 27v36L68 95H32L5 68V32z" fill="none" stroke="currentColor" ' +
+    'stroke-width="8" stroke-linejoin="round"/>' +
+    '<path d="M35 35l30 30M65 35L35 65" stroke="currentColor" stroke-width="10" stroke-linecap="round"/></svg>';
+}
+
+function metric(v, k) {
+  return '<div class="metric"><div class="v">' + v + '</div><div class="k">' + k + '</div></div>';
+}
+
+function render() {
+  var g = CONFIG.groups[state.group];
+  var n = state.data.now;
+  var ab = aqiBand(n.aqi, g);
+  var wx = weatherBand(n.temp, n.humidity, n.wind);
+  var wb = wx.band;
+  var band = worst(ab, wb);
+  var w = CONFIG.words[band];
+
+  var v = el("verdict");
+  v.className = "verdict " + band;
+  v.innerHTML = signSVG(band) +
+    '<h1 class="headline">' + w.headline + '</h1>' +
+    '<p class="sub">' + w.sub + '</p>' +
+    '<span class="timecap">' + w.cap + '</span>';
+
+  // Show which chart cell the answer came from, so it can be checked against
+  // the printed chart on the wall.
+  var cell;
+  if (wx.via === "heat") {
+    cell = "Heat chart: " + wx.row + "&deg; row &times; " + wx.col + "% humidity";
+  } else if (wx.via === "cold") {
+    cell = "Wind-chill chart: " + wx.row + "&deg; row &times; " +
+           (wx.col === 0 ? "calm" : wx.col + " mph");
+  } else {
+    cell = "Below the heat chart, above the wind-chill chart";
+  }
+  var obs = n.obs;
+  var wxSrc = obs
+    ? cell + '<br>' + obs.station.name + ' station &middot; ' + obs.station.miles +
+      ' mi &middot; measured ' + fmtStationTime(obs.timestamp)
+    : cell;
+  var wxSrcClass = obs ? "src" : "src est";
+  if (!obs) {
+    wxSrc = cell + "<br>" + (n.rejectedStation
+      ? n.rejectedStation.station.name + " station looked faulty — forecast model estimate"
+      : "No station reading — forecast model estimate");
+  } else if (n.rejectedStation) {
+    // We fell past a nearer station; say which one is actually being used.
+    wxSrc += '<br>(' + n.rejectedStation.station.name + ' skipped — reading looked faulty)';
+  }
+
+  var an = n.airNow;
+  var airSrc = an
+    ? '<span class="src">AirNow &middot; ' + an.area + ' &middot; ' + an.parameter +
+      ' &middot; reported ' + an.time + ' MST</span>'
+    : '<span class="src est">AirNow unavailable — modeled estimate</span>';
+
+  el("reasons").innerHTML =
+    '<li class="' + ab + '"><span class="tag">Air</span><span><b>AQI ' + Math.round(n.aqi) + '</b> &middot; ' +
+      aqiCategory(n.aqi) + ' &mdash; ' + bandWord(ab) + ' for ' + g.label.toLowerCase() +
+      airSrc + '</span></li>' +
+    '<li class="' + wb + '"><span class="tag">Weather</span><span><b>' + Math.round(n.temp) + '&deg;F</b>' +
+      ' &middot; ' + Math.round(n.humidity) + '% humidity &mdash; ' + bandWord(wb) +
+      '<span class="' + wxSrcClass + '">' + wxSrc + '</span></span></li>';
+
+  el("metrics").innerHTML =
+    metric(Math.round(n.humidity) + "%", "Humidity") +
+    metric(Math.round(n.wind) + " mph", "Wind") +
+    metric(Math.round(n.uv), "UV Index");
+
+  renderHours(g, n.time, band);
+
+  el("status").className = "status";
+  el("status").innerHTML = "Live reading taken at <b>" +
+    (n.obs ? fmtStationTime(n.obs.timestamp) : fmtClock(n.time)) + "</b>";
+}
+
+function renderHours(g, nowIso, nowBand) {
+  var today = nowIso.slice(0, 10);
+  var nowHour = parseInt(nowIso.slice(11, 13), 10);
+  // Today only, from this hour forward. Never tomorrow - staff scan at recess time.
+  var rows = state.data.hours.filter(function (h) {
+    var hr = parseInt(h.time.slice(11, 13), 10);
+    return h.time.slice(0, 10) === today && hr >= nowHour &&
+           hr <= CONFIG.schoolDay.endHour && h.aqi != null && h.temp != null;
+  });
+  if (rows.length < 2) { el("hourPanel").hidden = true; return; }
+  el("hourPanel").hidden = false;
+  var live = state.data.now;
+  el("strip").innerHTML = rows.map(function (h) {
+    var hr = parseInt(h.time.slice(11, 13), 10);
+    var isNow = hr === nowHour;
+    // The "Now" bar has to agree with the headline directly above it. The headline
+    // is built from AirNow plus the station thermometer; the rest of the strip only
+    // has the forecast model to work from. So reuse the live answer for this hour
+    // rather than recomputing a modeled one that can land in a different color.
+    var b = isNow ? nowBand
+                  : worst(aqiBand(h.aqi, g), weatherBand(h.temp, h.humidity, h.wind).band);
+    var t = isNow ? live.temp : h.temp;
+    var a = isNow ? live.aqi  : h.aqi;
+    var mark = b === "good" ? "✓" : b === "moderate" ? "!" : b === "brief" ? "⏱" : "✕";
+    return '<div class="hr' + (isNow ? " now" : "") + '">' +
+           '<div class="bar ' + b + '" title="' + Math.round(t) + '&deg;F, AQI ' +
+           Math.round(a) + '">' + mark + '</div>' +
+           '<div class="lb">' + (isNow ? "Now" : fmtHour(h.time)) + '</div></div>';
+  }).join("");
+}
+
+function renderUnavailable() {
+  var v = el("verdict");
+  v.className = "verdict unknown";
+  v.innerHTML = '<h1 class="headline">No reading</h1>' +
+    '<p class="sub">We could not reach the air quality and weather services just now. ' +
+    'Tap the button to try again, or check AirNow.gov and use the school&rsquo;s judgment.</p>';
+  el("reasons").innerHTML = "";
+  el("metrics").innerHTML = "";
+  el("hourPanel").hidden = true;
+  el("status").className = "status warn";
+  el("status").textContent = "No current reading — nothing is being shown rather than showing something out of date.";
+}
+
+/* ============================================================================
+   Routing:  ?group=preschool | ?group=schoolage | ?view=poster
+   ============================================================================ */
+function params() {
+  var q = {};
+  location.search.replace(/^\?/, "").split("&").forEach(function (p) {
+    if (!p) return;
+    var kv = p.split("=");
+    q[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || "");
+  });
+  return q;
+}
+
+function boot() {
+  var q = params();
+  el("appTitle").textContent = CONFIG.schoolTitle;
+  el("chooseTitle").textContent = CONFIG.schoolTitle;
+  el("placeName").textContent = CONFIG.placeName;
+
+  if (q.view === "poster") {
+    document.body.className = "view-poster";
+    initPoster();
+    return;
+  }
+  var g = CONFIG.groups[q.group];
+  if (!g) { document.body.className = "view-chooser"; return; }
+
+  state.group = g.key;
+  document.body.className = "view-app";
+  el("whoBadge").textContent = g.label + " (" + g.ages + ")";
+  document.title = g.label + " — " + CONFIG.schoolTitle;
+  var other = g.key === "preschool" ? CONFIG.groups.schoolage : CONFIG.groups.preschool;
+  el("switchLink").textContent = "Switch to " + other.label + " (" + other.ages + ")";
+  el("switchLink").href = "?group=" + other.key;
+
+  el("retrieveBtn").onclick = function () { load(); };
+  load();                                   // live on arrival
+  document.addEventListener("visibilitychange", function () {
+    // Re-check when a teacher returns to an already-open tab.
+    if (!document.hidden && Date.now() - state.fetchedAt > 60000) load();
+  });
+}
+
+/* ============================================================================
+   QR posters - one per age group
+   ============================================================================ */
+function withGroup(base, key) {
+  if (!base) return "";
+  var clean = base.split("#")[0];
+  return clean + (clean.indexOf("?") >= 0 ? "&" : "?") + "group=" + key;
+}
+
+function initPoster() {
+  var urlIn = el("qrUrl"), schoolIn = el("qrSchool");
+  urlIn.value = location.href.split("?")[0];
+  schoolIn.placeholder = CONFIG.posterTitle;
+  urlIn.addEventListener("input", drawPosters);
+  schoolIn.addEventListener("input", drawPosters);
+  el("printBtn").onclick = function () { window.print(); };
+  el("backBtn").onclick = function () { location.search = ""; };
+  drawPosters();
+}
+
+function drawPosters() {
+  var base = el("qrUrl").value.trim();
+  var school = el("qrSchool").value.trim() || CONFIG.posterTitle;
+  var host = el("sheets");
+  host.innerHTML = "";
+
+  ["preschool", "schoolage"].forEach(function (key) {
+    var g = CONFIG.groups[key];
+    var sheet = document.createElement("div");
+    sheet.className = "sheet";
+    sheet.innerHTML =
+      "<h1>" + school + "</h1>" +
+      '<div class="grp">' + g.label + " (" + g.ages + ")</div>" +
+      '<div class="qrbox"></div>' +
+      '<p style="font-size:15px;margin:0;font-weight:700">Scan at recess time.</p>' +
+      '<p style="font-size:13.5px;margin:5px 0 0;color:#444">You get the air quality and ' +
+        "temperature as of right now &mdash; scan again each recess.</p>" +
+      '<div class="legend">' +
+        '<div><span class="dot" style="background:#7DD957"></span> AQI 0&ndash;' + g.aqi.goodMax +
+          " &mdash; OK to Play!</div>" +
+        '<div><span class="dot" style="background:#DAC609"></span> AQI ' + (g.aqi.goodMax + 1) + "&ndash;" +
+          g.aqi.moderateMax + " &mdash; Make adjustments</div>" +
+        '<div><span class="dot" style="background:#FF3131"></span> AQI ' + (g.aqi.moderateMax + 1) + "&ndash;" +
+          g.aqi.briefMax + " &mdash; 10 min max, no running</div>" +
+        '<div><span class="dot" style="background:#FF3131"></span> AQI ' + (g.aqi.briefMax + 1) +
+          "+ &mdash; Stay inside</div>" +
+      "</div>";
+    host.appendChild(sheet);
+
+    var target = withGroup(base, key);
+    var box = sheet.querySelector(".qrbox");
+    if (!target) { box.innerHTML = '<p style="color:#666;font-size:13px">Enter the web address above.</p>'; return; }
+    if (typeof QRCode === "undefined") {
+      box.innerHTML = '<p style="color:#666;font-size:13px">QR library did not load. ' +
+        "Connect to the internet and reload.</p>";
+      return;
+    }
+    new QRCode(box, { text: target, width: 290, height: 290, correctLevel: QRCode.CorrectLevel.M });
+  });
+}
+
+boot();
+</script>
+<!-- Only used by the poster page, never by the teachers' page. Pinned by hash so a
+     tampered copy is refused rather than run; if it cannot load, the poster page
+     says so instead of printing a blank square. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+        integrity="sha384-3zSEDfvllQohrq0PHL1fOXJuC/jSOO34H46t6UQfobFOmxE5BpjjaIJY5F2/bMnU"
+        crossorigin="anonymous" referrerpolicy="no-referrer"
+        onload="if(document.body.className==='view-poster')drawPosters()"></script>
+</body>
+</html>

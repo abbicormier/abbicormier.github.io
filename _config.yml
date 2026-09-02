@@ -277,6 +277,16 @@ defaults:
       layout: talk
       author_profile: true
       share: true
+  # sideprojects/ - standalone tools that are handed out directly (a printed QR
+  # code, a link in an email) and are deliberately not linked from anywhere on
+  # the site. jekyll-sitemap lists static .html files unless sitemap is false, so
+  # without this they would show up in sitemap.xml and get crawled from there.
+  # No type: is set on purpose - static files have no type, and a scope that
+  # names one would not match them.
+  - scope:
+      path: "sideprojects"
+    values:
+      sitemap: false
 
 # Sass/SCSS
 sass:
