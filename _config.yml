@@ -287,6 +287,11 @@ defaults:
       path: "sideprojects"
     values:
       sitemap: false
+  # BA 3316 Exam 1 Guide - shared only through a Canvas link, same reasoning.
+  - scope:
+      path: "ba3316-fall2026/online/exam-1-guide.html"
+    values:
+      sitemap: false
 
 # Sass/SCSS
 sass:

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Site icons. Declared explicitly because this page is a static file and does not
+     go through _includes/head.html. Without these, browsers request a bare
+     /favicon.ico and keep serving a long-cached copy; the ?v= is what forces the
+     refresh, so keep it in step with _includes/head.html. -->
+<link rel="icon" href="/favicon.ico?v=isu-2026c" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg?v=isu-2026c">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=isu-2026c">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png?v=isu-2026c">
+
+<!-- Unlisted: shared only through Canvas, so keep it out of search results. -->
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BA 3316 Exam 1 Guide &middot; Online</title>
+<meta name="description" content="BA 3316 Exam 1 Guide for the online section at Idaho State University, Fall 2026. Exam dates, Honorlock protocol, coverage, and how to prepare.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+:root{--paper:#FCFCFD;--ink:#222;--muted:#6B6B70;--rule:#DEDEE1;--panel:#F4F4F5;
+--orange:#F47920;--title:#D4441C;--link:#B82B00;--grey:#E6E7E8;--peach:#FBC9A6}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+ font-family:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+ font-size:17px;line-height:1.6;padding:0 1rem 4rem;overflow-x:hidden}
+.wrap{max-width:46rem;margin:0 auto}
+a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(184,43,0,.3);overflow-wrap:anywhere}
+a:hover{border-bottom-color:var(--link)}
+a:focus-visible{outline:2px solid var(--orange);outline-offset:2px;border-radius:2px}
+/* Back to the course home, at the top where a reader will actually find it. */
+.backlink{margin:0;padding:1.6rem 0 0;font-size:.95rem}
+.backlink a{font-weight:600;border-bottom:none;display:inline-block;padding:.25rem 0}
+.backlink a::before{content:"←";margin-right:.4rem}
+.backlink a:hover{border-bottom:1px solid var(--link)}
+header{padding-top:1.1rem;border-bottom:3px solid var(--orange);padding-bottom:1rem;margin-bottom:1.5rem}
+/* Header block. Sizes scale together; keep the ratios if you retune them. */
+.eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--title);margin:0 0 .5rem}
+h1{font-family:'IBM Plex Serif',Georgia,serif;font-weight:700;font-size:clamp(2.05rem,7vw,2.85rem);
+ line-height:1.1;letter-spacing:-.018em;color:var(--title);margin:0 0 .3rem;text-wrap:balance}
+.sub{color:var(--muted);margin:.12rem 0;font-size:1.16rem}
+/* Course name: darker grey, sized between the h1 and the byline. */
+.coursename{color:#45454B;margin:.18rem 0 .4rem;font-weight:500;
+ font-size:clamp(1.35rem,3.8vw,1.72rem);line-height:1.25;letter-spacing:-.005em}
+.updated{color:var(--muted);margin:.5rem 0 0;font-size:.95rem;letter-spacing:.01em}
+h2{font-family:'IBM Plex Serif',Georgia,serif;font-weight:600;font-size:1.3rem;color:#141416;
+ border-bottom:2px solid var(--orange);padding-bottom:.35rem;margin:2.2rem 0 .9rem}
+h3{font-size:1.05rem;font-weight:700;color:var(--title);margin:1.5rem 0 .4rem}
+ul,ol{padding-left:1.3rem}
+li{margin-bottom:.35rem}
+.panelbox{background:var(--panel);border-left:3px solid var(--orange);border-radius:4px;padding:.9rem 1.1rem;margin:1.1rem 0}
+.panelbox ul{margin:.4rem 0 0;padding-left:1.15rem}
+.panelbox li{margin-bottom:.3rem}
+.panelbox p{margin:.35rem 0}
+/* The zero-risk callout: same shape as panelbox, louder colour, because it is the
+   part of the page students have actually been getting wrong. */
+.warnbox{background:#FDEEE6;border-left:4px solid var(--title);border-radius:4px;padding:.9rem 1.1rem;margin:1.1rem 0}
+.warnbox p{margin:.35rem 0}
+.warnbox ul{margin:.4rem 0 0;padding-left:1.15rem}
+.warnbox li{margin-bottom:.3rem}
+.warnbox .head{color:var(--title);font-weight:700}
+.protocol li{margin-bottom:.55rem}
+.protocol li b{color:#141416}
+.due{color:var(--link);font-weight:600}
+.muted{color:var(--muted)}
+footer{border-top:2px solid #141416;margin-top:2.5rem;padding-top:.9rem;font-size:.86rem;color:var(--muted)}
+@media (max-width:32rem){
+  body{font-size:16px;padding:0 .8rem 3rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="backlink"><a href="https://abbicormier.github.io/ba3316-fall2026/online/">BA 3316 Online</a></p>
+<header>
+<p class="eyebrow">Idaho State University &middot; College of Business</p>
+<h1>BA 3316<br>Exam 1 Guide</h1>
+<p class="coursename">Introduction to Data Analytics</p>
+<p class="sub">Abigail Cormier &middot; Fall 2026 &middot; Online</p>
+<p class="updated">Last updated September 28, 2026</p>
+</header>
+
+<p>This guide covers everything you need for Exam 1: when it is, the rules you must follow, and what to study. Read it carefully and do exactly what it says.</p>
+
+<h2>Mark your calendars</h2>
+<div class="panelbox">
+<p><b>Exam 1: Tue Sep 29.</b> The exam opens at 12:00&nbsp;a.m. and closes at 11:59&nbsp;p.m. Mountain Time.</p>
+<ul>
+<li><b>You have 65 minutes</b> once you begin. To get the full 65 minutes, <span class="due">start by 10:54&nbsp;p.m.</span> The exam closes at 11:59&nbsp;p.m. no matter when you started.</li>
+<li><b>Mind the time zone.</b> If you are outside Mountain Time on exam day, do the conversion carefully. Timing mistakes are not grounds for a retake.</li>
+<li><b>Coming up:</b> Exam 2 is Tue Nov 17 (65 minutes, start by 10:54&nbsp;p.m.). Exam 3 and Project Accountability is Fri Dec 18 (2 hours, start by 9:59&nbsp;p.m.).</li>
+</ul>
+</div>
+
+<h2>Before exam day</h2>
+<p><b>Check your equipment.</b></p>
+<ul>
+<li><b>Computer.</b> A laptop or desktop with a working webcam and microphone, with the Honorlock Desktop App installed and working.</li>
+<li><b>Phone.</b> Your phone is your required external webcam. Set it on a stand where it gives a clear side-angle view of you, your desk, and your computer screen, and leave it there for the whole exam. Start fully charged or plugged in.</li>
+<li><b>Internet.</b> A stable connection you trust. Avoid public Wi-Fi.</li>
+</ul>
+<p><b>The Honorlock setup check</b> (Thu Sep 17) was your chance to test all of this with nothing at stake. If you skipped it, technical or setup problems it would have caught will not excuse you from completing the exam or following the required procedures. If your computer, phone, or location has changed since then, test again before exam day.</p>
+
+<h2>On exam day</h2>
+<div class="warnbox">
+<p class="head">The most common ways students are earning a zero</p>
+<p>I have reviewed the practice recordings. These are the problems I keep seeing:</p>
+<ul>
+<li><b>A desk that is not cleared.</b> Before you begin, the only things on your desk are your computer and its required peripherals, your phone as the external webcam, one blank sheet of paper, and one pen or pencil.</li>
+<li><b>A notebook instead of one sheet.</b> You get <b>one single loose sheet of completely blank paper</b>. Not a notebook, not a notepad, and not a sheet with anything already on it.</li>
+<li><b>Not showing both sides of that sheet.</b> At the start of the exam, before you write anything, hold the sheet up to the webcam and show the front and the back, slowly. <b>If you do not show both sides to the camera, you will receive a 0.</b></li>
+</ul>
+</div>
+
+<h3>Appropriate dress</h3>
+<p>Dress as you would for class in person. Wear a shirt and pants, shorts, a skirt, or a dress for the entire exam, including the room scan and setup steps. Sleepwear, undergarments worn as outerwear, and towels are not acceptable. Hats with brims and hoods must be off so your face is fully visible. If your clothing does not meet this standard, you will receive a 0.</p>
+
+<h3>The exam protocol</h3>
+<p>By taking an Honorlock-proctored exam in my course, you agree to the following. Unless an approved accommodation provides otherwise, you must follow every item.</p>
+<ol class="protocol">
+<li><b>Location:</b> Take the assessment alone in a quiet, private, well-lit room with the door closed. Sit at a desk or table with a clear workspace. No one else may enter or exit the room while I am taking the assessment.</li>
+<li><b>Clothing:</b> Remain fully clothed, including a shirt and pants, shorts, or a skirt, or a dress, throughout the assessment.</li>
+<li><b>Webcam visibility:</b> Remain seated and clearly visible in the required camera views for the entire assessment, through submission. Do not leave the cameras’ view or reposition either camera after setup.</li>
+<li><b>Phone as external webcam:</b> Use my phone as the required external webcam, positioned to provide a clear side-angle view of me, my workspace, and my computer screen. Keep it connected and in position throughout the assessment, through submission. Do not use it for any other purpose during the assessment.</li>
+<li><b>Permitted materials:</b> Have only my computer and its required peripherals, my phone serving as the external webcam, one blank sheet of scratch paper, and one pen or pencil at my workspace. At the beginning of the assessment, show both sides of the blank sheet to the webcam to demonstrate that they are blank before writing on it.</li>
+<li><b>Prohibited items:</b> Remove books, notes, additional paper, handheld calculators, headphones, and other unapproved materials. Power off and place other electronic devices—including additional computers, tablets, smartwatches, and smart glasses—out of reach. Do not use additional monitors.</li>
+<li><b>Honorlock setup:</b> Complete the required ID scan, workspace photo, and all other steps requested during the Honorlock setup process.</li>
+<li><b>Computer setup:</b> Complete all required Honorlock checks and keep the Honorlock Desktop App running throughout the assessment. Do not access unauthorized websites, applications, AI tools, or outside assistance.</li>
+<li><b>Independent work:</b> Do not communicate with or receive help from anyone other than authorized proctoring or technical support personnel during the assessment.</li>
+<li><b>Exam content:</b> Do not share any exam content during or after the assessment.</li>
+<li><b>Failure to comply:</b> I understand that I will receive a 0 on the assessment if I violate any of these requirements or fail to complete any required step in the Honorlock process, including (but not limited to) the ID scan, workspace photo, or showing both sides of my scratch paper to demonstrate that they are blank before writing on it.</li>
+</ol>
+
+<h2>Exam format</h2>
+<ul>
+<li><b>65 minutes</b>, taken in Canvas with Honorlock.</li>
+<li><b>One question at a time.</b> Once you submit an answer, you move forward. <b>You cannot go back</b> to an earlier question.</li>
+<li>Questions come in three types: <b>multiple choice</b>, <b>fill-in-the-blank</b>, and <b>short answer</b>.</li>
+</ul>
+
+<h2>What’s on Exam 1</h2>
+<p>Exam 1 covers Weeks 1–5:</p>
+<ul>
+<li>Data fundamentals</li>
+<li>Beginning to learn</li>
+<li>Models for exploration</li>
+<li>Making inferences</li>
+<li>Measurement error and sample selection</li>
+</ul>
+<div class="panelbox"><p><b>Confounding is not on Exam 1.</b></p></div>
+
+<h2>How to prepare</h2>
+<p>The exam won’t ask you anything in a form you haven’t seen before. There are three places to practice these kinds of questions:</p>
+<ul>
+<li><b>Homework.</b> Clear your answers and work through the assignments again without your notes, on a clock. Can you reproduce your work, explain it in your own words, and apply it to a new question?</li>
+<li><b>Lecture videos.</b> When a video pauses to pose a question, that’s a question you should be able to answer cold. Go back and try the ones you skipped.</li>
+<li><b>Dailies review page.</b> The in-person section answers these short questions in class, and every one of them is posted on the <a href="https://abbicormier.github.io/ba3316-fall2026/dailies/">dailies page</a> with answers you can reveal one at a time. Try each question before you reveal the answer.</li>
+</ul>
+<p>Studying for this exam means understanding what you’ve already done, not memorizing answers. If you can explain <em>why</em> an answer is right, you’re ready.</p>
+
+<h2>Getting help</h2>
+<ul>
+<li><b>Technical problems during the exam:</b> use Honorlock’s live chat support from the Honorlock window.</li>
+<li><b>Questions about the exam or these rules:</b> email me at <a href="mailto:abigailcormier@isu.edu">abigailcormier@isu.edu</a>. Ask well before exam day, not during your exam window.</li>
+</ul>
+
+<footer><p>BA 3316 Introduction to Data Analytics &middot; Abigail Cormier &middot; Fall 2026</p><p><a href="https://abbicormier.github.io/ba3316-fall2026/online/">BA 3316 Online, course home page</a></p></footer>
+</div>
+</body></html>
