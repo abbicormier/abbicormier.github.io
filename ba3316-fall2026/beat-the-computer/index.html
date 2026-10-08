@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Site icons. Declared explicitly because this page is a static file and does not
+     go through _includes/head.html. Keep the ?v= in step with _includes/head.html. -->
+<link rel="icon" href="/favicon.ico?v=isu-2026c" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg?v=isu-2026c">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=isu-2026c">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png?v=isu-2026c">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beat the Computer &middot; BA 3316</title>
+<meta name="description" content="BA 3316 in-class least-squares game, Idaho State University, Fall 2026. Drag a line through the data, watch the squared residuals, then reveal the OLS line.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+/* Layout: projector-first board. Big plot on the left, a scoreboard on the right; stacks to one column on phones. */
+:root {
+  --paper: #FBFAF8;
+  --panel: #F2EFEC;
+  --ink: #1F1B18;
+  --muted: #625B55;
+  --rule: #DEDAD5;
+  --accent: #D4441C;
+  --accent-soft: rgba(244, 121, 32, 0.24);
+  --accent-edge: rgba(212, 68, 28, 0.55);
+  --computer: #1F4E79;
+  --good: #2E6B3A;
+  --font-display: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-num: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #191614; --panel: #24201D; --ink: #F1ECE7; --muted: #ADA49C; --rule: #3B3430;
+    --accent: #F47920; --accent-soft: rgba(244, 121, 32, 0.28); --accent-edge: rgba(244, 121, 32, 0.7);
+    --computer: #8DBDE8; --good: #7FC48D; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #191614; --panel: #24201D; --ink: #F1ECE7; --muted: #ADA49C; --rule: #3B3430;
+  --accent: #F47920; --accent-soft: rgba(244, 121, 32, 0.28); --accent-edge: rgba(244, 121, 32, 0.7);
+  --computer: #8DBDE8; --good: #7FC48D; color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; }
+html, body { height: 100%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 1rem; line-height: 1.45; }
+.wrap { max-width: 88rem; margin: 0 auto; padding-inline: clamp(16px, 3vw, 40px); padding-block: 1.25rem 2rem; display: grid; gap: 1rem; }
+header { display: grid; gap: 0.2rem; }
+.eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.25rem); max-width: 60ch; }
+.board { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); gap: clamp(1rem, 2vw, 2rem); align-items: start; }
+@media (max-width: 860px) { .board { grid-template-columns: minmax(0, 1fr); } }
+.plot-pane { display: grid; gap: 0.6rem; min-width: 0; }
+.switch { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.switch button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+svg#plot { width: 100%; height: auto; display: block; touch-action: none; user-select: none; -webkit-user-select: none; }
+.hint { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.score { background: var(--panel); border-radius: 10px; padding: clamp(1rem, 2vw, 1.5rem); display: grid; gap: 1.1rem; min-width: 0; }
+.label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.eqn { font-family: var(--font-num); font-size: clamp(1.05rem, 1.7vw, 1.4rem); font-weight: 500; overflow-wrap: anywhere; }
+.big { font-family: var(--font-num); font-weight: 600; font-size: clamp(2.8rem, 6vw, 4.6rem); line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.mid { font-family: var(--font-num); font-weight: 600; font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.05; font-variant-numeric: tabular-nums; }
+.note { margin: 0.2rem 0 0; font-size: 0.92rem; color: var(--muted); }
+.metric { display: grid; gap: 0.25rem; }
+.metric.computer .mid, .metric.computer .eqn { color: var(--computer); }
+.divider { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+button { font: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.55rem 0.85rem; border-radius: 7px; border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button:focus-visible, .handle:focus-visible { outline: 3px solid var(--computer); outline-offset: 2px; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.reveal { border-color: var(--computer); color: var(--computer); }
+button[aria-pressed="true"]:not(.primary) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+ol.log { margin: 0; padding-left: 1.4rem; display: grid; gap: 0.15rem; font-family: var(--font-num); font-size: 0.98rem; font-variant-numeric: tabular-nums; }
+ol.log li.best { color: var(--accent); font-weight: 600; }
+.empty { color: var(--muted); font-size: 0.92rem; margin: 0; }
+.verdict { font-weight: 600; color: var(--good); margin: 0; }
+/* plot styling */
+.grid line { stroke: var(--rule); stroke-width: 1; }
+.axis line, .axis path { stroke: var(--muted); stroke-width: 1.4; }
+.tick { fill: var(--muted); font-family: var(--font-body); font-size: 17px; }
+.axis-title { fill: var(--ink); font-family: var(--font-body); font-size: 18px; font-weight: 600; }
+.sq { fill: var(--accent-soft); stroke: var(--accent-edge); stroke-width: 1.2; }
+.resid { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 4 3; }
+.pt { fill: var(--ink); }
+.pt-label { fill: var(--muted); font-family: var(--font-body); font-size: 15px; font-weight: 600; }
+.userline { stroke: var(--accent); stroke-width: 4; stroke-linecap: round; }
+.olsline { stroke: var(--computer); stroke-width: 3.5; stroke-dasharray: 12 8; }
+.mean-cross { stroke: var(--muted); stroke-width: 1.5; }
+.handle { fill: var(--paper); stroke: var(--accent); stroke-width: 4; cursor: grab; }
+.handle.dragging { cursor: grabbing; fill: var(--accent); }
+@media (prefers-reduced-motion: no-preference) { .big { transition: color 0.2s; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <span class="eyebrow">BA 3316 · Regression, Day 1</span>
+    <h1>Beat the computer</h1>
+    <p class="lede">Drag the two orange handles to move the line. Each orange square is one residual, squared. Make the total area as small as you can.</p>
+  </header>
+
+  <div class="board">
+    <section class="plot-pane" aria-label="Scatterplot and your line">
+      <div class="switch" role="group" aria-label="Choose data">
+        <button type="button" id="ds-workers" aria-pressed="true">Six workers (worksheet)</button>
+        <button type="button" id="ds-card" aria-pressed="false">Card 1976: 40 young men</button>
+      </div>
+      <svg id="plot" viewBox="0 0 800 540" role="img" aria-labelledby="plot-desc">
+        <desc id="plot-desc">Scatterplot of the data with your adjustable line and squared residuals.</desc>
+        <defs><clipPath id="clip"><rect id="clip-rect" x="0" y="0" width="0" height="0"></rect></clipPath></defs>
+        <g id="g-grid" class="grid"></g>
+        <g id="g-axes" class="axis"></g>
+        <g clip-path="url(#clip)">
+          <g id="g-squares"></g>
+          <g id="g-resid"></g>
+          <g id="g-ols"></g>
+          <g id="g-line"></g>
+        </g>
+        <g id="g-points"></g>
+        <g id="g-handles"></g>
+      </svg>
+      <p class="hint">On a keyboard: Tab to a handle, then use the up and down arrows (hold Shift for bigger steps).</p>
+    </section>
+
+    <aside class="score" aria-live="polite">
+      <div class="metric">
+        <span class="label">Your line</span>
+        <span class="eqn" id="user-eq">ŷ = </span>
+      </div>
+      <div class="metric">
+        <span class="label">Sum of squared residuals (SSE)</span>
+        <span class="big" id="sse">0</span>
+      </div>
+      <div class="metric" id="plain-row" hidden>
+        <span class="label">Plain sum of residuals</span>
+        <span class="mid" id="plain">0</span>
+        <p class="note">Misses above the line are positive and misses below are negative, so they cancel.</p>
+      </div>
+      <hr class="divider">
+      <div class="metric computer">
+        <span class="label">The computer's line (OLS)</span>
+        <span class="mid" id="ols-sse">SSE = ?</span>
+        <span class="eqn" id="ols-eq">Hidden until you reveal it.</span>
+      </div>
+      <div class="controls">
+        <button type="button" class="primary" id="btn-log">Log this attempt</button>
+        <button type="button" class="reveal" id="btn-reveal" aria-pressed="false">Reveal the computer</button>
+        <button type="button" id="btn-plain" aria-pressed="false">Show plain sum</button>
+        <button type="button" id="btn-squares" aria-pressed="true">Squares on</button>
+        <button type="button" id="btn-flat">Flat line through the averages</button>
+        <button type="button" id="btn-reset">Reset</button>
+      </div>
+      <hr class="divider">
+      <div class="metric">
+        <span class="label">Class attempts</span>
+        <p class="empty" id="log-empty">No attempts logged yet. Get a suggestion from the room, then log it.</p>
+        <ol class="log" id="log"></ol>
+        <p class="verdict" id="verdict" hidden></p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var W = 800, H = 540, M = { l: 78, r: 24, t: 18, b: 66 };
+
+  var DATA = {
+    workers: {
+      xLabel: "Years of school", yLabel: "Hourly wage ($)",
+      x: [11, 17], y: [10, 36], xTicks: [12, 13, 14, 15, 16], yTicks: [12, 16, 20, 24, 28, 32, 36],
+      yTick: function (v) { return "$" + v; }, digits: 1, coef: [1, 2], step: 0.25,
+      labels: ["A", "B", "C", "D", "E", "F"],
+      pts: [[12, 16], [12, 20], [14, 19], [14, 23], [16, 27], [16, 33]],
+      hx: [11.5, 16.5], start: [27, 23]
+    },
+    card: {
+      xLabel: "Years of school", yLabel: "Log hourly wage",
+      x: [4, 19], y: [5.3, 7.0], xTicks: [6, 8, 10, 12, 14, 16, 18], yTicks: [5.4, 5.6, 5.8, 6.0, 6.2, 6.4, 6.6, 6.8, 7.0],
+      yTick: function (v) { return v.toFixed(1); }, digits: 3, coef: [3, 4], step: 0.01,
+      labels: null,
+      pts: [[5,5.889],[10,5.793],[10,5.974],[10,6.363],[11,6.098],[11,5.46],[12,5.756],[12,5.73],[12,5.935],[12,6.583],[12,6.333],[12,6.395],[12,6.358],[12,6.001],[12,6.078],[12,6.047],[12,5.521],[13,6.438],[13,6.504],[13,5.746],[13,6.477],[13,6.438],[14,6.397],[14,6.568],[14,6.489],[15,6.031],[15,6.225],[15,6.215],[15,6.441],[16,6.082],[16,6.54],[16,6.599],[16,6.512],[17,6.107],[17,6.071],[17,6.844],[17,6.109],[18,6.701],[18,5.82],[18,6.136]],
+      hx: [5, 18], start: [6.6, 6.0]
+    }
+  };
+
+  var state = { key: "workers", h: [0, 0], squares: true, plain: false, revealed: false, log: [] };
+  var svg = document.getElementById("plot");
+  var $ = function (id) { return document.getElementById(id); };
+
+  function ds() { return DATA[state.key]; }
+  function sx(v) { var d = ds(); return M.l + (v - d.x[0]) / (d.x[1] - d.x[0]) * (W - M.l - M.r); }
+  function sy(v) { var d = ds(); return H - M.b - (v - d.y[0]) / (d.y[1] - d.y[0]) * (H - M.t - M.b); }
+  function iy(p) { var d = ds(); return d.y[0] + (H - M.b - p) / (H - M.t - M.b) * (d.y[1] - d.y[0]); }
+  function el(tag, attrs, parent, text) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function clear(id) { var g = $(id); while (g.firstChild) g.removeChild(g.firstChild); return g; }
+  function fmt(v, digits) { var s = Math.abs(v).toFixed(digits); return (v < -0.5 * Math.pow(10, -digits) ? "−" : "") + s; }
+
+  function userLine() {
+    var d = ds(), b = (state.h[1] - state.h[0]) / (d.hx[1] - d.hx[0]);
+    return { a: state.h[0] - b * d.hx[0], b: b };
+  }
+  function olsLine() {
+    var p = ds().pts, n = p.length, mx = 0, my = 0, sxy = 0, sxx = 0;
+    p.forEach(function (q) { mx += q[0] / n; my += q[1] / n; });
+    p.forEach(function (q) { sxy += (q[0] - mx) * (q[1] - my); sxx += (q[0] - mx) * (q[0] - mx); });
+    var b = sxy / sxx;
+    return { a: my - b * mx, b: b, mx: mx, my: my };
+  }
+  function stats(line) {
+    var sse = 0, plain = 0;
+    ds().pts.forEach(function (q) { var r = q[1] - (line.a + line.b * q[0]); sse += r * r; plain += r; });
+    return { sse: sse, plain: plain };
+  }
+  function eqText(line) {
+    var d = ds();
+    return "ŷ = " + fmt(line.a, d.coef[0]) + (line.b < 0 ? " − " : " + ") + Math.abs(line.b).toFixed(d.coef[1]) + "x";
+  }
+
+  function drawFrame() {
+    var d = ds();
+    var cr = $("clip-rect");
+    cr.setAttribute("x", M.l); cr.setAttribute("y", M.t);
+    cr.setAttribute("width", W - M.l - M.r); cr.setAttribute("height", H - M.t - M.b);
+    var g = clear("g-grid"), a = clear("g-axes");
+    d.yTicks.forEach(function (t) {
+      el("line", { x1: M.l, x2: W - M.r, y1: sy(t), y2: sy(t) }, g);
+      el("text", { x: M.l - 10, y: sy(t) + 6, "text-anchor": "end", "class": "tick" }, a, d.yTick(t));
+    });
+    d.xTicks.forEach(function (t) {
+      el("line", { x1: sx(t), x2: sx(t), y1: M.t, y2: H - M.b }, g);
+      el("text", { x: sx(t), y: H - M.b + 24, "text-anchor": "middle", "class": "tick" }, a, String(t));
+    });
+    el("line", { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }, a);
+    el("line", { x1: M.l, x2: M.l, y1: M.t, y2: H - M.b }, a);
+    el("text", { x: (M.l + W - M.r) / 2, y: H - 14, "text-anchor": "middle", "class": "axis-title" }, a, d.xLabel);
+    el("text", { x: 20, y: (M.t + H - M.b) / 2, "text-anchor": "middle", "class": "axis-title",
+      transform: "rotate(-90 20 " + (M.t + H - M.b) / 2 + ")" }, a, d.yLabel);
+    var gp = clear("g-points");
+    d.pts.forEach(function (q, i) {
+      el("circle", { cx: sx(q[0]), cy: sy(q[1]), r: d.labels ? 7 : 5.5, "class": "pt" }, gp);
+      if (d.labels) el("text", { x: sx(q[0]) + 12, y: sy(q[1]) + 5, "class": "pt-label" }, gp, d.labels[i]);
+    });
+  }
+
+  function drawDynamic() {
+    var d = ds(), line = userLine(), st = stats(line), ols = olsLine();
+    // squares: residual above the line extends right, below extends left
+    var gs = clear("g-squares"), gr = clear("g-resid");
+    d.pts.forEach(function (q) {
+      var yhat = line.a + line.b * q[0], px = sx(q[0]), py = sy(q[1]), ph = sy(yhat);
+      var L = Math.abs(ph - py), top = Math.min(py, ph);
+      if (state.squares && L > 0.5) {
+        el("rect", { x: sqLeft(px, L, q[1] >= yhat), y: top, width: L, height: L, "class": "sq" }, gs);
+      }
+      el("line", { x1: px, x2: px, y1: py, y2: ph, "class": "resid" }, gr);
+    });
+    var go = clear("g-ols");
+    if (state.revealed) {
+      el("line", { x1: sx(d.x[0]), x2: sx(d.x[1]), y1: sy(ols.a + ols.b * d.x[0]), y2: sy(ols.a + ols.b * d.x[1]), "class": "olsline" }, go);
+    }
+    var gl = clear("g-line");
+    el("line", { x1: sx(d.x[0]), x2: sx(d.x[1]), y1: sy(line.a + line.b * d.x[0]), y2: sy(line.a + line.b * d.x[1]), "class": "userline" }, gl);
+    var gh = clear("g-handles");
+    [0, 1].forEach(function (i) {
+      var c = el("circle", { cx: sx(d.hx[i]), cy: sy(state.h[i]), r: 13, "class": "handle", tabindex: "0", role: "slider",
+        "aria-label": (i === 0 ? "Left" : "Right") + " handle of your line", "aria-valuenow": state.h[i].toFixed(2) }, gh);
+      bindHandle(c, i);
+    });
+
+    $("user-eq").textContent = eqText(line);
+    $("sse").textContent = st.sse.toFixed(d.digits);
+    $("plain").textContent = fmt(st.plain, d.digits + 1);
+    $("plain-row").hidden = !state.plain;
+    var os = stats(ols);
+    $("ols-sse").textContent = state.revealed ? "SSE = " + os.sse.toFixed(d.digits) : "SSE = ?";
+    $("ols-eq").textContent = state.revealed ? eqText(ols) + "  (lowest possible)" : "Hidden until you reveal it.";
+    $("btn-reveal").textContent = state.revealed ? "Hide the computer" : "Reveal the computer";
+    $("btn-reveal").setAttribute("aria-pressed", String(state.revealed));
+    $("btn-plain").setAttribute("aria-pressed", String(state.plain));
+    $("btn-plain").textContent = state.plain ? "Hide plain sum" : "Show plain sum";
+    $("btn-squares").setAttribute("aria-pressed", String(state.squares));
+    $("btn-squares").textContent = state.squares ? "Squares on" : "Squares off";
+    drawLog(os.sse);
+  }
+
+  function drawLog(olsSSE) {
+    var d = ds(), ol = $("log");
+    while (ol.firstChild) ol.removeChild(ol.firstChild);
+    $("log-empty").hidden = state.log.length > 0;
+    var best = state.log.reduce(function (m, e, i) { return m < 0 || e.sse < state.log[m].sse ? i : m; }, -1);
+    state.log.forEach(function (e, i) {
+      var li = document.createElement("li");
+      li.textContent = "SSE " + e.sse.toFixed(d.digits) + "   " + e.eq + (i === best ? "   best so far" : "");
+      if (i === best) li.className = "best";
+      ol.appendChild(li);
+    });
+    var v = $("verdict");
+    if (state.revealed && best >= 0) {
+      var gap = state.log[best].sse - olsSSE;
+      v.hidden = false;
+      v.textContent = gap < Math.pow(10, -d.digits) ? "You matched the computer. Nobody can go lower." :
+        "Best class attempt is " + gap.toFixed(d.digits) + " above the computer. Nobody can go below " + olsSSE.toFixed(d.digits) + ".";
+    } else { v.hidden = true; }
+  }
+
+  function sqLeft(px, L, above) {
+    var right = above;
+    if (right && px + L > W - M.r) right = false;
+    else if (!right && px - L < M.l) right = true;
+    return right ? px : px - L;
+  }
+  function clampY(v) { var d = ds(); return Math.max(d.y[0], Math.min(d.y[1], v)); }
+  function toSvgY(evt) {
+    var m = svg.getScreenCTM();
+    if (!m) return null;
+    return new DOMPoint(evt.clientX, evt.clientY).matrixTransform(m.inverse()).y;
+  }
+  function bindHandle(c, i) {
+    c.addEventListener("pointerdown", function (evt) {
+      evt.preventDefault();
+      c.setPointerCapture(evt.pointerId);
+      c.classList.add("dragging");
+      var move = function (e) {
+        var y = toSvgY(e);
+        if (y == null) return;
+        state.h[i] = clampY(iy(y));
+        c.setAttribute("cy", sy(state.h[i]));
+        drawDynamicSoon(i);
+      };
+      var up = function () {
+        c.removeEventListener("pointermove", move);
+        c.removeEventListener("pointerup", up);
+        c.removeEventListener("pointercancel", up);
+        drawDynamic();
+      };
+      c.addEventListener("pointermove", move);
+      c.addEventListener("pointerup", up);
+      c.addEventListener("pointercancel", up);
+    });
+    c.addEventListener("keydown", function (evt) {
+      var d = ds(), step = d.step * (evt.shiftKey ? 4 : 1);
+      if (evt.key === "ArrowUp" || evt.key === "ArrowRight") state.h[i] = clampY(state.h[i] + step);
+      else if (evt.key === "ArrowDown" || evt.key === "ArrowLeft") state.h[i] = clampY(state.h[i] - step);
+      else return;
+      evt.preventDefault();
+      drawDynamic();
+      var again = $("g-handles").children[i];
+      if (again) again.focus();
+    });
+  }
+  // While dragging, redraw everything except the handle being held so pointer capture survives.
+  var pending = false, heldIndex = -1;
+  function drawDynamicSoon(i) {
+    heldIndex = i;
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(function () { pending = false; drawWhileDragging(); });
+  }
+  function drawWhileDragging() {
+    var d = ds(), line = userLine(), st = stats(line);
+    var gs = clear("g-squares"), gr = clear("g-resid");
+    d.pts.forEach(function (q) {
+      var yhat = line.a + line.b * q[0], px = sx(q[0]), py = sy(q[1]), ph = sy(yhat);
+      var L = Math.abs(ph - py), top = Math.min(py, ph);
+      if (state.squares && L > 0.5) el("rect", { x: sqLeft(px, L, q[1] >= yhat), y: top, width: L, height: L, "class": "sq" }, gs);
+      el("line", { x1: px, x2: px, y1: py, y2: ph, "class": "resid" }, gr);
+    });
+    var gl = clear("g-line");
+    el("line", { x1: sx(d.x[0]), x2: sx(d.x[1]), y1: sy(line.a + line.b * d.x[0]), y2: sy(line.a + line.b * d.x[1]), "class": "userline" }, gl);
+    var other = $("g-handles").children[1 - heldIndex];
+    if (other) other.setAttribute("cy", sy(state.h[1 - heldIndex]));
+    $("user-eq").textContent = eqText(line);
+    $("sse").textContent = st.sse.toFixed(d.digits);
+    $("plain").textContent = fmt(st.plain, d.digits + 1);
+  }
+
+  function load(key) {
+    state.key = key;
+    state.h = DATA[key].start.slice();
+    state.revealed = false; state.plain = false; state.log = [];
+    $("ds-workers").setAttribute("aria-pressed", String(key === "workers"));
+    $("ds-card").setAttribute("aria-pressed", String(key === "card"));
+    drawFrame(); drawDynamic();
+  }
+
+  $("ds-workers").addEventListener("click", function () { load("workers"); });
+  $("ds-card").addEventListener("click", function () { load("card"); });
+  $("btn-reveal").addEventListener("click", function () { state.revealed = !state.revealed; drawDynamic(); });
+  $("btn-plain").addEventListener("click", function () { state.plain = !state.plain; drawDynamic(); });
+  $("btn-squares").addEventListener("click", function () { state.squares = !state.squares; drawDynamic(); });
+  $("btn-reset").addEventListener("click", function () { load(state.key); });
+  $("btn-flat").addEventListener("click", function () {
+    var o = olsLine(); state.h = [o.my, o.my]; state.plain = true; drawDynamic();
+  });
+  $("btn-log").addEventListener("click", function () {
+    var line = userLine();
+    state.log.push({ sse: stats(line).sse, eq: eqText(line) });
+    drawDynamic();
+  });
+
+  load("workers");
+})();
+</script>
+</body>
+</html>
