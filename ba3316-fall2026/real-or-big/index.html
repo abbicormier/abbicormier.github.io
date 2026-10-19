@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Site icons. Declared explicitly because this page is a static file and does not
+     go through _includes/head.html. Keep the ?v= in step with _includes/head.html. -->
+<link rel="icon" href="/favicon.ico?v=isu-2026c" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg?v=isu-2026c">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=isu-2026c">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png?v=isu-2026c">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real or Big? &middot; BA 3316</title>
+<meta name="description" content="BA 3316 in-class tool, Idaho State University, Fall 2026. Four studies shown as 95% intervals against a too-small-to-matter band, to tell statistically significant from economically big.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+/* Layout: projector-first board, same family as the other regression tools. Interval chart left, verdicts right. */
+:root {
+  --paper: #FBFAF8;
+  --panel: #F2EFEC;
+  --ink: #1F1B18;
+  --muted: #625B55;
+  --rule: #DEDAD5;
+  --accent: #D4441C;
+  --band: rgba(98, 91, 85, 0.13);
+  --ci: #1F4E79;
+  --sel: #D4441C;
+  --yes: #2E6B3A;
+  --no: #B3261E;
+  --maybe: #8A5A00;
+  --font-display: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-num: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #191614; --panel: #24201D; --ink: #F1ECE7; --muted: #ADA49C; --rule: #3B3430;
+    --accent: #F47920; --band: rgba(241, 236, 231, 0.1); --ci: #8DBDE8; --sel: #F47920;
+    --yes: #7FC48D; --no: #F08A80; --maybe: #E3B45C; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #191614; --panel: #24201D; --ink: #F1ECE7; --muted: #ADA49C; --rule: #3B3430;
+  --accent: #F47920; --band: rgba(241, 236, 231, 0.1); --ci: #8DBDE8; --sel: #F47920;
+  --yes: #7FC48D; --no: #F08A80; --maybe: #E3B45C; color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 1rem; line-height: 1.45; }
+.wrap { max-width: 88rem; margin: 0 auto; padding-inline: clamp(16px, 3vw, 40px); padding-block: 1.25rem 2rem; display: grid; gap: 1rem; }
+header { display: grid; gap: 0.2rem; }
+.eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.25rem); max-width: 64ch; }
+.row { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+button { font: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.55rem 0.85rem; border-radius: 7px; border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--ci); outline-offset: 2px; }
+button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.board { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: clamp(1rem, 2vw, 2rem); align-items: start; }
+@media (max-width: 860px) { .board { grid-template-columns: minmax(0, 1fr); } }
+.pane { display: grid; gap: 0.7rem; min-width: 0; }
+svg { width: 100%; height: auto; display: block; }
+.score { background: var(--panel); border-radius: 10px; padding: clamp(1rem, 2vw, 1.5rem); display: grid; gap: 1rem; min-width: 0; }
+.label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.metric { display: grid; gap: 0.25rem; }
+.study { font-family: var(--font-display); font-size: clamp(1.25rem, 2.4vw, 1.7rem); line-height: 1.15; margin: 0; }
+.nums { font-family: var(--font-num); font-size: clamp(1rem, 1.7vw, 1.25rem); font-variant-numeric: tabular-nums; line-height: 1.6; }
+.verdict { display: grid; gap: 0.15rem; padding: 0.7rem 0.85rem; border-radius: 8px; border: 2px solid var(--rule); background: var(--paper); }
+.verdict .v { font-size: clamp(1.2rem, 2.3vw, 1.6rem); font-weight: 700; }
+.v.yes { color: var(--yes); } .v.no { color: var(--no); } .v.maybe { color: var(--maybe); }
+.hidden-v .v { color: var(--rule); }
+.why { margin: 0; font-size: 0.95rem; color: var(--muted); }
+.slider { display: grid; gap: 0.3rem; }
+.slider input { width: 100%; accent-color: var(--accent); }
+.slider-row { display: flex; justify-content: space-between; font-family: var(--font-num); color: var(--muted); font-size: 0.9rem; }
+.grid line { stroke: var(--rule); stroke-width: 1; }
+.tick { fill: var(--muted); font-family: var(--font-body); font-size: 17px; }
+.axis-title { fill: var(--ink); font-family: var(--font-body); font-size: 18px; font-weight: 600; }
+.band { fill: var(--band); }
+.band-label { fill: var(--muted); font-family: var(--font-body); font-size: 15px; font-style: italic; }
+.zero { stroke: var(--ink); stroke-width: 2; }
+.ci { stroke: var(--ci); stroke-width: 5; stroke-linecap: round; }
+.ci.sel { stroke: var(--sel); stroke-width: 7; }
+.est { fill: var(--ci); } .est.sel { fill: var(--sel); }
+.row-label { fill: var(--ink); font-family: var(--font-body); font-size: 17px; font-weight: 600; }
+.row-label.sel { fill: var(--sel); }
+.hit { fill: transparent; cursor: pointer; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <span class="eyebrow">BA 3316 · Regression, Day 4</span>
+    <h1>Real or big?</h1>
+    <p class="lede">Two different questions. <b>Real:</b> is the estimate distinguishable from zero (does its 95% interval exclude zero)? <b>Big:</b> is it large enough to matter? Pick a study, vote, then reveal.</p>
+  </header>
+
+  <section class="board">
+    <div class="pane">
+      <div class="row" role="group" aria-label="Choose a study" id="study-buttons"></div>
+      <svg id="plot" viewBox="0 0 800 430" role="img" aria-label="Estimates with 95 percent intervals, a zero line, and a too-small-to-matter band"></svg>
+      <div class="slider">
+        <label class="label" for="nmult">Sample size for the highlighted study</label>
+        <input type="range" id="nmult" min="-4" max="8" step="1" value="0">
+        <div class="slider-row"><span>1/16 as many</span><span id="nmult-val">as reported</span><span>256 times as many</span></div>
+      </div>
+      <div class="slider">
+        <label class="label" for="thresh">Smallest effect that would matter</label>
+        <input type="range" id="thresh" min="0.5" max="5" step="0.5" value="2">
+        <div class="slider-row"><span>0.5%</span><span id="thresh-val">2%</span><span>5%</span></div>
+      </div>
+    </div>
+    <aside class="score" aria-live="polite">
+      <p class="study" id="s-name"></p>
+      <div class="nums" id="s-nums"></div>
+      <div class="verdict" id="box-real">
+        <span class="label">Real? (statistically significant)</span>
+        <span class="v" id="v-real"></span>
+        <p class="why" id="w-real"></p>
+      </div>
+      <div class="verdict" id="box-big">
+        <span class="label">Big? (economically important)</span>
+        <span class="v" id="v-big"></span>
+        <p class="why" id="w-big"></p>
+      </div>
+      <div class="row">
+        <button type="button" id="reveal" aria-pressed="false">Reveal verdicts</button>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var $ = function (id) { return document.getElementById(id); };
+  // Estimates and standard errors in percent.
+  var STUDIES = [
+    { id: "coffee", short: "Coffee", name: "Coffee drinkers, 1,000,000 workers", b: 0.1, se: 0.02 },
+    { id: "small", short: "30 men", name: "Return to school, a study of 30 men", b: 8.0, se: 4.7 },
+    { id: "card", short: "Card", name: "Return to school, Card's 3,010 men", b: 5.2, se: 0.29 },
+    { id: "zero", short: "Precise zero", name: "Office plants and pay, 200,000 workers", b: 0.2, se: 0.3 }
+  ];
+  var state = { sel: 0, reveal: false, mult: [0, 0, 0, 0] };
+  var W = 800, H = 430, M = { l: 130, r: 24, t: 30, b: 62 }, XR = [-6, 18];
+  function sx(v) { return M.l + (v - XR[0]) / (XR[1] - XR[0]) * (W - M.l - M.r); }
+  function rowY(k) { return M.t + 30 + k * ((H - M.t - M.b - 40) / (STUDIES.length - 1)); }
+  function el(tag, attrs, parent, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function phi(z) { // standard normal CDF (Abramowitz-Stegun 7.1.26 via erf)
+    var t = 1 / (1 + 0.3275911 * Math.abs(z) / Math.SQRT2), y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-z * z / 2);
+    return z >= 0 ? (1 + y) / 2 : (1 - y) / 2;
+  }
+  function se(k) { return STUDIES[k].se / Math.sqrt(Math.pow(2, state.mult[k])); }
+  function judge(k) {
+    var s = STUDIES[k], e = se(k), lo = s.b - 1.96 * e, hi = s.b + 1.96 * e, t = s.b / e, p = 2 * (1 - phi(Math.abs(t)));
+    var th = +$("thresh").value, real = lo > 0 || hi < 0, big;
+    if (lo >= th || hi <= -th) big = "yes"; else if (lo > -th && hi < th) big = "no"; else big = "maybe";
+    return { lo: lo, hi: hi, t: t, p: p, real: real, big: big, se: e, th: th };
+  }
+  function fmt(v, d) { return (v < 0 ? "−" : "") + Math.abs(v).toFixed(d) + "%"; }
+  function pfmt(p) { return p < 0.0001 ? "< 0.0001" : p.toFixed(p < 0.01 ? 4 : 3); }
+
+  function drawButtons() {
+    var box = $("study-buttons"); box.innerHTML = "";
+    STUDIES.forEach(function (s, k) {
+      var b = document.createElement("button"); b.type = "button"; b.textContent = s.short;
+      b.setAttribute("aria-pressed", String(k === state.sel));
+      b.addEventListener("click", function () { state.sel = k; state.reveal = false; render(); });
+      box.appendChild(b);
+    });
+  }
+  function render() {
+    drawButtons();
+    var svg = $("plot"); while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var th = +$("thresh").value;
+    var g = el("g", { "class": "grid" }, svg);
+    [-5, 0, 5, 10, 15].forEach(function (t) {
+      el("line", { x1: sx(t), x2: sx(t), y1: M.t, y2: H - M.b }, g);
+      el("text", { x: sx(t), y: H - M.b + 24, "text-anchor": "middle", "class": "tick" }, svg, (t > 0 ? "+" : t < 0 ? "−" : "") + Math.abs(t) + "%");
+    });
+    el("rect", { x: sx(-th), y: M.t, width: sx(th) - sx(-th), height: H - M.t - M.b, "class": "band" }, svg);
+    el("text", { x: sx(th) + 6, y: M.t + 14, "class": "band-label" }, svg, "too small to matter");
+    el("line", { x1: sx(0), x2: sx(0), y1: M.t, y2: H - M.b, "class": "zero" }, svg);
+    el("text", { x: (M.l + W - M.r) / 2, y: H - 12, "text-anchor": "middle", "class": "axis-title" }, svg, "Estimated effect, with 95% interval");
+    STUDIES.forEach(function (s, k) {
+      var j = judge(k), y = rowY(k), cls = k === state.sel ? " sel" : "";
+      var lo = Math.max(j.lo, XR[0]), hi = Math.min(j.hi, XR[1]);
+      el("line", { x1: sx(lo), x2: sx(hi), y1: y, y2: y, "class": "ci" + cls }, svg);
+      el("circle", { cx: sx(s.b), cy: y, r: k === state.sel ? 8 : 6, "class": "est" + cls }, svg);
+      el("text", { x: M.l - 12, y: y + 6, "text-anchor": "end", "class": "row-label" + cls }, svg, s.short);
+      var hit = el("rect", { x: 0, y: y - 22, width: W, height: 44, "class": "hit" }, svg);
+      hit.addEventListener("click", function () { state.sel = k; state.reveal = false; render(); });
+    });
+    var s = STUDIES[state.sel], j = judge(state.sel), m = state.mult[state.sel];
+    $("nmult").value = m;
+    $("nmult-val").textContent = m === 0 ? "as reported" : (m > 0 ? Math.pow(2, m) + " times as many" : "1/" + Math.pow(2, -m) + " as many");
+    $("thresh-val").textContent = th + "%";
+    $("s-name").textContent = s.name;
+    $("s-nums").innerHTML = "estimate " + fmt(s.b, s.b < 1 ? 2 : 1) + " &nbsp; SE " + fmt(j.se, j.se < 0.1 ? 3 : 2) +
+      "<br>95% interval " + fmt(j.lo, 2) + " to " + fmt(j.hi, 2) + "<br>t = " + j.t.toFixed(1) + " &nbsp; p " + (pfmt(j.p).charAt(0) === "<" ? "" : "= ") + pfmt(j.p);
+    var r = state.reveal;
+    $("box-real").className = "verdict" + (r ? "" : " hidden-v");
+    $("box-big").className = "verdict" + (r ? "" : " hidden-v");
+    $("v-real").textContent = r ? (j.real ? "Yes" : "No") : "?";
+    $("v-real").className = "v " + (r ? (j.real ? "yes" : "no") : "");
+    $("w-real").textContent = r ? (j.real ? "The interval excludes zero (|t| = " + Math.abs(j.t).toFixed(1) + " > 1.96)."
+                                          : "The interval includes zero (|t| = " + Math.abs(j.t).toFixed(1) + " < 1.96). That is not proof of no effect.") : "Vote first.";
+    var bigText = { yes: "Yes", no: "No", maybe: "Can't tell" }[j.big];
+    $("v-big").textContent = r ? bigText : "?";
+    $("v-big").className = "v " + (r ? j.big : "");
+    $("w-big").textContent = !r ? "Vote first." : j.big === "yes" ? "The whole interval is beyond " + th + "%: large enough to matter."
+      : j.big === "no" ? "The whole interval sits inside ±" + th + "%: whatever it is, it's too small to matter."
+      : "The interval reaches into the band and beyond it. The data can't say whether it matters.";
+    $("reveal").setAttribute("aria-pressed", String(r));
+    $("reveal").textContent = r ? "Hide verdicts" : "Reveal verdicts";
+  }
+  $("reveal").addEventListener("click", function () { state.reveal = !state.reveal; render(); });
+  $("nmult").addEventListener("input", function () { state.mult[state.sel] = +$("nmult").value; render(); });
+  $("thresh").addEventListener("input", render);
+  render();
+})();
+</script>
+</body>
+</html>
