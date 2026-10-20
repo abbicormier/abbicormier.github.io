@@ -84,6 +84,9 @@ svg { width: 100%; height: auto; display: block; }
 .ci { stroke: var(--ci); stroke-width: 5; stroke-linecap: round; }
 .ci.sel { stroke: var(--sel); stroke-width: 7; }
 .est { fill: var(--ci); } .est.sel { fill: var(--sel); }
+.truth { stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 4 3; }
+.truth-label { fill: var(--muted); font-family: var(--font-body); font-size: 14px; font-style: italic; }
+.note { margin: 0; font-size: 0.9rem; color: var(--muted); }
 .row-label { fill: var(--ink); font-family: var(--font-body); font-size: 17px; font-weight: 600; }
 .row-label.sel { fill: var(--sel); }
 .hit { fill: transparent; cursor: pointer; }
@@ -94,7 +97,7 @@ svg { width: 100%; height: auto; display: block; }
   <header>
     <span class="eyebrow">BA 3316 · Regression, Day 4</span>
     <h1>Real or big?</h1>
-    <p class="lede">Two different questions. <b>Real:</b> is the estimate distinguishable from zero (does its 95% interval exclude zero)? <b>Big:</b> is it large enough to matter? Pick a study, vote, then reveal.</p>
+    <p class="lede">Two different questions. <b>Real:</b> is the estimate distinguishable from zero (does its 95% interval exclude zero)? <b>Big:</b> is it large enough to matter? Pick a study, vote, then reveal. Change the sample size and the tool draws more (or less) data, so the estimate moves and the interval changes, just as it would with real data.</p>
   </header>
 
   <section class="board">
@@ -104,8 +107,14 @@ svg { width: 100%; height: auto; display: block; }
       <div class="slider">
         <label class="label" for="nmult">Sample size for the highlighted study</label>
         <input type="range" id="nmult" min="-4" max="8" step="1" value="0">
-        <div class="slider-row"><span>1/16 as many</span><span id="nmult-val">as reported</span><span>256 times as many</span></div>
+        <div class="slider-row"><span>1/16 as many</span><span id="nmult-val">as published</span><span>256 times as many</span></div>
       </div>
+      <div class="row">
+        <button type="button" id="redraw">Draw another sample</button>
+        <button type="button" id="published">Back to the published study</button>
+        <button type="button" id="truth" aria-pressed="false">Show the estimand</button>
+      </div>
+      <p class="note">More data is simulated: each doubling adds a new batch of people drawn from the true process, so the original sample's quirks wash out. Less data is a random subsample. The true effect is something you only get to see in a simulation.</p>
       <div class="slider">
         <label class="label" for="thresh">Smallest effect that would matter</label>
         <input type="range" id="thresh" min="0.5" max="5" step="0.5" value="2">
@@ -137,14 +146,54 @@ svg { width: 100%; height: auto; display: block; }
   "use strict";
   var NS = "http://www.w3.org/2000/svg";
   var $ = function (id) { return document.getElementById(id); };
-  // Estimates and standard errors in percent.
+  // Published estimates and standard errors in percent. `truth` is the estimand the simulation draws
+  // new data from (both return-to-school studies share one); `seed` fixes each study's default draws.
   var STUDIES = [
-    { id: "coffee", short: "Coffee", name: "Coffee drinkers, 1,000,000 workers", b: 0.1, se: 0.02 },
-    { id: "small", short: "30 men", name: "Return to school, a study of 30 men", b: 8.0, se: 4.7 },
-    { id: "card", short: "Card", name: "Return to school, Card's 3,010 men", b: 5.2, se: 0.29 },
-    { id: "zero", short: "Precise zero", name: "Office plants and pay, 200,000 workers", b: 0.2, se: 0.3 }
+    { id: "coffee", short: "Coffee", name: "Coffee drinkers, 1,000,000 workers", b: 0.1, se: 0.02, truth: 0.1, seed: 11 },
+    { id: "small", short: "30 men", name: "Return to school, a study of 30 men", b: 8.0, se: 4.7, truth: 5.2, seed: 23 },
+    { id: "card", short: "Card", name: "Return to school, Card's 3,010 men", b: 5.2, se: 0.29, truth: 5.2, seed: 37 },
+    { id: "zero", short: "Precise zero", name: "Office plants and pay, 200,000 workers", b: 0.2, se: 0.3, truth: 0.0, seed: 41 }
   ];
-  var state = { sel: 0, reveal: false, mult: [0, 0, 0, 0] };
+  var KMIN = -4, KMAX = 8;
+  var state = { sel: 0, reveal: false, truth: false, mult: [0, 0, 0, 0], draw: [0, 0, 0, 0] };
+  var paths = {};
+
+  // Seeded random numbers, so a given slider position always shows the same sample.
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function normals(rng) {
+    return function () {
+      var u = 0, v = 0;
+      while (u === 0) u = rng();
+      while (v === 0) v = rng();
+      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    };
+  }
+  // The estimate at each sample size, for one draw of one study.
+  //   k = 0: the published estimate (draw 0) or a fresh sample of the same size (later draws).
+  //   k > 0: each doubling adds a batch as big as the data so far, drawn from the true process,
+  //          and the pooled estimate averages the two halves.
+  //   k < 0: a random subsample; halving adds noise with variance se_k^2 - se_(k+1)^2.
+  function path(k) {
+    var key = k + ":" + state.draw[k];
+    if (paths[key]) return paths[key];
+    var s = STUDIES[k], z = normals(mulberry32(s.seed * 1009 + state.draw[k] * 7919)), b = {};
+    b[0] = state.draw[k] === 0 ? s.b : s.truth + s.se * z();
+    for (var j = 1; j <= KMAX; j++) {
+      var batch = s.truth + (s.se / Math.sqrt(Math.pow(2, j - 1))) * z();
+      b[j] = (b[j - 1] + batch) / 2;
+    }
+    for (var i = -1; i >= KMIN; i--) b[i] = b[i + 1] + s.se * Math.sqrt(Math.pow(2, -i - 1)) * z();
+    paths[key] = b;
+    return b;
+  }
+  function est(k) { return path(k)[state.mult[k]]; }
   var W = 800, H = 430, M = { l: 130, r: 24, t: 30, b: 62 }, XR = [-6, 18];
   function sx(v) { return M.l + (v - XR[0]) / (XR[1] - XR[0]) * (W - M.l - M.r); }
   function rowY(k) { return M.t + 30 + k * ((H - M.t - M.b - 40) / (STUDIES.length - 1)); }
@@ -161,11 +210,12 @@ svg { width: 100%; height: auto; display: block; }
   }
   function se(k) { return STUDIES[k].se / Math.sqrt(Math.pow(2, state.mult[k])); }
   function judge(k) {
-    var s = STUDIES[k], e = se(k), lo = s.b - 1.96 * e, hi = s.b + 1.96 * e, t = s.b / e, p = 2 * (1 - phi(Math.abs(t)));
+    var b = est(k), e = se(k), lo = b - 1.96 * e, hi = b + 1.96 * e, t = b / e, p = 2 * (1 - phi(Math.abs(t)));
     var th = +$("thresh").value, real = lo > 0 || hi < 0, big;
     if (lo >= th || hi <= -th) big = "yes"; else if (lo > -th && hi < th) big = "no"; else big = "maybe";
-    return { lo: lo, hi: hi, t: t, p: p, real: real, big: big, se: e, th: th };
+    return { b: b, lo: lo, hi: hi, t: t, p: p, real: real, big: big, se: e, th: th };
   }
+  function clampX(v) { return Math.min(Math.max(v, XR[0]), XR[1]); }
   function fmt(v, d) { return (v < 0 ? "−" : "") + Math.abs(v).toFixed(d) + "%"; }
   function pfmt(p) { return p < 0.0001 ? "< 0.0001" : p.toFixed(p < 0.01 ? 4 : 3); }
 
@@ -194,19 +244,30 @@ svg { width: 100%; height: auto; display: block; }
     STUDIES.forEach(function (s, k) {
       var j = judge(k), y = rowY(k), cls = k === state.sel ? " sel" : "";
       var lo = Math.max(j.lo, XR[0]), hi = Math.min(j.hi, XR[1]);
+      if (state.truth) {
+        el("line", { x1: sx(s.truth), x2: sx(s.truth), y1: y - 18, y2: y + 18, "class": "truth" }, svg);
+        if (k === state.sel) el("text", { x: sx(s.truth) + 6, y: y - 22, "class": "truth-label" }, svg, "true effect");
+      }
       el("line", { x1: sx(lo), x2: sx(hi), y1: y, y2: y, "class": "ci" + cls }, svg);
-      el("circle", { cx: sx(s.b), cy: y, r: k === state.sel ? 8 : 6, "class": "est" + cls }, svg);
+      el("circle", { cx: sx(clampX(j.b)), cy: y, r: k === state.sel ? 8 : 6, "class": "est" + cls }, svg);
       el("text", { x: M.l - 12, y: y + 6, "text-anchor": "end", "class": "row-label" + cls }, svg, s.short);
       var hit = el("rect", { x: 0, y: y - 22, width: W, height: 44, "class": "hit" }, svg);
       hit.addEventListener("click", function () { state.sel = k; state.reveal = false; render(); });
     });
-    var s = STUDIES[state.sel], j = judge(state.sel), m = state.mult[state.sel];
+    var s = STUDIES[state.sel], j = judge(state.sel), m = state.mult[state.sel], d = state.draw[state.sel];
+    var published = m === 0 && d === 0;
     $("nmult").value = m;
-    $("nmult-val").textContent = m === 0 ? "as reported" : (m > 0 ? Math.pow(2, m) + " times as many" : "1/" + Math.pow(2, -m) + " as many");
+    $("nmult-val").textContent = m === 0 ? (d === 0 ? "as published" : "same size, new sample")
+      : (m > 0 ? Math.pow(2, m) + " times as many" : "1/" + Math.pow(2, -m) + " as many");
     $("thresh-val").textContent = th + "%";
     $("s-name").textContent = s.name;
-    $("s-nums").innerHTML = "estimate " + fmt(s.b, s.b < 1 ? 2 : 1) + " &nbsp; SE " + fmt(j.se, j.se < 0.1 ? 3 : 2) +
-      "<br>95% interval " + fmt(j.lo, 2) + " to " + fmt(j.hi, 2) + "<br>t = " + j.t.toFixed(1) + " &nbsp; p " + (pfmt(j.p).charAt(0) === "<" ? "" : "= ") + pfmt(j.p);
+    $("s-nums").innerHTML = (published ? "published study" : "simulated sample" + (d > 0 ? " (draw " + (d + 1) + ")" : "")) +
+      "<br>estimate " + fmt(j.b, Math.abs(j.b) < 1 ? 2 : 1) + " &nbsp; SE " + fmt(j.se, j.se < 0.1 ? 3 : 2) +
+      "<br>95% interval " + fmt(j.lo, 2) + " to " + fmt(j.hi, 2) + "<br>t = " + j.t.toFixed(1) + " &nbsp; p " + (pfmt(j.p).charAt(0) === "<" ? "" : "= ") + pfmt(j.p) +
+      (state.truth ? "<br>true effect (simulation only) " + fmt(s.truth, Math.abs(s.truth) < 1 ? 2 : 1) : "");
+    $("published").disabled = d === 0 && m === 0;
+    $("truth").setAttribute("aria-pressed", String(state.truth));
+    $("truth").textContent = state.truth ? "Hide the estimand" : "Show the estimand";
     var r = state.reveal;
     $("box-real").className = "verdict" + (r ? "" : " hidden-v");
     $("box-big").className = "verdict" + (r ? "" : " hidden-v");
@@ -225,6 +286,9 @@ svg { width: 100%; height: auto; display: block; }
   }
   $("reveal").addEventListener("click", function () { state.reveal = !state.reveal; render(); });
   $("nmult").addEventListener("input", function () { state.mult[state.sel] = +$("nmult").value; render(); });
+  $("redraw").addEventListener("click", function () { state.draw[state.sel] += 1; render(); });
+  $("published").addEventListener("click", function () { state.draw[state.sel] = 0; state.mult[state.sel] = 0; render(); });
+  $("truth").addEventListener("click", function () { state.truth = !state.truth; render(); });
   $("thresh").addEventListener("input", render);
   render();
 })();
