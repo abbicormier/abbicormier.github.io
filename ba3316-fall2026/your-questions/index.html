@@ -1,0 +1,1538 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Your Regression Questions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+/* Layout: a reading page (one column of answer cards) in the same family as the regression tools. */
+:root {
+  --paper: #FBFAF8;
+  --panel: #F2EFEC;
+  --ink: #1F1B18;
+  --muted: #625B55;
+  --rule: #DEDAD5;
+  --accent: #D4441C;
+  --ci: #1F4E79;
+  --band: rgba(98, 91, 85, 0.13);
+  --yes: #2E6B3A;
+  --no: #B3261E;
+  --maybe: #8A5A00;
+  --fill: #E8EEF5;
+  --warn: #FBEFE6;
+  --bias: #7A3E9D;
+  --samp: #2E6B3A;
+  --hl: #FFF1B8;
+  --font-display: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-num: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #191614; --panel: #24201D; --ink: #F1ECE7; --muted: #ADA49C; --rule: #3B3430;
+    --accent: #F47920; --ci: #8DBDE8; --band: rgba(241, 236, 231, 0.1);
+    --yes: #7FC48D; --no: #F08A80; --maybe: #E3B45C; color-scheme: dark;
+    --fill: #1E2A36; --warn: #33231A; --bias: #C9A0E8; --samp: #7FC48D; --hl: #4A3F14;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #191614; --panel: #24201D; --ink: #F1ECE7; --muted: #ADA49C; --rule: #3B3430;
+  --accent: #F47920; --ci: #8DBDE8; --band: rgba(241, 236, 231, 0.1);
+  --yes: #7FC48D; --no: #F08A80; --maybe: #E3B45C; color-scheme: dark;
+  --fill: #1E2A36; --warn: #33231A; --bias: #C9A0E8; --samp: #7FC48D; --hl: #4A3F14;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: 4.5rem; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.55; }
+.wrap { max-width: 56rem; margin: 0 auto; padding-inline: clamp(16px, 3vw, 40px); padding-block: 1.5rem 3rem; }
+header { display: grid; gap: 0.35rem; margin-bottom: 1rem; }
+.eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-size: clamp(1.5rem, 3.4vw, 2rem); line-height: 1.15; margin: 0.2rem 0 0; text-wrap: balance; }
+h3 { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.25; margin: 0; text-wrap: balance; }
+p { margin: 0; max-width: 70ch; }
+.lede { color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.25rem); }
+.note { background: var(--panel); border-radius: 10px; padding: 1rem 1.2rem; display: grid; gap: 0.5rem; }
+nav.jump { position: sticky; top: 0; z-index: 5; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 0.55rem 0; margin: 1.25rem 0 0.5rem; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+nav.jump a { font-size: 0.9rem; font-weight: 600; color: var(--ink); text-decoration: none; padding: 0.25rem 0.6rem; border: 1.5px solid var(--rule); border-radius: 999px; }
+nav.jump a:hover { border-color: var(--muted); }
+nav.jump a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.toc { border: 1.5px solid var(--rule); border-radius: 10px; padding: 0.9rem 1.1rem; margin-top: 1.25rem; display: grid; gap: 0.6rem; }
+.toc h2 { font-size: 1.3rem; }
+.toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.9rem 1.5rem; }
+.toc-grid > div { display: grid; gap: 0.25rem; align-content: start; }
+.toc-sec { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent); text-decoration: none; width: fit-content; }
+.toc ul { list-style: none; padding: 0; gap: 0.25rem; }
+.toc li a { color: var(--ink); text-decoration-color: var(--rule); text-underline-offset: 3px; }
+.toc li a:hover { text-decoration-color: currentColor; }
+.fits { display: inline-block; margin-top: 0.35rem; font-size: 0.9rem; font-weight: 600; }
+@media (max-width: 600px) { nav.jump { flex-wrap: nowrap; overflow-x: auto; } nav.jump a { flex: none; } }
+section.part { margin-top: 2.25rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+article.q { border-top: 2px solid var(--rule); padding-top: 1.1rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.8rem; }
+.ex, .panel, .check, details > div, .asked, .note { grid-template-columns: minmax(0, 1fr); }
+.asked { border-left: 4px solid var(--accent); background: var(--panel); border-radius: 0 8px 8px 0; padding: 0.6rem 0.9rem; display: grid; gap: 0.35rem; }
+.asked .label { margin-bottom: 0.1rem; }
+.asked p { font-style: italic; }
+.label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.ex { border: 1.5px solid var(--rule); border-radius: 10px; padding: 0.9rem 1rem; display: grid; gap: 0.6rem; }
+.ex > .label { color: var(--ci); }
+.eq { font-family: var(--font-num); font-size: clamp(0.95rem, 2.2vw, 1.15rem); font-weight: 600; background: var(--panel); border-radius: 8px; padding: 0.6rem 0.9rem; overflow-x: auto; white-space: nowrap; max-width: 100%; }
+code, .mono { font-family: var(--font-num); font-size: 0.92em; }
+.mono sub, .eq sub { font-family: var(--font-body); font-weight: 600; }
+.hat { position: relative; display: inline-block; }
+.hat::after { content: "^"; position: absolute; left: 0; right: 0; top: -0.55em; text-align: center; font-size: 0.85em; }
+.tld { position: relative; display: inline-block; }
+.tld::after { content: "~"; position: absolute; left: 0; right: 0; text-align: center; line-height: 1; top: -0.45em; font-size: 1.15em; font-weight: 700; }
+.hatw { position: relative; display: inline-block; line-height: 1; }
+.hatw::after { content: ""; position: absolute; left: 0.05em; right: 0.05em; top: -0.34em; height: 0.3em; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpolyline points='3,9 50,1.5 97,9' fill='none' stroke='black' stroke-width='1.4' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpolyline points='3,9 50,1.5 97,9' fill='none' stroke='black' stroke-width='1.4' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+ol, ul { margin: 0; padding-left: 1.4rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.35rem; max-width: 70ch; }
+a { color: var(--ci); }
+.tool { font-size: 0.95rem; font-weight: 600; }
+.check { border-top: 1px dashed var(--rule); padding-top: 0.7rem; display: grid; gap: 0.4rem; }
+.check .cq b { color: var(--accent); }
+details summary { cursor: pointer; font-weight: 600; color: var(--ci); width: fit-content; }
+details[open] summary { margin-bottom: 0.35rem; }
+details > div { display: grid; gap: 0.4rem; }
+.tablewrap { overflow-x: auto; max-width: 100%; }
+table { border-collapse: collapse; font-size: 0.95rem; }
+th, td { padding: 0.35rem 0.6rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+th { font-weight: 600; }
+td.num, th.num { text-align: right; font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+tr.sum td { border-top: 2px solid var(--ink); font-weight: 600; }
+.row { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+button { font: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.45rem 0.8rem; border-radius: 7px; border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button:focus-visible, input:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid var(--ci); outline-offset: 2px; }
+button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.panel { background: var(--panel); border-radius: 10px; padding: clamp(0.8rem, 2vw, 1.2rem); display: grid; gap: 0.7rem; min-width: 0; }
+svg { width: 100%; height: auto; display: block; }
+.grid line { stroke: var(--rule); stroke-width: 1; }
+.tick { fill: var(--muted); font-family: var(--font-body); font-size: 15px; }
+.axis-title { fill: var(--ink); font-family: var(--font-body); font-size: 15px; font-weight: 600; }
+.fitline { stroke: var(--ink); stroke-width: 2.5; }
+.dash { stroke-dasharray: 7 5; }
+.plabel { fill: var(--ink); font-family: var(--font-body); font-size: 15px; font-weight: 600; }
+.lnlabel { fill: var(--muted); font-family: var(--font-body); font-size: 14px; font-style: italic; }
+.stick { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 3 3; }
+.stick.sel { stroke: var(--accent); stroke-width: 4; stroke-dasharray: none; }
+.dot { fill: var(--ci); cursor: pointer; }
+.dot.sel { fill: var(--accent); }
+.say { font-size: 1.02rem; }
+.say .mono { font-weight: 600; }
+.slider { display: grid; gap: 0.3rem; }
+.slider input { width: 100%; accent-color: var(--accent); }
+.slider-row { display: flex; justify-content: space-between; font-family: var(--font-num); color: var(--muted); font-size: 0.9rem; }
+.big-num { font-family: var(--font-num); font-size: clamp(1.1rem, 2.6vw, 1.4rem); font-weight: 600; font-variant-numeric: tabular-nums; }
+.best { color: var(--yes); font-weight: 600; }
+.mv { transition: transform 0.7s ease; }
+.fade { transition: opacity 0.5s ease; }
+.summer { fill: var(--ci); } .winter { fill: var(--accent); }
+.seg-s { stroke: var(--ci); stroke-width: 2; } .seg-w { stroke: var(--accent); stroke-width: 2; }
+.lab-s { fill: var(--ci); font-family: var(--font-body); font-size: 15px; font-weight: 600; }
+.lab-w { fill: var(--accent); font-family: var(--font-body); font-size: 15px; font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .mv, .fade { transition: none; } }
+.thumbs { display: grid; gap: 0.6rem; }
+.tq { display: grid; gap: 0.3rem; }
+.fb { display: grid; gap: 0.3rem; font-size: 0.98rem; }
+.ok { color: var(--yes); font-weight: 700; }
+.bad { color: var(--no); font-weight: 700; }
+.mid { color: var(--maybe); font-weight: 700; }
+.scen { font-family: var(--font-display); font-size: clamp(1.15rem, 2.6vw, 1.4rem); font-weight: 700; line-height: 1.2; }
+.cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); gap: 0.7rem; }
+.case { background: var(--paper); border: 1.5px solid var(--rule); border-radius: 9px; padding: 0.7rem 0.8rem; display: grid; gap: 0.45rem; align-content: start; }
+.case h4 { margin: 0; font-size: 1rem; }
+.case .est { font-family: var(--font-num); font-weight: 600; }
+.ci-bar { stroke: var(--ci); stroke-width: 6; stroke-linecap: round; }
+.zero { stroke: var(--ink); stroke-width: 2; }
+.cut { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 4; }
+.band { fill: var(--band); }
+.stats { display: grid; gap: 0.45rem; }
+.stat { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-bottom: 1px solid var(--rule); padding-bottom: 0.3rem; }
+.stat .mono { font-weight: 600; }
+.cov { display: grid; grid-template-columns: 5.5rem 1fr 3.5rem; gap: 0.5rem; align-items: center; font-size: 0.95rem; }
+.cov .track { position: relative; height: 1rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; }
+.cov .fill { position: absolute; inset: 0 auto 0 0; background: var(--ci); border-radius: 3px; }
+.cov .fill.low { background: var(--no); }
+.cov .mark { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--ink); }
+.sim-dot { fill: var(--ci); opacity: 0.6; }
+.sim-board { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+@media (max-width: 760px) { .sim-board { grid-template-columns: minmax(0, 1fr); } }
+.cell { font-family: var(--font-num); font-size: 0.95rem; font-weight: 600; padding: 0.15rem 0.45rem; border-radius: 5px; border: 1.5px solid transparent; background: transparent; }
+.cell:hover { border-color: var(--rule); }
+.cell[aria-pressed="true"] { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+.cell.se { font-weight: 500; color: var(--muted); }
+.cell.blank { color: var(--muted); font-family: var(--font-body); font-weight: 400; }
+#tab-say { min-height: 3.2rem; }
+.small { font-size: 0.9rem; color: var(--muted); }
+footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: 0.8rem; color: var(--muted); font-size: 0.9rem; }
+/* A7 picture: e on a number line, and e as the jump from true to reported hours. */
+.a7-axis { stroke: var(--ink); stroke-width: 2; }
+.a7-br { stroke: var(--muted); stroke-width: 1.5; }
+.a7-p { stroke: var(--accent); stroke-width: 3; }
+.a7-q { stroke: var(--ci); stroke-width: 3; }
+.mk-ink { fill: var(--ink); } .mk-p { fill: var(--accent); } .mk-q { fill: var(--ci); }
+.fill-p { fill: var(--accent); } .fill-q { fill: var(--ci); }
+.hol-p { fill: var(--panel); stroke: var(--accent); stroke-width: 2.5; }
+.hol-q { fill: var(--panel); stroke: var(--ci); stroke-width: 2.5; }
+.t-p, .t-q { font-family: var(--font-body); font-size: 15px; font-weight: 700; }
+.t-p { fill: var(--accent); } .t-q { fill: var(--ci); }
+/* lm() map: each piece of the code, what it means, and where it lands in the model. Same color = same piece. */
+.lmtab td { vertical-align: middle; }
+.lmtab td.none { color: var(--muted); font-size: 0.88rem; }
+.lmc { display: inline-block; font-family: var(--font-num); font-weight: 600; white-space: nowrap; padding: 0.1rem 0.45rem; border-radius: 6px; border: 2px solid var(--rule); background: var(--paper); }
+.lmc sub { font-family: var(--font-body); }
+.lmc.lm-y { border-color: var(--accent); color: var(--accent); }
+.lmc.lm-x1 { border-color: var(--ci); color: var(--ci); }
+.lmc.lm-x2 { border-color: var(--yes); color: var(--yes); }
+.lmc.lm-o { border-style: dashed; border-color: var(--muted); }
+/* Story map (the big picture). Scoped under .sm so it can't restyle the answer cards. */
+.sm table th, .sm table td { border-bottom: 0; vertical-align: middle; }
+.sm p { max-width: none; }
+.sm .lede { margin: 0 0 1.2rem; }
+.sm .mono, .sm .code { font-family: "IBM Plex Mono", Consolas, monospace; font-weight: 600; }
+.sm .code { display: block; background: var(--panel); border-radius: 6px; padding: 0.3rem 0.55rem; margin: 0.25rem 0; overflow-x: auto; white-space: nowrap; }
+.sm .code sub { font-family: "IBM Plex Sans", sans-serif; }
+.sm .code.eq5 { font-size: 0.9rem; line-height: 1.6; }
+.sm .dtf { display: block; font-weight: 400; font-size: 0.85rem; white-space: nowrap; margin-top: 0.3rem; }
+.sm .fgrid { display: inline-grid; grid-template-columns: repeat(7, auto); column-gap: 0.5rem; row-gap: 0.1rem; align-items: baseline; justify-items: center; justify-self: start; background: var(--panel); border-radius: 6px; padding: 0.45rem 0.7rem; margin: 0.25rem 0; max-width: 100%; overflow-x: auto; }
+.sm .fgrid .fl { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+.sm .fgrid .fn { font-family: "IBM Plex Mono", Consolas, monospace; font-weight: 600; }
+.sm .fgrid > span { white-space: nowrap; }
+.sm .words { border: 2px solid var(--ink); border-radius: 10px; padding: 0.85rem 1rem; display: grid; gap: 0.55rem; margin-bottom: 1.3rem; }
+.sm .words h2 { font-family: "IBM Plex Serif", Georgia, serif; font-size: 1.15rem; margin: 0; }
+.sm .words dl { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.3rem 0.6rem; }
+.sm .words dt { font-weight: 700; }
+.sm .words dd { margin: 0; }
+.sm .bigeq { text-align: center; font-family: "IBM Plex Serif", Georgia, serif; font-weight: 700; font-size: clamp(1.15rem, 3.2vw, 1.5rem); background: var(--panel); border-radius: 8px; padding: 0.7rem 0.5rem; line-height: 1.6; }
+.sm .bigeq .t { white-space: nowrap; padding: 0.05rem 0.4rem; border-radius: 6px; }
+.sm .t-est { border: 2px solid var(--ink); }
+.sm .t-and { border: 2px solid var(--ci); color: var(--ci); }
+.sm .t-bias { border: 2px solid var(--bias); color: var(--bias); }
+.sm .t-samp { border: 2px solid var(--samp); color: var(--samp); }
+.sm .step { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: 0.8rem; align-items: start; }
+.sm .sday { font-weight: 700; color: var(--accent); font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; padding-top: 0.85rem; text-align: right; }
+.sm .card { background: var(--fill); border: 1.5px solid var(--ci); border-radius: 10px; padding: 0.75rem 0.9rem; display: grid; gap: 0.45rem; min-width: 0; }
+.sm .stitle { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 700; font-size: 1.12rem; line-height: 1.25; }
+.sm .srow { display: grid; grid-template-columns: 5.4rem minmax(0, 1fr); gap: 0.5rem; }
+.sm .srow > span:last-child { min-width: 0; }
+.sm .stack { display: grid; gap: 0.2rem; }
+.sm .k { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding-top: 0.15rem; }
+.sm .callout { background: var(--hl); border-radius: 6px; padding: 0.35rem 0.6rem; font-weight: 600; }
+.sm .but { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: 0.8rem; margin: 0.15rem 0; }
+.sm .but .line { border-left: 3px solid var(--accent); margin-left: 1.6rem; padding: 0.55rem 0 0.55rem 0.9rem; grid-column: 2; position: relative; }
+.sm .but .line::after { content: ""; position: absolute; left: -9px; bottom: -6px; border: 7.5px solid transparent; border-top: 9px solid var(--accent); }
+.sm .but p { margin: 0; background: var(--warn); border-radius: 8px; padding: 0.45rem 0.7rem; font-size: 0.97rem; }
+.sm .but b { color: var(--accent); }
+.sm .tag { justify-self: start; font-size: 0.8rem; font-weight: 700; border-radius: 999px; padding: 0.05rem 0.6rem; }
+.sm .tag.bias { color: var(--bias); border: 2px solid var(--bias); }
+.sm .tag.samp { color: var(--samp); border: 2px solid var(--samp); }
+.sm .final { margin-top: 1.4rem; border: 2px solid var(--ink); border-radius: 10px; padding: 0.9rem 1rem; display: grid; gap: 0.8rem; }
+.sm .final h2 { font-family: "IBM Plex Serif", Georgia, serif; font-size: 1.2rem; margin: 0; }
+.sm .final p { margin: 0; }
+.sm .tabwrap { overflow-x: auto; padding-top: 0.6rem; }
+.sm table.iq { border-collapse: separate; border-spacing: 0; font-size: 0.95rem; margin: 0 auto; }
+.sm table.iq th, .sm table.iq td { padding: 0.45rem 0.75rem; border-bottom: 1px solid var(--rule); text-align: center; position: relative; }
+.sm table.iq th { font-weight: 600; font-size: 0.88rem; vertical-align: bottom; }
+.sm table.iq td:first-child, .sm table.iq th:first-child { text-align: left; }
+.sm table.iq td.n { font-family: "IBM Plex Mono", Consolas, monospace; font-weight: 600; }
+.sm table.iq td.se { color: var(--muted); }
+.sm .box1 { outline: 3px solid var(--accent); outline-offset: -3px; border-radius: 6px; }
+.sm .box2 { background: var(--hl); }
+.sm .box3 { outline: 3px dashed var(--bias); outline-offset: -3px; border-radius: 6px; }
+.sm .box4 { outline: 3px solid var(--samp); outline-offset: -3px; border-radius: 6px; }
+.sm .pin { position: absolute; top: -0.65rem; right: -0.45rem; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: 0.78rem; font-weight: 700; display: grid; place-items: center; font-family: "IBM Plex Sans", sans-serif; z-index: 1; }
+.sm .pin.two { right: 1.05rem; }
+.sm .arrowcell { color: var(--bias); font-weight: 700; padding: 0 !important; border-bottom: 1px solid var(--rule); }
+.sm .qa { display: grid; gap: 0.55rem; }
+.sm .qa > div { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 0.6rem; align-items: start; }
+.sm .qa .num { width: 1.45rem; height: 1.45rem; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: 0.82rem; font-weight: 700; display: grid; place-items: center; margin-top: 0.1rem; }
+.sm .qa b { display: block; }
+.sm .qa .d { color: var(--accent); font-weight: 700; font-size: 0.85rem; }
+.sm .snote { font-size: 0.88rem; color: var(--muted); text-align: center; }
+.sm .parts { margin-top: 1.4rem; border: 2px solid var(--ci); border-radius: 10px; padding: 0.9rem 1rem; display: grid; gap: 0.8rem; }
+.sm .parts h2 { font-family: "IBM Plex Serif", Georgia, serif; font-size: 1.2rem; margin: 0; }
+.sm .parts p { margin: 0; }
+.sm .tbl-title { text-align: center; font-weight: 700; position: relative; width: fit-content; margin: 0 auto; padding: 0 0.4rem; }
+.sm .tbl-y { text-align: center; color: var(--muted); font-size: 0.92rem; position: relative; width: fit-content; margin: 0.15rem auto 0; padding: 0 0.4rem; }
+.sm table.parts-t { border-collapse: separate; border-spacing: 0; font-size: 0.95rem; margin: 0.6rem auto 0; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+.sm table.parts-t th, .sm table.parts-t td { padding: 0.4rem 0.8rem; text-align: center; position: relative; }
+.sm table.parts-t thead tr:last-child th { border-bottom: 1px solid var(--ink); font-weight: 400; font-size: 0.88rem; color: var(--muted); }
+.sm table.parts-t td:first-child, .sm table.parts-t th:first-child { text-align: left; }
+.sm table.parts-t td.n { font-family: "IBM Plex Mono", Consolas, monospace; font-weight: 600; }
+.sm table.parts-t td.se { color: var(--muted); padding-top: 0; }
+.sm table.parts-t tr.gof td { border-top: 1px solid var(--rule); }
+.sm table.parts-t tr.gof + tr.gof td { border-top: none; }
+.sm .tbl-notes { font-size: 0.88rem; color: var(--muted); max-width: 36rem; margin: 0.3rem auto 0; }
+.sm .lb { display: inline-grid; place-items: center; width: 1.25rem; height: 1.25rem; margin-left: 0.35rem; border-radius: 4px; background: var(--ci); color: var(--paper); font-size: 0.72rem; font-weight: 700; font-family: "IBM Plex Sans", sans-serif; vertical-align: 0.1em; font-style: normal; }
+.sm td.mark, .sm th.mark { outline: 2px solid var(--ci); outline-offset: -4px; border-radius: 6px; }
+.sm td.blankmark { outline: 2px dashed var(--ci); outline-offset: -4px; border-radius: 6px; }
+.sm .legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 0.55rem 1rem; }
+.sm .legend > div { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 0.55rem; align-items: start; }
+.sm .legend .sq { width: 1.4rem; height: 1.4rem; border-radius: 4px; background: var(--ci); color: var(--paper); font-size: 0.8rem; font-weight: 700; display: grid; place-items: center; margin-top: 0.1rem; }
+.sm .legend b { display: block; }
+.sm .legend .wide { grid-column: 1 / -1; }
+.sm .models { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.1rem; margin-top: 0.3rem; }
+.sm .models .code { margin: 0; font-size: 0.88rem; }
+.sm .models .ml { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+.sm .legend i { color: var(--muted); font-style: normal; }
+.sm .tmpl { background: var(--panel); border-radius: 8px; padding: 0.7rem 0.85rem; display: grid; gap: 0.45rem; }
+.sm .tmpl .slot { color: var(--ci); font-weight: 700; }
+@media (max-width: 560px) { .sm .step, .sm .but { grid-template-columns: minmax(0, 1fr); } .sm .sday { text-align: left; padding-top: 0; } .sm .but .line { grid-column: 1; } .sm .srow, .sm .words dl { grid-template-columns: minmax(0, 1fr); gap: 0.1rem; } }
+/* On phones, shrink the Day 3 formula and let its labels wrap so it fits without scrolling. */
+@media (max-width: 560px) { .sm .fgrid { font-size: 0.85rem; column-gap: 0.3rem; padding: 0.4rem 0.5rem; } .sm .fgrid .fl { white-space: normal; text-align: center; line-height: 1.15; } }
+</style>
+
+<main class="wrap">
+  <header>
+    <span class="eyebrow">BA 3316 · Regression, Days 1–5</span>
+    <h1>Your questions, answered</h1>
+    <p class="lede">After Day 5 you wrote down the questions you're most stuck on. Here they are, in the order we covered things.</p>
+  </header>
+
+  <div class="note">
+    <p>I read all of them. We don't have class time to go back over all of them, so the answers live here. Each answer starts with your question, then gives a short explanation, a new example and a quick check you can try.</p>
+    <p>If you still want to go over some, come to office hours.</p>
+  </div>
+
+  <nav class="toc" id="toc" aria-label="Find your question">
+    <h2>Find your question</h2>
+    <p class="small">Want to see how it all connects? Start with the big picture. Otherwise, jump straight to your question.</p>
+    <div class="toc-grid">
+      <div><a class="toc-sec" href="#big">Big picture</a><ul><li><a href="#sm-day1">The story, day by day</a></li><li><a href="#parts">The parts of a regression table</a></li><li><a href="#sm-final">Everything at once: reading one table</a></li></ul></div>
+      <div><a class="toc-sec" href="#notation">Notation</a><ul><li><a href="#notation">Hats, Greek letters, and where the variables go</a></li></ul></div>
+      <div><a class="toc-sec" href="#day1">Day 1</a><ul><li><a href="#q-residual">What a residual means</a></li><li><a href="#q-mse">MSE: what the line is trying to do</a></li><li><a href="#q-hold">Holding things constant, and the empty groups</a></li></ul></div>
+      <div><a class="toc-sec" href="#day2">Day 2</a><ul><li><a href="#fwl">FWL: what does it even look like?</a></li></ul></div>
+      <div><a class="toc-sec" href="#day3">Day 3</a><ul><li><a href="#q-thumbs">Two thumbs (omitted variable bias)</a></li><li><a href="#q-sampling">Sampling error: draw another sample</a></li></ul></div>
+      <div><a class="toc-sec" href="#day3b">Day 3 revisited</a><ul><li><a href="#q-a7">A7: why does +2 count as the "bigger" error?</a></li><li><a href="#q-partb">Part B: no bias, but less precise</a></li></ul></div>
+      <div><a class="toc-sec" href="#day4">Day 4</a><ul><li><a href="#q-1e">1e: R code in plain English</a></li><li><a href="#robust">Robust standard errors: what, why and how</a></li><li><a href="#q-realbig">Real or big: how we decide</a></li></ul></div>
+      <div><a class="toc-sec" href="#day5">Day 5</a><ul><li><a href="#q-dummies">Dummies and interactions</a></li><li><a href="#q-table">Reading a regression table (Question 4)</a></li></ul></div>
+      <div><a class="toc-sec" href="#practice">Practice</a><ul><li><a href="#practice">Try some on your own</a></li></ul></div>
+    </div>
+  </nav>
+
+  <nav class="jump" aria-label="Jump to a section">
+    <a href="#toc">All questions</a><a href="#big">Big picture</a><a href="#notation">Notation</a><a href="#day1">Day 1</a><a href="#day2">Day 2</a><a href="#day3">Day 3</a><a href="#day3b">Day 3 revisited</a><a href="#day4">Day 4</a><a href="#day5">Day 5</a><a href="#practice">Practice</a>
+  </nav>
+
+  <!-- ===================================================== BIG PICTURE (story map) -->
+  <section class="part" id="big">
+    <div><span class="eyebrow">Start here</span><h2>Connecting regression concepts</h2></div>
+    <article class="q">
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Can you do a quick rundown of all the days into one? Like how do all the lessons of regression go together? Connect them?"</p>
+        <p>"In terms of practice or studying, I feel as if everything jumbles together. How do I keep things separate?"</p>
+      </div>
+      <div class="sm">
+      <p class="lede">Let's follow one estimate, Card's return to school, through the unit. Each day left a problem. The orange "But…" boxes highlight the hanging problem to solve.</p>
+
+        <div class="words" id="sm-words">
+          <h2>Three words to keep in mind</h2>
+          <dl>
+            <dt>Estimand (β<sub>1</sub>)</dt><dd>The number we want: the true return to a year of school in the process that sets wages for the population we're studying, not just the men in this sample.</dd>
+            <dt>Estimator<span class="dtf">(<span class="hatw">cov</span>(x, y) / <span class="hatw">var</span>(x))</span></dt><dd>The recipe that turns a sample into a number. In this unit, OLS.</dd>
+            <dt>Estimate (<span class="hat">β</span><sub>1</sub>)</dt><dd>What the estimator gave in Card's sample: 0.052.</dd>
+          </dl>
+          <div class="bigeq"><span class="t t-est">estimate</span> = <span class="t t-and">estimand</span> + <span class="t t-bias">bias</span> + <span class="t t-samp">sampling error</span></div>
+          <p style="margin:0">Our estimate can miss the estimand for two reasons, and the unit deals with each one. Below, a <span class="tag bias">bias</span> label marks the steps about bias, and a <span class="tag samp">sampling error</span> label marks the steps about sampling error.</p>
+          <p style="margin:0">Mixing up the symbols? See <a href="#notation">Hats, Greek letters, and where the variables go</a>.</p>
+        </div>
+
+        <div class="step" id="sm-day1"><div class="sday">Day 1</div><div class="card">
+          <div class="stitle">What is one more year of school worth?</div>
+          <div class="srow"><span class="k">Tool</span><span>Start with averages. One way to estimate E(wage | school), the CEF, is the average wage at each year of school: 18 numbers. If we use regression, we can instead estimate the CEF as a line of best fit, with just 2 numbers. OLS picks the line with the smallest squared misses, and each man's miss is his residual.<span class="code"><span class="hat">β</span><sub>1</sub> = <span class="hatw">cov</span>(x, y) / <span class="hatw">var</span>(x)</span></span></div>
+          <div class="srow"><span class="k">Estimate</span><span><span><span class="hat">β</span><sub>1</sub> = <span class="mono">0.052</span>: with log wages, each additional year of schooling is associated with <b>about 5.2% greater wages</b></span></span></div>
+          <div class="srow"><span class="k">Your questions</span><span class="stack"><a href="#q-residual">What a residual means</a><a href="#q-mse">MSE: what the line is trying to do</a></span></div>
+        </div></div>
+        <div class="but"><div class="line"><p><b>But…</b> men with more school can differ in other ways too: less work experience, or more likely to live in a city. And these things likely affect wages too. So 5.2% mixes the relationship between wages and school with the relationship between wages and experience (and everything else).</p></div></div>
+
+        <div class="step" id="sm-day12"><div class="sday">Days 1–2</div><div class="card">
+          <div class="stitle">What if we compare men who are alike except for years in school?</div>
+          <div class="srow"><span class="k">Tool</span><span>Hold things constant. Exact matches will often leave most groups empty, so instead add controls to the regression. FWL shows what that does: it compares each man's schooling to what's typical for men like him.</span></div>
+          <div class="srow"><span class="k">In R</span><span class="stack"><span>Each control is one more variable after the ~ (the "tilde"). This code:</span><span class="code">lm(lwage ~ educ + exper, data = card)</span><span>is this model:</span><span class="code">lwage = β<sub>0</sub> + β<sub>1</sub> educ + β<sub>2</sub> exper + u</span></span></div>
+          <div class="srow"><span class="k">Estimate</span><span><span><span class="mono">0.052 → 0.093</span> holding just experience constant; <span class="mono">0.052 → 0.075</span> with all of Card's controls (experience, experience², race, the South, living in a city, and where he lived in 1966)</span></span></div>
+          <div class="srow"><span class="k">Watch out</span><span>R² is the share of the differences in wages that the x's explain. It's low (0.10 for school alone), but that doesn't make the slope (<span class="hat">β</span><sub>1</sub>) wrong: R² is about fit, not bias. It won't be central to causality.</span></div>
+          <div class="srow"><span class="k">Your questions</span><span class="stack"><a href="#q-hold">Holding things constant, and the empty groups</a><a href="#fwl">FWL: what does it even look like?</a><a href="#q-1e">1e: R code in plain English</a></span></div>
+          <span class="tag bias">bias: handles omitted variable bias (OVB) for the variables we included</span>
+        </div></div>
+        <div class="but"><div class="line"><p><b>But…</b> we can only hold constant <u>what's in the data</u>. Ability isn't, and some men misreport their schooling.</p></div></div>
+
+        <div class="step" id="sm-day3"><div class="sday">Day 3</div><div class="card">
+          <div class="stitle">Which way could it still be off?</div>
+          <div class="srow"><span class="k">Formula</span><span class="stack"><span class="fgrid"><span><span class="tld">β</span><sub>1</sub></span><span>=</span><span><span class="hat">β</span><sub>1</sub></span><span>+</span><span>(z → y)</span><span>×</span><span>(z with x)</span><span class="fl">slope without&nbsp;z</span><span></span><span class="fl">slope with&nbsp;z</span><span></span><span></span><span></span><span></span><span class="fn">0.052</span><span>=</span><span class="fn">0.093</span><span>+</span><span class="fn">0.041</span><span>×</span><span class="fn">(−1.01)</span></span><span>The bottom row puts in the numbers for experience. The tilde marks the estimate that leaves z out.</span></span></div>
+          <div class="srow"><span class="k">Tool</span><span>Two thumbs are just the signs of that last piece. Thumb 1: does z raise or lower wages? Thumb 2: does z move with school? Same signs: <span class="tld">β</span><sub>1</sub> is too big. Different signs: <span class="tld">β</span><sub>1</sub> is too small. Experience is (+)(−), which is why holding it constant raised the estimate of β<sub>1</sub>.</span></div>
+          <div class="srow"><span class="k">Estimate</span><span>ability: (+)(+), so 5.2% is probably <b>too high</b>. Day 5's table backs this up: adding IQ (including it in the regression) moves <span class="hat">β</span><sub>1</sub> from <span class="mono">0.076</span> to <span class="mono">0.070</span>.</span></div>
+          <div class="srow"><span class="k">Noise</span><span class="stack"><span>Random noise in schooling pulls <span class="hat">β</span><sub>1</sub>, our estimate of the payoff to a year of school, toward zero. That's a bias, called <b>attenuation</b>. We discussed this back when we talked about classical measurement error.</span><span>Random noise in log wages doesn't bias <span class="hat">β</span><sub>1</sub> (it doesn't change it on average). It makes <span class="hat">β</span><sub>1</sub> bounce more from sample to sample: less precise (a greater standard error).</span></span></div>
+          <div class="srow"><span class="k">Your questions</span><span class="stack"><a href="#q-thumbs">Two thumbs (omitted variable bias)</a><a href="#q-a7">A7: why does +2 count as the "bigger" error?</a><a href="#q-partb">Part B: no bias, but less precise</a></span></div>
+          <span class="tag bias">bias</span>
+        </div></div>
+        <div class="but"><div class="line"><p><b>But…</b> even with no bias at all, a different sample of young men would give us a different number for the estimated return to schooling. How big is that bounce?</p></div></div>
+
+        <div class="step" id="sm-day34"><div class="sday">Days 3–4</div><div class="card">
+          <div class="stitle">How much would <span class="hat">β</span><sub>1</sub> bounce from sample to sample?</div>
+          <div class="srow"><span class="k">Tool</span><span class="stack"><span>The standard error (SE) measures the bounce: how spread out <span class="hat">β</span><sub>1</sub> would be across many samples. We only ever see one sample, so we can never know the true SE. We estimate it, and every SE you see is an estimated SE.</span><span>Use <b>robust</b> SEs, which don't assume wages are equally spread out at every level of school.</span><span>Then build a 95% confidence interval: <span class="hat">β</span><sub>1</sub> ± 1.96 × SE.</span></span></div>
+          <div class="srow"><span class="k">Test</span><span class="stack"><span>t = (<span class="hat">β</span><sub>1</sub> − hypothesized value) / SE, for any value.</span><span>Against 0 (no return to education): (0.052 − 0) / 0.0029 ≈ 18.</span><span>Against 0.10 (a 10% return to education): (0.052 − 0.10) / 0.0029 ≈ −16.6.</span><span>Both |t| &gt; 1.96, so both are rejected.</span></span></div>
+          <div class="srow"><span class="k">Estimate</span><span>SE <span class="mono">0.0029</span>, 95% confidence interval <b>4.6% to 5.8%</b></span></div>
+          <div class="callout">Without the right estimated SEs, we can land on the wrong conclusions.</div>
+          <div class="srow"><span class="k">Your questions</span><span class="stack"><a href="#q-sampling">Sampling error: draw another sample</a><a href="#robust">Robust standard errors: what, why and how</a></span></div>
+          <span class="tag samp">sampling error</span>
+        </div></div>
+        <div class="but"><div class="line"><p><b>But…</b> knowing the estimate is distinguishable from zero (or another null hypothesis) doesn't tell us whether the estimate is big enough to matter.</p></div></div>
+
+        <div class="step" id="sm-day4"><div class="sday">Day 4</div><div class="card">
+          <div class="stitle">Is it real, and is it big?</div>
+          <div class="srow"><span class="k">Real</span><span>Statistically significant: the interval excludes 0, or whatever null hypothesis you specified.</span></div>
+          <div class="srow"><span class="k">Big</span><span>Economically significant: the whole interval is past the smallest effect that would matter.</span></div>
+          <div class="callout">What counts as "big" is subjective and specific to the question. No formula picks the line for what counts as big, so say where you drew it and why. Here we used 2%, about a cost-of-living raise: if a year of school raised pay by less than that, it probably wouldn't be worth a year out of work.</div>
+          <div class="srow"><span class="k">Size</span><span>Read sizes right: percent vs. percentage points.</span></div>
+          <div class="srow"><span class="k">Estimate</span><span>4.6% to 5.8% vs. a 2% line: <b>real and big</b>. And 5.2% → 7.5% is up <span class="mono">2.3</span> percentage points.</span></div>
+          <div class="srow"><span class="k">Your questions</span><span class="stack"><a href="#q-realbig">Real or big: how we decide</a></span></div>
+        </div></div>
+        <div class="but"><div class="line"><p><b>But…</b> not every x is "years." What if x is a group (college or not), or the slope is different for different people?</p></div></div>
+
+        <div class="step" id="sm-day5"><div class="sday">Day 5</div><div class="card">
+          <div class="stitle">What does a coefficient mean when x is a group?</div>
+          <div class="srow"><span class="k">Dummy</span><span>A dummy is 1 for one group and 0 for the other, and its coefficient is the difference in the two groups' averages. High-school grads average 6.249 in log wages and college grads 6.385, so the regression is <span class="hatw">lwage</span> = 6.249 + 0.136 college. The intercept is the high-school grads' average, and college grads earn about <b>13.6%</b> more.</span></div>
+          <div class="srow"><span class="k">Base group</span><span>With three groups, use two dummies and leave one group out. Each dummy's coefficient is measured from the group left out: high-school grads 0.267 and college grads 0.435 above men with less than 12 years. So high-school grads earn about 26.7% more than men with less than 12 years of school, and college grads earn about 43.5% more.</span></div>
+          <div class="srow"><span class="k">Hold constant</span><span class="stack"><span>Add experience to the regression:</span><span class="code eq5"><span class="hatw">lwage</span> = 5.807 + 0.044 exper + 0.321 college</span><span>The college gap jumps from <span class="mono">0.136</span> to <span class="mono">0.321</span>. That's Day 2's idea, and Day 3's thumbs say why: experience raises wages (+), and college grads have less of it (−), so leaving it out pulled the initial estimate of the gap down.</span></span></div>
+          <div class="srow"><span class="k">Interaction</span><span class="stack"><span>Add experience × college:</span><span class="code eq5"><span class="hatw">lwage</span> = 5.913 + 0.034 exper + 0.054 college<br>&emsp;&emsp;&ensp;+ 0.038 (exper × college)</span><span>This lets the slope on experience differ by group: a year of experience goes with 3.4% higher wages for high-school grads and 7.2% for college grads. The interaction's coefficient, 0.038, is the difference between those slopes: 0.034 + 0.038 = 0.072.</span></span></div>
+          <div class="srow"><span class="k">Squared term</span><span class="stack"><span>Add experience²:</span><span class="code eq5"><span class="hatw">lwage</span> = 4.469 + 0.093 educ<br>&emsp;&emsp;&ensp;+ 0.090 exper − 0.0025 exper²</span><span>This lets the slope change with the value of x. The slope on experience is 0.090 − 2 × 0.0025 × exper: the first year of experience goes with about 9.0% higher wages, but at 10 years one more year goes with about 4.0%.</span></span></div>
+          <div class="srow"><span class="k">Your questions</span><span class="stack"><a href="#q-dummies">Dummies and interactions</a></span></div>
+        </div></div>
+
+
+        <div class="parts" id="parts">
+          <h2>First, the parts of a regression table</h2>
+          <p>Before reading a table, know what each piece is. Each blue square letter matches an entry in the guide underneath.</p>
+          <div class="tabwrap">
+            <div class="tbl-title">OLS estimates of the returns to schooling<span class="lb">A</span></div>
+            <div class="tbl-y">Outcome: log hourly wage<span class="lb">B</span></div>
+            <table class="parts-t">
+              <thead>
+                <tr><th></th><th>(1)<span class="lb">C</span></th><th>(2)</th><th>(3)</th></tr>
+                <tr><th></th><th>All men</th><th>Men with IQ scores<span class="lb">D</span></th><th>Add IQ</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Education<span class="lb">E</span></td><td class="n mark">0.075<span class="lb">F</span></td><td class="n">0.076</td><td class="n">0.070</td></tr>
+                <tr><td></td><td class="n se mark">(0.004)<span class="lb">G</span></td><td class="n se">(0.005)</td><td class="n se">(0.005)</td></tr>
+                <tr><td>SMSA (lives in a city)</td><td class="n">0.136</td><td class="n">0.125</td><td class="n">0.123</td></tr>
+                <tr><td></td><td class="n se">(0.019)</td><td class="n se">(0.023)</td><td class="n se">(0.023)</td></tr>
+                <tr><td>IQ</td><td class="blankmark"><span class="lb" style="margin-left:0">H</span></td><td></td><td class="n">0.0025</td></tr>
+                <tr><td></td><td></td><td></td><td class="n se">(0.0008)</td></tr>
+                <tr><td>Constant<span class="lb">I</span></td><td class="n">4.739</td><td class="n">4.675</td><td class="n">4.501</td></tr>
+                <tr><td></td><td class="n se">(0.075)</td><td class="n se">(0.100)</td><td class="n se">(0.114)</td></tr>
+                <tr class="gof"><td><i>N</i><span class="lb">J</span></td><td class="n">3,010</td><td class="n">2,061</td><td class="n">2,061</td></tr>
+                <tr class="gof"><td>R²<span class="lb">K</span></td><td class="n">0.30</td><td class="n">0.23</td><td class="n">0.24</td></tr>
+              </tbody>
+            </table>
+            <p class="tbl-notes">Robust standard errors in parentheses. Controls include experience, experience², race, South, and 1966 region and SMSA indicators. Columns (2) and (3) use the men with IQ scores.<span class="lb">L</span></p>
+          </div>
+          <div class="legend">
+            <div><span class="sq">A</span><span><b>Title</b>What question the table answers. <i>Here: what a year of school is worth.</i></span></div>
+            <div><span class="sq">B</span><span><b>Outcome (dependent variable, y)</b>What every coefficient is about. <i>Here it's log wage, so 100 × coefficient is about a percent.</i></span></div>
+            <div class="wide"><span class="sq">C</span><span><b>Column number</b>Each column is one regression. <i>Here are the three, where "controls" means Card's controls listed in the notes (L):</i><span class="models"><span class="ml">(1) all 3,010 men</span><span class="code">lwage = β<sub>0</sub> + β<sub>1</sub> educ + β<sub>2</sub> smsa + controls + u</span><span class="ml">(2) 2,061 men with IQ</span><span class="code">lwage = β<sub>0</sub> + β<sub>1</sub> educ + β<sub>2</sub> smsa + controls + u</span><span class="ml">(3) the same 2,061 men</span><span class="code">lwage = β<sub>0</sub> + β<sub>1</sub> educ + β<sub>2</sub> smsa + β<sub>3</sub> IQ + controls + u</span></span></span></div>
+            <div><span class="sq">D</span><span><b>Column label</b>What's different about that regression: its sample or its x's. <i>(2) keeps only men with IQ scores; (3) also adds IQ.</i></span></div>
+            <div><span class="sq">E</span><span><b>Row label</b>One x in the regression (an explanatory variable). <i>Education is years of school; SMSA is a dummy, 1 if he lives in a city.</i></span></div>
+            <div><span class="sq">F</span><span><b>Coefficient (<span class="hat">β</span>)</b>How y moves with that x, holding the other x's in that column constant. <i>0.075: one more year of school goes with about 7.5% higher wages.</i></span></div>
+            <div><span class="sq">G</span><span><b>Standard error (estimated)</b>In parentheses, right under its coefficient: our estimate of how much the coefficient would bounce from sample to sample. <i>t = 0.075 / 0.004 ≈ 19; 95% CI 0.075 ± 1.96 × 0.004.</i></span></div>
+            <div><span class="sq">H</span><span><b>Blank cell</b>That x isn't in that regression. <i>IQ is blank in (1) and (2).</i></span></div>
+            <div><span class="sq">I</span><span><b>Constant (intercept, <span class="hat">β</span><sub>0</sub>)</b>The predicted y when every x is 0. <i>Here that's a man with no school, no experience and an IQ of 0, so it's not meaningful on its own.</i></span></div>
+            <div><span class="sq">J</span><span><b>N</b>How many people the regression used. <i>It drops from 3,010 to 2,061 because only some men have IQ scores.</i></span></div>
+            <div><span class="sq">K</span><span><b>R²</b>The share of the differences in y that the x's explain. <i>About fit, not bias.</i></span></div>
+            <div><span class="sq">L</span><span><b>Notes</b>Details you need that don't fit in the cells. <i>Which SEs (robust), controls that are in the regression but not shown, and the sample.</i></span></div>
+          </div>
+          <div class="tmpl">
+            <b>Turning a coefficient into a sentence (outcome in logs)</b>
+            <p>Holding <span class="slot">the other x's</span> constant, one more <span class="slot">unit of x</span> goes with about <span class="slot">100 × coefficient</span>% <span class="slot">higher or lower</span> <span class="slot">y</span>.</p>
+            <p><i>Education, column (1):</i> Holding Card's controls constant, one more year of school goes with about 7.5% higher wages.</p>
+            <p>For a dummy, compare the two groups: <i>SMSA, column (1):</i> holding the rest constant, men who live in a city earn about 13.6% more than men who don't.</p>
+          </div>
+          <p>More on reading tables: <a href="#q-table">Reading a regression table (Question 4)</a>, under Day 5.</p>
+          <p class="snote">Some tables also add stars (*, **, ***) to flag statistical significance. Ours don't: compute t from the coefficient and its SE.</p>
+        </div>
+        <div class="final" id="sm-final">
+          <h2>Everything at once: reading one table</h2>
+          <p>Day 5's IQ table uses every day. Read it in this order; each number in a black circle matches a question below.</p>
+          <div class="tabwrap"><table class="iq">
+            <thead><tr><th></th><th>(1) all men</th><th class="box2">(2) men with IQ scores<span class="pin">2</span></th><th></th><th class="box2">(3) add IQ</th></tr></thead>
+            <tbody>
+              <tr><td>educ</td><td class="n">0.075</td><td class="n box3">0.076</td><td class="arrowcell">→</td><td class="n box1">0.070<span class="pin two">1</span><span class="pin">5</span></td></tr>
+              <tr><td></td><td class="n se">(0.004)</td><td class="n se">(0.005)</td><td class="arrowcell"></td><td class="n se box4">(0.005)<span class="pin">4</span></td></tr>
+              <tr><td>smsa (lives in a city)</td><td class="n">0.136</td><td class="n">0.125</td><td class="arrowcell"></td><td class="n">0.123</td></tr>
+              <tr><td></td><td class="n se">(0.019)</td><td class="n se">(0.023)</td><td class="arrowcell"></td><td class="n se">(0.023)</td></tr>
+              <tr><td>IQ</td><td></td><td></td><td class="arrowcell"></td><td class="n box3">0.0025<span class="pin">3</span></td></tr>
+              <tr><td></td><td></td><td></td><td class="arrowcell"></td><td class="n se">(0.0008)</td></tr>
+              <tr><td>N</td><td class="n">3,010</td><td class="n">2,061</td><td class="arrowcell"></td><td class="n">2,061</td></tr>
+            </tbody>
+          </table></div>
+          <p class="snote">Dependent variable: log wage. Card's Table 2 controls in every column. Robust standard errors in parentheses.</p>
+          <div class="qa">
+            <div><span class="num">1</span><span><b>What does the number mean?</b> Holding IQ and Card's controls constant, a year of school goes with about 7.0% higher wages (100 × 0.070). <span class="d">Days 1 &amp; 5</span></span></div>
+            <div><span class="num">2</span><span><b>What changed between columns?</b> Columns (2) and (3) use the same 2,061 men, and (3) adds IQ. So compare (2) with (3), not (1) with (3). <span class="d">Day 2</span></span></div>
+            <div><span class="num">3</span><span><b>Why did the coefficient move that way?</b> It fell from 0.076 to 0.070. IQ raises wages (+, its coefficient is 0.0025) and moves with school (+). Same signs, so column (2) was biased up. <span class="d">Day 3</span></span></div>
+            <div><span class="num">4</span><span><b>What's in the parentheses, and is it significant?</b> The estimated robust SE of 0.070. t = 0.070 / 0.005 = 14, more than 1.96, so it's statistically significant. <span class="d">Days 3 &amp; 4</span></span></div>
+            <div><span class="num">5</span><span><b>Is it big enough to matter?</b> 95% confidence interval: 0.070 ± 1.96 × 0.005 = 6.0% to 8.0%. All of it is above our 2% line, so it's big. <span class="d">Day 4</span></span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===================================================== NOTATION -->
+  <section class="part" id="notation">
+    <div><span class="eyebrow">Start here</span><h2>Hats, Greek letters, and where the variables go</h2></div>
+    <article class="q">
+      <div class="asked"><span class="label">You asked</span>
+        <p>"How do I keep things separate and remember the letters, order, etc.?"</p>
+        <p>"How to do the substitutions, like doing the ^ or not ^, and when to use certain Greek letters for the equations?"</p>
+        <p>"How to know where the different variables fit into the equation based on a word question?"</p>
+      </div>
+      <h3>The cast of characters</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>You see</th><th>Read it as</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>y</td><td>the outcome: what we're explaining</td><td>log wage</td></tr>
+          <tr><td>x (or x<sub>1</sub>, when we have a multivariate regression)</td><td>the variable we care about</td><td>years of school</td></tr>
+          <tr><td>z</td><td>something left out of the regression</td><td>ability</td></tr>
+          <tr><td>β<sub>0</sub>, β<sub>1</sub> (no hat)</td><td>the true intercept and slope. We never see them.</td><td>the estimand</td></tr>
+          <tr><td><span class="hat">β</span><sub>1</sub> (hat)</td><td>our estimate of β<sub>1</sub>, computed from the sample</td><td>0.052</td></tr>
+          <tr><td>u</td><td>the leftover: everything else that affects y</td><td>luck in the job search, a generous boss, …</td></tr>
+          <tr><td>ŷ</td><td>the line's prediction</td><td>$17 for 12 years</td></tr>
+          <tr><td>y − ŷ (or û)</td><td>the residual: actual outcome minus predicted outcome value</td><td>20 − 17 = 3</td></tr>
+          <tr><td>SE</td><td>how much <span class="hat">β</span> would bounce from sample to sample</td><td>0.0029</td></tr>
+          <tr><td>t</td><td>(estimate − hypothesized value of the estimand) / SE</td><td>0.052 / 0.0029 ≈ 18</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Four rules</h3>
+      <ol>
+        <li><b>A hat means "computed from our sample."</b> No hat means the true number we're after.</li>
+        <li><b>Writing the model, before any data:</b> no hats, and include u.<div class="eq">y = β<sub>0</sub> + β<sub>1</sub>x + u</div></li>
+        <li><b>Plugging in numbers from output:</b> put on hats, and drop u, because the fitted line gives predictions.<div class="eq">ŷ = 5.807 + 0.044 exper + 0.321 college</div></li>
+        <li><b>Greek letters are name tags.</b> β, δ, α and γ each mean "some unknown number (coefficient) that multiplies this variable." Day 5 used δ for the dummies only to tell them apart. What matters is which variable a letter multiplies. The order of the terms doesn't matter either, though in different cases there will be a normal way to do it.</li>
+      </ol>
+      <h3>From a word question to an equation</h3>
+      <ol>
+        <li><b>What are we explaining?</b> That's y, on the left.</li>
+        <li><b>"The effect of…", "the return to…", "how much does ___ go with…"</b> names the main x. Its coefficient is the answer.</li>
+        <li><b>"Holding ___ constant", "controlling for ___", "among people with the same ___"</b> names more x's, typically potential confounders we want to be sure to include.</li>
+        <li><b>"Differs between groups"</b> means a dummy. <b>"Does the effect of x differ between groups?"</b> means an interaction (x × dummy).</li>
+        <li><b>Asked in percent?</b> Use log y as the outcome, and read 100 × coefficient as a percent.</li>
+      </ol>
+      <div class="check"><p class="cq"><b>Check yourself.</b> "In percent, how much higher are home prices for each extra bedroom, holding square footage constant?" Write down the regression model.</p>
+        <details><summary>Show answer</summary><div><div class="eq">log(price) = β<sub>0</sub> + β<sub>1</sub> bedrooms + β<sub>2</sub> sqft + u</div><p>The answer is 100 × β<sub>1</sub> percent.</p></div></details></div>
+      <div class="check"><p class="cq"><b>Check yourself.</b> "Does an extra hour of sleep go with a higher GPA among students who work the same number of hours?" Write down the regression model.</p>
+        <details><summary>Show answer</summary><div><div class="eq">GPA = β<sub>0</sub> + β<sub>1</sub> sleep + β<sub>2</sub> workhours + u</div><p>Look at β<sub>1</sub>.</p></div></details></div>
+      <div class="check"><p class="cq"><b>Check yourself.</b> "Is the return to experience different for women than for men?" Write down the regression model.</p>
+        <details><summary>Show answer</summary><div><div class="eq">log(wage) = β<sub>0</sub> + β<sub>1</sub> exper + β<sub>2</sub> female + β<sub>3</sub> (exper × female) + u</div><p>β<sub>3</sub> is how much the experience slope differs for women.</p></div></details></div>
+    </article>
+  </section>
+
+  <!-- ===================================================== DAY 1 -->
+  <section class="part" id="day1">
+    <div><span class="eyebrow">Day 1 · Oct 8</span><h2>What is one more year of school worth?</h2><a class="fits" href="#sm-day1">↑ Where this fits in the big picture</a></div>
+
+    <article class="q" id="q-residual">
+      <h3>What a residual means</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Going back over residuals. Less the actual calculation, more what it means / how it translates to an equation."</p>
+      </div>
+      <p>A residual answers one question about one person: how far is this person above or below what the line predicts for someone like them? Click a worker from Day 1 to read their residual as a sentence.</p>
+      <div class="panel">
+        <div class="row" role="group" aria-label="Choose a worker" id="res-buttons"></div>
+        <svg id="res-plot" viewBox="0 0 600 330" role="img" aria-label="Six workers, the line y-hat = -19 + 3x, and each worker's residual as a dashed stick from the point to the line"></svg>
+        <p class="say" id="res-say" aria-live="polite"></p>
+      </div>
+      <p>In an equation, every data point splits into the line's guess plus the miss: <span class="mono">y = ŷ + residual</span>. For worker B, 20 = 17 + 3.</p>
+      <p>The model has the same split: <span class="mono">y = β<sub>0</sub> + β<sub>1</sub>x + u</span>. There, u is the true leftover: everything besides school that sets this man's wage. We never see u, so the residual is our sample's stand-in for it (that's why it's sometimes written û).</p>
+      <p>Residuals show up all through the unit. OLS picks the line with the smallest sum of squared residuals (Day 1). FWL works with "residualized" schooling (Day 2). Robust standard errors use the residuals' spread (Day 4).</p>
+      <div class="check"><p class="cq"><b>Check yourself.</b> A worker with 14 years of school earns $26 an hour. What is the residual, and what does it say?</p>
+        <details><summary>Show answer</summary><div><p>The line predicts −19 + 3 × 14 = $23. The residual is 26 − 23 = +3: this worker earns $3 an hour more than the line expects for 14 years of school.</p></div></details></div>
+      <p class="tool">See it move: <a href="https://abbicormier.github.io/ba3316-fall2026/beat-the-computer/" target="_blank" rel="noopener">Beat the computer</a></p>
+    </article>
+
+    <article class="q" id="q-mse">
+      <h3>MSE: what the line is trying to do</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"LMSE? On my notes, don't know what it means :/"</p>
+      </div>
+      <p>The handout's term is <b>MSE, mean squared error</b>. (The L is probably from "least," as in least squares.) It's the score from Day 1's first game: you guess, you lose the square of your miss, and the MSE is your average loss.</p>
+      <div class="ex">
+        <span class="label">New example</span>
+        <p>Three men earn $10, $12 and $20 an hour. Pick one guess of their hourly wage, the same number for all three.</p>
+        <div class="slider">
+          <label class="label" for="mse-g">Your guess</label>
+          <input type="range" id="mse-g" min="8" max="22" step="0.5" value="17">
+          <div class="slider-row"><span>$8</span><span id="mse-gv">$17</span><span>$22</span></div>
+        </div>
+        <div class="tablewrap"><table id="mse-tab" aria-live="polite"></table></div>
+        <p id="mse-out" class="big-num"></p>
+        <p id="mse-best"></p>
+      </div>
+      <p>Squaring makes every miss count and big misses count more, and the guess that keeps the MSE smallest is the average. OLS does the same thing with a line instead of one number: it picks the line with the least squared error. That's all "least squares" means.</p>
+      <div class="check"><p class="cq"><b>Check yourself.</b> If the three wages were $10, $12 and $50, what guess gives the smallest MSE?</p>
+        <details><summary>Show answer</summary><div><p>The average, $24. One big wage pulls the best guess a long way, because its miss gets squared.</p></div></details></div>
+    </article>
+
+    <article class="q" id="q-hold">
+      <h3>Holding things constant, and the empty groups</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Day 1, Question 5: What does it mean to hold things constant in regression, and how does that solve the empty groups problem? What is FWL?"</p>
+      </div>
+      <p><b>Holding experience constant</b> means comparing men who have the same experience, so a schooling difference isn't mixed up with an experience difference.</p>
+      <p>The direct way is matching: sort men into groups that match on everything else, then compare schooling within each group. With Card's controls that takes 3,456 groups for 3,010 men, and only 686 of the groups have anyone in them. There's nobody to compare with.</p>
+      <p>Regression doesn't need exact matches. Instead it assumes a shape. In our case, we often assume each control shifts wages by a set amount (for example, living in the South shifts log wages by the same amount at every level of schooling). Then it estimates each shift from all the men at once, so every man helps estimate every coefficient.</p>
+      <p>That <b>eases</b> the empty-groups problem; it doesn't make it go away. Two separate problems are left:</p>
+      <ol>
+        <li><b>The shape can be wrong.</b> If wages don't really shift by a set amount for each control, the adjustment is off.</li>
+        <li><b>The data still get spread thinner.</b> Each extra control that moves with schooling takes away some of the variation in schooling we learn from, so the estimate can get less precise (a bigger SE).</li>
+      </ol>
+      <div class="ex">
+        <span class="label">New example</span>
+        <p>To see what an extra bedroom adds to a home's price, you'd want houses that match on size, neighborhood and age. Most of those combinations have zero or one house. A regression instead assumes each extra 100 square feet adds the same amount everywhere, each extra year of age changes the price by the same amount everywhere, and each neighborhood has its own fixed shift. Then it estimates those from every house:</p>
+        <div class="eq">price = β<sub>0</sub> + β<sub>1</sub> bedrooms + β<sub>2</sub> size + β<sub>3</sub> age<br>&emsp;&emsp;&ensp;+ δ<sub>1</sub> nbhd<sub>1</sub> + δ<sub>2</sub> nbhd<sub>2</sub> + … + u</div>
+        <p class="small">size is in 100s of square feet, and each nbhd is a dummy for one neighborhood. β<sub>1</sub> compares homes with the same size, age and neighborhood.</p>
+      </div>
+      <p>FWL is <i>how</i> regression does the holding constant. It's the first answer under <a href="#fwl">Day 2</a>.</p>
+      <div class="check"><p class="cq"><b>Check yourself.</b> Why can't we just compare men with exactly the same experience, region, race and city?</p>
+        <details><summary>Show answer</summary><div><p>Most of those groups are empty or hold one man, so for most men there's nobody with a different amount of school to compare with.</p></div></details></div>
+    </article>
+  </section>
+
+  <!-- ===================================================== DAY 2 -->
+  <section class="part" id="day2">
+    <div><span class="eyebrow">Day 2 · Oct 13</span><h2>What does it mean to hold something constant?</h2><a class="fits" href="#sm-day12">↑ Where this fits in the big picture</a></div>
+    <article class="q" id="fwl">
+      <h3>FWL: what does it even look like?</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Frisch–Waugh–Lovell Theorem explanation / question. What does that even look like? IDK! Help me please :("</p>
+        <p>"What is FWL?"</p>
+        <p>"Can you explain heteroskedasticity and FWL again and how they relate to regressions / why are they important?"</p>
+      </div>
+      <p>FWL says the coefficient on x<sub>1</sub> in a regression with controls is the slope you get in two steps:</p>
+      <ol>
+        <li><b>Regress x<sub>1</sub> on the controls, and keep the residuals.</b> That line's prediction is the x<sub>1</sub> that's typical for people with the same controls. The residual, <span class="hat">r</span><sub>1</sub> = x<sub>1</sub> − (that prediction), is what's left: how much more or less x<sub>1</sub> this person has than is typical for people like them. Whatever the controls can predict has been taken out of <span class="hat">r</span><sub>1</sub>.</li>
+        <li><b>Regress y on <span class="hat">r</span><sub>1</sub>.</b> That's a simple regression with one x, like Day 1. Its slope is exactly <span class="hat">β</span><sub>1</sub> from the regression with controls.</li>
+      </ol>
+      <p>So FWL means we can write <span class="hat">β</span><sub>1</sub> from a multivariate regression with the Day 1 slope formula, using <span class="hat">r</span><sub>1</sub> in place of x:</p>
+      <div class="eq"><span class="hat">β</span><sub>1</sub> = <span class="hatw">cov</span>(<span class="hat">r</span><sub>1</sub>, y) / <span class="hatw">var</span>(<span class="hat">r</span><sub>1</sub>)</div>
+      <p>In one sentence: <b>controlling for z means comparing x<sub>1</sub> to its typical value for people with the same z.</b></p>
+      <div class="ex">
+        <span class="label">New example: do ads hurt sales?</span>
+        <p>A coffee shop records six weeks of ad spending and sales (both in hundreds of dollars). It advertises more in winter, because winter is slow.</p>
+        <div class="row" role="group" aria-label="Choose a view">
+          <button type="button" id="fwl-all" aria-pressed="true">All six weeks</button>
+          <button type="button" id="fwl-hold" aria-pressed="false">Hold season constant</button>
+        </div>
+        <svg id="fwl-plot" viewBox="0 0 600 340" role="img" aria-label="Sales against ad spending for six weeks, summer in blue and winter in orange"></svg>
+        <p id="fwl-say" aria-live="polite"></p>
+        <div class="tablewrap"><table>
+          <thead><tr><th>week</th><th>season</th><th class="num">ads</th><th class="num">season avg ads</th><th class="num">r = ads − avg</th><th class="num">sales</th><th class="num">sales − 35</th><th class="num">r × (sales − 35)</th><th class="num">r²</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>summer</td><td class="num">1</td><td class="num">2</td><td class="num">−1</td><td class="num">40</td><td class="num">5</td><td class="num">−5</td><td class="num">1</td></tr>
+            <tr><td>2</td><td>summer</td><td class="num">2</td><td class="num">2</td><td class="num">0</td><td class="num">44</td><td class="num">9</td><td class="num">0</td><td class="num">0</td></tr>
+            <tr><td>3</td><td>summer</td><td class="num">3</td><td class="num">2</td><td class="num">1</td><td class="num">46</td><td class="num">11</td><td class="num">11</td><td class="num">1</td></tr>
+            <tr><td>4</td><td>winter</td><td class="num">5</td><td class="num">6</td><td class="num">−1</td><td class="num">24</td><td class="num">−11</td><td class="num">11</td><td class="num">1</td></tr>
+            <tr><td>5</td><td>winter</td><td class="num">6</td><td class="num">6</td><td class="num">0</td><td class="num">26</td><td class="num">−9</td><td class="num">0</td><td class="num">0</td></tr>
+            <tr><td>6</td><td>winter</td><td class="num">7</td><td class="num">6</td><td class="num">1</td><td class="num">30</td><td class="num">−5</td><td class="num">−5</td><td class="num">1</td></tr>
+            <tr class="sum"><td colspan="7">sum</td><td class="num">?</td><td class="num">?</td></tr>
+          </tbody>
+        </table></div>
+        <div class="check"><p class="cq"><b>Check yourself.</b> Fill in the two sums, then compute the slope the way we did on Day 2: Σ r(sales − 35) / Σ r².</p>
+          <details><summary>Show answer</summary><div><p>Σ r(sales − 35) = −5 + 0 + 11 + 11 + 0 − 5 = 12. Σ r² = 4. Slope = 12 / 4 = 3. That's <span class="hatw">cov</span>(<span class="hat">r</span><sub>1</sub>, sales) / <span class="hatw">var</span>(<span class="hat">r</span><sub>1</sub>) from above, with r as <span class="hat">r</span><sub>1</sub> (the n − 1s cancel). Within a season, $100 more in ads goes with $300 more in sales. A regression of sales on ads and a winter dummy gives the same 3.</p></div></details></div>
+      </div>
+      <p><b>Why it matters:</b> FWL tells you what a coefficient with controls means. It isn't "the effect of x" in general; it's how y moves with the part of x the controls don't explain. Heteroskedasticity answers a different question: not what the number means, but how sure we can be about it. That's under <a href="#robust">Day 4, robust standard errors</a>.</p>
+      <div class="check"><p class="cq"><b>Check yourself.</b> In the coffee shop, what does "controlling for season" compare?</p>
+        <details><summary>Show answer</summary><div><p>Weeks with more ads than usual <i>for their season</i> against weeks with fewer, within the same season. Summer weeks are never compared with winter weeks.</p></div></details></div>
+      <p class="tool">Same idea with the studying data: <a href="https://abbicormier.github.io/ba3316-fall2026/hold-it-constant/" target="_blank" rel="noopener">Hold it constant</a></p>
+    </article>
+  </section>
+
+  <!-- ===================================================== DAY 3 -->
+  <section class="part" id="day3">
+    <div><span class="eyebrow">Day 3 · Oct 15</span><h2>How much should we trust 5.2%?</h2><a class="fits" href="#sm-day3">↑ Where this fits in the big picture</a></div>
+
+    <article class="q" id="q-thumbs">
+      <h3>Two thumbs (omitted variable bias): where the + and − come from</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Day 3, Problem 2: Two thumbs. How do you know what's negative and positive, like x &amp; y &amp; z? How do you get +, − from them?"</p>
+        <p>"What is the way to find correlation with direction for OVB? Another example would be helpful."</p>
+      </div>
+      <p>When a variable z is left out and has a relationship to y and to x, the slope on x picks up part of z's effect. The two thumbs, or thinking about the direction of those two relationships, tell you which way that pushes the slope. Each thumb answers one question with a sign:</p>
+      <ul>
+        <li><b>Thumb 1, z → y.</b> Picture two people with the <i>same</i> x. If one has more z, is their y higher (+) or lower (−)?</li>
+        <li><b>Thumb 2, z with x</b> (the "correlation with direction"). In the data, do people with more x tend to have more z (+) or less z (−)? It's a tendency, not a cause.</li>
+        <li><b>Multiply.</b> Same signs (+ +, or − −): the bias is up, so the slope without z is too big. Different signs: the bias is down, so it's too small.</li>
+      </ul>
+      <p>That's Day 3's formula written as signs: slope without z = slope with z + (thumb 1) × (thumb 2). In the studying example, −1 = 2 + (−30) × (0.1). The −30 is thumb 1 (the hard class lowers scores at the same hours) and the 0.1 is thumb 2 (hard-class students study more). If you have the data, thumb 2's sign is the slope from regressing z on x.</p>
+      <div class="ex">
+        <span class="label">New example</span>
+        <p><b>Does tutoring raise grades?</b> Left out: being behind already. Thumb 1: of two students with the same tutoring hours, the one who was behind gets a lower grade (−). Thumb 2: students who are behind sign up for more tutoring (+). Different signs, so the bias is down: the plain slope understates tutoring and can even make it look harmful.</p>
+      </div>
+      <div class="panel" id="thumbs">
+        <span class="label">Practice: sign the thumbs</span>
+        <p class="scen" id="th-scen"></p>
+        <p id="th-ctx"></p>
+        <div class="thumbs">
+          <div class="tq"><span id="th-q1"></span><div class="row" data-k="t1"><button type="button" data-v="1" aria-pressed="false">+</button><button type="button" data-v="-1" aria-pressed="false">−</button></div></div>
+          <div class="tq"><span id="th-q2"></span><div class="row" data-k="t2"><button type="button" data-v="1" aria-pressed="false">+</button><button type="button" data-v="-1" aria-pressed="false">−</button></div></div>
+          <div class="tq"><span>So the plain slope (without z) is biased…</span><div class="row" data-k="b"><button type="button" data-v="1" aria-pressed="false">up</button><button type="button" data-v="-1" aria-pressed="false">down</button></div></div>
+        </div>
+        <div class="row"><button type="button" id="th-check">Check</button><button type="button" id="th-next">Next scenario</button><span id="th-count" class="label"></span></div>
+        <div class="fb" id="th-fb" aria-live="polite"></div>
+      </div>
+    </article>
+
+    <article class="q" id="q-sampling">
+      <h3>Sampling error: draw another sample</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Day 3: Can you go over sampling error: draw another sample. 5, 5a, 5b, 5c, 5d."</p>
+      </div>
+      <p>Even with no bias at all, the estimate isn't exactly the estimand, because we only have one sample. Draw a different 100 men and you get a different slope. The gap between a sample's estimate and the estimand is that sample's <b>sampling error</b>, and it changes from sample to sample.</p>
+      <ul>
+        <li><b>5a.</b> Draw 1,000 samples of 100 men from Card's data. The slopes average 0.052 and spread out with an SD of 0.016.</li>
+        <li><b>5b.</b> That SD, the spread of the slope across samples, is the <b>standard error</b>: how much the estimate bounces from sample to sample. With 400 men per sample it's about 0.008. Four times the men, half the SE.</li>
+        <li><b>5c.</b> With all 3,010 men the SE is 0.0029, so the 95% confidence interval is 0.052 ± 1.96 × 0.0029 = 0.046 to 0.058.</li>
+        <li><b>5d.</b> "95%" describes the recipe, not this one interval: if we drew many samples and built an interval from each, about 95% of them would contain the true slope.</li>
+      </ul>
+      <div class="ex">
+        <span class="label">New example</span>
+        <p>Ask 100 random students how much they spend on coffee per week and you might get an average of $14. Ask a different 100 and you might get $12.50. Neither poll is biased; they differ by "luck," or sampling error. Ask 400 at a time and the averages land closer together.</p>
+      </div>
+      <div class="ex">
+        <span class="label">Three terms that sound alike</span>
+        <ul>
+          <li><b>Sampling error</b> is one number for one sample: how far that sample's estimate lands from the estimand, just from the luck of who got drawn. It's different in every sample, and we never know it, because we never know the estimand.</li>
+          <li><b>SD (standard deviation)</b> measures the spread of any list of numbers: wages in one sample, or slopes from 1,000 samples.</li>
+          <li><b>SE (standard error)</b> is one particular SD: the SD of the estimate across many samples. It's the typical size of the sampling error. We only ever have one sample, so we estimate the SE (R does it for us).</li>
+        </ul>
+        <p>So SD ≠ SE: the SD of wages in Card's data says how spread out wages are, not how much the slope bounces. And sampling error ≠ SE: the sampling error is how far off <i>this</i> sample is, and the SE is how far off a sample <i>typically</i> is.</p>
+      </div>
+      <p><b>Bias vs. sampling error:</b> bias pushes the estimate the same way in every sample, and more data won't fix it. Sampling error is random around the truth and shrinks as samples grow.</p>
+      <div class="check"><p class="cq"><b>Check yourself.</b> With samples of 1,600 men (16 times as many as 100), about what would the SE be?</p>
+        <details><summary>Show answer</summary><div><p>16 times the data divides the SE by √16 = 4: 0.016 / 4 = 0.004.</p></div></details></div>
+      <p class="tool">Press "draw another sample" yourself: <a href="https://abbicormier.github.io/ba3316-fall2026/noise-and-luck/" target="_blank" rel="noopener">Noise and luck</a></p>
+    </article>
+  </section>
+
+  <!-- ===================================================== DAY 3 REVISITED -->
+  <section class="part" id="day3b">
+    <div><span class="eyebrow">Day 3 revisited · Oct 20</span><h2>Noisy data</h2><a class="fits" href="#sm-day3">↑ Where this fits in the big picture</a></div>
+
+    <article class="q" id="q-a7">
+      <h3>A7: why does +2 count as the "bigger" error?</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Regression Day 3 (revisited), A7: Why is an error (e) that's equally far away from the true point (for example +2 and −2) treated as if +2 has the larger error? Is it not determined by absolute value?"</p>
+      </div>
+      <p>Good catch on the wording. <b>"Bigger e" means more positive, not farther from zero.</b> Think of temperatures: +2° and −2° are the same distance from 0, but +2° is warmer.</p>
+      <p>The sign is the whole point. e = +2 means the student reported <i>more</i> hours than they really had; e = −2 means <i>fewer</i>. Thumb 2 asks whether e moves up with reported hours, and taking the absolute value would erase exactly that direction.</p>
+      <p>In A7, P and Q both report 5 hours. P (e = +2) truly had 3 hours and scored 84. Q (e = −2) truly had 7 and scored 76. At the same reported hours, a more positive e goes with a higher score, so thumb 1 is +.</p>
+      <div class="panel">
+        <svg viewBox="0 0 600 330" role="img" aria-label="Top: a number line from minus 4 to plus 4. Q's e of minus 2 and P's e of plus 2 are each 2 from zero, but P is farther right, so P's e is bigger. Bottom: P's arrow goes right from 3 true hours to 5 reported (plus 2); Q's arrow goes left from 7 true hours to 5 reported (minus 2).">
+          <defs>
+            <marker id="a7-mk-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="mk-ink"/></marker>
+            <marker id="a7-mk-p" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="mk-p"/></marker>
+            <marker id="a7-mk-q" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="mk-q"/></marker>
+          </defs>
+          <text x="20" y="22" class="axis-title">1. Bigger e means farther right on the number line</text>
+          <line x1="60" y1="78" x2="566" y2="78" class="a7-axis" marker-end="url(#a7-mk-ink)"/>
+          <text x="566" y="64" class="lnlabel" text-anchor="end">bigger e</text>
+          <g class="a7-br">
+            <line x1="80" y1="72" x2="80" y2="84"/><line x1="135" y1="72" x2="135" y2="84"/><line x1="190" y1="72" x2="190" y2="84"/><line x1="245" y1="72" x2="245" y2="84"/><line x1="300" y1="70" x2="300" y2="86"/><line x1="355" y1="72" x2="355" y2="84"/><line x1="410" y1="72" x2="410" y2="84"/><line x1="465" y1="72" x2="465" y2="84"/><line x1="520" y1="72" x2="520" y2="84"/>
+          </g>
+          <g class="tick" text-anchor="middle">
+            <text x="80" y="104">−4</text><text x="135" y="104">−3</text><text x="190" y="104">−2</text><text x="245" y="104">−1</text><text x="300" y="104">0</text><text x="355" y="104">+1</text><text x="410" y="104">+2</text><text x="465" y="104">+3</text><text x="520" y="104">+4</text>
+          </g>
+          <circle cx="190" cy="78" r="8" class="fill-q"/><text x="190" y="58" class="t-q" text-anchor="middle">Q: e = −2</text>
+          <circle cx="410" cy="78" r="8" class="fill-p"/><text x="410" y="58" class="t-p" text-anchor="middle">P: e = +2</text>
+          <g class="a7-br">
+            <line x1="190" y1="122" x2="300" y2="122"/><line x1="190" y1="116" x2="190" y2="128"/><line x1="300" y1="116" x2="300" y2="128"/>
+            <line x1="300" y1="122" x2="410" y2="122"/><line x1="410" y1="116" x2="410" y2="128"/>
+          </g>
+          <text x="245" y="144" class="lnlabel" text-anchor="middle">2 from 0</text>
+          <text x="355" y="144" class="lnlabel" text-anchor="middle">2 from 0</text>
+
+          <text x="20" y="188" class="axis-title">2. e is the jump from true hours to reported hours</text>
+          <text x="40" y="226" class="t-p" text-anchor="middle">P</text>
+          <line x1="221" y1="221" x2="288" y2="221" class="a7-p" marker-end="url(#a7-mk-p)"/>
+          <circle cx="212" cy="221" r="7" class="hol-p"/><circle cx="300" cy="221" r="7" class="fill-p"/>
+          <text x="256" y="209" class="t-p" text-anchor="middle">+2</text>
+          <text x="40" y="262" class="t-q" text-anchor="middle">Q</text>
+          <line x1="379" y1="257" x2="312" y2="257" class="a7-q" marker-end="url(#a7-mk-q)"/>
+          <circle cx="388" cy="257" r="7" class="hol-q"/><circle cx="300" cy="257" r="7" class="fill-q"/>
+          <text x="344" y="245" class="t-q" text-anchor="middle">−2</text>
+          <text x="566" y="226" class="lnlabel" text-anchor="end">hollow: true</text>
+          <text x="566" y="246" class="lnlabel" text-anchor="end">filled: reported</text>
+          <line x1="80" y1="282" x2="520" y2="282" class="a7-axis"/>
+          <g class="tick" text-anchor="middle">
+            <text x="80" y="302">0</text><text x="168" y="302">2</text><text x="256" y="302">4</text><text x="344" y="302">6</text><text x="432" y="302">8</text><text x="520" y="302">10</text>
+          </g>
+          <text x="300" y="324" class="axis-title" text-anchor="middle">hours</text>
+        </svg>
+        <p class="small">Top: P's e (+2) and Q's e (−2) are the same distance from 0, but P's is bigger because it's farther right. Bottom: e = reported − true. P reported more hours than they really had, so the arrow points right (+2). Q reported fewer, so it points left (−2).</p>
+      </div>
+      <div class="check"><p class="cq"><b>Check yourself.</b> R and S both report 4 hours on their phones. R's e is +1; S's e is −3. Who has the bigger e? Who truly spent more hours on the phone?</p>
+        <details><summary>Show answer</summary><div><p>R has the bigger e (+1 is more than −3), even though S's error is farther from zero. True hours = reported − e, so R truly had 3 hours and S had 7. S truly spent more time on the phone.</p></div></details></div>
+    </article>
+
+    <article class="q" id="q-partb">
+      <h3>Part B: no bias, but less precise</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Day 3 revisited, Part B: What does it mean by no bias, but less precise? An example that includes other steps."</p>
+      </div>
+      <p>Picture darts. <b>Bias</b> means aiming at the wrong spot: every throw lands off the same way. <b>Imprecision</b> means aiming at the right spot, but the throws scatter more.</p>
+      <p>Random noise in log wages is the second kind. Averaged over many samples, the slope still lands on 0.052 (no bias). But each sample's slope bounces more, so the standard error grows: from 0.0029 to 0.0040 in Card's data.</p>
+      <div class="ex">
+        <span class="label">New example, every step</span>
+        <p>A grader adds a random amount, up to 5 points either way, to each exam score. Does that bias the slope of score on study hours?</p>
+        <ol>
+          <li><b>Write it down.</b> reported score = true score + v, where v is the random grading noise.</li>
+          <li><b>Plug it into the true model.</b> reported score = β<sub>0</sub> + β<sub>1</sub> hours + (u + v). The noise lands in the leftover.</li>
+          <li><b>Two thumbs for v.</b> v → reported score: +. v with hours: 0, because the noise is random, unrelated to hours and to u. Bias = (+) × 0 = 0.</li>
+          <li><b>What changes.</b> The leftover u + v is bigger, so the points scatter more around the line, so the slope wobbles more from sample to sample: a bigger SE.</li>
+        </ol>
+      </div>
+      <p>Compare noise in x (Part A): that noise moves with reported x, so thumb 2 isn't zero, and on average it pulls the slope toward zero.</p>
+      <div class="ex">
+        <span class="label">See it: noise in scores vs. noise in hours</span>
+        <p>The computer draws samples of 50 students from a process we set up, where every extra hour of studying adds 2 points to the true score. That 2 is the true slope. Pick where the random noise goes.</p>
+        <div class="row" role="group" aria-label="Choose where the noise goes">
+          <button type="button" id="pb-none" aria-pressed="false">No noise</button>
+          <button type="button" id="pb-y" aria-pressed="true">Noise in scores (Part B)</button>
+          <button type="button" id="pb-x" aria-pressed="false">Noise in hours (Part A)</button>
+          <button type="button" id="pb-draw">Draw another sample</button>
+        </div>
+        <div class="sim-board">
+          <svg id="pb-plot" viewBox="0 0 600 360" role="img" aria-label="One sample of 50 students: exam score against recorded study hours, with this sample's fitted line and the true line"></svg>
+          <div class="stats" aria-live="polite">
+            <span class="label">This sample</span>
+            <div class="stat"><span>slope</span><span class="mono" id="pb-b"></span></div>
+            <span class="label">Across 1,000 samples</span>
+            <div class="stat"><span>average slope</span><span class="mono" id="pb-avg"></span></div>
+            <div class="stat"><span>how much the slope bounced (SE)</span><span class="mono" id="pb-se"></span></div>
+          </div>
+        </div>
+        <p id="pb-say"></p>
+        <p class="small">Because this is a simulation, we can see the true slope and 1,000 samples. With real data you get one sample and see neither.</p>
+      </div>
+      <div class="check"><p class="cq"><b>Check yourself.</b> If the random noise were added to the recorded study hours instead of the scores, would the slope be biased?</p>
+        <details><summary>Show answer</summary><div><p>Yes, toward zero on average. Noise in hours moves with recorded hours, so thumb 2 isn't zero. That's Part A.</p></div></details></div>
+    </article>
+  </section>
+
+  <!-- ===================================================== DAY 4 -->
+  <section class="part" id="day4">
+    <div><span class="eyebrow">Day 4 · Oct 20</span><h2>Is it real, and is it big?</h2><a class="fits" href="#sm-day4">↑ Where this fits in the big picture</a></div>
+
+    <article class="q" id="q-1e">
+      <h3>1e: R code in plain English</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Day 4, #1e: using English to explain what is happening."</p>
+      </div>
+      <div class="eq">lm(lwage ~ educ + exper, data = card)</div>
+      <p>Read <span class="mono">~</span> as "explained by." Left of it is y. Each name on the right gets its own coefficient, in order. R adds the intercept for you, and the leftover u is everything not listed. So we are estimating this model:</p>
+      <div class="eq">lwage = β<sub>0</sub> + β<sub>1</sub> educ + β<sub>2</sub> exper + u</div>
+      <div class="panel">
+        <span class="label">Piece by piece</span>
+        <div class="tablewrap"><table class="lmtab">
+          <thead><tr><th>In the code</th><th>What it means</th><th>In the model</th></tr></thead>
+          <tbody>
+            <tr><td><span class="lmc">lm(</span></td><td>fit a line by OLS ("linear model")</td><td class="none">—</td></tr>
+            <tr><td><span class="lmc lm-y">lwage</span></td><td>y, the outcome we're explaining</td><td><span class="lmc lm-y">lwage</span></td></tr>
+            <tr><td><span class="lmc">~</span></td><td>"explained by"</td><td><span class="lmc">=</span></td></tr>
+            <tr><td class="none">not in the code</td><td>the intercept: R adds it for you</td><td><span class="lmc lm-o">β<sub>0</sub></span></td></tr>
+            <tr><td><span class="lmc lm-x1">educ</span></td><td>the first x, with its own coefficient</td><td><span class="lmc lm-x1">+ β<sub>1</sub> educ</span></td></tr>
+            <tr><td><span class="lmc lm-x2">+ exper</span></td><td>the second x ("+" means "and"), with its own coefficient</td><td><span class="lmc lm-x2">+ β<sub>2</sub> exper</span></td></tr>
+            <tr><td><span class="lmc">, data = card)</span></td><td>use Card's data</td><td class="none">—</td></tr>
+            <tr><td class="none">not in the code</td><td>the leftover: everything not listed</td><td><span class="lmc lm-o">+ u</span></td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Read the last column top to bottom and you get the model above. Same color, same piece. The dashed boxes aren't in the code: R adds β<sub>0</sub> on its own, and u is everything you left out.</p>
+      </div>
+      <p>In English: "explain log wages using years of school and years of experience, in Card's data." β<sub>1</sub> is the return to school holding experience constant. Its estimate is 0.093: among men with the same experience, a year of school goes with about 9.3% higher wages.</p>
+      <div class="check"><p class="cq"><b>Check yourself.</b> Write the model and say it in English: <span class="mono">lm(sales ~ ads + winter, data = shop)</span></p>
+        <details><summary>Show answer</summary><div><div class="eq">sales = β<sub>0</sub> + β<sub>1</sub> ads + β<sub>2</sub> winter + u</div><p>Here, we want to explain sales using ad spending and a winter dummy. β<sub>1</sub> is how sales move with ads, holding season constant.</p></div></details></div>
+    </article>
+
+    <article class="q" id="robust">
+      <h3>Robust standard errors: what, why and how</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"…and ALSO exactly why we use robust SEs."</p>
+        <p>"How do you find the robust SE? With another example."</p>
+        <p>"Define robust S.E."</p>
+        <p>"Can you explain heteroskedasticity… and how it relates to regressions / why is it important?"</p>
+      </div>
+      <p><b>Define.</b> A standard error is how much an estimate would bounce from sample to sample. R's default formula for it makes an assumption: that the points are spread around the line equally at every x. That's called <i>homoskedasticity</i>. When the spread changes with x (the cloud fans out), it's called <i>heteroskedasticity</i>. Homoskedasticity is an assumption about the process that produced the data. We only ever see one sample, so we can't know for sure whether it holds.</p>
+      <p>A <b>robust standard error</b> is computed without that assumption. If the spread really is equal, robust and default come out about the same (Card: 0.00287 vs. 0.00291). If it isn't, only the robust one is right. Since we can't know which is true, robust is the safe choice either way, and that's <b>why</b> we always report it.</p>
+      <p><b>Heteroskedasticity doesn't bias the slope.</b> It makes the default SE wrong, and every t, p and interval built from that SE inherits the mistake.</p>
+      <p><b>How do you find it?</b> You don't compute it by hand. R does it: <span class="mono">modelsummary(m, vcov = "robust")</span>, or <span class="mono">lm_robust()</span> in place of <span class="mono">lm()</span>. In a table, look for the note "Robust standard errors in parentheses," or, if you made the table, make sure you add that note!</p>
+      <div class="ex">
+        <span class="label">New example: restaurant spending and income</span>
+        <p>Households earning $30,000 all spend a little on restaurants. Households earning $180,000 range from almost nothing to a lot, so the cloud fans out. Here the computer draws samples of 100 households from a process we set up, where every extra $1,000 of income adds $1.50 a month in restaurant spending. That 1.50 is the true slope, the estimand.</p>
+        <p>Because this is a simulation, we get to see things you never see when you're actually doing analysis: the true slope (the dashed line) and how much the slope bounces across 1,000 samples. With real data you get one sample, so all you'd have is the "This sample" numbers, and they can't tell you which SE is right.</p>
+        <div class="row" role="group" aria-label="Choose the spread">
+          <button type="button" id="rb-eq" aria-pressed="false">Equal spread</button>
+          <button type="button" id="rb-fan" aria-pressed="true">Fans out</button>
+          <button type="button" id="rb-draw">Draw another sample</button>
+        </div>
+        <div class="sim-board">
+          <svg id="rb-plot" viewBox="0 0 600 360" role="img" aria-label="One sample of 100 households: monthly restaurant spending against income, with the fitted line"></svg>
+          <div class="stats" aria-live="polite">
+            <span class="label">This sample</span>
+            <div class="stat"><span>slope</span><span class="mono" id="rb-b"></span></div>
+            <div class="stat"><span>default SE</span><span class="mono" id="rb-sd"></span></div>
+            <div class="stat"><span>robust SE</span><span class="mono" id="rb-sr"></span></div>
+            <span class="label">Across 1,000 samples</span>
+            <div class="stat"><span>how much the slope actually bounced</span><span class="mono" id="rb-act"></span></div>
+            <div class="stat"><span>default SE, on average</span><span class="mono" id="rb-avd"></span></div>
+            <div class="stat"><span>robust SE, on average</span><span class="mono" id="rb-avr"></span></div>
+            <span class="label">95% CIs that caught the true slope</span>
+            <div class="cov"><span>default</span><div class="track"><div class="fill" id="rb-cd"></div><div class="mark" style="left:95%"></div></div><span class="mono" id="rb-cdv"></span></div>
+            <div class="cov"><span>robust</span><div class="track"><div class="fill" id="rb-cr"></div><div class="mark" style="left:95%"></div></div><span class="mono" id="rb-crv"></span></div>
+          </div>
+        </div>
+        <p id="rb-say"></p>
+      </div>
+      <div class="check"><p class="cq"><b>Check yourself.</b> If default and robust SEs come out nearly the same, which do you report?</p>
+        <details><summary>Show answer</summary><div><p>Robust. It's right either way. Two SEs that agree in one sample don't prove the spread is even, and robust costs nothing if it is.</p></div></details></div>
+    </article>
+
+    <article class="q" id="q-realbig">
+      <h3>Real or big: how we decide</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Day 4, Question 2b: Still confused with the question: is it rather real or not, and is it big or not?"</p>
+        <p>"Day 4, Real &amp; Big. Another example. Specific how we decide 'Real' &amp; 'Big.'"</p>
+      </div>
+      <p>They're two separate questions, and you answer both from the 95% confidence interval.</p>
+      <ol>
+        <li><b>Build the interval:</b> estimate ± 1.96 × SE.</li>
+        <li><b>Real? (statistically significant)</b> Does the interval exclude 0? Excludes 0: real. Includes 0: not real. But this is assuming the null hypothesis is 0.</li>
+        <li><b>Big? (economically significant)</b> First say the smallest effect that would matter, and why. No formula picks it; it's a judgment call that depends on the setting. Then: if the whole interval is past that line, yes. If the whole interval is short of it, no. If the interval crosses it, can't tell.</li>
+      </ol>
+      <p>"Not statistically significant" ("not real") can mean two different things. A tight interval around zero says the effect is near zero. A wide interval that includes zero says the data can't tell.</p>
+      <div class="ex">
+        <span class="label">New example: free shipping</span>
+        <p>An online store tests offering free shipping to see if customers will order more. The outcome is dollars spent per order. The store decides that anything under <b>$5 more per order</b> isn't worth what free shipping costs. Decide each case, then check.</p>
+        <div class="cases" id="rob-cases"></div>
+        <div class="row"><button type="button" id="rob-check">Check my answers</button><button type="button" id="rob-reset">Start over</button><span class="label" id="rob-score"></span></div>
+        <svg id="rob-plot" viewBox="0 0 600 270" role="img" aria-label="The five cases' 95 percent confidence intervals, with lines at zero and at the 5 dollar cutoff" hidden></svg>
+      </div>
+      <p class="tool">Four more studies, with "draw another sample": <a href="https://abbicormier.github.io/ba3316-fall2026/real-or-big/" target="_blank" rel="noopener">Real or big</a></p>
+    </article>
+  </section>
+
+  <!-- ===================================================== DAY 5 -->
+  <section class="part" id="day5">
+    <div><span class="eyebrow">Day 5 · Oct 22 and 27</span><h2>What does the coefficient mean?</h2><a class="fits" href="#sm-day5">↑ Where this fits in the big picture</a></div>
+
+    <article class="q" id="q-dummies">
+      <h3>Dummies and interactions</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"What does the coefficient on a dummy / interaction mean?"</p>
+      </div>
+      <p>A <b>dummy's coefficient</b> is the difference in average y between the group (dummy = 1) and the base group (dummy = 0), holding the other x's constant if we have other x's included. With no other x's, the intercept is the base group's average.</p>
+      <p>An <b>interaction's coefficient</b> is how much the slope differs between the groups.</p>
+      <div class="ex">
+        <span class="label">New example: a coffee shop's daily sales</span>
+        <div class="eq">sales = 500 + 200 weekend</div>
+        <p>Weekdays average $500 (the intercept). Weekends average 500 + 200 = $700. The 200 is the gap between the two averages.</p>
+        <div class="eq">sales = 300 + 10 temp + 100 weekend + 5 (temp × weekend)</div>
+        <p>On weekdays each degree adds about $10. On weekends it adds about 10 + 5 = $15. The 5 is the difference in slopes between weekends and weekdays, in terms of how temperature is associated with sales.</p>
+      </div>
+      <div class="check"><p class="cq"><b>Check yourself.</b> Using the second equation, what are predicted sales on a 70° weekend day? On a 70° weekday?</p>
+        <details><summary>Show answer</summary><div><p>Weekend: 300 + 10(70) + 100 + 5(70) = 300 + 700 + 100 + 350 = $1,450. Weekday: 300 + 700 = $1,000. At 70° the weekend gap is 100 + 5 × 70 = $450.</p></div></details></div>
+      <p class="tool">Steps 1–4 draw these from Card's data: <a href="https://abbicormier.github.io/ba3316-fall2026/dummies-and-slopes/" target="_blank" rel="noopener">Dummies and slopes</a></p>
+    </article>
+
+    <article class="q" id="q-table">
+      <h3>Reading a regression table (Question 4)</h3>
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Day 5, Question 4: I don't understand how to interpret how columns/variables are related (positive/negative). Maybe another example would help."</p>
+        <p>"The Card Table 2 (not t), but how to interpret each column."</p>
+        <p>"Explaining how to read the tables like the one in Day 5 part 4."</p>
+      </div>
+      <p>Four rules for any regression table:</p>
+      <ol>
+        <li><b>Each column is one regression.</b> The column heading says what's different about it.</li>
+        <li><b>Each row is one x.</b> The number is its coefficient. The number in parentheses under it is its robust standard error.</li>
+        <li><b>A blank means that x wasn't in that regression.</b> N is how many people it used.</li>
+        <li><b>Compare neighboring columns that differ in one way.</b> What changed, and what moved?</li>
+      </ol>
+      <p>For a labeled picture of every part of a table, see <a href="#parts">the parts of a regression table</a> in the big picture.</p>
+      <div class="panel">
+        <span class="label">Day 5's table. Click any number.</span>
+        <div class="tablewrap"><table id="tab4">
+          <thead><tr><th></th><th>(1) all men</th><th>(2) men with IQ scores</th><th>(3) add IQ</th></tr></thead>
+          <tbody>
+            <tr><td>educ</td><td><button type="button" class="cell" data-k="educ1">0.075</button></td><td><button type="button" class="cell" data-k="educ2">0.076</button></td><td><button type="button" class="cell" data-k="educ3">0.070</button></td></tr>
+            <tr><td></td><td><button type="button" class="cell se" data-k="educ1se">(0.004)</button></td><td><button type="button" class="cell se" data-k="educ2se">(0.005)</button></td><td><button type="button" class="cell se" data-k="educ3se">(0.005)</button></td></tr>
+            <tr><td>smsa (lives in a city)</td><td><button type="button" class="cell" data-k="smsa1">0.136</button></td><td><button type="button" class="cell" data-k="smsa2">0.125</button></td><td><button type="button" class="cell" data-k="smsa3">0.123</button></td></tr>
+            <tr><td></td><td><button type="button" class="cell se" data-k="smsa1se">(0.019)</button></td><td><button type="button" class="cell se" data-k="smsa2se">(0.023)</button></td><td><button type="button" class="cell se" data-k="smsa3se">(0.023)</button></td></tr>
+            <tr><td>IQ</td><td><button type="button" class="cell blank" data-k="iqblank">blank</button></td><td><button type="button" class="cell blank" data-k="iqblank2">blank</button></td><td><button type="button" class="cell" data-k="iq3">0.0025</button></td></tr>
+            <tr><td></td><td></td><td></td><td><button type="button" class="cell se" data-k="iq3se">(0.0008)</button></td></tr>
+            <tr><td>N</td><td><button type="button" class="cell" data-k="n1">3,010</button></td><td><button type="button" class="cell" data-k="n2">2,061</button></td><td><button type="button" class="cell" data-k="n3">2,061</button></td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Dependent variable: log wage. Card's Table 2 controls in every column. Robust standard errors in parentheses.</p>
+        <p id="tab-say" aria-live="polite">Click any number in the table to see what it says.</p>
+      </div>
+      <p><b>The positive/negative part is two thumbs.</b> From (2) to (3) the men are the same, and the only change is adding IQ. Thumb 1, IQ → wage: + (0.0025, holding school constant). Thumb 2, IQ with school: + (men with higher IQ scores tend to have more school). Same signs, so leaving IQ out biased educ up. Adding IQ takes that piece out: 0.076 falls to 0.070.</p>
+      <p>Compare (2) with (3), not (1) with (3): column (1) uses all 3,010 men, and the other two use only the 2,061 with IQ scores.</p>
+      <div class="ex">
+        <span class="label">New example: house prices</span>
+        <div class="tablewrap"><table>
+          <thead><tr><th></th><th class="num">(1)</th><th class="num">(2) add size</th></tr></thead>
+          <tbody>
+            <tr><td>bedrooms</td><td class="num">0.120</td><td class="num">0.030</td></tr>
+            <tr><td></td><td class="num">(0.020)</td><td class="num">(0.020)</td></tr>
+            <tr><td>square feet (100s)</td><td class="num"></td><td class="num">0.040</td></tr>
+            <tr><td></td><td class="num"></td><td class="num">(0.004)</td></tr>
+            <tr><td>N</td><td class="num">2,000</td><td class="num">2,000</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Dependent variable: log price. Robust standard errors in parentheses. Made-up data.</p>
+        <div class="check"><p class="cq"><b>Check yourself.</b> (a) Interpret bedrooms in column (1).</p>
+          <details><summary>Show answer</summary><div><p>Each extra bedroom goes with about 12% higher prices (100 × 0.120).</p></div></details></div>
+        <div class="check"><p class="cq"><b>Check yourself.</b> (b) Why does it fall in column (2)? Use two thumbs.</p>
+          <details><summary>Show answer</summary><div><p>Size → price: + (0.040). Size with bedrooms: + (homes with more bedrooms are bigger). Same signs, so column (1) was biased up. Holding size constant, an extra bedroom goes with about 3% higher prices.</p></div></details></div>
+        <div class="check"><p class="cq"><b>Check yourself.</b> (c) Is bedrooms statistically significant in column (2)?</p>
+          <details><summary>Show answer</summary><div><p>t = 0.030 / 0.020 = 1.5, which is less than 1.96, so no, not at 5%. Its 95% CI, about −0.9% to 6.9%, includes zero.</p></div></details></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===================================================== PRACTICE -->
+  <section class="part" id="practice">
+    <div><span class="eyebrow">Practice</span><h2>Try some on your own</h2></div>
+    <article class="q">
+      <div class="asked"><span class="label">You asked</span>
+        <p>"Examples of questions that'll be asked on Exam 2."</p>
+      </div>
+      <p>These are new practice questions in the style of exam questions: short answers, new settings. Try each one before you open the answer.</p>
+      <div class="check"><p class="cq"><b>1. Logs.</b> A store regresses log(spending per order) on a free-shipping dummy, then adds controls.</p>
+        <div class="tablewrap"><table>
+          <thead><tr><th></th><th class="num">(1)</th><th class="num">(2) add controls</th></tr></thead>
+          <tbody>
+            <tr><td>free shipping</td><td class="num">0.084</td><td class="num">0.059</td></tr>
+            <tr><td></td><td class="num">(0.012)</td><td class="num">(0.013)</td></tr>
+            <tr><td>controls</td><td class="num">no</td><td class="num">yes</td></tr>
+            <tr><td>N</td><td class="num">5,000</td><td class="num">5,000</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Dependent variable: log(spending per order). Robust standard errors in parentheses. Made-up data.</p>
+        <p>(a) Interpret 0.084. (b) How much did the estimate fall from column (1) to column (2), and in what units?</p>
+        <details><summary>Show answer</summary><div><p>(a) Orders with free shipping are about 8.4% larger, on average. (b) From 8.4% to 5.9%: a drop of 2.5 percentage points.</p></div></details></div>
+      <div class="check"><p class="cq"><b>2. A t test against a number other than zero.</b> An estimate is 0.072 with robust SE 0.010. Test H<sub>0</sub>: β<sub>1</sub> = 0.05 at the 5% level.</p>
+        <details><summary>Show answer</summary><div><p>t = (0.072 − 0.05) / 0.010 = 2.2. Since |t| > 1.96, reject: the estimate is statistically different from 0.05.</p></div></details></div>
+      <div class="check"><p class="cq"><b>3. Code to model.</b> <span class="mono">lm(score ~ hours + tutor, data = class)</span>, where tutor = 1 for students with a tutor. Write the model. Which coefficient is the hours slope holding tutoring constant?</p>
+        <details><summary>Show answer</summary><div><div class="eq">score = β<sub>0</sub> + β<sub>1</sub> hours + β<sub>2</sub> tutor + u</div><p>β<sub>1</sub>.</p></div></details></div>
+      <div class="check"><p class="cq"><b>4. FWL.</b> In words, how could you get the coefficient on hours in question 3 from two simple regressions?</p>
+        <details><summary>Show answer</summary><div><p>Regress hours on tutor and keep the residuals: hours compared with students who have the same tutor status. Then regress score on those residuals. That slope equals <span class="hat">β</span><sub>1</sub>.</p></div></details></div>
+      <div class="check"><p class="cq"><b>5. Sign of the bias.</b> A regression of sales on ad spending gives 2.1. Adding a holiday-season dummy drops it to 1.4. Explain the drop with two thumbs.</p>
+        <details><summary>Show answer</summary><div><p>Holiday → sales: +. Holiday with ads: + (stores advertise more in the holidays). Same signs, so leaving the season out biased the ad slope up. Adding it removes that piece.</p></div></details></div>
+      <div class="check"><p class="cq"><b>6. Averages from dummies.</b> sales = β<sub>0</sub> + β<sub>1</sub> weekend + β<sub>2</sub> summer + β<sub>3</sub> (weekend × summer) + u. Write E(sales | weekday, winter) and E(sales | weekend, summer). Which coefficients give the summer-minus-winter difference on weekends?</p>
+        <details><summary>Show answer</summary><div><p>E(sales | weekday, winter) = β<sub>0</sub>. E(sales | weekend, summer) = β<sub>0</sub> + β<sub>1</sub> + β<sub>2</sub> + β<sub>3</sub>. On weekends, summer minus winter = (β<sub>0</sub> + β<sub>1</sub> + β<sub>2</sub> + β<sub>3</sub>) − (β<sub>0</sub> + β<sub>1</sub>) = β<sub>2</sub> + β<sub>3</sub>.</p></div></details></div>
+      <div class="check"><p class="cq"><b>7. Standard errors.</b> Which standard errors should you report, and why?</p>
+        <details><summary>Show answer</summary><div><p>Robust. They don't assume the spread around the line is the same at every x, so they're right whether or not it is.</p></div></details></div>
+      <div class="check"><p class="cq"><b>8. Real or big.</b> A training program raises wages by an estimated 3% (SE 0.5%). Anything under 1% isn't worth the program's cost. Is it statistically significant (real)? Is it economically significant (big)?</p>
+        <details><summary>Show answer</summary><div><p>95% CI: 3 ± 1.96 × 0.5 = 2.0% to 4.0%. Real: yes, it excludes 0. Big: yes, all of it is above 1%.</p></div></details></div>
+    </article>
+  </section>
+
+  <footer>BA 3316 · Fall 2026. Examples marked "new" use made-up numbers; the Card numbers come from the course handout and worksheets.</footer>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function txt(tag, attrs, s, parent) { var e = el(tag, attrs, parent); e.textContent = s; return e; }
+  function minus(s) { return String(s).replace(/^-/, "−"); }
+  function f(v, d) { return minus(v.toFixed(d)); }
+  function money(v) { return (v < 0 ? "−$" : "$") + Math.abs(v).toFixed(2); }
+  function press(group, btn) {
+    group.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+  }
+  // A simple scale: maps [d0, d1] to [r0, r1].
+  function scale(d0, d1, r0, r1) { return function (v) { return r0 + (v - d0) / (d1 - d0) * (r1 - r0); }; }
+  // Seeded random numbers for the simulations, so every visit sees the same samples.
+  function rng(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function normal(r) { var u = 0; while (u === 0) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); }
+
+  // ---------------------------------------------------------------- Sticky bar: mark the section you're reading
+  (function () {
+    var bar = document.querySelector("nav.jump"), links = Array.prototype.slice.call(bar.querySelectorAll("a"));
+    var secs = links.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
+    function mark() {
+      var y = bar.getBoundingClientRect().bottom + 24, cur = -1;
+      secs.forEach(function (sec, k) { if (sec.getBoundingClientRect().top <= y) cur = k; });
+      links.forEach(function (a, k) { if (k === cur) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); });
+      // On phones the bar scrolls sideways: keep the current pill in view.
+      if (cur >= 0 && bar.scrollWidth > bar.clientWidth) {
+        var a = links[cur], left = a.getBoundingClientRect().left - bar.getBoundingClientRect().left + bar.scrollLeft;
+        if (left < bar.scrollLeft || left + a.offsetWidth > bar.scrollLeft + bar.clientWidth) bar.scrollLeft = left - 16;
+      }
+    }
+    // Browsers already send scroll events at most once per frame, and mark() is cheap.
+    window.addEventListener("scroll", mark, { passive: true });
+    mark();
+  })();
+
+  // ---------------------------------------------------------------- Day 1: residuals
+  (function () {
+    var svg = $("res-plot"), W = 600, H = 330, M = { l: 62, r: 18, t: 14, b: 50 };
+    var sx = scale(11, 17, M.l, W - M.r), sy = scale(10, 36, H - M.b, M.t);
+    var P = [["A", 12, 16], ["B", 12, 20], ["C", 14, 19], ["D", 14, 23], ["E", 16, 27], ["F", 16, 33]];
+    var g = el("g", { class: "grid" }, svg);
+    [12, 14, 16].forEach(function (x) {
+      el("line", { x1: sx(x), x2: sx(x), y1: sy(10), y2: sy(36) }, g);
+      txt("text", { x: sx(x), y: H - M.b + 22, class: "tick", "text-anchor": "middle" }, x, svg);
+    });
+    [12, 18, 24, 30, 36].forEach(function (y) {
+      el("line", { x1: sx(11), x2: sx(17), y1: sy(y), y2: sy(y) }, g);
+      txt("text", { x: M.l - 8, y: sy(y) + 5, class: "tick", "text-anchor": "end" }, "$" + y, svg);
+    });
+    txt("text", { x: (M.l + W - M.r) / 2, y: H - 6, class: "axis-title", "text-anchor": "middle" }, "years of school (x)", svg);
+    txt("text", { x: 16, y: (M.t + H - M.b) / 2, class: "axis-title", "text-anchor": "middle", transform: "rotate(-90 16 " + (M.t + H - M.b) / 2 + ")" }, "hourly wage (y)", svg);
+    el("line", { x1: sx(11.4), y1: sy(-19 + 3 * 11.4), x2: sx(16.6), y2: sy(-19 + 3 * 16.6), class: "fitline" }, svg);
+    txt("text", { x: sx(12.5), y: sy(-19 + 3 * 12.5) + 26, class: "lnlabel" }, "ŷ = −19 + 3x", svg);
+    var sticks = {}, dots = {}, btns = {};
+    P.forEach(function (p) {
+      var yh = -19 + 3 * p[1];
+      sticks[p[0]] = el("line", { x1: sx(p[1]), x2: sx(p[1]), y1: sy(p[2]), y2: sy(yh), class: "stick" }, svg);
+    });
+    P.forEach(function (p) {
+      var d = el("circle", { cx: sx(p[1]), cy: sy(p[2]), r: 9, class: "dot", tabindex: "-1" }, svg);
+      d.addEventListener("click", function () { pick(p[0]); });
+      dots[p[0]] = d;
+      // Points above (or on) the line get their letter above; points below the line get it below.
+      var below = p[2] < -19 + 3 * p[1];
+      txt("text", { x: sx(p[1]), y: sy(p[2]) + (below ? 29 : -15), class: "plabel", "text-anchor": "middle" }, p[0], svg);
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = "Worker " + p[0]; b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () { pick(p[0]); });
+      $("res-buttons").appendChild(b); btns[p[0]] = b;
+    });
+    function pick(id) {
+      var p = P.filter(function (q) { return q[0] === id; })[0], yh = -19 + 3 * p[1], r = p[2] - yh;
+      P.forEach(function (q) {
+        var on = q[0] === id;
+        sticks[q[0]].setAttribute("class", "stick" + (on ? " sel" : ""));
+        dots[q[0]].setAttribute("class", "dot" + (on ? " sel" : ""));
+        btns[q[0]].setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      var s = "Worker " + id + " has " + p[1] + " years of school and earns $" + p[2] + " an hour. For " + p[1] +
+        " years the line predicts $" + yh + ". Residual = " + p[2] + " − " + yh + " = " + (r > 0 ? "+" : "") + minus(r) + ": ";
+      s += r === 0 ? id + " earns exactly what the line expects." :
+        id + " earns $" + Math.abs(r) + " " + (r > 0 ? "more" : "less") + " than the line expects for someone with " + p[1] + " years.";
+      $("res-say").innerHTML = s + ' <span class="mono">' + p[2] + " = " + yh + (r < 0 ? " + (" + minus(r) + ")" : " + " + r) + "</span>";
+    }
+    pick("B");
+  })();
+
+  // ---------------------------------------------------------------- Day 1: MSE slider
+  (function () {
+    var W3 = [10, 12, 20], inp = $("mse-g");
+    function upd() {
+      var g = Number(inp.value), rows = "<thead><tr><th>wage</th><th class='num'>miss (wage − guess)</th><th class='num'>miss²</th></tr></thead><tbody>", s = 0;
+      W3.forEach(function (w) { var m = w - g; s += m * m; rows += "<tr><td>$" + w + "</td><td class='num'>" + f(m, 1) + "</td><td class='num'>" + (m * m).toFixed(2) + "</td></tr>"; });
+      $("mse-tab").innerHTML = rows + "</tbody>";
+      $("mse-gv").textContent = "$" + g.toFixed(g % 1 ? 1 : 0);
+      $("mse-out").textContent = "MSE = " + (s / 3).toFixed(1);
+      $("mse-best").innerHTML = g === 14 ? '<span class="best">That\'s the lowest possible: 18.7, at $14, the average of the three wages.</span>' :
+        "Move the guess to make the MSE as small as you can.";
+    }
+    inp.addEventListener("input", upd); upd();
+  })();
+
+  // ---------------------------------------------------------------- Day 2: FWL coffee shop
+  (function () {
+    var svg = $("fwl-plot"), W = 600, H = 340, M = { l: 62, r: 18, t: 16, b: 52 };
+    var sx = scale(0, 8, M.l, W - M.r), sy = scale(20, 50, H - M.b, M.t);
+    var S = [[1, 40], [2, 44], [3, 46]], Wn = [[5, 24], [6, 26], [7, 30]];
+    var g = el("g", { class: "grid" }, svg);
+    for (var y = 20; y <= 50; y += 10) {
+      el("line", { x1: sx(0), x2: sx(8), y1: sy(y), y2: sy(y) }, g);
+      txt("text", { x: M.l - 8, y: sy(y) + 5, class: "tick", "text-anchor": "end" }, y, svg);
+    }
+    var tAll = el("g", { class: "fade" }, svg), tHold = el("g", { class: "fade", opacity: 0 }, svg);
+    for (var x = 0; x <= 8; x++) txt("text", { x: sx(x), y: H - M.b + 22, class: "tick", "text-anchor": "middle" }, x, tAll);
+    [2, 3, 4, 5, 6].forEach(function (p) {
+      txt("text", { x: sx(p), y: H - M.b + 22, class: "tick", "text-anchor": "middle" }, p === 4 ? "0" : (p < 4 ? "−" : "+") + Math.abs(p - 4), tHold);
+    });
+    var axT = txt("text", { x: (M.l + W - M.r) / 2, y: H - 6, class: "axis-title", "text-anchor": "middle" }, "ad spending ($100s)", svg);
+    txt("text", { x: 16, y: (M.t + H - M.b) / 2, class: "axis-title", "text-anchor": "middle", transform: "rotate(-90 16 " + (M.t + H - M.b) / 2 + ")" }, "sales ($100s)", svg);
+    // Pooled line through (4, 35) with slope -88/28; FWL line through (4, 35) with slope 3.
+    var pb = -88 / 28;
+    var pooled = el("g", { class: "fade" }, svg);
+    el("line", { x1: sx(0.5), y1: sy(35 + pb * (0.5 - 4)), x2: sx(7.5), y2: sy(35 + pb * (7.5 - 4)), class: "fitline dash" }, pooled);
+    txt("text", { x: sx(4.6) + 10, y: sy(35 + pb * 0.6) - 12, class: "lnlabel" }, "all weeks: slope −3.1", pooled);
+    var fwl = el("g", { class: "fade", opacity: 0 }, svg);
+    el("line", { x1: sx(2.3), y1: sy(35 + 3 * (2.3 - 4)), x2: sx(5.7), y2: sy(35 + 3 * (5.7 - 4)), class: "fitline" }, fwl);
+    txt("text", { x: sx(5.8), y: sy(35 + 3 * 1.8) + 5, class: "lnlabel" }, "slope +3", fwl);
+    function group(pts, cls, seg, lab, name) {
+      var gg = el("g", { class: "mv" }, svg), m = (pts[0][1] + pts[1][1] + pts[2][1]) / 3, xm = pts[1][0];
+      el("line", { x1: sx(xm - 1.2), y1: sy(m - 3.6), x2: sx(xm + 1.2), y2: sy(m + 3.6), class: seg }, gg);
+      pts.forEach(function (p) { el("circle", { cx: sx(p[0]), cy: sy(p[1]), r: 8, class: cls }, gg); });
+      txt("text", { x: sx(xm), y: sy(cls === "summer" ? 48.5 : 21.5), class: lab, "text-anchor": "middle" }, name, gg);
+      return gg;
+    }
+    var gS = group(S, "summer", "seg-s", "lab-s", "summer"), gW = group(Wn, "winter", "seg-w", "lab-w", "winter");
+    var unit = sx(1) - sx(0);
+    function show(hold) {
+      press($("fwl-all").parentNode, hold ? $("fwl-hold") : $("fwl-all"));
+      gS.style.transform = hold ? "translateX(" + 2 * unit + "px)" : "";
+      gW.style.transform = hold ? "translateX(" + (-2 * unit) + "px)" : "";
+      tAll.setAttribute("opacity", hold ? 0 : 1); tHold.setAttribute("opacity", hold ? 1 : 0);
+      pooled.setAttribute("opacity", hold ? 0 : 1); fwl.setAttribute("opacity", hold ? 1 : 0);
+      axT.textContent = hold ? "ads minus the season's average ($100s)" : "ad spending ($100s)";
+      $("fwl-say").innerHTML = hold ?
+        "<b>Hold season constant:</b> each week's ads are now measured against its own season's average (summer 2, winter 6). That's step 1 of FWL. Regressing sales on what's left gives a slope of <b>+3</b>: within a season, $100 more in ads goes with $300 more in sales." :
+        "<b>All six weeks:</b> more ads go with <i>lower</i> sales (slope about −3.1). That's the season talking: winter has more ads and fewer customers. Inside each season, though, the short lines slope up.";
+    }
+    $("fwl-all").addEventListener("click", function () { show(false); });
+    $("fwl-hold").addEventListener("click", function () { show(true); });
+    show(false);
+  })();
+
+  // ---------------------------------------------------------------- Day 3: two-thumbs trainer
+  (function () {
+    var SC = [
+      { q: "Does more fertilizer raise crop yield?", z: "soil quality", ctx: "Farmers with poor soil tend to use more fertilizer.", t1: 1, t2: -1,
+        q1: "Two farms use the same fertilizer. Does the one with better soil grow more (+) or less (−)?",
+        q2: "Do farms that use more fertilizer tend to have better soil (+) or worse (−)?",
+        w1: "Better soil grows more at the same fertilizer.", w2: "Farms with poor soil use more fertilizer, so more fertilizer comes with worse soil." },
+      { q: "Do price discounts raise units sold?", z: "a slow season", ctx: "Stores run discounts when business is slow.", t1: -1, t2: 1,
+        q1: "Two weeks have the same discount. Does the slow-season week sell more units (+) or fewer (−)?",
+        q2: "Do bigger discounts tend to come in slow seasons (+) or busy ones (−)?",
+        w1: "A slow season sells fewer units at the same discount.", w2: "Stores discount more when business is slow." },
+      { q: "Does sending more firefighters change fire damage?", z: "the size of the fire", ctx: "Bigger fires get more firefighters.", t1: 1, t2: 1,
+        q1: "Two fires get the same crew. Does the bigger fire do more damage (+) or less (−)?",
+        q2: "Do fires with more firefighters tend to be bigger (+) or smaller (−)?",
+        w1: "A bigger fire does more damage with the same crew.", w2: "Bigger fires get more firefighters. That's why the plain slope can make firefighters look like they cause damage." },
+      { q: "Does more sleep raise GPA?", z: "working a job", ctx: "Students with jobs tend to sleep less.", t1: -1, t2: -1,
+        q1: "Two students sleep the same amount. Does the one with a job have a higher GPA (+) or lower (−)?",
+        q2: "Do students who sleep more tend to be the ones with jobs (+) or without (−)?",
+        w1: "At the same sleep, a job leaves less time to study.", w2: "Students with jobs sleep less, so the students who sleep more tend not to have jobs." },
+      { q: "Does private school raise test scores?", z: "family income", ctx: "Private school costs money.", t1: 1, t2: 1,
+        q1: "Two students go to the same kind of school. Does the one from a higher-income family score higher (+) or lower (−)?",
+        q2: "Do private-school students tend to come from higher-income families (+) or lower-income (−)?",
+        w1: "Higher-income families can pay for tutors and books.", w2: "Private school costs money." },
+      { q: "Do umbrella sales change the number of car accidents?", z: "rain", ctx: "People buy umbrellas when it rains.", t1: 1, t2: 1,
+        q1: "Two days have the same umbrella sales. Does the rainier day have more accidents (+) or fewer (−)?",
+        q2: "Do days with more umbrella sales tend to be rainier (+) or drier (−)?",
+        w1: "Rain makes roads slick.", w2: "People buy umbrellas when it rains. The plain slope makes umbrellas look dangerous." },
+      { q: "Does a job-training program raise wages?", z: "having just been laid off", ctx: "The program is offered to people who just lost a job.", t1: -1, t2: 1,
+        q1: "Two people get the same training. Does the one who was just laid off earn more (+) or less (−)?",
+        q2: "Are people in the program more likely to have just been laid off (+) or less likely (−)?",
+        w1: "Someone just laid off earns less, with or without training.", w2: "The program is aimed at people who just lost a job." },
+      { q: "Do coupons change the grocery bill?", z: "household size", ctx: "Big families clip more coupons.", t1: 1, t2: 1,
+        q1: "Two households use the same coupons. Does the bigger household spend more (+) or less (−)?",
+        q2: "Do households that use more coupons tend to be bigger (+) or smaller (−)?",
+        w1: "A bigger household buys more food.", w2: "Big families clip more coupons. The plain slope can make coupons look like they raise the bill." },
+      { q: "Does time on a homework app raise exam scores?", z: "a strong math background", ctx: "Students with a strong background need the app less.", t1: 1, t2: -1,
+        q1: "Two students spend the same hours on the app. Does the one with the stronger background score higher (+) or lower (−)?",
+        q2: "Do students who use the app more tend to have a stronger background (+) or weaker (−)?",
+        w1: "A strong background means higher scores at the same app hours.", w2: "Students with a strong background use the app less." },
+      { q: "Do ads raise sales at Day 2's coffee shop?", z: "winter, the slow season", ctx: "The shop advertises more in winter.", t1: -1, t2: 1,
+        q1: "Two weeks have the same ad spending. Does the winter week sell more (+) or less (−)?",
+        q2: "Do weeks with more ads tend to be winter weeks (+) or summer weeks (−)?",
+        w1: "Winter sales are lower at the same ad spending.", w2: "The shop advertises more in winter. That's why all six weeks gave a negative slope." }
+    ];
+    var i = 0, pick = {}, right = 0, done = 0, checked = false, box = $("thumbs");
+    function render() {
+      var s = SC[i]; pick = {}; checked = false;
+      $("th-scen").textContent = s.q + " Left out: " + s.z + ".";
+      $("th-ctx").textContent = s.ctx;
+      $("th-q1").innerHTML = "<b>Thumb 1, z → y.</b> " + s.q1;
+      $("th-q2").innerHTML = "<b>Thumb 2, z with x.</b> " + s.q2;
+      box.querySelectorAll(".row[data-k] button").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+      $("th-fb").innerHTML = "";
+      $("th-count").textContent = done ? right + " of " + done + " fully right" : "";
+    }
+    box.querySelectorAll(".row[data-k]").forEach(function (row) {
+      row.addEventListener("click", function (e) {
+        var b = e.target.closest("button"); if (!b) return;
+        pick[row.getAttribute("data-k")] = Number(b.getAttribute("data-v")); press(row, b);
+      });
+    });
+    $("th-check").addEventListener("click", function () {
+      var s = SC[i], bias = s.t1 * s.t2;
+      if (pick.t1 === undefined || pick.t2 === undefined || pick.b === undefined) {
+        $("th-fb").innerHTML = "<p>Pick a sign for both thumbs and a direction for the bias first.</p>"; return;
+      }
+      function mark(ok) { return ok ? '<span class="ok">✓</span> ' : '<span class="bad">✗</span> '; }
+      function sg(v) { return v > 0 ? "+" : "−"; }
+      var ok1 = pick.t1 === s.t1, ok2 = pick.t2 === s.t2, ok3 = pick.b === bias;
+      $("th-fb").innerHTML =
+        "<p>" + mark(ok1) + "<b>Thumb 1 is " + sg(s.t1) + ".</b> " + s.w1 + "</p>" +
+        "<p>" + mark(ok2) + "<b>Thumb 2 is " + sg(s.t2) + ".</b> " + s.w2 + "</p>" +
+        "<p>" + mark(ok3) + "<b>(" + sg(s.t1) + ")(" + sg(s.t2) + "): bias " + (bias > 0 ? "up" : "down") + ".</b> " +
+        (bias > 0 ? "Same signs, so the plain slope is too big." : "Different signs, so the plain slope is too small.") + "</p>";
+      if (!checked) { done++; if (ok1 && ok2 && ok3) right++; checked = true; }
+      $("th-count").textContent = right + " of " + done + " fully right";
+    });
+    $("th-next").addEventListener("click", function () { i = (i + 1) % SC.length; render(); });
+    render();
+  })();
+
+  // ---------------------------------------------------------------- Day 3 revisited: noise in scores vs. noise in hours
+  (function () {
+    var N = 50, REPS = 1000, B0 = 60, B1 = 2, mode = "y", seed = 5, stats = {};
+    function sample(r, mo) {
+      var xs = [], ys = [];
+      for (var k = 0; k < N; k++) {
+        var h = 2 + 8 * r(), y = B0 + B1 * h + 3 * normal(r);
+        if (mo === "y") y += 10 * r() - 5;   // the grader's noise: up to 5 points either way
+        if (mo === "x") h += 4 * r() - 2;    // recorded hours off by up to 2 either way (score still follows true hours)
+        xs.push(h); ys.push(y);
+      }
+      return { x: xs, y: ys };
+    }
+    function fit(d) {
+      var n = d.x.length, mx = 0, my = 0, sxx = 0, sxy = 0, k;
+      for (k = 0; k < n; k++) { mx += d.x[k]; my += d.y[k]; }
+      mx /= n; my /= n;
+      for (k = 0; k < n; k++) { sxx += (d.x[k] - mx) * (d.x[k] - mx); sxy += (d.x[k] - mx) * (d.y[k] - my); }
+      return { a: my - sxy / sxx * mx, b: sxy / sxx };
+    }
+    ["none", "y", "x"].forEach(function (mo, j) {
+      var r = rng(2000 + j), bs = [], k;
+      for (k = 0; k < REPS; k++) bs.push(fit(sample(r, mo)).b);
+      var mb = bs.reduce(function (s, v) { return s + v; }, 0) / REPS;
+      stats[mo] = { avg: mb, se: Math.sqrt(bs.reduce(function (s, v) { return s + (v - mb) * (v - mb); }, 0) / (REPS - 1)) };
+    });
+    var svg = $("pb-plot"), W = 600, H = 360, M = { l: 62, r: 16, t: 14, b: 52 };
+    var sx = scale(0, 12, M.l, W - M.r), sy = scale(50, 100, H - M.b, M.t);
+    function plot(d, m) {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      var g = el("g", { class: "grid" }, svg), v;
+      for (v = 0; v <= 12; v += 2) { el("line", { x1: sx(v), x2: sx(v), y1: sy(50), y2: sy(100) }, g); txt("text", { x: sx(v), y: H - M.b + 22, class: "tick", "text-anchor": "middle" }, v, svg); }
+      for (v = 50; v <= 100; v += 10) { el("line", { x1: sx(0), x2: sx(12), y1: sy(v), y2: sy(v) }, g); txt("text", { x: M.l - 8, y: sy(v) + 5, class: "tick", "text-anchor": "end" }, v, svg); }
+      txt("text", { x: (M.l + W - M.r) / 2, y: H - 6, class: "axis-title", "text-anchor": "middle" }, "recorded study hours", svg);
+      txt("text", { x: 16, y: (M.t + H - M.b) / 2, class: "axis-title", "text-anchor": "middle", transform: "rotate(-90 16 " + (M.t + H - M.b) / 2 + ")" }, "recorded exam score", svg);
+      d.x.forEach(function (x, k) { el("circle", { cx: sx(x), cy: sy(d.y[k]), r: 5, class: "sim-dot" }, svg); });
+      el("line", { x1: sx(0), y1: sy(B0), x2: sx(12), y2: sy(B0 + B1 * 12), class: "fitline dash", opacity: 0.55 }, svg);
+      el("line", { x1: sx(0), y1: sy(m.a), x2: sx(12), y2: sy(m.a + m.b * 12), class: "fitline" }, svg);
+      txt("text", { x: sx(0.3), y: M.t + 16, class: "lnlabel" }, "solid: this sample's line · dashed: true slope 2", svg);
+    }
+    function one() {
+      var m, d = sample(rng(seed), mode);
+      m = fit(d); plot(d, m);
+      $("pb-b").textContent = m.b.toFixed(2);
+    }
+    function setMode(mo) {
+      mode = mo;
+      press($("pb-none").parentNode, mo === "none" ? $("pb-none") : mo === "y" ? $("pb-y") : $("pb-x"));
+      var st = stats[mo], s0 = stats.none;
+      $("pb-avg").textContent = st.avg.toFixed(2) + (Math.abs(st.avg - B1) < 0.05 ? " (no bias)" : " (biased toward 0)");
+      $("pb-se").textContent = st.se.toFixed(2);
+      $("pb-say").innerHTML = mo === "none" ?
+        "<b>No noise:</b> across samples the slope averages " + st.avg.toFixed(2) + ", right on the true 2, and it bounces by about " + st.se.toFixed(2) + " (the SE) just from the leftover u." :
+        mo === "y" ?
+        "<b>Noise in scores (Part B):</b> the points scatter more up and down. The slope still averages " + st.avg.toFixed(2) + " (no bias), but it bounces more: the SE grows from " + s0.se.toFixed(2) + " to " + st.se.toFixed(2) + ". Less precise, not biased." :
+        "<b>Noise in hours (Part A):</b> the points get smeared left and right, which flattens the line. The slope averages " + st.avg.toFixed(2) + ", pulled toward zero from the true 2. That's bias, and more data won't fix it.";
+      one();
+    }
+    $("pb-none").addEventListener("click", function () { setMode("none"); });
+    $("pb-y").addEventListener("click", function () { setMode("y"); });
+    $("pb-x").addEventListener("click", function () { setMode("x"); });
+    $("pb-draw").addEventListener("click", function () { seed++; one(); });
+    setMode("y");
+  })();
+
+  // ---------------------------------------------------------------- Day 4: robust SE simulator
+  (function () {
+    var N = 100, REPS = 1000, B0 = 80, B1 = 1.5, mode = "fan", seed = 11;
+    function sample(r) {
+      var xs = [], ys = [];
+      for (var k = 0; k < N; k++) {
+        var u = r(), x = 20 + 180 * u * u, sd = mode === "fan" ? 0.6 * (x - 20) + 3 : 30;
+        xs.push(x); ys.push(B0 + B1 * x + sd * normal(r));
+      }
+      return { x: xs, y: ys };
+    }
+    function fit(d) {
+      var n = d.x.length, mx = 0, my = 0, k;
+      for (k = 0; k < n; k++) { mx += d.x[k]; my += d.y[k]; }
+      mx /= n; my /= n;
+      var sxx = 0, sxy = 0;
+      for (k = 0; k < n; k++) { sxx += (d.x[k] - mx) * (d.x[k] - mx); sxy += (d.x[k] - mx) * (d.y[k] - my); }
+      var b = sxy / sxx, a = my - b * mx, sse = 0, meat = 0;
+      for (k = 0; k < n; k++) {
+        var e = d.y[k] - a - b * d.x[k], dx = d.x[k] - mx, h = 1 / n + dx * dx / sxx;
+        sse += e * e; meat += dx * dx * e * e / ((1 - h) * (1 - h));
+      }
+      return { a: a, b: b, seD: Math.sqrt(sse / (n - 2) / sxx), seR: Math.sqrt(meat) / sxx };
+    }
+    var svg = $("rb-plot"), W = 600, H = 360, M = { l: 62, r: 16, t: 14, b: 52 };
+    function plot(d, m) {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      var ymax = Math.max(700, Math.ceil(Math.max.apply(null, d.y) / 100) * 100), ymin = Math.min(0, Math.floor(Math.min.apply(null, d.y) / 100) * 100);
+      var sx = scale(20, 200, M.l, W - M.r), sy = scale(ymin, ymax, H - M.b, M.t), g = el("g", { class: "grid" }, svg), v;
+      for (v = 20; v <= 200; v += 30) { el("line", { x1: sx(v), x2: sx(v), y1: sy(ymin), y2: sy(ymax) }, g); txt("text", { x: sx(v), y: H - M.b + 22, class: "tick", "text-anchor": "middle" }, v, svg); }
+      for (v = ymin; v <= ymax; v += 100) { el("line", { x1: sx(20), x2: sx(200), y1: sy(v), y2: sy(v) }, g); txt("text", { x: M.l - 8, y: sy(v) + 5, class: "tick", "text-anchor": "end" }, (v < 0 ? "−$" : "$") + Math.abs(v), svg); }
+      txt("text", { x: (M.l + W - M.r) / 2, y: H - 6, class: "axis-title", "text-anchor": "middle" }, "household income ($1,000s)", svg);
+      txt("text", { x: 16, y: (M.t + H - M.b) / 2, class: "axis-title", "text-anchor": "middle", transform: "rotate(-90 16 " + (M.t + H - M.b) / 2 + ")" }, "restaurant spending per month", svg);
+      d.x.forEach(function (x, k) { el("circle", { cx: sx(x), cy: sy(d.y[k]), r: 4.5, class: "sim-dot" }, svg); });
+      el("line", { x1: sx(20), y1: sy(B0 + B1 * 20), x2: sx(200), y2: sy(B0 + B1 * 200), class: "fitline dash", opacity: 0.55 }, svg);
+      el("line", { x1: sx(20), y1: sy(m.a + m.b * 20), x2: sx(200), y2: sy(m.a + m.b * 200), class: "fitline" }, svg);
+      txt("text", { x: sx(24), y: M.t + 16, class: "lnlabel" }, "solid: this sample's line · dashed: true slope 1.5", svg);
+    }
+    function batch() {
+      var r = rng(1000 + (mode === "fan" ? 1 : 2)), bs = [], sd = 0, sr = 0, cd = 0, cr = 0, k;
+      for (k = 0; k < REPS; k++) {
+        var m = fit(sample(r));
+        bs.push(m.b); sd += m.seD; sr += m.seR;
+        if (Math.abs(m.b - B1) <= 1.96 * m.seD) cd++;
+        if (Math.abs(m.b - B1) <= 1.96 * m.seR) cr++;
+      }
+      var mb = bs.reduce(function (s, v) { return s + v; }, 0) / REPS;
+      var act = Math.sqrt(bs.reduce(function (s, v) { return s + (v - mb) * (v - mb); }, 0) / (REPS - 1));
+      sd /= REPS; sr /= REPS;
+      $("rb-act").textContent = act.toFixed(3);
+      $("rb-avd").textContent = sd.toFixed(3) + (sd < 0.85 * act ? " (too small)" : " (about right)");
+      $("rb-avr").textContent = sr.toFixed(3) + " (about right)";
+      $("rb-cd").style.width = (cd / REPS * 100) + "%"; $("rb-cr").style.width = (cr / REPS * 100) + "%";
+      $("rb-cd").classList.toggle("low", cd / REPS < 0.9); $("rb-cr").classList.toggle("low", cr / REPS < 0.9);
+      $("rb-cdv").textContent = Math.round(cd / REPS * 100) + "%"; $("rb-crv").textContent = Math.round(cr / REPS * 100) + "%";
+      $("rb-say").innerHTML = mode === "fan" ?
+        "<b>Fans out:</b> the default SE thinks the slope is more precise than it is. Its intervals are too narrow, so they miss the true slope far more than 5% of the time, and its t statistics come out too big. The robust SE matches how much the slope really bounces." :
+        "<b>Equal spread:</b> the default formula's assumption holds, so default and robust agree, and both match how much the slope really bounces. Reporting robust costs nothing here.";
+    }
+    function one() {
+      var m, d = sample(rng(seed));
+      m = fit(d); plot(d, m);
+      $("rb-b").textContent = m.b.toFixed(3); $("rb-sd").textContent = m.seD.toFixed(3); $("rb-sr").textContent = m.seR.toFixed(3);
+    }
+    function setMode(mo) {
+      mode = mo; press($("rb-eq").parentNode, mo === "fan" ? $("rb-fan") : $("rb-eq"));
+      one(); batch();
+    }
+    $("rb-eq").addEventListener("click", function () { setMode("equal"); });
+    $("rb-fan").addEventListener("click", function () { setMode("fan"); });
+    $("rb-draw").addEventListener("click", function () { seed++; one(); });
+    setMode("fan");
+  })();
+
+  // ---------------------------------------------------------------- Day 4: real-or-big drill
+  (function () {
+    var CUT = 5, C = [
+      { id: "A", est: 12, se: 2 }, { id: "B", est: 0.8, se: 0.1 }, { id: "C", est: 6, se: 4 },
+      { id: "D", est: 0.5, se: 1 }, { id: "E", est: 7, se: 2 }
+    ];
+    C.forEach(function (c) {
+      c.lo = c.est - 1.96 * c.se; c.hi = c.est + 1.96 * c.se;
+      c.real = (c.lo > 0 || c.hi < 0) ? "yes" : "no";
+      c.big = (c.lo >= CUT || c.hi <= -CUT) ? "yes" : (c.lo > -CUT && c.hi < CUT) ? "no" : "cant";
+    });
+    var wrap = $("rob-cases"), pick = {};
+    function build() {
+      wrap.innerHTML = ""; pick = {};
+      C.forEach(function (c) {
+        var d = document.createElement("div"); d.className = "case";
+        d.innerHTML = "<h4>Case " + c.id + "</h4><span class='est'>" + money(c.est) + " more per order (SE " + c.se.toFixed(2) + ")</span>" +
+          "<span class='label'>Real?</span><div class='row' data-c='" + c.id + "' data-q='real'><button type='button' data-v='yes' aria-pressed='false'>yes</button><button type='button' data-v='no' aria-pressed='false'>no</button></div>" +
+          "<span class='label'>Big?</span><div class='row' data-c='" + c.id + "' data-q='big'><button type='button' data-v='yes' aria-pressed='false'>yes</button><button type='button' data-v='no' aria-pressed='false'>no</button><button type='button' data-v='cant' aria-pressed='false'>can't tell</button></div>" +
+          "<div class='fb' id='fb-" + c.id + "' aria-live='polite'></div>";
+        wrap.appendChild(d);
+      });
+      wrap.querySelectorAll(".row").forEach(function (row) {
+        row.addEventListener("click", function (e) {
+          var b = e.target.closest("button"); if (!b) return;
+          pick[row.getAttribute("data-c") + row.getAttribute("data-q")] = b.getAttribute("data-v"); press(row, b);
+        });
+      });
+      $("rob-plot").setAttribute("hidden", ""); $("rob-score").textContent = "";
+    }
+    function word(v) { return v === "cant" ? "can't tell" : v; }
+    function check() {
+      var n = 0;
+      C.forEach(function (c) {
+        var pr = pick[c.id + "real"], pb = pick[c.id + "big"], okr = pr === c.real, okb = pb === c.big;
+        n += (okr ? 1 : 0) + (okb ? 1 : 0);
+        var whyR = c.real === "yes" ? "the interval excludes 0" : "the interval includes 0";
+        var whyB = c.big === "yes" ? "all of it is above $5, the threshold the store decided on" : c.big === "no" ? "all of it is under $5" : "it crosses $5";
+        if (c.big === "cant" && c.real === "no") whyB += ", and we can't rule out either a negative or a positive association";
+        function m(ok, p) { return p === undefined ? '<span class="mid">?</span> ' : ok ? '<span class="ok">✓</span> ' : '<span class="bad">✗</span> '; }
+        $("fb-" + c.id).innerHTML = "<p>95% CI: " + money(c.est) + " ± 1.96 × " + c.se.toFixed(2) + " = <b>" + money(c.lo) + " to " + money(c.hi) + "</b></p>" +
+          "<p>" + m(okr, pr) + "Real: <b>" + c.real + "</b>, " + whyR + ".</p><p>" + m(okb, pb) + "Big: <b>" + word(c.big) + "</b>, " + whyB + ".</p>";
+      });
+      $("rob-score").textContent = n + " of 10 right";
+      drawPlot();
+    }
+    function drawPlot() {
+      var svg = $("rob-plot"), W = 600, H = 270, M = { l: 70, r: 18, t: 30, b: 44 };
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      svg.removeAttribute("hidden");
+      var sx = scale(-4, 18, M.l, W - M.r), rowH = (H - M.t - M.b) / C.length;
+      el("rect", { x: sx(-4), y: M.t - 10, width: sx(CUT) - sx(-4), height: H - M.t - M.b + 10, class: "band" }, svg);
+      txt("text", { x: sx(-4) + 6, y: M.t - 14, class: "lnlabel" }, "too small to matter (under $5)", svg);
+      var g = el("g", { class: "grid" }, svg);
+      [-4, 0, 4, 8, 12, 16].forEach(function (v) {
+        el("line", { x1: sx(v), x2: sx(v), y1: M.t - 10, y2: H - M.b }, g);
+        txt("text", { x: sx(v), y: H - M.b + 20, class: "tick", "text-anchor": "middle" }, (v < 0 ? "−$" : "$") + Math.abs(v), svg);
+      });
+      el("line", { x1: sx(0), x2: sx(0), y1: M.t - 10, y2: H - M.b, class: "zero" }, svg);
+      el("line", { x1: sx(CUT), x2: sx(CUT), y1: M.t - 10, y2: H - M.b, class: "cut" }, svg);
+      txt("text", { x: (M.l + W - M.r) / 2, y: H - 4, class: "axis-title", "text-anchor": "middle" }, "extra dollars per order (95% CI)", svg);
+      C.forEach(function (c, k) {
+        var y = M.t + rowH * (k + 0.5);
+        txt("text", { x: M.l - 10, y: y + 5, class: "plabel", "text-anchor": "end" }, "Case " + c.id, svg);
+        el("line", { x1: sx(c.lo), x2: sx(c.hi), y1: y, y2: y, class: "ci-bar" }, svg);
+        el("circle", { cx: sx(c.est), cy: y, r: 6, class: "dot" }, svg);
+      });
+    }
+    $("rob-check").addEventListener("click", check);
+    $("rob-reset").addEventListener("click", build);
+    build();
+  })();
+
+  // ---------------------------------------------------------------- Day 5: table explainer
+  (function () {
+    var T = {
+      educ1: "Column (1): all 3,010 men, holding Card's Table 2 controls constant (experience, race, region, city and so on). Each extra year of school goes with about 7.5% higher wages (100 × 0.075).",
+      educ1se: "The robust standard error of 0.075: how much it would bounce from sample to sample. t = 0.075 / 0.004 ≈ 19, far past 1.96, so it's statistically significant.",
+      educ2: "Column (2) runs the same regression on only the 2,061 men who have an IQ score. The return barely moves (7.6% vs. 7.5%), so dropping the men without IQ scores changed little.",
+      educ2se: "A little bigger than in (1): fewer men, more sampling error.",
+      educ3: "Column (3): the same 2,061 men, now holding IQ constant too. The return falls to about 7.0%. Compare it with (2), not (1): (2) and (3) use the same men and differ only by IQ.",
+      educ3se: "t = 0.070 / 0.005 = 14: still statistically significant.",
+      smsa1: "smsa is a dummy (1 = lives in a city). Holding the rest constant, city men earn about 13.6% more than men outside cities (100 × 0.136). A dummy's coefficient is a difference in averages.",
+      smsa1se: "t = (0.136 − 0) / 0.019 ≈ 7.2, past 1.96, so the city gap is statistically significant at 5%.",
+      smsa2: "The city gap among the men with IQ scores: about 12.5%.",
+      smsa2se: "t = 0.125 / 0.023 ≈ 5.4: statistically significant.",
+      smsa3: "Holding IQ constant too, the city gap is about 12.3%. Adding IQ barely moves it.",
+      smsa3se: "t = 0.123 / 0.023 ≈ 5.3: statistically significant.",
+      iqblank: "Blank: IQ isn't in the column (1) regression.",
+      iqblank2: "Blank: IQ isn't in the column (2) regression either. That's what makes (2) vs. (3) a clean comparison: same men, and (3) adds only IQ.",
+      iq3: "Holding school and the rest constant, one more IQ point goes with about 0.25% higher wages (100 × 0.0025). It's positive: that's thumb 1 for IQ.",
+      iq3se: "t = 0.0025 / 0.0008 ≈ 3.1: statistically significant.",
+      n1: "3,010: every man in Card's sample.",
+      n2: "2,061: only the men with an IQ score.",
+      n3: "2,061: the same men as column (2)."
+    };
+    var tab = $("tab4");
+    tab.addEventListener("click", function (e) {
+      var b = e.target.closest("button.cell"); if (!b) return;
+      tab.querySelectorAll("button.cell").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      $("tab-say").textContent = T[b.getAttribute("data-k")];
+    });
+    tab.querySelectorAll("button.cell").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+  })();
+})();
+</script>
