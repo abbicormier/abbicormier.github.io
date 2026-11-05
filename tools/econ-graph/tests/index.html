@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Graph Generator Tests</title>
+<style>
+  body { font-family: monospace; margin: 20px; }
+  .fail { color: #c0392b; font-weight: bold; }
+  .pass { color: #1e8449; }
+  svg { width: 400px; border: 1px solid #ddd; margin: 4px; }
+</style>
+</head>
+<body>
+<h1 id="summary">Running...</h1>
+<div id="results"></div>
+<div id="renders"></div>
+
+<script src="../engine.js"></script>
+<script src="../registry.js"></script>
+<script src="../types/demand-supply.js"></script>
+<script src="../types/equilibrium.js"></script>
+<script src="../types/consumer-choice.js"></script>
+<script src="../types/elasticity.js"></script>
+<script src="../types/welfare.js"></script>
+<script src="../types/government.js"></script>
+<script src="../types/externalities.js"></script>
+<script src="../types/trade.js"></script>
+<script src="../types/labor.js"></script>
+<script src="../types/costs-competition.js"></script>
+<script src="../types/market-power.js"></script>
+<script src="../types/price-discrimination.js"></script>
+<script src="core-tests.js"></script>
+<script>
+// Draw every type at every tested set of values, and check no text falls outside its panel.
+function layoutResults() {
+  const base = { font: 'Arial', showGrid: true, showInterceptLabels: true, showDashed: true, pricePrefix: '$', goodName: 'the good', qtyUnit: '', symbolic: false, annotation: '' };
+  const results = [];
+  const holder = document.getElementById('renders');
+  GraphTypes.all().forEach(def => {
+    [...(def.tests || []).map(t => ({ name: t.name, v: t.v }))].forEach(t => {
+      [false, true].forEach(symbolic => {
+        const failures = [];
+        try {
+          const values = { ...GraphTypes.defaults(def), ...(t.v || {}) };
+          const svg = GraphTypes.build(def, { ...base, symbolic }, false, { values });
+          holder.appendChild(svg);
+          svg.querySelectorAll('text').forEach(text => {
+            if (text.getAttribute('transform')) return; // the rotated axis title
+            const box = text.getBBox();
+            if (box.x < -5 || box.y < -5 || box.x + box.width > W + 5 || box.y + box.height > H + 5) {
+              failures.push(`"${text.textContent.slice(0, 25)}" falls outside its panel`);
+            }
+          });
+        } catch (e) {
+          failures.push(`threw: ${e.message}`);
+        }
+        results.push({ type: def.id, name: `layout${symbolic ? ' (conceptual)' : ''}: ${t.name}`, failures });
+      });
+    });
+  });
+  return results;
+}
+
+const results = [...runCoreTests(), ...GraphTypes.runEconTests(), ...layoutResults()];
+const failed = results.filter(r => r.failures.length);
+document.getElementById('summary').textContent = `${results.length - failed.length}/${results.length} passed`;
+document.getElementById('results').innerHTML = results.map(r => {
+  const line = `${r.type}: ${r.name}${r.failures.length ? ' -- ' + r.failures.join('; ') : ''}`;
+  return `<div class="${r.failures.length ? 'fail' : 'pass'}">${line.replace(/</g, '&lt;')}</div>`;
+}).join('');
+window.testResults = results;
+</script>
+</body>
+</html>
