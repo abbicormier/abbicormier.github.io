@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Site icons. Declared explicitly because this page is a static file and does not
+     go through _includes/head.html. Keep the ?v= in step with _includes/head.html. -->
+<link rel="icon" href="/favicon.ico?v=isu-2026c" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg?v=isu-2026c">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=isu-2026c">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png?v=isu-2026c">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Just Under, Just Over &middot; BA 3316</title>
+<meta name="description" content="BA 3316 in-class tool, Idaho State University, Fall 2026. Regression discontinuity on death rates at age 21: compare everyone versus just under and just over, then made-up data showing what the jump estimates and when it is biased.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+/* Layout: projector-first board, same family as Who Gets the Small Class. Plot left, readout right, runs below.
+   Blue = under 21 (untreated, y0), red = 21 and over (treated, y1), dashed = what we never see, as on the PO slides. */
+:root {
+  --paper: #FBFAF8;
+  --panel: #F2EFEC;
+  --ink: #1F1B18;
+  --muted: #625B55;
+  --rule: #DEDAD5;
+  --accent: #B82B00;
+  --treat: #B82B00;
+  --ctrl: #1F6FA8;
+  --cf: #8A817A;
+  --est: #3D4F63;
+  --font-display: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-num: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #191614; --panel: #24201D; --ink: #F1ECE7; --muted: #ADA49C; --rule: #3B3430;
+    --accent: #F4875F; --treat: #F4875F; --ctrl: #7FB8E6; --cf: #9C948D; --est: #C5D3E0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #191614; --panel: #24201D; --ink: #F1ECE7; --muted: #ADA49C; --rule: #3B3430;
+  --accent: #F4875F; --treat: #F4875F; --ctrl: #7FB8E6; --cf: #9C948D; --est: #C5D3E0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 1rem; line-height: 1.45; }
+.wrap { max-width: 88rem; margin: 0 auto; padding-inline: clamp(16px, 3vw, 40px); padding-block: 1.25rem 2rem; display: grid; gap: 1rem; }
+header { display: grid; gap: 0.2rem; }
+.eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.25rem); max-width: 72ch; }
+.row { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.steps { border-bottom: 2px solid var(--rule); padding-bottom: 0.6rem; }
+.steps button { font-size: 1.05rem; }
+.under { justify-content: space-between; gap: 0.6rem 1rem; }
+.ctl-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-right: 0.15rem; }
+.sep { width: 1px; align-self: stretch; background: var(--rule); margin: 0 0.35rem; }
+button { font: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.55rem 0.85rem; border-radius: 7px; border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button:focus-visible { outline: 3px solid var(--ctrl); outline-offset: 2px; }
+button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.board { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: clamp(1rem, 2vw, 2rem); align-items: start; }
+@media (max-width: 860px) { .board { grid-template-columns: minmax(0, 1fr); } }
+.pane { display: grid; gap: 0.6rem; min-width: 0; }
+svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-size: 0.95rem; color: var(--muted); }
+.key { display: inline-flex; align-items: center; gap: 0.4rem; }
+.swatch { width: 0.85rem; height: 0.85rem; border-radius: 50%; display: inline-block; }
+.swatch.line { width: 1.4rem; height: 0; border-radius: 0; border-top: 3px solid var(--est); }
+.swatch.dash { width: 1.4rem; height: 0; border-radius: 0; border-top: 3px dashed var(--cf); }
+.score { background: var(--panel); border-radius: 10px; padding: clamp(1rem, 2vw, 1.5rem); display: grid; gap: 1rem; min-width: 0; }
+.label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.metric { display: grid; gap: 0.25rem; }
+.eqn { font-family: var(--font-num); font-size: clamp(0.95rem, 1.5vw, 1.15rem); font-weight: 500; overflow-wrap: anywhere; line-height: 1.5; }
+.big { font-family: var(--font-num); font-weight: 600; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1; font-variant-numeric: tabular-nums; color: var(--est); }
+.big.mid { font-size: clamp(1.8rem, 3.6vw, 2.6rem); }
+.t { color: var(--treat); font-weight: 600; } .c { color: var(--ctrl); font-weight: 600; } .s { color: var(--ink); font-weight: 600; }
+.hide { color: var(--muted); }
+.note { margin: 0; font-size: 1.02rem; max-width: 48ch; }
+.hist { display: grid; gap: 0.4rem; border-top: 2px solid var(--rule); padding-top: 0.8rem; }
+.foot { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.grid line { stroke: var(--rule); stroke-width: 1; }
+.axis line { stroke: var(--muted); stroke-width: 1.4; }
+.tick { fill: var(--muted); font-family: var(--font-body); font-size: 16px; }
+.axis-title { fill: var(--ink); font-family: var(--font-body); font-size: 18px; font-weight: 600; }
+.cut { stroke: var(--ink); stroke-width: 2; stroke-dasharray: 7 6; }
+.obs-t { fill: var(--treat); } .obs-c { fill: var(--ctrl); }
+.fit { stroke: var(--est); stroke-width: 4; stroke-linecap: round; fill: none; }
+.avg-t { stroke: var(--treat); stroke-width: 4; stroke-dasharray: 2 7; stroke-linecap: round; }
+.avg-c { stroke: var(--ctrl); stroke-width: 4; stroke-dasharray: 2 7; stroke-linecap: round; }
+.mu-c { stroke: var(--ctrl); stroke-width: 2.5; fill: none; }
+.mu-t { stroke: var(--treat); stroke-width: 2.5; fill: none; }
+.mu-dash { stroke-dasharray: 9 7; }
+.shade { fill: var(--ink); opacity: 0.05; }
+.gap { stroke: var(--cf); stroke-width: 2.5; }
+.br { stroke: var(--est); stroke-width: 3; }
+.br-sb { stroke: var(--ink); stroke-width: 3; }
+.br-att { stroke: var(--treat); stroke-width: 4; }
+.lab { font-family: var(--font-num); font-size: 16px; font-weight: 600; paint-order: stroke; stroke: var(--paper); stroke-width: 5px; stroke-linejoin: round; }
+.lab-name { font-family: var(--font-body); font-size: 15px; font-weight: 600; paint-order: stroke; stroke: var(--paper); stroke-width: 5px; stroke-linejoin: round; }
+.h-dot { fill: var(--est); }
+.h-mean { stroke: var(--est); stroke-width: 3; }
+.h-ate { stroke: var(--ink); stroke-width: 2; stroke-dasharray: 7 5; }
+.h-row { fill: var(--ink); font-family: var(--font-body); font-size: 19px; font-weight: 600; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <span class="eyebrow">BA 3316 · Regression Discontinuity</span>
+    <h1>Just under, just over</h1>
+    <p class="lede">Everyone 21 or older can drink legally, and no one younger can. People a month shy of 21 and a month past it are alike in almost every way, except that one group can drink legally.</p>
+  </header>
+
+  <div class="row steps" role="group" aria-label="Choose a step">
+    <button type="button" id="s1" aria-pressed="true">1. Deaths by age (real data)</button>
+    <button type="button" id="s2" aria-pressed="false">2. What we never see</button>
+    <button type="button" id="s3" aria-pressed="false">3. Something else changes at 21</button>
+  </div>
+
+  <section class="board">
+    <div class="pane">
+      <svg id="plot" viewBox="0 0 900 520" role="img" aria-label="Death rate by age, with the 21st birthday marked"></svg>
+      <div class="row under" id="ctl1">
+        <div class="row" role="group" aria-label="Cause of death">
+          <span class="ctl-label">Deaths</span>
+          <button type="button" id="o-all" aria-pressed="true">All causes</button>
+          <button type="button" id="o-ext" aria-pressed="false">External</button>
+          <button type="button" id="o-int" aria-pressed="false">Internal</button>
+        </div>
+        <div class="row" role="group" aria-label="What to show">
+          <span class="ctl-label">Show</span>
+          <button type="button" id="v-dots" aria-pressed="true">Dots</button>
+          <button type="button" id="cmp" aria-pressed="false">Compare everyone</button>
+          <button type="button" id="fit" aria-pressed="false">Fit a line on each side</button>
+        </div>
+      </div>
+      <div class="row" id="ctl1b">
+        <span class="ctl-label">Shape</span>
+        <button type="button" id="f-lin" aria-pressed="true">Straight lines</button>
+        <button type="button" id="f-quad" aria-pressed="false">Curves</button>
+        <span class="sep"></span>
+        <span class="ctl-label">Window</span>
+        <button type="button" id="w-2" aria-pressed="true">Ages 19–23</button>
+        <button type="button" id="w-1" aria-pressed="false">Ages 20–22</button>
+      </div>
+      <div class="row under" id="ctl2" hidden>
+        <div class="legend" id="legend"></div>
+        <div class="row">
+          <button type="button" id="god" aria-pressed="false">Show what we never see</button>
+          <button type="button" id="run1">Draw another sample</button>
+          <button type="button" id="run50">Draw 50 samples</button>
+        </div>
+      </div>
+    </div>
+    <aside class="score" id="score" aria-live="polite"></aside>
+  </section>
+
+  <section class="hist" id="hist-wrap" hidden>
+    <div class="row under">
+      <span class="label">Every sample so far: the same ages, new luck each time</span>
+      <button type="button" id="clear">Clear samples</button>
+    </div>
+    <svg id="hist" viewBox="0 0 1200 278" role="img" aria-label="Dot plot of the estimated jump from every sample"></svg>
+  </section>
+
+  <p class="foot" id="foot"></p>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var $ = function (id) { return document.getElementById(id); };
+
+  // Step 1: Carpenter and Dobkin (2009) via Angrist and Pischke's AEJfigs.dta. Deaths per 100,000 per year for 48
+  // age cells of about a month (the two cells right at 21.0 are missing in the file). [age, all, external, internal]
+  var CD = [[19.068,92.83,76.21,16.62],[19.151,95.1,76.77,18.33],[19.233,92.14,73.23,18.91],[19.315,88.43,72.33,16.1],[19.397,88.7,71.34,17.36],[19.479,90.19,72.32,17.87],[19.562,96.22,79.81,16.41],[19.644,89.62,73.64,15.98],[19.726,93.38,75.95,17.43],[19.808,90.86,72.57,18.29],[19.89,95.81,77.2,18.61],[19.973,94.16,75.72,18.44],[20.055,92.46,72.83,19.63],[20.137,98.25,77.36,20.88],[20.219,94.96,76.49,18.47],[20.301,93.39,74.5,18.88],[20.384,90.12,71.55,18.57],[20.466,92.41,73.04,19.36],[20.548,93.35,73.39,19.97],[20.63,92.23,72.81,19.42],[20.712,92.33,71.96,20.38],[20.795,92.67,73.15,19.52],[20.877,93.39,74.77,18.62],[20.959,94.27,74.07,20.2],[21.041,105.27,83.33,21.94],[21.123,101.07,79.94,21.12],[21.205,96.97,77.71,19.25],[21.288,102.83,81.32,21.51],[21.37,100.98,78.61,22.37],[21.452,101.24,80,21.23],[21.534,99.5,78.23,21.27],[21.616,95.2,73.11,22.09],[21.699,97.26,75.99,21.27],[21.781,98.93,79.47,19.45],[21.863,102.26,81.75,20.52],[21.945,96.83,74.74,22.09],[22.027,99.5,78.48,21.02],[22.11,96.07,72.67,23.4],[22.192,95.97,75.34,20.62],[22.274,98.61,75.48,23.13],[22.356,97.95,74.86,23.09],[22.438,97.41,73.04,24.37],[22.521,97.51,74.01,23.5],[22.603,95.56,72.74,22.82],[22.685,97.02,75.21,21.82],[22.767,99.37,75.02,24.35],[22.849,94.32,71.37,22.94],[22.932,97.4,73.16,24.24]];
+  var OUT = { all: { col: 1, name: "all causes", yr: [80, 110] }, ext: { col: 2, name: "external causes", yr: [60, 90] },
+              "int": { col: 3, name: "internal causes", yr: [10, 40] } };
+
+  // Steps 2 and 3: made-up death rates for 48 monthly age cells, 19 to 23. Without legal drinking (y0) the rate rises
+  // slowly with age; legal drinking adds TAU(age): 8 right at 21 (the LATE), 10 at 19 1/2, 6 at 22 1/2. Step 3 adds a
+  // made-up jump of 4 in y0 itself at 21 (something else that starts at 21), so continuity fails.
+  var AGES = []; for (var k = 0; k < 48; k++) AGES.push(19 + (k + 0.5) / 12);
+  var LATE = 8, OTHER = 4, NOISE = 2.4;
+  function mu0(a, st) { return 93 + 0.8 * (a - 21) + (st === 3 && a >= 21 ? OTHER : 0); }
+  function tau(a) { return LATE - (4 / 3) * (a - 21); }
+  function mu1(a, st) { return mu0(a, st) + tau(a); }
+
+  var seed = 2111;
+  function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+  function gauss() { var u = 0, v = 0; while (u === 0) u = rnd(); v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+
+  // ---- OLS with heteroskedasticity-robust (HC1) standard errors, as in class --------------------------------------
+  function solve(A) { // invert a small square matrix (Gauss-Jordan)
+    var n = A.length, M = A.map(function (r, i) { return r.concat(A.map(function (_, j) { return i === j ? 1 : 0; })); });
+    for (var c = 0; c < n; c++) {
+      var p = c; for (var r = c + 1; r < n; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+      var t = M[c]; M[c] = M[p]; M[p] = t;
+      var d = M[c][c]; for (var j = 0; j < 2 * n; j++) M[c][j] /= d;
+      for (r = 0; r < n; r++) if (r !== c) { var f = M[r][c]; for (j = 0; j < 2 * n; j++) M[r][j] -= f * M[c][j]; }
+    }
+    return M.map(function (r) { return r.slice(n); });
+  }
+  function ols(X, y) {
+    var n = X.length, p = X[0].length, i, j, l, XtX = [], Xty = [];
+    for (j = 0; j < p; j++) { XtX.push(new Array(p).fill(0)); Xty.push(0); }
+    for (i = 0; i < n; i++) for (j = 0; j < p; j++) { Xty[j] += X[i][j] * y[i]; for (l = 0; l < p; l++) XtX[j][l] += X[i][j] * X[i][l]; }
+    var V = solve(XtX), b = V.map(function (r) { return r.reduce(function (s, v, l2) { return s + v * Xty[l2]; }, 0); });
+    var meat = []; for (j = 0; j < p; j++) meat.push(new Array(p).fill(0));
+    for (i = 0; i < n; i++) {
+      var e = y[i] - X[i].reduce(function (s, v, l2) { return s + v * b[l2]; }, 0);
+      for (j = 0; j < p; j++) for (l = 0; l < p; l++) meat[j][l] += e * e * X[i][j] * X[i][l];
+    }
+    var VM = V.map(function (r) { return meat[0].map(function (_, l2) { return r.reduce(function (s, v, m) { return s + v * meat[m][l2]; }, 0); }); });
+    var se = b.map(function (_, j2) { return Math.sqrt(VM[j2].reduce(function (s, v, m) { return s + v * V[m][j2]; }, 0) * n / (n - p)); });
+    return { b: b, se: se, n: n };
+  }
+  // Regressors, with age centered at 21 (x - c). Straight: y = b0 + delta D + b1 (age - 21), the Day 1 regression.
+  // Curves: each side gets its own quadratic, the handout's over21*age + over21*I(age^2) column.
+  function row(a, quad) {
+    var x = a - 21, D = a >= 21 ? 1 : 0;
+    return quad ? [1, D, x, D * x, x * x, D * x * x] : [1, D, x];
+  }
+  function fitRD(ages, ys, quad) {
+    var r = ols(ages.map(function (a) { return row(a, quad); }), ys);
+    return { delta: r.b[1], se: r.se[1], b: r.b, n: r.n, quad: quad,
+             at: function (a, side) { var x = a - 21, D = side, v = quad ? [1, D, x, D * x, x * x, D * x * x] : [1, D, x];
+                                      return v.reduce(function (s, q, l) { return s + q * r.b[l]; }, 0); } };
+  }
+  function mean(a) { var s = 0; for (var q = 0; q < a.length; q++) s += a[q]; return s / a.length; }
+
+  // ---- state ----------------------------------------------------------------------------------------------------------
+  var step = 1, outcome = "all", showCmp = false, showFit = false, quad = false, wide = true, god = false;
+  var cur = { 2: null, 3: null }, runs = { 2: [], 3: [] };
+  function drawSample(st) {
+    var ys = AGES.map(function (a) { return (a >= 21 ? mu1(a, st) : mu0(a, st)) + NOISE * gauss(); });
+    var f = fitRD(AGES, ys, false);
+    return { ys: ys, fit: f, est: f.delta };
+  }
+  function runOnce() { var s = drawSample(step); runs[step].push(s); cur[step] = s; }
+
+  function el(tag, attrs, parent, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k2 in attrs) e.setAttribute(k2, attrs[k2]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function sgn(v, d) { var r = Math.abs(v).toFixed(d); return (Number(r) === 0 ? "" : v < 0 ? "−" : "+") + r; }
+  function f1(v) { return (v < 0 ? "−" : "") + Math.abs(v).toFixed(1); }
+
+  function realData() {
+    var col = OUT[outcome].col, rows = CD.filter(function (r) { return wide || (r[0] >= 20 && r[0] <= 22); });
+    return { ages: rows.map(function (r) { return r[0]; }), ys: rows.map(function (r) { return r[col]; }),
+             allAges: CD.map(function (r) { return r[0]; }), allYs: CD.map(function (r) { return r[col]; }) };
+  }
+
+  // ---- the plot -------------------------------------------------------------------------------------------------------
+  function drawPlot() {
+    var svg = $("plot");
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var W = 900, H = 520, M = { l: 70, r: 120, t: 24, b: 64 };
+    var YR = step === 1 ? OUT[outcome].yr : [80, 115], XR = [19, 23];
+    if (step > 1) YR = [82, 112];
+    var sx = function (a) { return M.l + (a - XR[0]) / (XR[1] - XR[0]) * (W - M.l - M.r); };
+    var sy = function (v) { return H - M.b - (v - YR[0]) / (YR[1] - YR[0]) * (H - M.t - M.b); };
+    var gr = el("g", { "class": "grid" }, svg), ax = el("g", { "class": "axis" }, svg);
+    for (var t = Math.ceil(YR[0] / 5) * 5; t <= YR[1]; t += 5) {
+      el("line", { x1: M.l, x2: W - M.r, y1: sy(t), y2: sy(t) }, gr);
+      el("text", { x: M.l - 10, y: sy(t) + 6, "text-anchor": "end", "class": "tick" }, ax, String(t));
+    }
+    for (var a = 19; a <= 23; a++) el("text", { x: sx(a), y: H - M.b + 26, "text-anchor": "middle", "class": "tick" }, ax, String(a));
+    el("line", { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }, ax);
+    el("line", { x1: M.l, x2: M.l, y1: M.t, y2: H - M.b }, ax);
+    el("text", { x: (M.l + W - M.r) / 2, y: H - 8, "text-anchor": "middle", "class": "axis-title" }, ax, "Age");
+    el("text", { x: 20, y: (M.t + H - M.b) / 2, "text-anchor": "middle", "class": "axis-title",
+      transform: "rotate(-90 20 " + (M.t + H - M.b) / 2 + ")" }, ax, "Deaths per 100,000 per year");
+
+    var under = el("g", {}, svg), dots = el("g", {}, svg), over = el("g", {}, svg), labs = el("g", {}, svg);
+    var line = function (fn, a0, a1, cls, g) {
+      var pts = []; for (var q = 0; q <= 40; q++) { var aa = a0 + (a1 - a0) * q / 40; pts.push(sx(aa).toFixed(1) + "," + sy(fn(aa)).toFixed(1)); }
+      return el("polyline", { points: pts.join(" "), "class": cls }, g || over);
+    };
+    var label = function (x, y, name, value, color, anchor) {
+      el("text", { x: x, y: y - 3, "class": "lab-name", fill: color, "text-anchor": anchor || "start" }, labs, name);
+      el("text", { x: x, y: y + 16, "class": "lab", fill: color, "text-anchor": anchor || "start" }, labs, value);
+    };
+    var bracket = function (x, v0, v1, cls) {
+      el("line", { x1: x, x2: x, y1: sy(v0), y2: sy(v1), "class": cls }, over);
+      [v0, v1].forEach(function (v) { el("line", { x1: x - 6, x2: x + 6, y1: sy(v), y2: sy(v), "class": cls }, over); });
+    };
+
+    var xr = W - M.r + 10, ages, ys;
+    if (step === 1) {
+      var R = realData();
+      if (!wide) { el("rect", { x: M.l, y: M.t, width: sx(20) - M.l, height: H - M.t - M.b, "class": "shade" }, under);
+                   el("rect", { x: sx(22), y: M.t, width: W - M.r - sx(22), height: H - M.t - M.b, "class": "shade" }, under); }
+      R.allAges.forEach(function (aa, i) {
+        var inWin = wide || (aa >= 20 && aa <= 22);
+        el("circle", { cx: sx(aa), cy: sy(R.allYs[i]), r: 6, "class": aa >= 21 ? "obs-t" : "obs-c", opacity: inWin ? 1 : 0.25 }, dots);
+      });
+      if (showCmp) {
+        var lo = R.ys.filter(function (_, i) { return R.ages[i] < 21; }), hi = R.ys.filter(function (_, i) { return R.ages[i] >= 21; });
+        var m0 = mean(lo), m1 = mean(hi), a0 = wide ? 19 : 20, a1 = wide ? 23 : 22;
+        el("line", { x1: sx(a0), x2: sx(21), y1: sy(m0), y2: sy(m0), "class": "avg-c" }, over);
+        el("line", { x1: sx(21), x2: sx(a1), y1: sy(m1), y2: sy(m1), "class": "avg-t" }, over);
+        // Labels sit in the margins: under-21 on the left edge of the plot, 21-and-over in the right margin.
+        el("text", { x: M.l + 8, y: sy(m0) - 12, "class": "lab", fill: "var(--ctrl)" }, labs, "avg " + m0.toFixed(1));
+        el("text", { x: W - M.r + 8, y: sy(m1) + 6, "class": "lab", fill: "var(--treat)" }, labs, "avg " + m1.toFixed(1));
+        // Carry the under-21 average across (faint) so the gap shows as a bracket at the right edge.
+        el("line", { x1: sx(21), x2: W - M.r - 10, y1: sy(m0), y2: sy(m0), "class": "avg-c", opacity: 0.45 }, over);
+        bracket(W - M.r - 10, m0, m1, "br");
+      }
+      if (showFit) {
+        var F = fitRD(R.ages, R.ys, quad), lo2 = wide ? 19 : 20, hi2 = wide ? 23 : 22;
+        line(function (aa) { return F.at(aa, 0); }, lo2, 21, "fit");
+        line(function (aa) { return F.at(aa, 1); }, 21, hi2, "fit");
+        var v0 = F.at(21, 0), v1 = F.at(21, 1), top = Math.max(v0, v1);
+        el("line", { x1: sx(21) - 7, x2: sx(21) - 7, y1: sy(v0), y2: sy(v1), "class": "br" }, over);
+        [v0, v1].forEach(function (v) { el("line", { x1: sx(21) - 13, x2: sx(21) - 1, y1: sy(v), y2: sy(v), "class": "br" }, over); });
+        // The label goes up and to the left of the jump, above where the under-21 dots sit.
+        label(sx(21) - 16, Math.max(M.t + 30, sy(top) - 44), "jump at 21", sgn(F.delta, 1), "var(--est)", "end");
+      }
+    } else {
+      var S = cur[step];
+      AGES.forEach(function (aa, i) { el("circle", { cx: sx(aa), cy: sy(S.ys[i]), r: 6, "class": aa >= 21 ? "obs-t" : "obs-c" }, dots); });
+      if (god) {
+        // What we never see: each side's other potential outcome, dashed.
+        line(function (aa) { return mu0(aa, step); }, 19, 21, "mu-c", under);
+        line(function (aa) { return mu0(aa, step); }, 21, 23, "mu-c mu-dash", under);
+        line(function (aa) { return mu1(aa, step); }, 19, 21, "mu-t mu-dash", under);
+        line(function (aa) { return mu1(aa, step); }, 21, 23, "mu-t", under);
+        // Step 3: where y0 would have gone if nothing else changed at 21 (faint), for comparison.
+        if (step === 3) line(function (aa) { return mu0(aa, 2); }, 21, 23, "mu-c mu-dash", under).setAttribute("opacity", "0.35");
+        // The effect elsewhere: a grey gap at 19 1/2 (label in the clear space above the under-21 dots) and at 22 1/2
+        // (label under the blue dashed line, below the 21-and-over dots).
+        [19.5, 22.5].forEach(function (aa) {
+          var lo3 = mu0(aa, step), hi3 = mu1(aa, step);
+          el("line", { x1: sx(aa), x2: sx(aa), y1: sy(lo3), y2: sy(hi3), "class": "gap" }, under);
+          el("text", { x: sx(aa) + 8, y: aa < 21 ? (sy(lo3) + sy(hi3)) / 2 - 4 : sy(lo3) + 24, "class": "lab", fill: "var(--cf)" }, labs,
+             "effect at " + (aa === 19.5 ? "19½" : "22½") + ": " + tau(aa).toFixed(0));
+        });
+        el("text", { x: sx(19) + 6, y: sy(mu1(19, step)) - 10, "class": "lab-name", fill: "var(--treat)" }, labs, "y₁ if they could drink (never seen)");
+        el("text", { x: sx(23) - 6, y: sy(mu0(23, step)) + 46, "text-anchor": "end", "class": "lab-name", fill: "var(--ctrl)" }, labs, "y₀ if they couldn't (never seen)");
+      }
+      var Fs = S.fit;
+      line(function (aa) { return Fs.at(aa, 0); }, 19, 21, "fit");
+      line(function (aa) { return Fs.at(aa, 1); }, 21, 23, "fit");
+      var e0 = Fs.at(21, 0), e1 = Fs.at(21, 1);
+      // Brackets sit on the birthday line, with labels up and to the left (above the under-21 dots), as in step 1.
+      var vbr = function (v0b, v1b, cls) {
+        el("line", { x1: sx(21) - 7, x2: sx(21) - 7, y1: sy(v0b), y2: sy(v1b), "class": cls }, over);
+        [v0b, v1b].forEach(function (v) { el("line", { x1: sx(21) - 13, x2: sx(21) - 1, y1: sy(v), y2: sy(v), "class": cls }, over); });
+      };
+      if (!god) {
+        vbr(e0, e1, "br");
+        label(sx(21) - 16, Math.max(M.t + 30, sy(Math.max(e0, e1)) - 40), "our estimate", sgn(Fs.delta, 1), "var(--est)", "end");
+      } else if (step === 2) {
+        vbr(mu0(21, 2), mu1(21, 2), "br-att");
+        label(sx(21) - 16, sy(mu1(21, 2)) - 40, "LATE (true effect at 21)", sgn(LATE, 0), "var(--treat)", "end");
+      } else {
+        var c0 = mu0(20.9999, 3), c1 = mu0(21, 3);
+        vbr(c0, c1, "br-sb");
+        vbr(c1, mu1(21, 3), "br-att");
+        label(sx(21) - 16, sy(mu1(21, 3)) - 40, "LATE (true effect at 21)", sgn(LATE, 0), "var(--treat)", "end");
+        el("text", { x: sx(21) + 10, y: sy(c0) + 26, "class": "lab-name", fill: "var(--ink)" }, labs, "bias: y₀ jumps " + sgn(OTHER, 0));
+      }
+    }
+    el("line", { x1: sx(21), x2: sx(21), y1: M.t, y2: H - M.b, "class": "cut" }, over);
+    el("text", { x: sx(21), y: M.t - 6, "text-anchor": "middle", "class": "lab-name", fill: "var(--ink)" }, labs, "21st birthday");
+  }
+
+  // ---- the readout ----------------------------------------------------------------------------------------------------
+  function metric(lab, body) { return '<div class="metric"><span class="label">' + lab + "</span>" + body + "</div>"; }
+  function eqn(s) { return '<span class="eqn">' + s + "</span>"; }
+  function drawScore() {
+    var h = "", q = '<span class="hide">?</span>';
+    if (step === 1) {
+      var R = realData(), nm = OUT[outcome].name;
+      var lo = R.ys.filter(function (_, i) { return R.ages[i] < 21; }), hi = R.ys.filter(function (_, i) { return R.ages[i] >= 21; });
+      var cmpTxt = eqn('<span class="t">21-and-over avg ' + mean(hi).toFixed(1) + '</span> − <span class="c">under-21 avg ' + mean(lo).toFixed(1) + "</span>");
+      if (showCmp) h += metric("Compare everyone", '<span class="big">' + sgn(mean(hi) - mean(lo), 1) + "</span>" + cmpTxt);
+      if (showFit) {
+        var F = fitRD(R.ages, R.ys, quad), tt = F.delta / F.se;
+        h += metric("Jump at 21: the RD estimate", '<span class="big">' + sgn(F.delta, 1) + "</span>" +
+          eqn("robust SE " + F.se.toFixed(2) + " · t = " + f1(tt) + "<br>95% CI " + f1(F.delta - 1.96 * F.se) + " to " + f1(F.delta + 1.96 * F.se)));
+        h += metric("The regression", eqn((quad ? "a curve on each side" : "y = β₀ + δ·over21 + β₁(age − 21)") + "<br>" + F.n + " months, ages " + (wide ? "19–23" : "20–22")));
+        h += metric("Compare everyone, for contrast", '<span class="big mid">' + sgn(mean(hi) - mean(lo), 1) + "</span>" + cmpTxt);
+      }
+      var note;
+      if (!showCmp && !showFit) note = "Carpenter and Dobkin's death rates from " + nm + ", for 48 months of age from 19 to 23. Each dot is one month of age. Blue: under 21. Red: 21 and over.";
+      else if (showCmp && !showFit) note = "Comparing everyone under 21 with everyone 21 and over mixes in everything else that changes between 19 and 23. A 23-year-old isn't a 19-year-old who can drink.";
+      else note = "A line on each side uses all the months to pin down where each side ends up right at 21. The jump between the two lines is the RD estimate: just under versus just over.";
+      if (showFit && quad) note = "Curves let each side bend. Same data, same cutoff; only the shape we assume changes. Which jump do you believe?";
+      h += '<p class="note">' + note + "</p>";
+    } else {
+      var S = cur[step], tot = step === 2 ? LATE : LATE + OTHER;
+      h += metric("Our estimate (this sample)", '<span class="big">' + sgn(S.est, 1) + "</span>" +
+        eqn("jump between the two fitted lines at 21"));
+      h += metric("Split it (needs the God's-eye view)", eqn(god
+        ? sgn(S.est, 1) + " = " + '<span class="t">LATE ' + sgn(LATE, 0) + "</span>" +
+          (step === 3 ? ' + <span class="s">bias (jump in y₀) ' + sgn(OTHER, 0) + "</span>" : "") +
+          "<br>+ sampling error " + sgn(S.est - tot, 1)
+        : sgn(S.est, 1) + " = LATE " + q + (step === 3 ? " + bias " + q : "") + "<br>+ sampling error " + q));
+      h += metric("True effect at 21, the LATE (God's-eye view)", eqn(god ? '<span class="s">' + LATE + "</span>" : q));
+      var Rr = runs[step];
+      if (Rr.length > 1) h += metric("Averaged over " + Rr.length + " samples", eqn("estimate " + sgn(mean(Rr.map(function (r) { return r.est; })), 1)));
+      var NOTES = {
+        2: ["Made-up death rates for 48 months of age. Only one thing changes at 21: people can drink legally. Draw another sample: same ages, new noise.",
+            "Dashed lines are what we never see: deaths at each age without legal drinking (blue) and with it (red). The blue line runs smoothly through 21: that's continuity. So the jump at 21 is the effect of drinking at 21, the LATE. The effect is bigger at 19½ and smaller at 22½, and RD can't see either."],
+        3: ["Same ages, but suppose something else that raises deaths also starts at 21 (made up). Where will the estimates pile up now?",
+            "Now the blue line jumps at 21 too: without legal drinking, deaths would still jump by 4. Continuity fails, so the jump we see is the effect of drinking plus the other jump. More data won't fix it: it's bias, not luck."]
+      };
+      h += '<p class="note">' + NOTES[step][god ? 1 : 0] + "</p>";
+    }
+    $("score").innerHTML = h;
+  }
+
+  // ---- every sample so far --------------------------------------------------------------------------------------------
+  function drawHist() {
+    var svg = $("hist");
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var W = 1200, H = 278, top = 34, RH = 100, X0 = 300, X1 = 1180, XR = [2, 18];
+    var sx = function (v) { return X0 + (v - XR[0]) / (XR[1] - XR[0]) * (X1 - X0); };
+    var rows = [["Only drinking changes", runs[2]], ["Something else changes too", runs[3]]];
+    var gr = el("g", { "class": "grid" }, svg), ax = el("g", { "class": "axis" }, svg);
+    for (var t = XR[0]; t <= XR[1]; t += 2) {
+      el("line", { x1: sx(t), x2: sx(t), y1: top, y2: H - 44 }, gr);
+      el("text", { x: sx(t), y: H - 20, "text-anchor": "middle", "class": "tick" }, ax, String(t));
+    }
+    el("line", { x1: X0, x2: X1, y1: H - 44, y2: H - 44 }, ax);
+    el("text", { x: 10, y: H - 20, "class": "tick" }, ax, "estimated jump at 21");
+    rows.forEach(function (rw, ri) {
+      var y0 = top + ri * RH, base = y0 + RH - 12, vals = rw[1].map(function (r) { return r.est; });
+      var faded = ri !== step - 2;
+      el("text", { x: 10, y: y0 + RH / 2, "class": "h-row", opacity: faded ? 0.5 : 1 }, svg, rw[0]);
+      el("text", { x: 10, y: y0 + RH / 2 + 22, "class": "tick" }, svg, vals.length === 1 ? "1 sample" : vals.length + " samples");
+      if (ri > 0) el("line", { x1: X0, x2: X1, y1: y0, y2: y0 }, gr);
+      if (!vals.length) { el("text", { x: (X0 + X1) / 2, y: y0 + RH / 2 + 6, "text-anchor": "middle", "class": "tick" }, svg, "no samples yet"); return; }
+      var bins = {}, maxc = 1;
+      vals.forEach(function (v) { var b = Math.round(v / 0.25); bins[b] = (bins[b] || 0) + 1; maxc = Math.max(maxc, bins[b]); });
+      var dy = Math.min(9, (RH - 30) / maxc), seen = {}, g = el("g", { opacity: faded ? 0.4 : 1 }, svg);
+      vals.forEach(function (v) {
+        var b = Math.round(v / 0.25), kk = seen[b] = (seen[b] || 0) + 1;
+        el("circle", { cx: sx(Math.max(XR[0], Math.min(XR[1], b * 0.25))), cy: base - (kk - 1) * dy, r: 4.5, "class": "h-dot" }, g);
+      });
+      var m = mean(vals), xm = sx(Math.max(XR[0], Math.min(XR[1], m)));
+      el("line", { x1: xm, x2: xm, y1: y0 + 26, y2: base + 6, "class": "h-mean" }, g);
+      el("text", { x: xm + 8, y: y0 + 22, "class": "lab", fill: "var(--est)" }, g, "average " + sgn(m, 1));
+    });
+    if (god) {
+      el("line", { x1: sx(LATE), x2: sx(LATE), y1: top - 8, y2: H - 44, "class": "h-ate" }, svg);
+      el("text", { x: sx(LATE), y: 18, "text-anchor": "middle", "class": "lab", fill: "var(--ink)" }, svg, "true LATE " + LATE);
+    }
+  }
+
+  function drawLegend() {
+    var key = function (sw, text) { return '<span class="key">' + sw + text + "</span>"; };
+    var h = key('<span class="swatch" style="background:var(--ctrl)"></span>', "under 21: y₀, seen") +
+            key('<span class="swatch" style="background:var(--treat)"></span>', "21 and over: y₁, seen") +
+            key('<span class="swatch line"></span>', "fitted lines");
+    if (god) h += key('<span class="swatch dash"></span>', "what we never see");
+    $("legend").innerHTML = h;
+  }
+
+  var FOOT = {
+    1: "Data: Carpenter and Dobkin (2009), as posted with Angrist and Pischke's Mastering 'Metrics (AEJfigs.dta): deaths per 100,000 per year for 48 age cells of about a month. The two cells at exactly 21.0 are missing in the file. Robust (HC1) standard errors.",
+    2: "Made-up data for teaching. Both potential outcomes are invented for every age: the effect of legal drinking is 8 right at 21, 10 at 19½ and 6 at 22½. Each sample adds new noise to the same 48 ages.",
+    3: "Made-up data for teaching: the same ages as step 2, plus a made-up jump of 4 in deaths at 21 that has nothing to do with drinking."
+  };
+
+  function render() {
+    if (step > 1 && !cur[step]) runOnce();
+    for (var s = 1; s <= 3; s++) $("s" + s).setAttribute("aria-pressed", String(s === step));
+    ["all", "ext", "int"].forEach(function (o) { $("o-" + o).setAttribute("aria-pressed", String(o === outcome)); });
+    $("v-dots").setAttribute("aria-pressed", String(!showCmp && !showFit));
+    $("cmp").setAttribute("aria-pressed", String(showCmp));
+    $("fit").setAttribute("aria-pressed", String(showFit));
+    $("f-lin").setAttribute("aria-pressed", String(!quad)); $("f-quad").setAttribute("aria-pressed", String(quad));
+    $("w-2").setAttribute("aria-pressed", String(wide)); $("w-1").setAttribute("aria-pressed", String(!wide));
+    $("god").setAttribute("aria-pressed", String(god));
+    $("god").textContent = god ? "Hide what we never see" : "Show what we never see";
+    $("ctl1").hidden = $("ctl1b").hidden = step !== 1;
+    $("ctl2").hidden = $("hist-wrap").hidden = step === 1;
+    $("foot").textContent = FOOT[step];
+    drawPlot(); drawScore();
+    if (step > 1) { drawLegend(); drawHist(); }
+  }
+
+  // Switching steps hides the God's-eye view again, so each step opens as a prediction.
+  [1, 2, 3].forEach(function (s) { $("s" + s).addEventListener("click", function () { if (s !== step) god = false; step = s; render(); }); });
+  ["all", "ext", "int"].forEach(function (o) { $("o-" + o).addEventListener("click", function () { outcome = o; render(); }); });
+  // Three views, one at a time: the dots, the two group averages, or a line on each side.
+  $("v-dots").addEventListener("click", function () { showCmp = showFit = false; render(); });
+  $("cmp").addEventListener("click", function () { showCmp = true; showFit = false; render(); });
+  $("fit").addEventListener("click", function () { showFit = true; showCmp = false; render(); });
+  $("f-lin").addEventListener("click", function () { quad = false; showFit = true; showCmp = false; render(); });
+  $("f-quad").addEventListener("click", function () { quad = true; showFit = true; showCmp = false; render(); });
+  $("w-2").addEventListener("click", function () { wide = true; render(); });
+  $("w-1").addEventListener("click", function () { wide = false; render(); });
+  $("god").addEventListener("click", function () { god = !god; render(); });
+  $("run1").addEventListener("click", function () { runOnce(); render(); });
+  $("run50").addEventListener("click", function () { for (var k3 = 0; k3 < 50; k3++) runOnce(); render(); });
+  $("clear").addEventListener("click", function () { runs = { 2: [], 3: [] }; cur = { 2: null, 3: null }; render(); });
+  render();
+})();
+</script>
+</body>
+</html>
