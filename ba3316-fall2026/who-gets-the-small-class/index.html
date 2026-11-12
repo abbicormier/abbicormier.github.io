@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Site icons. Declared explicitly because this page is a static file and does not
+     go through _includes/head.html. Keep the ?v= in step with _includes/head.html. -->
+<link rel="icon" href="/favicon.ico?v=isu-2026c" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg?v=isu-2026c">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=isu-2026c">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png?v=isu-2026c">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Who Gets the Small Class &middot; BA 3316</title>
+<meta name="description" content="BA 3316 in-class tool, Idaho State University, Fall 2026. Potential outcomes with 60 made-up kids: why letting families choose overstates a small-class effect, and how a lottery, or a lottery within schools, recovers it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap">
+<style>
+/* Layout: projector-first board, same family as the regression tools. Kids left, readout right, runs below; four steps.
+   Red = small class (y1), blue = regular class (y0), grey dashed = the road not taken, as on the PO slides. */
+:root {
+  --paper: #FBFAF8;
+  --panel: #F2EFEC;
+  --ink: #1F1B18;
+  --muted: #625B55;
+  --rule: #DEDAD5;
+  --accent: #B82B00;
+  --treat: #B82B00;
+  --ctrl: #1F6FA8;
+  --cf: #8A817A;
+  --est: #3D4F63;
+  --font-display: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-num: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #191614; --panel: #24201D; --ink: #F1ECE7; --muted: #ADA49C; --rule: #3B3430;
+    --accent: #F4875F; --treat: #F4875F; --ctrl: #7FB8E6; --cf: #9C948D; --est: #C5D3E0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #191614; --panel: #24201D; --ink: #F1ECE7; --muted: #ADA49C; --rule: #3B3430;
+  --accent: #F4875F; --treat: #F4875F; --ctrl: #7FB8E6; --cf: #9C948D; --est: #C5D3E0;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 1rem; line-height: 1.45; }
+.wrap { max-width: 88rem; margin: 0 auto; padding-inline: clamp(16px, 3vw, 40px); padding-block: 1.25rem 2rem; display: grid; gap: 1rem; }
+header { display: grid; gap: 0.2rem; }
+.eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.25rem); max-width: 70ch; }
+.row { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.steps { border-bottom: 2px solid var(--rule); padding-bottom: 0.6rem; }
+.steps button { font-size: 1.05rem; }
+.under { justify-content: space-between; gap: 0.6rem 1rem; }
+button { font: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.55rem 0.85rem; border-radius: 7px; border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button:focus-visible { outline: 3px solid var(--ctrl); outline-offset: 2px; }
+button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.board { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: clamp(1rem, 2vw, 2rem); align-items: start; }
+@media (max-width: 860px) { .board { grid-template-columns: minmax(0, 1fr); } }
+.pane { display: grid; gap: 0.6rem; min-width: 0; }
+svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-size: 0.95rem; color: var(--muted); }
+.key { display: inline-flex; align-items: center; gap: 0.4rem; }
+.swatch { width: 0.85rem; height: 0.85rem; border-radius: 50%; display: inline-block; }
+.swatch.hollow { border: 2px dashed var(--cf); }
+.score { background: var(--panel); border-radius: 10px; padding: clamp(1rem, 2vw, 1.5rem); display: grid; gap: 1rem; min-width: 0; }
+.label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.metric { display: grid; gap: 0.25rem; }
+.eqn { font-family: var(--font-num); font-size: clamp(0.95rem, 1.5vw, 1.15rem); font-weight: 500; overflow-wrap: anywhere; line-height: 1.5; }
+.big { font-family: var(--font-num); font-weight: 600; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1; font-variant-numeric: tabular-nums; color: var(--est); }
+.big.mid { font-size: clamp(1.8rem, 3.6vw, 2.6rem); }
+.t { color: var(--treat); font-weight: 600; } .c { color: var(--ctrl); font-weight: 600; } .s { color: var(--ink); font-weight: 600; }
+.hide { color: var(--muted); }
+.note { margin: 0; font-size: 1.02rem; max-width: 48ch; }
+.hist { display: grid; gap: 0.4rem; border-top: 2px solid var(--rule); padding-top: 0.8rem; }
+.foot { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.grid line { stroke: var(--rule); stroke-width: 1; }
+.axis line { stroke: var(--muted); stroke-width: 1.4; }
+.tick { fill: var(--muted); font-family: var(--font-body); font-size: 16px; }
+.tick-strong { fill: var(--ink); font-family: var(--font-body); font-size: 17px; font-weight: 600; }
+.axis-title { fill: var(--ink); font-family: var(--font-body); font-size: 18px; font-weight: 600; }
+.obs-t { fill: var(--treat); } .obs-c { fill: var(--ctrl); }
+.cf { fill: var(--paper); stroke: var(--cf); stroke-width: 1.8; stroke-dasharray: 3 2.5; }
+.te { stroke: var(--cf); stroke-width: 1.4; }
+.avg-t { stroke: var(--treat); stroke-width: 4; stroke-linecap: round; }
+.avg-c { stroke: var(--ctrl); stroke-width: 4; stroke-linecap: round; }
+.avg-cf { stroke: var(--cf); stroke-width: 3; stroke-dasharray: 8 6; }
+.ref { stroke: var(--ctrl); stroke-width: 2; stroke-dasharray: 6 5; }
+.br { stroke: var(--est); stroke-width: 3; }
+.br-sb { stroke: var(--ink); stroke-width: 3; }
+.br-att { stroke: var(--treat); stroke-width: 4; }
+.lab { font-family: var(--font-num); font-size: 16px; font-weight: 600; paint-order: stroke; stroke: var(--paper); stroke-width: 5px; stroke-linejoin: round; }
+.lab-name { font-family: var(--font-body); font-size: 15px; font-weight: 600; paint-order: stroke; stroke: var(--paper); stroke-width: 5px; stroke-linejoin: round; }
+.val { font-family: var(--font-num); font-size: 17px; font-weight: 600; }
+.h-dot { fill: var(--est); }
+.h-mean { stroke: var(--est); stroke-width: 3; }
+.h-ate { stroke: var(--ink); stroke-width: 2; stroke-dasharray: 7 5; }
+.h-row { fill: var(--ink); font-family: var(--font-body); font-size: 19px; font-weight: 600; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <span class="eyebrow">BA 3316 · Potential Outcomes</span>
+    <h1>Who gets the small class?</h1>
+    <p class="lede">Every kid has two potential outcomes: a score in a regular class (y₀) and a score in a small class (y₁). We only ever see the one for the road the kid took.</p>
+  </header>
+
+  <div class="row steps" role="group" aria-label="Choose who decides">
+    <button type="button" id="s1" aria-pressed="true">1. Six students</button>
+    <button type="button" id="s2" aria-pressed="false">2. Families choose</button>
+    <button type="button" id="s3" aria-pressed="false">3. A lottery</button>
+    <button type="button" id="s4" aria-pressed="false">4. A lottery in each school</button>
+  </div>
+
+  <section class="board">
+    <div class="pane">
+      <svg id="plot" viewBox="0 0 900 520" role="img" aria-label="Each kid's test score, by class type, with group averages"></svg>
+      <div class="row under">
+        <div class="legend" id="legend"></div>
+        <div class="row">
+          <button type="button" id="god" aria-pressed="false">Show what we never see</button>
+          <button type="button" id="run1">Run it again</button>
+          <button type="button" id="run50">Run it 50 times</button>
+        </div>
+      </div>
+    </div>
+    <aside class="score" id="score" aria-live="polite"></aside>
+  </section>
+
+  <section class="hist" id="hist-wrap" hidden>
+    <div class="row under">
+      <span class="label">Every run so far: same kids, a new draw of who gets the small class each time</span>
+      <button type="button" id="clear">Clear runs</button>
+    </div>
+    <svg id="hist" viewBox="0 0 1200 278" role="img" aria-label="Dot plot of the estimate from every run"></svg>
+  </section>
+
+  <p class="foot">Made-up data for teaching. Both potential outcomes are invented for every kid; the six students' observed scores are the slide's, and their other roads are set so the small-class kids would have averaged 89.</p>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var $ = function (id) { return document.getElementById(id); };
+
+  // 60 made-up kindergartners: [y0 (score in a regular class), TE (what a small class adds), 1 = School A].
+  // y1 = y0 + TE. TE has nothing to do with y0, and it averages exactly 2.0 (the true ATE).
+  var KIDS = [[88,4,0],[90,2,1],[86,0,0],[83,2,0],[85,2,1],[82,3,0],[88,1,0],[96,1,1],[85,2,1],[84,2,0],[91,3,1],[90,1,1],[89,1,1],[82,3,0],[88,4,1],[92,2,1],[80,2,0],[85,1,0],[77,0,0],[80,1,0],[77,3,0],[87,1,1],[80,4,0],[90,0,1],[89,2,0],[87,2,0],[74,2,0],[85,2,0],[88,4,1],[89,2,0],[79,3,0],[85,3,0],[82,2,0],[83,2,0],[94,3,1],[83,2,1],[88,3,1],[93,2,1],[84,2,0],[87,3,1],[89,1,0],[88,2,1],[81,3,0],[88,1,1],[96,4,1],[79,0,0],[93,0,1],[89,1,1],[84,2,0],[100,2,1],[93,2,1],[81,1,0],[88,2,1],[91,2,1],[87,3,1],[92,1,1],[88,2,0],[92,0,0],[97,3,1],[84,4,1]];
+  // The six students from the slide: [kid, D, y0, y1]. Observed scores are the slide's; the other roads are made up
+  // so the small-class kids' y0's average 89 (ATT 1, selection bias 2) and the six kids' ATE is 1.
+  var SIX = [[1,0,84,85],[2,1,90,92],[3,1,82,82],[4,0,91,93],[5,0,86,86],[6,1,95,96]];
+
+  var N = KIDS.length, Y0 = [], Y1 = [], TE = [], SA = [], ALL = [], IA = [], IB = [], i;
+  for (i = 0; i < N; i++) {
+    Y0.push(KIDS[i][0]); TE.push(KIDS[i][1]); Y1.push(KIDS[i][0] + KIDS[i][1]); SA.push(KIDS[i][2]); ALL.push(i);
+    (KIDS[i][2] ? IA : IB).push(i);
+  }
+  function mean(a) { var s = 0; for (var k = 0; k < a.length; k++) s += a[k]; return s / a.length; }
+  function pick(a, idx) { return idx.map(function (k) { return a[k]; }); }
+  var ATE = mean(TE), ATE_A = mean(pick(TE, IA)), ATE_B = mean(pick(TE, IB));
+  var SIXS = (function () {
+    var t = SIX.filter(function (r) { return r[1] === 1; }), u = SIX.filter(function (r) { return r[1] === 0; });
+    var m1 = mean(t.map(function (r) { return r[3]; })), m0 = mean(u.map(function (r) { return r[2]; })), c = mean(t.map(function (r) { return r[2]; }));
+    return { m1: m1, m0: m0, cf: c, est: m1 - m0, att: m1 - c, sb: c - m0 };
+  })();
+
+  var seed = 2026;
+  function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+  function shuffle(a) { for (var j = a.length - 1; j > 0; j--) { var k = Math.floor(rnd() * (j + 1)), t = a[j]; a[j] = a[k]; a[k] = t; } return a; }
+
+  // Who decides. Families: kids who'd score higher anyway (higher y0) are likelier to land in a small class.
+  var P = Y0.map(function (y) { return 1 / (1 + Math.exp(-1.6 * (y - 88) / 6)); });
+  function drawFamilies() {
+    var D, n1;
+    do { D = P.map(function (p) { return rnd() < p ? 1 : 0; }); n1 = D.reduce(function (s, d) { return s + d; }, 0); } while (n1 === 0 || n1 === N);
+    return D;
+  }
+  function drawLottery() {
+    var D = new Array(N).fill(0);
+    shuffle(ALL.slice()).slice(0, 30).forEach(function (k) { D[k] = 1; });
+    return D;
+  }
+  // Each school runs its own lottery: School A has 21 small-class seats for its 30 kids, School B has 9.
+  function drawSchools() {
+    var D = new Array(N).fill(0);
+    shuffle(IA.slice()).slice(0, 21).forEach(function (k) { D[k] = 1; });
+    shuffle(IB.slice()).slice(0, 9).forEach(function (k) { D[k] = 1; });
+    return D;
+  }
+
+  // estimate = ATT + selection bias, exactly, for whichever kids are in idx.
+  function split(D, idx) {
+    var s1 = 0, c1 = 0, s0 = 0, c0 = 0, cf = 0;
+    idx.forEach(function (k) { if (D[k]) { s1 += Y1[k]; cf += Y0[k]; c1++; } else { s0 += Y0[k]; c0++; } });
+    var m1 = s1 / c1, m0 = s0 / c0, c = cf / c1;
+    return { m1: m1, m0: m0, cf: c, est: m1 - m0, att: m1 - c, sb: c - m0 };
+  }
+
+  var step = 1, god = false, cur = { 2: null, 3: null, 4: null };
+  var runs = { fam: [], lot: [], all: [], within: [] };
+  function runOnce() {
+    var D;
+    if (step === 2) { D = drawFamilies(); runs.fam.push(split(D, ALL)); }
+    else if (step === 3) { D = drawLottery(); runs.lot.push(split(D, ALL)); }
+    else if (step === 4) {
+      D = drawSchools();
+      var a = split(D, IA), b = split(D, IB);
+      runs.all.push(split(D, ALL));
+      runs.within.push({ est: (a.est + b.est) / 2, a: a, b: b });
+    }
+    cur[step] = D;
+  }
+
+  function el(tag, attrs, parent, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function sgn(v, d) { var r = Math.abs(v).toFixed(d); return (Number(r) === 0 ? "" : v < 0 ? "−" : "+") + r; }
+  function fmt(v) { return step === 1 ? String(Math.round(v)) : sgn(v, 1); }
+  function lvl(v) { return step === 1 ? String(Math.round(v)) : v.toFixed(1); }
+
+  // ---- the kids -----------------------------------------------------------------
+  function groupsFor() {
+    var mk = function (label, sub, treated, kids) { return { label: label, sub: sub, treated: treated, kids: kids }; };
+    if (step === 1) {
+      var six = function (d) {
+        return SIX.filter(function (r) { return r[1] === d; }).map(function (r) {
+          return { obs: d ? r[3] : r[2], cf: d ? r[2] : r[3], name: r[0] };
+        });
+      };
+      return { groups: [mk("Regular class", "D = 0 · kids 1, 4, 5", 0, six(0)), mk("Small class", "D = 1 · kids 2, 3, 6", 1, six(1))], pairs: [[0, 1]] };
+    }
+    var D = cur[step];
+    var kidsIn = function (idx, d) {
+      return idx.filter(function (k) { return D[k] === d; }).map(function (k) { return { obs: d ? Y1[k] : Y0[k], cf: d ? Y0[k] : Y1[k] }; });
+    };
+    if (step === 4) {
+      var g = [kidsIn(IA, 0), kidsIn(IA, 1), kidsIn(IB, 0), kidsIn(IB, 1)];
+      return { groups: [mk("Regular", "School A · " + g[0].length, 0, g[0]), mk("Small", "School A · " + g[1].length, 1, g[1]),
+                        mk("Regular", "School B · " + g[2].length, 0, g[2]), mk("Small", "School B · " + g[3].length, 1, g[3])],
+               pairs: [[0, 1], [2, 3]] };
+    }
+    var r = kidsIn(ALL, 0), s = kidsIn(ALL, 1);
+    return { groups: [mk("Regular class", r.length + " kids", 0, r), mk("Small class", s.length + " kids", 1, s)], pairs: [[0, 1]] };
+  }
+
+  function drawPlot() {
+    var svg = $("plot");
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var W = 900, H = 520, M = { l: 66, r: 8, t: 20, b: 78 };
+    var YR = step === 1 ? [78, 100] : [70, 106];
+    var sy = function (v) { return H - M.b - (v - YR[0]) / (YR[1] - YR[0]) * (H - M.t - M.b); };
+    var gr = el("g", { "class": "grid" }, svg), ax = el("g", { "class": "axis" }, svg);
+    for (var t = YR[0]; t <= YR[1]; t += step === 1 ? 2 : 5) {
+      el("line", { x1: M.l, x2: W - M.r, y1: sy(t), y2: sy(t) }, gr);
+      el("text", { x: M.l - 10, y: sy(t) + 6, "text-anchor": "end", "class": "tick" }, ax, String(t));
+    }
+    el("line", { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }, ax);
+    el("line", { x1: M.l, x2: M.l, y1: M.t, y2: H - M.b }, ax);
+    el("text", { x: 20, y: (M.t + H - M.b) / 2, "text-anchor": "middle", "class": "axis-title",
+      transform: "rotate(-90 20 " + (M.t + H - M.b) / 2 + ")" }, ax, "Test score");
+
+    // Layout: each pair is [regular group][gap][small group][room for the brackets]; widths follow the head counts.
+    var G = groupsFor(), groups = G.groups, pairs = G.pairs;
+    var room = step === 4 ? 112 : 150, gap = 22, pairGap = 26, pad = 14;
+    var units = groups.reduce(function (s, g) { return s + Math.max(g.kids.length, 2); }, 0);
+    var ppu = (W - M.l - M.r - pad - pairs.length * (gap + room) - (pairs.length - 1) * pairGap) / units;
+    var x = M.l + pad;
+    pairs.forEach(function (pr) {
+      var g0 = groups[pr[0]], g1 = groups[pr[1]];
+      g0.x0 = x; g0.x1 = x + Math.max(g0.kids.length, 2) * ppu; x = g0.x1 + gap;
+      g1.x0 = x; g1.x1 = x + Math.max(g1.kids.length, 2) * ppu; x = g1.x1 + room + pairGap;
+    });
+
+    var dots = el("g", {}, svg), lines = el("g", {}, svg), labs = el("g", {}, svg);
+    groups.forEach(function (g) {
+      var n = g.kids.length, w = (g.x1 - g.x0) / Math.max(n, 1);
+      var r = step === 1 ? 11 : Math.min(6, 0.42 * w);
+      var kids = g.kids.slice().sort(function (a, b) { return a.obs - b.obs || a.cf - b.cf; });
+      el("text", { x: (g.x0 + g.x1) / 2, y: H - M.b + 25, "text-anchor": "middle", "class": "tick-strong" }, ax, g.label);
+      el("text", { x: (g.x0 + g.x1) / 2, y: H - M.b + 46, "text-anchor": "middle", "class": "tick" }, ax, g.sub);
+      kids.forEach(function (k, j) {
+        var cx = g.x0 + (j + 0.5) * w;
+        if (god) {
+          if (k.cf !== k.obs) el("line", { x1: cx, x2: cx, y1: sy(k.obs), y2: sy(k.cf), "class": "te" }, dots);
+          el("circle", { cx: cx, cy: sy(k.cf), r: r + (k.cf === k.obs ? 3 : 0), "class": "cf" }, dots);
+        }
+        el("circle", { cx: cx, cy: sy(k.obs), r: r, "class": g.treated ? "obs-t" : "obs-c" }, dots);
+        if (step === 1) {
+          el("text", { x: cx - r - 7, y: sy(k.obs) + 6, "text-anchor": "end", "class": "val lab", fill: g.treated ? "var(--treat)" : "var(--ctrl)" }, labs, String(k.obs));
+          if (god) el("text", { x: cx + r + 7, y: sy(k.cf) + 6, "class": "val lab", fill: "var(--cf)" }, labs, String(k.cf));
+          el("text", { x: cx, y: H - M.b - 8, "text-anchor": "middle", "class": "tick" }, labs, "kid " + k.name);
+        }
+      });
+      g.avg = mean(g.kids.map(function (k) { return k.obs; }));
+      g.cfAvg = mean(g.kids.map(function (k) { return k.cf; }));
+    });
+
+    // Averages, the regular-class average carried across, and the bracket that splits the estimate.
+    pairs.forEach(function (pr, pi) {
+      var g0 = groups[pr[0]], g1 = groups[pr[1]], xb = g1.x1 + 20;
+      el("line", { x1: g0.x1 + 4, x2: xb, y1: sy(g0.avg), y2: sy(g0.avg), "class": "ref" }, lines);
+      el("line", { x1: g0.x0 - 4, x2: g0.x1 + 4, y1: sy(g0.avg), y2: sy(g0.avg), "class": "avg-c" }, lines);
+      el("line", { x1: g1.x0 - 4, x2: g1.x1 + 4, y1: sy(g1.avg), y2: sy(g1.avg), "class": "avg-t" }, lines);
+      el("text", { x: g0.x0 - 2, y: sy(g0.avg) - 9, "class": "lab", fill: "var(--ctrl)" }, labs, "avg " + lvl(g0.avg));
+      el("text", { x: g1.x0 - 2, y: sy(g1.avg) - 9, "class": "lab", fill: "var(--treat)" }, labs, "avg " + lvl(g1.avg));
+      var tick = function (y, cls) { el("line", { x1: xb - 6, x2: xb + 6, y1: y, y2: y, "class": cls }, lines); };
+      var seg = function (a, b, cls) { el("line", { x1: xb, x2: xb, y1: sy(a), y2: sy(b), "class": cls }, lines); tick(sy(a), cls); tick(sy(b), cls); };
+      var label = function (y, name, value, color) {
+        el("text", { x: xb + 12, y: y - 3, "class": "lab-name", fill: color }, labs, name);
+        el("text", { x: xb + 12, y: y + 16, "class": "lab", fill: color }, labs, value);
+      };
+      if (!god) {
+        seg(g0.avg, g1.avg, "br");
+        label((sy(g0.avg) + sy(g1.avg)) / 2, step === 4 ? "within " + "AB"[pi] : "our estimate", fmt(g1.avg - g0.avg), "var(--est)");
+        return;
+      }
+      el("line", { x1: g1.x0 - 4, x2: g1.x1 + 4, y1: sy(g1.cfAvg), y2: sy(g1.cfAvg), "class": "avg-cf" }, lines);
+      el("text", { x: g1.x1 + 2, y: sy(g1.cfAvg) + (g1.cfAvg <= g1.avg ? 22 : -9), "text-anchor": "end", "class": "lab", fill: "var(--cf)" }, labs,
+        "their y₀ avg " + lvl(g1.cfAvg));
+      seg(g0.avg, g1.cfAvg, "br-sb");
+      seg(g1.cfAvg, g1.avg, "br-att");
+      // Keep the two labels at least 42px apart, centred on their segments when there's room.
+      var ySb = (sy(g0.avg) + sy(g1.cfAvg)) / 2, yAtt = (sy(g1.cfAvg) + sy(g1.avg)) / 2;
+      if (Math.abs(ySb - yAtt) < 42) { var mid = (ySb + yAtt) / 2, dir = ySb >= yAtt ? 1 : -1; ySb = mid + 21 * dir; yAtt = mid - 21 * dir; }
+      label(ySb, step === 4 ? "sel. bias" : "selection bias", fmt(g1.cfAvg - g0.avg), "var(--ink)");
+      label(yAtt, "ATT", fmt(g1.avg - g1.cfAvg), "var(--treat)");
+    });
+  }
+
+  // ---- the readout --------------------------------------------------------------
+  function metric(label, body) { return '<div class="metric"><span class="label">' + label + "</span>" + body + "</div>"; }
+  function eqn(s) { return '<span class="eqn">' + s + "</span>"; }
+  var NOTES = {
+    1: ["The six students from the slide. Each kid took one road, so we see one score per kid. Our estimate is 90 − 87 = 3. Is 3 the effect of a small class?",
+        "The grey circles are the road not taken (made up). The small-class kids would have averaged 89 in regular classes: a 2-point head start. So 3 = 1 (ATT) + 2 (selection bias), and the true ATE for these six kids is 1."],
+    2: ["60 made-up kindergartners. Kids from engaged families would score higher in any class, and they're likelier to land in a small class. Run it again: the families choose again; the kids stay the same.",
+        "The small-class kids would have outscored the rest even in regular classes. That head start, selection bias, rides along in every run, so the estimates pile up far above the true ATE of 2."],
+    3: ["Same 60 kids. Now a lottery puts 30 of them in small classes. Run it again and watch where the estimates pile up.",
+        "A lottery ignores y₀, so the potential outcomes are independent of who gets a small class. In any one run, selection bias is just luck, and it averages to 0: the estimates pile up around the true ATE."],
+    4: ["Same 60 kids, two schools. Each school runs its own lottery, but School A, where kids score higher, has 21 small-class seats for its 30 kids, and School B has 9. Compare everyone, or compare within each school?",
+        "Comparing everyone mixes up school with class size: most small-class kids are School A kids. Within a school the lottery makes the two groups alike, so holding school fixed gets back to about 2. That's the CIA with x = school. A regression with a school dummy gives the same number here."]
+  };
+  function drawScore() {
+    var h = "", q = '<span class="hide">?</span>';
+    if (step === 4) {
+      var a = runs.all[runs.all.length - 1], w = runs.within[runs.within.length - 1];
+      h += metric("Compare everyone (this run's estimate)", '<span class="big">' + fmt(a.est) + "</span>" +
+        eqn("small-class avg " + lvl(a.m1) + " − regular-class avg " + lvl(a.m0) + ", both schools together"));
+      h += metric("Hold school fixed (this run's estimate)", '<span class="big mid">' + fmt(w.est) + "</span>" +
+        eqn("School A " + fmt(w.a.est) + " · School B " + fmt(w.b.est) + ", averaged"));
+      h += metric("True ATE (God's-eye view)", eqn(god ? '<span class="s">' + ATE.toFixed(1) + "</span> (School A " + ATE_A.toFixed(1) + ", School B " + ATE_B.toFixed(1) + ")" : q));
+      if (god) h += metric("Why comparing everyone is off", eqn(fmt(a.est) + ' = <span class="t">ATT ' + fmt(a.att) + '</span> + <span class="s">selection bias ' + fmt(a.sb) + "</span>"));
+    } else {
+      var s = step === 1 ? SIXS : (step === 2 ? runs.fam : runs.lot).slice(-1)[0];
+      h += metric(step === 1 ? "Our estimate" : "Our estimate (this run)", '<span class="big">' + fmt(s.est) + "</span>" +
+        eqn('<span class="t">small-class avg ' + lvl(s.m1) + '</span> − <span class="c">regular-class avg ' + lvl(s.m0) + "</span>"));
+      h += metric("Split it (needs the God's-eye view)", eqn(god
+        ? fmt(s.est) + ' = <span class="t">ATT ' + fmt(s.att) + '</span> + <span class="s">selection bias ' + fmt(s.sb) + "</span>"
+        : fmt(s.est) + " = ATT " + q + " + selection bias " + q));
+      h += metric("True ATE (God's-eye view)", eqn(god ? '<span class="s">' + (step === 1 ? "1" : ATE.toFixed(1)) + "</span>" : q));
+      var R = step === 2 ? runs.fam : runs.lot;
+      if (god && step > 1 && R.length > 1) {
+        h += metric("Averaged over " + R.length + " runs", eqn("estimate " + fmt(mean(R.map(function (r) { return r.est; }))) +
+          ' = <span class="t">ATT ' + fmt(mean(R.map(function (r) { return r.att; }))) + '</span> + <span class="s">selection bias ' +
+          fmt(mean(R.map(function (r) { return r.sb; }))) + "</span>"));
+      }
+    }
+    h += '<p class="note">' + NOTES[step][god ? 1 : 0] + "</p>";
+    $("score").innerHTML = h;
+  }
+
+  // ---- every run so far ---------------------------------------------------------
+  function drawHist() {
+    var svg = $("hist");
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var W = 1200, H = 278, top = 34, RH = 100, X0 = 236, X1 = 1180, XR = [-3, 12];
+    var sx = function (v) { return X0 + (v - XR[0]) / (XR[1] - XR[0]) * (X1 - X0); };
+    var rows = step === 4 ? [["Compare everyone", runs.all], ["Hold school fixed", runs.within]] : [["Families choose", runs.fam], ["A lottery", runs.lot]];
+    var gr = el("g", { "class": "grid" }, svg), ax = el("g", { "class": "axis" }, svg);
+    for (var t = XR[0]; t <= XR[1]; t++) {
+      el("line", { x1: sx(t), x2: sx(t), y1: top, y2: H - 44 }, gr);
+      el("text", { x: sx(t), y: H - 20, "text-anchor": "middle", "class": "tick" }, ax, t < 0 ? "−" + -t : String(t));
+    }
+    el("line", { x1: X0, x2: X1, y1: H - 44, y2: H - 44 }, ax);
+    el("text", { x: 10, y: H - 20, "class": "tick" }, ax, "estimate, in points");
+    rows.forEach(function (row, ri) {
+      var y0 = top + ri * RH, base = y0 + RH - 12, vals = row[1].map(function (r) { return r.est; });
+      var faded = step !== 4 && ri !== step - 2;
+      el("text", { x: 10, y: y0 + RH / 2, "class": "h-row", opacity: faded ? 0.5 : 1 }, svg, row[0]);
+      el("text", { x: 10, y: y0 + RH / 2 + 22, "class": "tick" }, svg, vals.length === 1 ? "1 run" : vals.length + " runs");
+      if (ri > 0) el("line", { x1: X0, x2: X1, y1: y0, y2: y0 }, gr);
+      if (!vals.length) { el("text", { x: (X0 + X1) / 2, y: y0 + RH / 2 + 6, "text-anchor": "middle", "class": "tick" }, svg, "no runs yet"); return; }
+      var bins = {}, maxc = 1;
+      vals.forEach(function (v) { var b = Math.round(v / 0.25); bins[b] = (bins[b] || 0) + 1; maxc = Math.max(maxc, bins[b]); });
+      var dy = Math.min(9, (RH - 30) / maxc), seen = {}, g = el("g", { opacity: faded ? 0.4 : 1 }, svg);
+      vals.forEach(function (v) {
+        var b = Math.round(v / 0.25), k = seen[b] = (seen[b] || 0) + 1;
+        el("circle", { cx: sx(Math.max(XR[0], Math.min(XR[1], b * 0.25))), cy: base - (k - 1) * dy, r: 4.5, "class": "h-dot" }, g);
+      });
+      var m = mean(vals), xm = sx(Math.max(XR[0], Math.min(XR[1], m)));
+      el("line", { x1: xm, x2: xm, y1: y0 + 26, y2: base + 6, "class": "h-mean" }, g);
+      el("text", { x: xm + (xm > X1 - 200 ? -8 : 8), y: y0 + 22, "text-anchor": xm > X1 - 200 ? "end" : "start", "class": "lab", fill: "var(--est)" }, g, "average " + sgn(m, 1));
+    });
+    if (god) {
+      el("line", { x1: sx(ATE), x2: sx(ATE), y1: top - 8, y2: H - 44, "class": "h-ate" }, svg);
+      el("text", { x: sx(ATE), y: 18, "text-anchor": "middle", "class": "lab", fill: "var(--ink)" }, svg, "true ATE " + ATE.toFixed(1));
+    }
+  }
+
+  function drawLegend() {
+    var key = function (sw, text) { return '<span class="key">' + sw + text + "</span>"; };
+    var h = key('<span class="swatch" style="background:var(--treat)"></span>', "small class: y₁, seen") +
+            key('<span class="swatch" style="background:var(--ctrl)"></span>', "regular class: y₀, seen");
+    if (god) h += key('<span class="swatch hollow"></span>', "the road not taken: never seen");
+    $("legend").innerHTML = h;
+  }
+
+  function render() {
+    if (step > 1 && !cur[step]) runOnce();
+    for (var k = 1; k <= 4; k++) $("s" + k).setAttribute("aria-pressed", String(k === step));
+    $("god").setAttribute("aria-pressed", String(god));
+    $("god").textContent = god ? "Hide what we never see" : "Show what we never see";
+    $("run1").hidden = $("run50").hidden = step === 1;
+    $("hist-wrap").hidden = step === 1;
+    drawPlot(); drawScore(); drawLegend();
+    if (step > 1) drawHist();
+  }
+
+  [1, 2, 3, 4].forEach(function (k) { $("s" + k).addEventListener("click", function () { step = k; render(); }); });
+  $("god").addEventListener("click", function () { god = !god; render(); });
+  $("run1").addEventListener("click", function () { runOnce(); render(); });
+  $("run50").addEventListener("click", function () { for (var k = 0; k < 50; k++) runOnce(); render(); });
+  $("clear").addEventListener("click", function () {
+    if (step === 4) { runs.all = []; runs.within = []; cur[4] = null; }
+    else { runs.fam = []; runs.lot = []; cur[2] = cur[3] = null; }
+    render();
+  });
+  render();
+})();
+</script>
+</body>
+</html>
